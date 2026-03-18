@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Discovery Engine — Principles of Mathematical Problem Solving</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=JetBrains+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:    #0d0d0f;
+    --paper:  #f5f0e8;
+    --cream:  #ede8dc;
+    --gold:   #b8922a;
+    --rust:   #8b3a1a;
+    --slate:  #3a4a5c;
+    --mist:   #9aa8b4;
+    --red:    #c0392b;
+    --line:   rgba(13,13,15,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 27px,
+      var(--line) 27px,
+      var(--line) 28px
+    );
+    pointer-events: none;
+  }
+  .header-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: 820px;
+    position: relative;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--rust);
+  }
+  .header-sub {
+    margin-top: 28px;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--slate);
+    max-width: 620px;
+    line-height: 1.6;
+  }
+  .origin-note {
+    margin-top: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    padding: 12px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--slate);
+  }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,240,232,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 60px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  nav a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    padding: 16px 20px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  nav a:hover, nav a.active {
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main { max-width: 1100px; margin: 0 auto; }
+
+  /* ── PHASES ── */
+  .phase {
+    padding: 80px 60px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .phase.visible { opacity: 1; transform: translateY(0); }
+
+  .phase-number {
+    position: absolute;
+    right: 60px;
+    top: 80px;
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .phase-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    max-width: 640px;
+    margin-bottom: 28px;
+  }
+
+  h2 .accent { color: var(--rust); font-style: italic; }
+
+  .phase-intro {
+    font-size: 20px;
+    color: var(--slate);
+    max-width: 640px;
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+
+  /* ── PRINCIPLE CARDS ── */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+
+  .principle {
+    background: var(--paper);
+    padding: 28px 32px;
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .principle:hover { background: var(--cream); }
+
+  .principle-icon {
+    font-size: 24px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .principle-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+
+  .principle p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* ── THINKING TRACES ── */
+  .thinking-trace {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--slate);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .thinking-trace::before {
+    content: 'THINKING TRACE';
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--mist);
+    position: absolute;
+    top: 12px;
+    right: 16px;
+  }
+  .thinking-trace p {
+    font-style: italic;
+    color: var(--slate);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .thinking-trace strong {
+    color: var(--ink);
+    font-style: normal;
+  }
+
+  /* ── CODE BLOCKS ── */
+  .code-thought {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--ink);
+    color: #c8d3e0;
+    padding: 24px 28px;
+    line-height: 1.8;
+    margin: 24px 0;
+    overflow-x: auto;
+    border-left: 3px solid var(--gold);
+  }
+  .code-thought .comment { color: #5a6e7e; }
+  .code-thought .key { color: #e8c56c; }
+  .code-thought .val { color: #7ec8a0; }
+  .code-thought .arrow { color: var(--rust); }
+
+  /* ── PIVOT MOMENTS ── */
+  .pivot {
+    display: flex;
+    gap: 0;
+    margin: 40px 0;
+    border: 1px solid var(--line);
+  }
+  .pivot-before, .pivot-after {
+    flex: 1;
+    padding: 24px 28px;
+  }
+  .pivot-before { background: #fdf0ee; border-right: 1px solid var(--line); }
+  .pivot-after  { background: #eef4ee; }
+  .pivot-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .pivot-before .pivot-label { color: var(--rust); }
+  .pivot-after  .pivot-label { color: #4a7c5a; }
+  .pivot p { font-size: 15px; color: var(--slate); line-height: 1.6; }
+
+  /* ── LAWS ── */
+  .law {
+    padding: 32px 36px;
+    border: 1px solid var(--gold);
+    background: linear-gradient(135deg, var(--cream) 0%, var(--paper) 100%);
+    margin: 32px 0;
+    position: relative;
+  }
+  .law-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .law-statement {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .law-proof {
+    margin-top: 12px;
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* ── THE MAP ── */
+  .discovery-map {
+    width: 100%;
+    padding: 48px;
+    background: var(--ink);
+    color: var(--paper);
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .discovery-map::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent, transparent 59px,
+      rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent, transparent 59px,
+      rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px
+    );
+  }
+  .map-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .map-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    position: relative;
+  }
+  .map-step {
+    flex: 1;
+    min-width: 140px;
+    padding: 20px 16px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .map-step:last-child { border-right: none; }
+  .map-step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .map-step-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .map-step p {
+    font-size: 12px;
+    color: var(--mist);
+    line-height: 1.5;
+  }
+  .map-step .arrow-right {
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-size: 14px;
+    z-index: 1;
+  }
+
+  /* ── FAILURES ── */
+  .failure-list {
+    border: 1px solid var(--line);
+    overflow: hidden;
+    margin: 24px 0;
+  }
+  .failure-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--line);
+    transition: background 0.15s;
+  }
+  .failure-item:last-child { border-bottom: none; }
+  .failure-item:hover { background: var(--cream); }
+  .failure-mark {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .failure-text { flex: 1; }
+  .failure-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .failure-learn {
+    font-size: 14px;
+    color: var(--slate);
+    font-style: italic;
+  }
+  .failure-learn strong { color: #4a7c5a; font-style: normal; }
+
+  /* ── UNIVERSAL RULES ── */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin: 40px 0;
+  }
+  .rule-card {
+    background: var(--paper);
+    padding: 32px 36px;
+    transition: background 0.2s;
+  }
+  .rule-card:hover { background: var(--cream); }
+  .rule-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--mist);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .rule-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .rule-body {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+  .rule-body em { color: var(--ink); font-style: italic; }
+
+  /* ── COLOPHON ── */
+  footer {
+    padding: 60px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  footer h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  footer p, footer li {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+  footer ul { padding-left: 20px; }
+  footer li { margin-bottom: 8px; }
+
+  @media (max-width: 700px) {
+    header, nav, .phase, footer { padding-left: 24px; padding-right: 24px; }
+    .rules-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .phase-number { display: none; }
+    .pivot { flex-direction: column; }
+    .pivot-before { border-right: none; border-bottom: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">A Meta-Methodology</div>
+  <h1>The <em>Discovery</em><br>Engine</h1>
+  <p class="header-sub">
+    How to move from a problem you cannot solve to a structure you can prove —
+    the thinking principles extracted from solving Knuth's open problem.
+  </p>
+  <div class="origin-note">
+    ⟶ &nbsp;Distilled from the Claude's Cycles investigation, Feb–Mar 2026 &nbsp;·&nbsp; Applicable to any hard problem
+  </div>
+</header>
+
+<nav>
+  <a href="#map" class="active">The Map</a>
+  <a href="#phase1">I. Ground Truth</a>
+  <a href="#phase2">II. Brute Force</a>
+  <a href="#phase3">III. Structure Hunt</a>
+  <a href="#phase4">IV. Pattern Lock</a>
+  <a href="#phase5">V. Generalize</a>
+  <a href="#phase6">VI. Prove Limits</a>
+  <a href="#laws">Laws</a>
+  <a href="#rules">Universal Rules</a>
+</nav>
+
+<main>
+
+<!-- ── THE MAP ── -->
+<section id="map" class="phase" style="padding-bottom:48px;">
+  <div class="phase-tag">Overview</div>
+  <h2>The Full <span class="accent">Discovery Arc</span></h2>
+  <p class="phase-intro">Every hard problem follows the same discovery arc. The specific problem changes; the arc does not.</p>
+
+  <div class="discovery-map">
+    <div class="map-title">DISCOVERY ARC — PHASE BY PHASE</div>
+    <div class="map-flow">
+      <div class="map-step">
+        <div class="map-step-num">01</div>
+        <div class="map-step-name">Ground Truth</div>
+        <p>Build verification first. Never search without a way to check answers.</p>
+        <span class="arrow-right">›</span>
+      </div>
+      <div class="map-step">
+        <div class="map-step-num">02</div>
+        <div class="map-step-name">Brute Force</div>
+        <p>Hit the wall deliberately. Failure tells you the shape of the problem.</p>
+        <span class="arrow-right">›</span>
+      </div>
+      <div class="map-step">
+        <div class="map-step-num">03</div>
+        <div class="map-step-name">Structure Hunt</div>
+        <p>Reduce dimensions. Find the hidden layer that simplifies everything.</p>
+        <span class="arrow-right">›</span>
+      </div>
+      <div class="map-step">
+        <div class="map-step-num">04</div>
+        <div class="map-step-name">Pattern Lock</div>
+        <p>Analyze a working solution backwards. Find what it knows that you don't.</p>
+        <span class="arrow-right">›</span>
+      </div>
+      <div class="map-step">
+        <div class="map-step-num">05</div>
+        <div class="map-step-name">Generalize</div>
+        <p>Lift the specific answer into a family. Find the condition that makes it work.</p>
+        <span class="arrow-right">›</span>
+      </div>
+      <div class="map-step">
+        <div class="map-step-num">06</div>
+        <div class="map-step-name">Prove Limits</div>
+        <p>Ask: when does it fail? Impossibility proofs are as valuable as constructions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHASE 1 ── -->
+<section id="phase1" class="phase">
+  <div class="phase-number">01</div>
+  <div class="phase-tag">Phase One</div>
+  <h2>Build <span class="accent">Ground Truth</span> First</h2>
+  <p class="phase-intro">Before you search for anything, build a machine that can judge correctness. Verification comes before exploration.</p>
+
+  <div class="thinking-trace">
+    <p><strong>The first question is never "how do I solve this?"</strong> It is: "how will I know when I have solved it?" Define the success condition precisely in code before writing a single line of search. Without this, you are exploring blind.</p>
+  </div>
+
+  <div class="principles">
+    <div class="principle">
+      <span class="principle-icon">⚖️</span>
+      <div class="principle-title">Verification Before Search</div>
+      <p>Write verify() before write search(). A fast checker is a force multiplier for everything that follows.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">🔬</span>
+      <div class="principle-title">Measure the Object</div>
+      <p>Count vertices, edges, degrees. Draw small examples by hand. Know the exact shape of what you are dealing with before touching it.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">🪞</span>
+      <div class="principle-title">Test the Verifier</div>
+      <p>Deliberately feed your checker a wrong answer. If it does not catch it, your ground truth is not true.</p>
+    </div>
+  </div>
+
+  <div class="code-thought">
+<span class="comment"># This was the actual first script.</span>
+<span class="comment"># No search. No solution attempt. Just: can I even check an answer?</span>
+
+<span class="key">def verify_sigma</span>(sigma, m):
+    funcs = build_functional_graphs(sigma, m)
+    <span class="key">for</span> c, fg <span class="key">in</span> enumerate(funcs):
+        <span class="key">if not</span> is_single_hamiltonian_cycle(fg, m):
+            <span class="arrow">→</span> <span class="val">return False, f"cycle {c} is not Hamiltonian"</span>
+    <span class="arrow">→</span> <span class="val">return True, "valid decomposition"</span>
+
+<span class="comment"># Now I can search. Without this: searching in the dark.</span>
+  </div>
+
+  <div class="law">
+    <div class="law-num">PRINCIPLE 1.1</div>
+    <div class="law-statement">"The verifier is worth more than the solver."</div>
+    <div class="law-proof">A perfect solver without a verifier produces untrustworthy results. A perfect verifier with a random search produces verified results. Build the verifier first, always.</div>
+  </div>
+</section>
+
+<!-- ── PHASE 2 ── -->
+<section id="phase2" class="phase">
+  <div class="phase-number">02</div>
+  <div class="phase-tag">Phase Two</div>
+  <h2>Hit the Wall <span class="accent">Deliberately</span></h2>
+  <p class="phase-intro">Brute force is not a failure. It is a measurement instrument. The way it fails tells you exactly what structure you need to find.</p>
+
+  <div class="thinking-trace">
+    <p>The search space for m=3 is 6²⁷ ≈ 150 trillion. Too slow. But <strong>how it was too slow</strong> was informative: the bottleneck was not the solver — it was that we had no constraint to prune on. The absence of fast pruning meant we lacked a compact representation of what makes an assignment valid.</p>
+  </div>
+
+  <div class="failure-list">
+    <div class="failure-item">
+      <div class="failure-mark">✗</div>
+      <div class="failure-text">
+        <div class="failure-title">Linear formula σ(i,j,k) = (a·i + b·j + c·k) mod 3</div>
+        <div class="failure-learn">Failed for all (a,b,c). <strong>Lesson:</strong> the solution is not linear. We need non-uniform assignment — it must depend on position in a structured way.</div>
+      </div>
+    </div>
+    <div class="failure-item">
+      <div class="failure-mark">✗</div>
+      <div class="failure-text">
+        <div class="failure-title">DFS over all 6²⁷ sigma assignments (m=3)</div>
+        <div class="failure-learn">Too slow. <strong>Lesson:</strong> 27 vertices × 6 choices each is too large without pruning. We need a constraint that eliminates most branches early.</div>
+      </div>
+    </div>
+    <div class="failure-item">
+      <div class="failure-mark">✗</div>
+      <div class="failure-text">
+        <div class="failure-title">Cyclic rotation σ(i,j,k) = rotate_by(f(j,s))</div>
+        <div class="failure-learn">Produced in-degree violations. <strong>Lesson:</strong> sigma must ensure each cycle is bijective at every level — this is the real constraint, not just assignment.</div>
+      </div>
+    </div>
+    <div class="failure-item">
+      <div class="failure-mark">→</div>
+      <div class="failure-text">
+        <div class="failure-title">The failures converged on a common signal</div>
+        <div class="failure-learn"><strong>Key insight:</strong> every failure had the same shape — in-degree violations. The problem was always about bijections, not permutations. This pointed toward a layered structure.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="law">
+    <div class="law-num">PRINCIPLE 2.1</div>
+    <div class="law-statement">"Failures are diagnostic, not terminal."</div>
+    <div class="law-proof">Each failed approach narrows the solution space and reveals the hidden structure. Catalog failures explicitly — the pattern across failures is usually more important than any individual attempt.</div>
+  </div>
+
+  <div class="pivot">
+    <div class="pivot-before">
+      <div class="pivot-label">❌ Thinking before failures</div>
+      <p>"I need to find a sigma that works. Try all sigmas."</p>
+    </div>
+    <div class="pivot-after">
+      <div class="pivot-label">✓ Thinking after failures</div>
+      <p>"The failures all involve bijection. The problem has layer structure. I need to decompose it level by level."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHASE 3 ── -->
+<section id="phase3" class="phase">
+  <div class="phase-number">03</div>
+  <div class="phase-tag">Phase Three</div>
+  <h2>Hunt for the <span class="accent">Hidden Layer</span></h2>
+  <p class="phase-intro">Every hard combinatorial problem has a natural decomposition that makes it tractable. The search for structure is more important than the search for solutions.</p>
+
+  <div class="thinking-trace">
+    <p>The question that unlocked everything was not "what is the answer?" but <strong>"what is the natural structure of this object?"</strong> The digraph had a natural stratification via f(i,j,k) = i+j+k mod m. Once seen, it reduced the 3D problem to a sequence of 2D bijection problems — and those were solvable.</p>
+  </div>
+
+  <div class="principles">
+    <div class="principle">
+      <span class="principle-icon">🔭</span>
+      <div class="principle-title">Ask: What is the Natural Symmetry?</div>
+      <p>Every well-posed combinatorial object has a symmetry group. Find it. It almost always reveals the right decomposition.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">📐</span>
+      <div class="principle-title">Reduce Dimensions</div>
+      <p>Can you project from 3D to 2D? From 2D to 1D? Each dimension reduction multiplies the tractability of search.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">🧅</span>
+      <div class="principle-title">Find the Layering</div>
+      <p>If the problem resists direct solution, look for a function that stratifies it into levels where each level is independently solvable.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">🔑</span>
+      <div class="principle-title">Name the Key Constraint</div>
+      <p>The bijection condition — "at each level, each cycle hits every fiber position exactly once" — was the constraint that made backtracking efficient. Find the constraint that prunes hardest.</p>
+    </div>
+  </div>
+
+  <div class="code-thought">
+<span class="comment"># The discovery: f(i,j,k) = i+j+k mod m stratifies the digraph.</span>
+<span class="comment"># Every arc goes from fiber F_s to F_{s+1}.</span>
+<span class="comment"># The 3D problem becomes: m independent 2D bijection problems.</span>
+
+Fiber F_s = {(i,j,k) : i+j+k ≡ s <span class="key">mod</span> m}   <span class="comment"># m² vertices each</span>
+
+Arc types <span class="key">in</span> fiber coordinates (i,j):
+  arc 0  <span class="arrow">→</span>  shift <span class="val">(1,0)</span>    <span class="comment"># increment i</span>
+  arc 1  <span class="arrow">→</span>  shift <span class="val">(0,1)</span>    <span class="comment"># increment j</span>
+  arc 2  <span class="arrow">→</span>  shift <span class="val">(0,0)</span>    <span class="comment"># identity  ← THIS is the key insight</span>
+
+<span class="comment"># Now the bijection constraint is LOCAL: at each level s, column j,</span>
+<span class="comment"># the 3 arcs go to 3 cycles such that each cycle's targets span all of Z_m².</span>
+<span class="comment"># This reduces 6^{m³} search space to (valid_levels)^m — exponentially smaller.</span>
+  </div>
+
+  <div class="law">
+    <div class="law-num">PRINCIPLE 3.1</div>
+    <div class="law-statement">"The right decomposition makes the hard part obvious."</div>
+    <div class="law-proof">When you find the correct structure, the difficulty collapses. The problem does not become easier — your view of it changes so that the difficulty was always in finding the frame, not the solution.</div>
+  </div>
+</section>
+
+<!-- ── PHASE 4 ── -->
+<section id="phase4" class="phase">
+  <div class="phase-number">04</div>
+  <div class="phase-tag">Phase Four</div>
+  <h2><span class="accent">Reverse-Engineer</span> a Working Solution</h2>
+  <p class="phase-intro">Once you have any valid answer, stop and study it before moving on. The solution knows something you do not. Extract that knowledge.</p>
+
+  <div class="thinking-trace">
+    <p>The backtracking search found a valid sigma for m=3. The instinct was to immediately try m=4. <strong>The right move was the opposite:</strong> stop, read the solution, and ask what pattern it is instantiating. The m=3 solution contained the general theorem — but only if you looked.</p>
+  </div>
+
+  <div class="principles">
+    <div class="principle">
+      <span class="principle-icon">🔍</span>
+      <div class="principle-title">Read Solutions as Theorems</div>
+      <p>A specific valid answer is a compressed proof of existence. Decompress it. What principle is it demonstrating?</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">📊</span>
+      <div class="principle-title">Tabulate, Don't Stare</div>
+      <p>Print the solution in every coordinate system you can think of. The pattern appears in one of them.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">📉</span>
+      <div class="principle-title">Ask: What is the Minimal Representation?</div>
+      <p>Does the solution depend on all three coordinates, or just two? Just one? Minimizing dependencies reveals the essential structure.</p>
+    </div>
+  </div>
+
+  <div class="code-thought">
+<span class="comment"># m=3 solution was found. First question: what does it depend on?</span>
+
+sigma(i=0, j=1, k=2)  <span class="arrow">→</span>  [1, 0, 2]
+sigma(i=1, j=1, k=1)  <span class="arrow">→</span>  [1, 0, 2]   <span class="comment"># same j, same s=(i+j+k)%m=0</span>
+sigma(i=2, j=1, k=0)  <span class="arrow">→</span>  [1, 0, 2]   <span class="comment"># same j, same s=0</span>
+
+<span class="comment"># Pattern detected: sigma depends only on (s, j), NOT on i separately.</span>
+<span class="comment"># Column-uniformity. This reduces the sigma space from m³ points to m² points.</span>
+
+<span class="comment"># Next: compute Q_c = composition of all m fiber-level functions.</span>
+<span class="comment"># Found: Q_c(i,j) = (i + b_c(j),  j + r_c) mod m</span>
+<span class="comment"># "Twisted translation" — uniform j-shift, j-dependent i-shift.</span>
+  </div>
+
+  <div class="law">
+    <div class="law-num">PRINCIPLE 4.1</div>
+    <div class="law-statement">"One working example contains the general law."</div>
+    <div class="law-proof">In mathematics and computation, a specific solution is almost always an instance of a general pattern. The habit of reading solutions analytically — rather than just recording them — is the core habit of discovery.</div>
+  </div>
+
+  <div class="pivot">
+    <div class="pivot-before">
+      <div class="pivot-label">❌ Common mistake</div>
+      <p>"m=3 works. On to m=4. And m=5. Collect solutions."</p>
+    </div>
+    <div class="pivot-after">
+      <div class="pivot-label">✓ Discovery move</div>
+      <p>"m=3 works. Why does it work? What law does it instantiate? That law will solve m=5,7,9,... simultaneously."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHASE 5 ── -->
+<section id="phase5" class="phase">
+  <div class="phase-number">05</div>
+  <div class="phase-tag">Phase Five</div>
+  <h2>Lift to the <span class="accent">General Case</span></h2>
+  <p class="phase-intro">A pattern in one case is a hypothesis. Verify it in two more cases, then state it as a theorem and find the condition it requires.</p>
+
+  <div class="thinking-trace">
+    <p>The twisted translation form <strong>Q_c(i,j) = (i + b_c(j), j + r_c)</strong> appeared in m=3 and m=5. The question then became: what condition on b_c and r_c makes Q_c a single m²-cycle? And when can those conditions be satisfied? These two questions — one analytical, one existential — gave us the complete theorem.</p>
+  </div>
+
+  <div class="principles">
+    <div class="principle">
+      <span class="principle-icon">🧪</span>
+      <div class="principle-title">Three Cases Verify a Pattern</div>
+      <p>One case is a coincidence. Two cases suggest a rule. Three cases with the same structure confirm you have found something real.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">❓</span>
+      <div class="principle-title">Find the Governing Condition</div>
+      <p>Ask: what is the exact condition on the parameters that makes this work? The condition is the theorem. The specific values are just examples.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">🌐</span>
+      <div class="principle-title">Parametrize the Family</div>
+      <p>Replace specific values with variables. Replace "m=3" with "odd m". Replace "[1,2,2]" with "b_c(j)". The general statement is always more valuable than the instance.</p>
+    </div>
+  </div>
+
+  <div class="code-thought">
+<span class="comment"># The governing condition for Q_c to be a single m²-Hamiltonian cycle:</span>
+
+Condition A:  gcd(r_c, m) = 1       <span class="comment"># j-shift coprime to m</span>
+Condition B:  gcd(Σⱼ b_c(j), m) = 1 <span class="comment"># total i-shift coprime to m</span>
+
+<span class="comment"># Verified for m=3,5,7. Now: when can both conditions be satisfied?</span>
+
+<span class="comment"># For odd m: need r₀+r₁+r₂ = m, each r_c coprime to m.</span>
+<span class="comment"># Solution: (r₀,r₁,r₂) = (1, m-2, 1) always works when m is odd.</span>
+<span class="comment">#   gcd(1, m) = 1 ✓</span>
+<span class="comment">#   gcd(m-2, m) = gcd(2, m) = 1 for odd m ✓</span>
+<span class="comment">#   Sum = m ✓</span>
+
+<span class="comment"># THEOREM: For all odd m > 2, the construction exists. ✅</span>
+  </div>
+
+  <div class="law">
+    <div class="law-num">PRINCIPLE 5.1</div>
+    <div class="law-statement">"The condition is more valuable than the example."</div>
+    <div class="law-proof">Finding that m=3 works is a data point. Finding the condition gcd(r_c,m)=1 is a theorem that covers m=3,5,7,9,11,... simultaneously. Always seek the condition, not the list of cases.</div>
+  </div>
+</section>
+
+<!-- ── PHASE 6 ── -->
+<section id="phase6" class="phase">
+  <div class="phase-number">06</div>
+  <div class="phase-tag">Phase Six</div>
+  <h2>Find What <span class="accent">Cannot Work</span></h2>
+  <p class="phase-intro">An impossibility proof is not a defeat. It is the most precise possible description of the boundary of the solution space — and that boundary is exactly where understanding lives.</p>
+
+  <div class="thinking-trace">
+    <p>m=4 resisted every approach. The fiber-based search found nothing in 5 million configurations. The instinct was to try harder. <strong>The right move was to ask why it cannot work.</strong> The answer — three odd numbers cannot sum to an even number — is a three-line proof that eliminates half the integers and reveals why even m is fundamentally different.</p>
+  </div>
+
+  <div class="principles">
+    <div class="principle">
+      <span class="principle-icon">🚧</span>
+      <div class="principle-title">Resistance is a Signal</div>
+      <p>When search consistently fails and you have verified the implementation, the problem likely has no solution in that class. Switch from search to proof.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">🎯</span>
+      <div class="principle-title">Compute the Obstruction</div>
+      <p>Ask: what would have to be true for a solution to exist? Is that thing possible? Usually the obstruction is a parity argument, a modular constraint, or a counting argument.</p>
+    </div>
+    <div class="principle">
+      <span class="principle-icon">↔️</span>
+      <div class="principle-title">Impossibility Proves the Boundary</div>
+      <p>Showing odd m always works AND even m (column-uniform) never works draws a precise boundary. That boundary is a theorem. It is more valuable than either half alone.</p>
+    </div>
+  </div>
+
+  <div class="code-thought">
+<span class="comment"># The impossibility proof for even m (column-uniform approach):</span>
+
+Step 1: Q_c needs gcd(r_c, m) = 1  <span class="comment"># single-cycle condition</span>
+Step 2: For even m, gcd(r, m) = 1  <span class="key">⟹</span>  r is <span class="val">odd</span>
+          (coprime to even = no shared factor 2 = odd)
+Step 3: We need r₀ + r₁ + r₂ = m
+Step 4: Sum of 3 <span class="val">odd</span> numbers = <span class="val">odd</span>
+Step 5: But m is <span class="val">even</span>.  odd ≠ even.  <span class="arrow">→</span>  Contradiction. ∎
+
+<span class="comment"># Three lines. Covers ALL even m simultaneously.</span>
+<span class="comment"># Tells us: even m requires a fundamentally different construction.</span>
+<span class="comment"># The search was not failing due to bugs — it was hitting a real wall.</span>
+  </div>
+
+  <div class="law">
+    <div class="law-num">PRINCIPLE 6.1</div>
+    <div class="law-statement">"What cannot work is as important as what can."</div>
+    <div class="law-proof">The impossibility result did not close the problem — it clarified it. It revealed that even m requires a different mechanism, which is a deeper understanding than any specific solution provides.</div>
+  </div>
+</section>
+
+<!-- ── LAWS ── -->
+<section id="laws" class="phase">
+  <div class="phase-tag">Synthesis</div>
+  <h2>The <span class="accent">Core Laws</span> of Discovery</h2>
+  <p class="phase-intro">Distilled from the full arc. These apply regardless of domain — mathematics, engineering, science, software.</p>
+
+  <div class="law">
+    <div class="law-num">LAW I</div>
+    <div class="law-statement">"Build the judge before the player."</div>
+    <div class="law-proof">A verifier that can evaluate any candidate solution is worth more than a hundred search heuristics. It makes every subsequent step honest.</div>
+  </div>
+
+  <div class="law">
+    <div class="law-num">LAW II</div>
+    <div class="law-statement">"Measure how you fail, not just that you failed."</div>
+    <div class="law-proof">The structure of failure is data. Catalog what went wrong, at what scale, with what symptom. The common thread across failures points to the missing structure.</div>
+  </div>
+
+  <div class="law">
+    <div class="law-num">LAW III</div>
+    <div class="law-statement">"The right representation makes the problem trivial."</div>
+    <div class="law-proof">The fiber decomposition turned a 3D problem with 6²⁷ configurations into a sequence of 2D problems with 48⁴ configurations. The mathematics did not change — the view changed.</div>
+  </div>
+
+  <div class="law">
+    <div class="law-num">LAW IV</div>
+    <div class="law-statement">"A solution is a compressed theorem. Decompress it."</div>
+    <div class="law-proof">Reading any working answer analytically — asking why it works, what it depends on, what its minimal representation is — almost always reveals the general law hiding inside the specific case.</div>
+  </div>
+
+  <div class="law">
+    <div class="law-num">LAW V</div>
+    <div class="law-statement">"Name the condition, not the cases."</div>
+    <div class="law-proof">"Works for m=3,5,7" is a list. "Works for all odd m because gcd(r_c,m)=1 can always be satisfied" is a theorem. The condition is infinitely more powerful than the enumeration.</div>
+  </div>
+
+  <div class="law">
+    <div class="law-num">LAW VI</div>
+    <div class="law-statement">"Resistance demands proof, not persistence."</div>
+    <div class="law-proof">When a systematic search repeatedly fails across different implementations and seeds, stop searching and start proving. The wall is usually real and has a name.</div>
+  </div>
+</section>
+
+<!-- ── UNIVERSAL RULES ── -->
+<section id="rules" class="phase">
+  <div class="phase-tag">Applied Universally</div>
+  <h2>Universal <span class="accent">Operating Rules</span></h2>
+  <p class="phase-intro">These are the actionable habits. They apply to any domain: software engineering, scientific research, mathematical problem solving, product design.</p>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-number">R1</div>
+      <div class="rule-title">Verify Before You Claim</div>
+      <div class="rule-body">Every claim in a discovery process must be backed by a test that could have failed. <em>Running a test that always passes proves nothing.</em></div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">R2</div>
+      <div class="rule-title">Record Every Failure Precisely</div>
+      <div class="rule-body">What was the input? What was the symptom? What did it rule out? <em>A failure without a record is wasted information.</em></div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">R3</div>
+      <div class="rule-title">Ask "What Does This Depend On?"</div>
+      <div class="rule-body">For every solution or pattern found, reduce its dependencies to the minimum. <em>Fewer dependencies = more generality.</em></div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">R4</div>
+      <div class="rule-title">Change the Representation</div>
+      <div class="rule-body">When stuck, do not try harder — look for a different coordinate system, a different encoding, a different level of abstraction. <em>Most breakthroughs are re-framings.</em></div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">R5</div>
+      <div class="rule-title">Pause After Each Find</div>
+      <div class="rule-body">Every successful result deserves 5 minutes of reading before the next search begins. <em>The solution contains the next hypothesis.</em></div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">R6</div>
+      <div class="rule-title">State the Impossibility</div>
+      <div class="rule-body">Every construction theorem should be paired with an impossibility result. <em>Knowing where the construction fails proves you understand it.</em></div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">R7</div>
+      <div class="rule-title">Work Level by Level</div>
+      <div class="rule-body">When a problem resists direct attack, find the natural stratification. Solve one level at a time with local constraints. <em>Compose the global solution from local bijections.</em></div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-number">R8</div>
+      <div class="rule-title">Name What You Found</div>
+      <div class="rule-body">Give every discovered structure a precise name and formula. <em>"Twisted translation" is more useful than "that pattern in the Q table."</em> Naming crystallizes understanding.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>
+    <h3>Origin</h3>
+    <p>These principles were extracted by analyzing the step-by-step process used to solve Knuth's "Claude's Cycles" problem — a February 2026 open problem about decomposing a directed Cayley graph into Hamiltonian cycles.</p>
+    <p style="margin-top:12px;">The specific problem is combinatorics. The methodology is universal.</p>
+  </div>
+  <div>
+    <h3>How to Use This</h3>
+    <ul>
+      <li>Apply the Discovery Arc to any hard problem you are stuck on.</li>
+      <li>Use the six phases as a checklist: are you really in Phase 3 or still in Phase 2?</li>
+      <li>The Laws are the most important part — return to them when progress stalls.</li>
+      <li>The Universal Rules are daily habits, not one-time steps.</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Intersection observer for phase animations
+  const phases = document.querySelectorAll('.phase');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  phases.forEach(p => observer.observe(p));
+
+  // Active nav link tracking
+  const sections = document.querySelectorAll('section[id], header');
+  const navLinks = document.querySelectorAll('nav a');
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => navObserver.observe(s));
+</script>
+</body>
+</html>
