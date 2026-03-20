@@ -107,7 +107,7 @@ def solve_P1(max_iter: int=2_000_000, seeds=range(5),
         tab={k: rng.randrange(nP) for k in keys}
         sig=make_sigma(tab); cs=score(sig); bs=cs; bt=tab.copy()
 
-        cool=(0.003/3.0)**(1.0/max_iter); T=3.0
+        cool=(0.003/3.0)**(1.0/max_iter); T=3.0; stall=0; reheats=0
         for it in range(max_iter):
             if cs==0: break
             k=rng.choice(keys); old=tab[k]; new=rng.randrange(nP)
@@ -115,11 +115,23 @@ def solve_P1(max_iter: int=2_000_000, seeds=range(5),
             tab[k]=new; sig=make_sigma(tab); ns=score(sig); d=ns-cs
             if d<0 or rng.random()<math.exp(-d/max(T,1e-9)):
                 cs=ns
-                if cs<bs: bs=cs; bt=tab.copy()
+                if cs < bs:
+                    bs = cs; bt = tab.copy(); stall = 0
+            else:
+                stall += 1
+            if stall > 100_000:
+                reheats += 1; stall = 0
+                # Basin escape: Reset to best but apply a high-T "kick"
+                tab = bt.copy(); sig = make_sigma(tab); cs = bs
+                T = 3.0 / (1.2**reheats)
+                for _ in range(max(1, len(keys) // 10)):
+                    rk = rng.choice(keys); tab[rk] = rng.randrange(nP)
+                sig = make_sigma(tab); cs = score(sig)
+                continue
             else: tab[k]=old
             T*=cool
             if verbose and (it+1)%250_000==0:
-                print(f"    seed={seed} it={it+1:>8,} s={cs} best={bs} T={T:.4f}")
+                print(f"    seed={seed} it={it+1:>8,} s={cs} best={bs} T={T:.4f}", flush=True)
 
         elapsed=time.perf_counter()-t0
         if bs<best_global: best_global=bs; best_tab=bt
