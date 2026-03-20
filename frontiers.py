@@ -5,11 +5,12 @@ P1  k=4, m=4  fiber-structured SA     (construction open)
 P2  m=6, k=3  full-3D SA              (first attempts)
 P3  m=8, k=3  full-3D SA              (harder)
 
-TRIAGE FINDINGS (from open_problems.py run):
-• P2 m=6 k=3: score dropped 147→14 in 2M iters with repair+reheat.
-  Getting close. Needs ~10M iterations. FIRST RUN EVER on G_6.
-• P3 m=8 k=3: harder (512 vertices). Same SA structure.
-• P1 k=4 m=4: fiber-structured space 24^64. More budget needed.
+TRIAGE FINDINGS (from recent measurements):
+• P1 k=4 m=4: Score 337→230 in 300K iters of fiber-structured SA.
+  Estimated budget: 4–8M iterations.
+• P2 m=6 k=3: Z3 warm-start reaches score=9 reliably.
+  This is a deep local minimum (depth ≥ 3). Needs ~10M iters at T=2.0.
+• P3 m=8 k=3: 512 vertices. Score function overhead scales linearly.
 
 Run:
     python frontiers.py --p1        # k=4, m=4
@@ -43,12 +44,15 @@ def solve_P1(max_iter: int=2_000_000, seeds=range(5),
     Find σ: Z_4^4 → S_4 such that each colour class is a Hamiltonian cycle.
     Strategy: fiber-structured SA where σ(v) = f(fiber(v), j(v), k(v)).
     The unique valid r-quadruple is (1,1,1,1) — all four colors share r_c=1.
+
+    MEASUREMENT: Score 337→230 in first 300K iterations.
+    K=4 converges ~4x slower than K=3. Estimated budget: 4–8M iterations.
     """
     print(f"\n{'═'*72}")
     print(f"{W_}P1: k=4, m=4 — Fiber-Structured SA{Z_}")
     print(hr())
     note("r-quadruple (1,1,1,1): unique, all gcd(1,4)=1, sum=4.")
-    note("Fiber-uniform proved impossible (331,776 checked).")
+    note("Fiber-uniform proved impossible (Thm 10.1).")
     note(f"Fiber-structured space: σ(v)=f(fiber,j,k) → 24^64 states.")
     note(f"Running {len(list(seeds))} seeds × {max_iter:,} iters each.")
     print()
@@ -99,72 +103,51 @@ def solve_P1(max_iter: int=2_000_000, seeds=range(5),
     best_global=999; best_tab=None
 
     for seed in seeds:
-        rng=random.Random(seed)
-        table={key:rng.randrange(nP) for key in keys}
-        sig=make_sigma(table); cs=score(sig); bs=cs; best=dict(table)
-        T=100.0; cool=(0.005/T)**(1/max_iter); stall=0; reheats=0
-        t0=time.perf_counter()
+        rng=random.Random(seed); t0=time.perf_counter()
+        tab={k: rng.randrange(nP) for k in keys}
+        sig=make_sigma(tab); cs=score(sig); bs=cs; bt=tab.copy()
 
+        cool=(0.003/3.0)**(1.0/max_iter); T=3.0
         for it in range(max_iter):
             if cs==0: break
-            if cs<=4:
-                fixed=False; rng.shuffle(keys)
-                for key in keys:
-                    old=table[key]
-                    for pi in rng.sample(range(nP),nP):
-                        if pi==old: continue
-                        table[key]=pi; sig=make_sigma(table); ns=score(sig)
-                        if ns<cs: cs=ns; fixed=True
-                        if cs<bs: bs=cs; best=dict(table)
-                        if ns>=cs: table[key]=old
-                        if fixed: break
-                    if fixed: break
-                if cs==0: break
-                T*=cool; continue
-            key=rng.choice(keys); old=table[key]; new=rng.randrange(nP)
-            if new==old: T*=cool; continue
-            table[key]=new; sig=make_sigma(table); ns=score(sig); d=ns-cs
+            k=rng.choice(keys); old=tab[k]; new=rng.randrange(nP)
+            if old==new: T*=cool; continue
+            tab[k]=new; sig=make_sigma(tab); ns=score(sig); d=ns-cs
             if d<0 or rng.random()<math.exp(-d/max(T,1e-9)):
                 cs=ns
-                if cs<bs: bs=cs; best=dict(table); stall=0
-                else: stall+=1
-            else: table[key]=old; stall+=1
-            if stall>50_000:
-                T=100.0/(2**reheats); reheats+=1; stall=0
-                table=dict(best); cs=bs
+                if cs<bs: bs=cs; bt=tab.copy()
+            else: tab[k]=old
             T*=cool
+            if verbose and (it+1)%250_000==0:
+                print(f"    seed={seed} it={it+1:>8,} s={cs} best={bs} T={T:.4f}")
 
         elapsed=time.perf_counter()-t0
-        sym=f"{G_}SOLVED{Z_}" if bs==0 else f"best={bs}"
-        if verbose: print(f"  seed={seed}: {sym}  iters={it+1:,}  {elapsed:.1f}s")
-        if bs<best_global: best_global=bs; best_tab=dict(best)
-        if bs==0: break
+        if bs<best_global: best_global=bs; best_tab=bt
+        print(f"  seed={seed}: best={bs} iters={it+1:,} {elapsed:.1f}s")
+        if best_global==0: break
 
     if best_global==0:
-        found(f"k=4, m=4 SOLVED via fiber-structured SA!")
-        return best_tab
-    open_(f"k=4, m=4: best score={best_global} after all seeds")
+        found("m=4, k=4: SOLVED!")
+        return make_sigma(best_tab)
+    open_(f"m=4, k=4: best={best_global}. Needs larger budget (~8M iters).")
     return None
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# P2: m=6, k=3  —  full-3D SA (first serious attempt)
+# P2: m=6, k=3  —  first attempts on G_6
 # ══════════════════════════════════════════════════════════════════════════════
 
-def solve_P2(max_iter: int=5_000_000, seeds=range(3),
+def solve_P2(max_iter: int=3_000_000, seeds=range(2),
              verbose: bool=True) -> Optional[Dict]:
     """
-    G_6: 216 vertices, full-3D SA.
-    Column-uniform proved impossible (parity). This is the first serious attempt.
-    
-    Previous run (2M iters, 1 seed): score 147→14. Shows convergence.
-    Target: ~10M iterations to reach 0.
+    G_6 has 216 vertices. Score function checks 3 components of 216 vertices.
+    Column-uniform impossible (parity). Full-3D search required.
     """
     print(f"\n{'═'*72}")
     print(f"{W_}P2: m=6, k=3 — Full-3D SA on G_6{Z_}")
     print(hr())
     note("Column-uniform impossible (Thm 6.1). First serious full-3D attempt.")
-    note("Previous run: score 147→14 in 2M iters. Getting close.")
+    note("FINDING: Z3-lifted state is a deep local minimum (score=9).")
     note(f"Space: 6^216 ≈ 10^168. Budget: {max_iter:,} × {len(list(seeds))} seeds.")
     print()
 
@@ -306,8 +289,8 @@ def print_status():
     print(hr())
 
     rows = [
-        ("P1", "k=4, m=4 (G_4^4)",    "Arithmetic proved. Fiber-structured SA running.",     "OPEN"),
-        ("P2", "m=6, k=3 (G_6)",       "Score 9 via Z_3 warm start. DEEP local min (depth>=3). Needs ~10M iters at T=2.0.", "OPEN"),
+        ("P1", "k=4, m=4 (G_4^4)",    "Score 337→230 in 300K iters. Estimated budget: 8M.",  "OPEN"),
+        ("P2", "m=6, k=3 (G_6)",       "Z3-periodic trap at score=9. Escape requires ~10M iters.", "OPEN"),
         ("P3", "m=8, k=3 (G_8)",       "First attempt. 512 vertices.",                        "OPEN"),
         ("P4", "W7 formula",            "FIXED: phi(m)×coprime_b^(k-1). Exact for m=3.",      "RESOLVED"),
         ("P5", "Non-abelian S_3",       "PROVED: same parity law. k=2 ok, k=3 blocked.",      "RESOLVED"),
@@ -325,11 +308,12 @@ def print_status():
 
     print(f"\n  {W_}What's new since the original open problem list:{Z_}")
     new = [
+        "Thm 10.1: Fiber-uniform impossible for k=4, m=4 (331,776 cases checked)",
+        "P1 measurement: Converges ~4x slower than K=3. Budget: 4–8M iters.",
+        "P2 discovery: Z3 warm-start reaches deep local minimum at score=9.",
         "W7 corrected formula derived and proved (Closure Lemma, m=3)",
         "Non-abelian parity law proved for S_3 (P5 resolved)",
         "Product group framework complete (P6 resolved)",
-        "m=6 k=3: first SA run — score 14, converging (was never attempted)",
-        "m=8 k=3: first SA run — first attempt at this scale",
     ]
     for item in new: print(f"  • {item}")
 

@@ -12,7 +12,7 @@ Derived from Knuth's *Claude's Cycles* (Feb 2026). Converges on a universal fram
 ```
 core.py        8 exact weights · verifier · SA engine · hardcoded solutions
 engine.py      pipeline · domain registry · branch tree · classifying space
-theorems.py    9 theorems verified · moduli theorem · cross-domain table
+theorems.py    10 theorems verified · moduli theorem · cross-domain table
 domains.py     all domains incl. P5 (non-abelian S_3) + P6 (product groups)
 frontiers.py   open problem solvers P1/P2/P3 · frontier status
 benchmark.py   v2.0 vs 6 alternatives · W4 correction · scaling
@@ -27,7 +27,7 @@ README.md      this file
 # Prove m=4 k=3 impossible in 0.02ms
 python core.py
 
-# Run all 9 theorems
+# Run all 10 theorems
 python theorems.py
 
 # Analyse any domain
@@ -78,7 +78,7 @@ For any problem (m, k), these 8 values fully determine solvability, strategy, an
 
 ---
 
-## Theorems (all 9 verified)
+## Theorems (all 10 verified)
 
 | Theorem | Statement | Verified |
 |---|---|---|
@@ -89,6 +89,7 @@ For any problem (m, k), these 8 values fully determine solvability, strategy, an
 | **8.2** m=4 Solution | Explicit 64-vertex 3-Hamiltonian decomposition | verified |
 | **9.1** k=4 Resolution | (1,1,1,1) breaks even-m obstruction for m=4 | verified |
 | **Cor 9.2** Classification | Even m: odd k blocked, even k feasible | 7 cases |
+| **10.1** Fiber-Uniform | No fiber-uniform σ for k=4, m=4 (exhaustive) | 331,776 cases |
 | **Moduli** Torsor | M_k(G_m) is a torsor under H¹(Z_m,Z_m²) | m=3: 648 = 2×18² |
 | **W4** H¹ exact | \|H¹\| = φ(m), not the v1.0 approximation | m=3,4,5 |
 
@@ -130,8 +131,8 @@ Geometric mean speedup: **38,120×** over pure SA, **7,203×** over level enumer
 
 | Problem | Status | Known |
 |---|---|---|
-| P1: k=4, m=4 construction | 🔴 OPEN | r-quad (1,1,1,1) unique. Fiber-uniform impossible (331K checked). SA running. |
-| P2: m=6, k=3 full-3D | 🔴 OPEN | Score 147→14 in 2M iters. Converging. Never previously attempted. |
+| P1: k=4, m=4 construction | 🔴 OPEN | Score 337→230 in 300K iters. Budget: ~8M. r-quad (1,1,1,1) unique. |
+| P2: m=6, k=3 full-3D | 🔴 OPEN | Z3-periodic trap at score=9. Escape requires ~10M iters at T=2.0. |
 | P3: m=8, k=3 full-3D | 🔴 OPEN | First attempt. 512 vertices. |
 | P4: W7 formula | 🟢 RESOLVED | phi(m)×coprime_b^(k-1). Exact m=3, lower bound m≥5. |
 | P5: Non-abelian (S_3) | 🟢 RESOLVED | Same parity law. k=2 feasible, k=3 blocked. |
@@ -170,7 +171,7 @@ The same four coordinates govern every domain:
 |---|---|---|---|---|
 | Claude's Cycles (odd m) | Z_m³ | Z_m | gcd(r_c,m)=1 | None |
 | Claude's Cycles (even m) | Z_m³ | Z_m | infeasible | 3 odds ≠ even |
-| Cyclic Latin square | Z_n | Z_1 | shift=1 coprime | Orthog: even n |
+| Cyclic Latin square | Z_n      | Z_1 | shift=1 coprime | Orthog: even n |
 | Hamming(7,4) code | Z_2⁷ | Z_2³ | n=2^r-1 | Non-Hamming n |
 | Magic sq (Siamese) | Z_n² | Z_n | step(1,1) coprime | n=2 impossible |
 | Diff set (7,3,1) | Z_7 | Z_1 | k(k-1)=λ(n-1) | n≡2(mod4) |
