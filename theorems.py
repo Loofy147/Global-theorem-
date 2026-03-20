@@ -12,6 +12,7 @@ Thm 7.1  Existence Odd m:      r-triple (1,m−2,1) valid for all odd m≥3
 Thm 8.2  m=4 Decomposition:    Explicit verified σ (64 vertices, 3 cycles)
 Thm 9.1  k=4 Resolution:       (1,1,1,1) breaks even-m obstruction for m=4
 Cor 9.2  Parity Classification: even m: odd k obstructed, even k feasible
+Thm 10.1 Fiber-Uniform:       k=4, m=4 impossible (331,776 cases checked)
 Moduli   Torsor Structure:      M_k(G_m) is a torsor under H¹(Z_m,Z_m²)
 W4       H¹ exact formula:      |H¹| = phi(m)  [not an approximation]
 W7-lb    Solution lower bound:  phi(m) × coprime_b(m)^(k-1)  [exact m=3]
@@ -23,6 +24,7 @@ P6-fiber Product groups:        Z_m×Z_n fiber quotient = Z_gcd(m,n)
 from math import gcd
 from itertools import permutations, product as iprod
 from typing import Dict, List, Tuple, Optional
+from frontiers import prove_fiber_uniform_k4_impossible
 from core import (extract_weights, verify_sigma, PRECOMPUTED,
                   SOLUTION_M4, valid_levels, compose_Q, is_single_cycle,
                   table_to_sigma, _ALL_P3, _FIBER_SHIFTS)
@@ -40,44 +42,12 @@ def note(s):   print(f"  {D_}{s}{Z_}")
 def build_proof(m: int, k: int, solution=None) -> Dict:
     """Build a formal proof dict from weights (and optionally a solution)."""
     w = extract_weights(m, k)
-
-    if w.h2_blocks:
-        cp = list(w.coprime_elems)
-        return {
-            "status":   "PROVED_IMPOSSIBLE",
-            "theorem":  f"No column-uniform σ for G_{m} (k={k}).",
-            "proof": [
-                f"(1) Require r₀+…+r_{{k-1}}={m}, each gcd(rᵢ,{m})=1.",
-                f"(2) Coprime-to-{m} = {cp} — all odd (m even).",
-                f"(3) Sum of k={k} odd integers is odd.",
-                f"(4) m={m} is even. Contradiction. □",
-            ],
-            "corollary": f"Holds for ALL even m, ALL odd k. "
-                         f"Class γ₂ ∈ H²(Z_2,Z/2)=Z/2 is nontrivial.",
-            "W4":  f"H¹=phi({m})={w.h1_exact} (moot — M_k=∅)",
-            "verified": True,
-        }
-
-    if solution is not None:
-        return {
-            "status":   "PROVED_POSSIBLE",
-            "theorem":  f"A valid k={k}-Hamiltonian decomposition of G_{m} exists.",
-            "proof": [
-                f"(1) r-tuple {w.canonical}: gcd check ✓, sum={m}. [W3]",
-                f"(2) b-functions found; gcd(Σbᵢ,{m})=1 for each colour. [Thm 5.1]",
-                f"(3) σ verified: {m**3} arcs, in-degree 1, 1 component per cycle. □",
-            ],
-            "gauge":    f"|H¹|=phi({m})={w.h1_exact} gauge-equivalent copies. [W4]",
-            "sol_lb":   f"|M_{k}(G_{m})| ≥ {w.sol_lb:,}. [W7 lower bound]",
-            "verified": True,
-        }
-
     return {
-        "status":   "OPEN_PROMISING",
-        "theorem":  f"H² obstruction absent for m={m}, k={k}.",
-        "proof":    [f"(1) r-tuple {w.canonical} is valid (W2={w.r_count}).",
-                     f"(2) Explicit σ: search required."],
-        "next":     f"Run S1 with canonical seed {w.canonical}.",
+        "m":        m,
+        "k":        k,
+        "feasible": not w.h2_blocks,
+        "weights":  w,
+        "proof":    f"H² class {'nontrivial' if w.h2_blocks else 'trivial'}.",
         "sol_lb":   f"|M| ≥ {w.sol_lb:,}. [W7]",
         "verified": False,
     }
@@ -130,6 +100,12 @@ def verify_all_theorems(verbose: bool=True) -> Dict[str,bool]:
             print(f"  m={m}: coprime={list(w.coprime_elems)} h2_blocks={w.h2_blocks} {sym}")
     results['6.1'] = all_ok
     if all_ok: proved("Column-uniform impossible for all even m in {4..16}")
+
+    # ── Thm 10.1: Fiber-Uniform Impossibility for k=4, m=4 ──────────────────
+    if verbose: print(f"\n{B_}Thm 10.1  Fiber-Uniform Impossibility (k=4, m=4){Z_}")
+    ok = prove_fiber_uniform_k4_impossible(verbose=verbose)
+    results["10.1"] = ok
+    if ok: proved("All 331,776 fiber-uniform sigmas for k=4, m=4 checked: 0 valid")
 
     # ── Thm 7.1: r-triple (1,m-2,1) for odd m ────────────────────────────────
     if verbose: print(f"\n{B_}Thm 7.1  Existence for Odd m{Z_}")
