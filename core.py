@@ -272,7 +272,7 @@ def _sa_score(sigma: List[int], arc_s, pa, n: int) -> int:
 
 def run_sa(m: int, seed: int=0, max_iter: int=5_000_000,
            T_init: float=3.0, T_min: float=0.003,
-           verbose: bool=False, report_n: int=500_000) -> Tuple[Optional[Dict], Dict]:
+           verbose: bool=False, report_n: int=50_000) -> Tuple[Optional[Dict], Dict]:
     """
     Full-3D SA for G_m (k=3). Returns (sigma_map | None, stats).
     sigma_map is None if max_iter exhausted without solution.
@@ -312,7 +312,18 @@ def run_sa(m: int, seed: int=0, max_iter: int=5_000_000,
             if cs<bs: bs=cs; best=sigma[:]; stall=0
             else: stall+=1
         else: sigma[v]=old; stall+=1
-        if stall>80_000:
+        if stall > 100_000:
+            reheats += 1; stall = 0
+            # Basin escape: Reset to best but apply a high-T "kick"
+            sigma = best[:]; cs = bs
+            T = T_init / (1.2**reheats)
+            # Adaptive kick: smaller for lower scores
+            kick_size = max(1, int(n * (0.05 if cs > 10 else 0.02)))
+            for _ in range(kick_size):
+                vk = rng.randrange(n); sigma[vk] = rng.randrange(nP)
+            cs = _sa_score(sigma, arc_s, pa, n)
+            continue
+        if False: # Old logic
             T=T_init/(2**reheats); reheats+=1; stall=0; sigma=best[:]; cs=bs
         T*=cool
         if verbose and (it+1)%report_n==0:
