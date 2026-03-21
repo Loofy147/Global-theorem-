@@ -317,7 +317,8 @@ def run_sa(m: int, seed: int=0, max_iter: int=5_000_000,
             # Basin escape: Reset to best but apply a high-T "kick"
             sigma = best[:]; cs = bs
             T = T_init / (1.2**reheats)
-            kick_size = max(1, n // 20)
+            # Adaptive kick: smaller for lower scores
+            kick_size = max(1, int(n * (0.05 if cs > 10 else 0.02)))
             for _ in range(kick_size):
                 vk = rng.randrange(n); sigma[vk] = rng.randrange(nP)
             cs = _sa_score(sigma, arc_s, pa, n)
