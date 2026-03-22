@@ -47,5 +47,5 @@ for f in files:
     if os.path.exists(f):
         full_docs.append(parse_file(f))
 
-with open("API.md", "w") as f:
+with open("docs/API.md", "w") as f:
     f.write("\n".join(full_docs))

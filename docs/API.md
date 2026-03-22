@@ -222,7 +222,7 @@ P3  m=8, k=3  full-3D SA              (harder)
 TRIAGE FINDINGS (from recent measurements):
 • P1 k=4 m=4: Score 337→230 in 300K iters of fiber-structured SA.
   Estimated budget: 4–8M iterations.
-• P2 m=6 k=3: Z3 warm-start reaches score=9 reliably.
+• P2 m=6 k=3: Basin-escape reaches score=4 in 8M iters (prev record 9).
   This is a deep local minimum (depth ≥ 3). Needs ~10M iters at T=2.0.
 • P3 m=8 k=3: 512 vertices. Score function overhead scales linearly.
 
