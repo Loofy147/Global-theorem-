@@ -1,4 +1,4 @@
-import time
+import time, sys
 from typing import Dict, List, Optional, Tuple, Any, Callable
 from core import extract_weights, verify_sigma, PRECOMPUTED, solve, run_equivariant_sa
 from algebraic import get_algebraic_proof, parse_domain, export_lean_proof
@@ -19,7 +19,6 @@ class Engine:
             if (m, k) in PRECOMPUTED:
                 solution = PRECOMPUTED[(m, k)]
             elif strategy == "equivariant":
-                # Use a default Z2 orbit if none specified
                 print(f"    Running equivariant SA for m={m}, k={k}...")
                 solution, stats = run_equivariant_sa(m, [(m//2, m//2, m//2)] if m%2==0 else [(1,1,1)])
             else:
@@ -44,11 +43,37 @@ class Engine:
         res['parsed'] = d
         return res
 
+    def get_lean_export(self, m: int, k: int) -> str:
+        """Generates Lean 4 source for the parity obstruction proof."""
+        return export_lean_proof(m, k)
+
+def check_remote_search_status() -> Dict[str, str]:
+    """Checks the status of Kaggle search kernels if CLI is configured."""
+    import subprocess
+    kernels = [
+        "hichambedrani/claudes-cycles-p1-equiv",
+        "hichambedrani/claudes-cycles-p2-equiv"
+    ]
+    status = {}
+    for k in kernels:
+        try:
+            res = subprocess.check_output(["kaggle", "kernels", "status", k],
+                                          stderr=subprocess.STDOUT, text=True)
+            status[k.split('/')[-1]] = res.strip()
+        except:
+            status[k.split('/')[-1]] = "Unknown (API not configured?)"
+    return status
+
 if __name__ == "__main__":
-    import sys
     e = Engine()
 
-    if "--parse" in sys.argv:
+    if "--remote" in sys.argv:
+        stats = check_remote_search_status()
+        print("\n--- Remote Kaggle Search Status ---")
+        for k, v in stats.items():
+            print(f"  {k}: {v}")
+
+    elif "--parse" in sys.argv:
         idx = sys.argv.index("--parse")
         desc = " ".join(sys.argv[idx+1:])
         strat = "equivariant" if "--equivariant" in sys.argv else "standard"
@@ -65,8 +90,9 @@ if __name__ == "__main__":
             print(f"Solution: Found and Verified ✓")
 
     elif "--lean" in sys.argv:
-        m, k = int(sys.argv[2]), int(sys.argv[3])
-        print(export_lean_proof(m, k))
+        idx = sys.argv.index("--lean")
+        m, k = int(sys.argv[idx+1]), int(sys.argv[idx+2])
+        print(e.get_lean_export(m, k))
 
     else:
         # Default batch run
