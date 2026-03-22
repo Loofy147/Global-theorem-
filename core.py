@@ -398,3 +398,85 @@ if __name__ == "__main__":
         print(f"  m=7: found in {dt:.2f}s, verified={ok}")
     else:
         print(f"  m=7: not found in budget")
+
+# ══════════════════════════════════════════════════════════════════════════════
+# EQUIVARIANT SEARCH MACHINERY
+# ══════════════════════════════════════════════════════════════════════════════
+
+def get_node_orbits(m: int, subgroup_generators: List[Tuple[int, int, int]]) -> List[List[int]]:
+    """Identifies vertex orbits as flat indices."""
+    nodes = []
+    for i in range(m):
+        for j in range(m):
+            for k in range(m):
+                nodes.append((i,j,k))
+
+    node_to_idx = {v: i for i, v in enumerate(nodes)}
+    unvisited = set(range(m**3))
+    orbits = []
+
+    while unvisited:
+        start_idx = next(iter(unvisited))
+        start_node = nodes[start_idx]
+        orbit = {start_idx}
+        queue = [start_node]
+        unvisited.remove(start_idx)
+
+        while queue:
+            curr = queue.pop(0)
+            for gen in subgroup_generators:
+                nxt = tuple((curr[d] + gen[d]) % m for d in range(3))
+                nxt_idx = node_to_idx[nxt]
+                if nxt_idx in unvisited:
+                    unvisited.remove(nxt_idx)
+                    orbit.add(nxt_idx)
+                    queue.append(nxt)
+        orbits.append(list(orbit))
+    return orbits
+
+def run_equivariant_sa(m: int, subgroup_gens: List[Tuple[int,int,int]],
+                         seed: int=0, max_iter: int=1_000_000) -> Tuple[Optional[Dict], Dict]:
+    """SA using group-equivariant moves (orbit-flips)."""
+    import math, time
+    n, arc_s, pa = _build_sa3(m)
+    orbits = get_node_orbits(m, subgroup_gens)
+    rng = random.Random(seed); nP = 6
+
+    sigma = [rng.randrange(nP) for _ in range(n)]
+    cs = _sa_score(sigma, arc_s, pa, n)
+    bs = cs; best = sigma[:]
+
+    T = 2.0; cool = 0.999995
+    t0 = time.perf_counter()
+
+    for it in range(max_iter):
+        if cs == 0: break
+
+        # Choose a random orbit
+        orbit = rng.choice(orbits)
+        new_p = rng.randrange(nP)
+
+        # Coordinated flip: all nodes in orbit get same new permutation
+        old_vals = [sigma[v] for v in orbit]
+        for v in orbit: sigma[v] = new_p
+
+        ns = _sa_score(sigma, arc_s, pa, n)
+        d = ns - cs
+        if d <= 0 or rng.random() < math.exp(-d / T):
+            cs = ns
+            if cs < bs: bs = cs; best = sigma[:]
+        else:
+            # Revert
+            for i, v in enumerate(orbit): sigma[v] = old_vals[i]
+
+        T *= cool
+        if (it+1) % 100000 == 0:
+            print(f"    EquivSA it={it+1} score={cs} best={bs} T={T:.4f}")
+
+    sol = None
+    if bs == 0:
+        sol = {}
+        for idx, pi in enumerate(best):
+            i,rem=divmod(idx,m*m); j,k=divmod(rem,m)
+            sol[(i,j,k)]=tuple(_ALL_P3[pi])
+    return sol, {"best": bs, "iters": it+1, "elapsed": time.perf_counter()-t0}
