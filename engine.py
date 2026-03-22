@@ -1,6 +1,6 @@
 import time, sys
 from typing import Dict, List, Optional, Tuple, Any, Callable
-from core import extract_weights, verify_sigma, PRECOMPUTED, solve, run_equivariant_sa
+from core import extract_weights, verify_sigma, PRECOMPUTED, solve, run_equivariant_sa, run_hybrid_sa
 from algebraic import get_algebraic_proof, parse_domain, export_lean_proof
 
 class Engine:
@@ -21,18 +21,25 @@ class Engine:
             elif strategy == "equivariant":
                 print(f"    Running equivariant SA for m={m}, k={k}...")
                 solution, stats = run_equivariant_sa(m, [(m//2, m//2, m//2)] if m%2==0 else [(1,1,1)])
+            elif strategy == "hybrid":
+                print(f"    Running hybrid SA for m={m}, k={k}...")
+                solution, stats = run_hybrid_sa(m)
             else:
                 solution = solve(m, k)
 
         verified = bool(solution and verify_sigma(solution, m))
         dt = time.perf_counter() - t0
 
+        # Determine the theorem field
+        theorem_text = proof_obj.get('theorem', '')
+        proof_steps = proof_obj.get('proof', [])
+
         return {
             "m": m, "k": k, "status": proof_obj['exists'],
-            "theorem": proof_obj['theorem'], "proof": proof_obj['proof'],
+            "theorem": theorem_text, "proof": proof_steps,
             "theorem_id": proof_obj.get("theorem_id"),
             "theorem_name": proof_obj.get("theorem_name"),
-            "witness_hash": proof_obj['witness_hash'],
+            "witness_hash": proof_obj.get('witness_hash', ''),
             "solution_found": verified, "elapsed_ms": dt * 1000
         }
 
@@ -46,6 +53,23 @@ class Engine:
     def get_lean_export(self, m: int, k: int) -> str:
         """Generates Lean 4 source for the parity obstruction proof."""
         return export_lean_proof(m, k)
+
+def get_suggested_morphisms(m: int, k: int) -> List[Any]:
+    """Suggests ways to simplify or solve (m, k) using known components."""
+    class Morphism:
+        def __init__(self, kind: str, source: str, target: str):
+            self.kind = kind; self.source = source; self.target = target
+    m_list = []
+    for q in range(2, m):
+        if m % q == 0:
+            m_list.append(Morphism("Lift", f"G_{q}", f"G_{m}"))
+            m_list.append(Morphism("Quotient", f"G_{m}", f"G_{q}"))
+    factors = [i for i in range(2, m) if m % i == 0]
+    for f in factors:
+        other = m // f
+        if other > 1:
+            m_list.append(Morphism("Product", f"G_{f} x G_{other}", f"G_{m}"))
+    return m_list
 
 def check_remote_search_status() -> Dict[str, str]:
     """Checks the status of Kaggle search kernels if CLI is configured."""
@@ -76,7 +100,7 @@ if __name__ == "__main__":
     elif "--parse" in sys.argv:
         idx = sys.argv.index("--parse")
         desc = " ".join(sys.argv[idx+1:])
-        strat = "equivariant" if "--equivariant" in sys.argv else "standard"
+        strat = "hybrid" if "--hybrid" in sys.argv else ("equivariant" if "--equivariant" in sys.argv else "standard")
         res = e.analyse_text(desc, strategy=strat)
         print(f"\n--- Analysis for Domain: {res['parsed']['G']} ---")
         print(f"SES: {res['parsed']['SES']}")
@@ -93,6 +117,13 @@ if __name__ == "__main__":
         idx = sys.argv.index("--lean")
         m, k = int(sys.argv[idx+1]), int(sys.argv[idx+2])
         print(e.get_lean_export(m, k))
+
+    elif "--morphisms" in sys.argv:
+        m, k = int(sys.argv[sys.argv.index("--morphisms")+1]), int(sys.argv[sys.argv.index("--morphisms")+2])
+        morphs = get_suggested_morphisms(m, k)
+        print(f"\n--- Suggested Morphisms for G_{m} (k={k}) ---")
+        for morph in morphs:
+            print(f"  {morph.kind:10} : {morph.source:15} -> {morph.target}")
 
     else:
         # Default batch run

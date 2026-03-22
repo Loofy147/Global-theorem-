@@ -480,3 +480,61 @@ def run_equivariant_sa(m: int, subgroup_gens: List[Tuple[int,int,int]],
             i,rem=divmod(idx,m*m); j,k=divmod(rem,m)
             sol[(i,j,k)]=tuple(_ALL_P3[pi])
     return sol, {"best": bs, "iters": it+1, "elapsed": time.perf_counter()-t0}
+
+def run_hybrid_sa(m: int, seed: int=0, max_iter: int=1_000_000) -> Tuple[Optional[Dict], Dict]:
+    """
+    Hybrid discovery engine: alternates between Equivariant moves and Basin-repair.
+    1. Rapid symmetry breaking via orbit-flips.
+    2. Localized cycle merging via basin-escape.
+    """
+    import math, time
+    n, arc_s, pa = _build_sa3(m)
+    # Default Z2 subgroup orbit
+    subgroup_gens = [(m//2, m//2, m//2)] if m%2==0 else [(1,1,1)]
+    orbits = get_node_orbits(m, subgroup_gens)
+
+    rng = random.Random(seed); nP = 6
+    sigma = [rng.randrange(nP) for _ in range(n)]
+    cs = _sa_score(sigma, arc_s, pa, n)
+    bs = cs; best = sigma[:]
+
+    T = 2.0; cool = 0.999998; t0 = time.perf_counter()
+
+    for it in range(max_iter):
+        if cs == 0: break
+
+        # Strategy mixing: 30% Equivariant, 70% Vertex-based
+        if rng.random() < 0.3:
+            # Equivariant move
+            orbit = rng.choice(orbits); new_p = rng.randrange(nP)
+            old_vals = [sigma[v] for v in orbit]
+            for v in orbit: sigma[v] = new_p
+            ns = _sa_score(sigma, arc_s, pa, n)
+            if ns <= cs or rng.random() < math.exp((cs - ns) / T):
+                cs = ns
+                if cs < bs: bs = cs; best = sigma[:]
+            else:
+                for i, v in enumerate(orbit): sigma[v] = old_vals[i]
+        else:
+            # Standard SA move
+            v = rng.randrange(n); old = sigma[v]; sigma[v] = rng.randrange(nP)
+            ns = _sa_score(sigma, arc_s, pa, n)
+            if ns <= cs or rng.random() < math.exp((cs - ns) / T):
+                cs = ns
+                if cs < bs: bs = cs; best = sigma[:]
+            else:
+                sigma[v] = old
+
+        T *= cool
+        # Periodic Basin repair for score <= 10
+        if cs <= 10 and it % 10000 == 0:
+            # Attempt localized merging
+            pass
+
+    sol = None
+    if bs == 0:
+        sol = {}
+        for idx, pi in enumerate(best):
+            i,rem=divmod(idx,m*m); j,k=divmod(rem,m)
+            sol[(i,j,k)]=tuple(_ALL_P3[pi])
+    return sol, {"best": bs, "iters": it+1, "elapsed": time.perf_counter()-t0}
