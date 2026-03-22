@@ -130,3 +130,22 @@ if __name__ == "__main__":
         for m, k in [(3,3), (4,3), (4,4), (6,3)]:
             res = e.run(m, k)
             print(f"G_{m}(k={k}): {res['status']} ({res['elapsed_ms']:.2f}ms)")
+
+    def simplify_problem(self, m: int, k: int) -> Dict[str, Any]:
+        """Uses categorical morphisms to reduce a complex problem."""
+        suggested = get_suggested_morphisms(m, k)
+        reduction = None
+        for m_ in suggested:
+            if m_.kind == "Quotient":
+                # Check if quotient is solvable
+                sub_res = self.run(int(m_.target.split('_')[-1]), k)
+                if sub_res['status'] == "PROVED_POSSIBLE":
+                    reduction = {
+                        "kind": m_.kind,
+                        "source": m_.source,
+                        "target": m_.target,
+                        "status": "REDUCIBLE",
+                        "proof": f"Reduces to solvable quotient {m_.target}."
+                    }
+                    break
+        return reduction or {"status": "IRREDUCIBLE"}
