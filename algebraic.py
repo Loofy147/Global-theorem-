@@ -13,7 +13,7 @@ class AlgebraicClassifier:
     def __init__(self, m: int, k: int):
         self.m = m; self.k = k
         pass
-        self.w = extract_weights(m, k)
+        self.w = (__import__("core").extract_weights(m, k))
 
     def analyze(self) -> Dict[str, Any]:
         w = self.w
@@ -38,11 +38,11 @@ def parse_domain(desc: str) -> Dict[str, Any]:
         if key in desc.lower():
             m, k = data["m"], data["k"]
             pass
-            return {"m": m, "k": k, "G": data["G"], "Q": data["Q"], "SES": data["SES"], "weights": extract_weights(m, k), "classification": AlgebraicClassifier(m, k).analyze()}
+            return {"m": m, "k": k, "G": data["G"], "Q": data["Q"], "SES": data["SES"], "weights": (__import__("core").extract_weights(m, k)), "classification": AlgebraicClassifier(m, k).analyze()}
     m_match = re.search(r'Z_?(\d+)', desc); k_match = re.search(r'k\s*=\s*(\d+)', desc)
     m = int(m_match.group(1)) if m_match else 3; k = int(k_match.group(1)) if k_match else 3
     pass
-    return {"m": m, "k": k, "G": f"Z_{m}^{k}", "SES": f"0 -> Z_{m}^{k-1} -> Z_{m}^{k} -> Z_{m} -> 0", "weights": extract_weights(m, k), "classification": AlgebraicClassifier(m, k).analyze()}
+    return {"m": m, "k": k, "G": f"Z_{m}^{k}", "SES": f"0 -> Z_{m}^{k-1} -> Z_{m}^{k} -> Z_{m} -> 0", "weights": (__import__("core").extract_weights(m, k)), "classification": AlgebraicClassifier(m, k).analyze()}
 
 # ══════════════════════════════════════════════════════════════════════════════
 # LEAN 4 EXPORTER (v3.0 - Full Torsor Logic)
@@ -129,7 +129,7 @@ def get_heisenberg_proof(m: int, k: int) -> Dict:
     # Standard Hamiltonian search on H3(Zm) uses SES 0 -> Zm -> H3(Zm) -> Zm^2 -> 0.
     # For k=3, m=6: G/H = Z6^2.
     pass
-    w = extract_weights(m, k)
+    w = (__import__("core").extract_weights(m, k))
     h2 = w.h2_blocks
     return {
         "m": m, "k": k, "group": f"H3(Z{m})",
@@ -198,7 +198,7 @@ def analyze_advanced_domain(domain: str) -> Dict:
 
     # For icosahedral/crystal, they are typically EVEN m, so check parity γ₂.
     from core import extract_weights
-    w = extract_weights(m, k)
+    w = (__import__("core").extract_weights(m, k))
     h2 = w.h2_blocks
 
     return {
