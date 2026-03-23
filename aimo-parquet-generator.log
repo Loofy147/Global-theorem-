@@ -1,21 +1,13 @@
-[{"stream_name":"stdout","time":2.6722049119999998,"data":"Generating Parquet files for AIMO...\n"}
-,{"stream_name":"stdout","time":2.814076122,"data":"Saved submission.parquet\n"}
-,{"stream_name":"stdout","time":2.815716516,"data":"Saved reccuring.parquet\n"}
-,{"stream_name":"stdout","time":4.094679475,"data":"Running via AIMO 3 Gateway API...\n"}
-,{"stream_name":"stderr","time":4.094784685,"data":"Traceback (most recent call last):\n"}
-,{"stream_name":"stderr","time":4.094824258,"data":"  File \"/kaggle/src/script.py\", line 51, in \u003cmodule\u003e\n"}
-,{"stream_name":"stderr","time":4.094830931,"data":"    generate_parquet()\n"}
-,{"stream_name":"stderr","time":4.094836765,"data":"  File \"/kaggle/src/script.py\", line 41, in generate_parquet\n"}
-,{"stream_name":"stderr","time":4.094931259,"data":"    for test, sample_submission in gateway.generate_data_batches():\n"}
-,{"stream_name":"stderr","time":4.095060753,"data":"                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
-,{"stream_name":"stderr","time":4.095138919,"data":"  File \"/kaggle/input/competitions/ai-mathematical-olympiad-progress-prize-3/kaggle_evaluation/aimo_3_gateway.py\", line 38, in generate_data_batches\n"}
-,{"stream_name":"stderr","time":4.095906944,"data":"    test = pl.read_csv(self.test_path)\n"}
-,{"stream_name":"stderr","time":4.095928101,"data":"                       ^^^^^^^^^^^^^^\n"}
-,{"stream_name":"stderr","time":4.095961281,"data":"AttributeError: 'AIMO3Gateway' object has no attribute 'test_path'\n"}
-,{"stream_name":"stderr","time":6.981704773,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":6.981749131,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":7.34614741,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":7.346184712,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":9.013495744,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
-,{"stream_name":"stderr","time":10.64914991,"data":"[NbConvertApp] Writing 278582 bytes to __results__.html\n"}
+[{"stream_name":"stdout","time":4.725188614,"data":"Kaggle Evaluation API found.\n"}
+,{"stream_name":"stdout","time":4.725280516,"data":"Methods in AIMO3InferenceServer: ['__abstractmethods__', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__slots__', '__str__', '__subclasshook__', '__weakref__', '_abc_impl', '_get_gateway_for_test', 'run_local_gateway', 'serve']\n"}
+,{"stream_name":"stdout","time":4.876797053,"data":"Archival Parquet files saved.\n"}
+,{"stream_name":"stdout","time":4.876829345,"data":"Starting AIMO 3 Inference Server...\n"}
+,{"stream_name":"stdout","time":4.959470576,"data":"Calling server.serve()...\n"}
+,{"stream_name":"stdout","time":4.963373035,"data":"server.serve() finished.\n"}
+,{"stream_name":"stderr","time":8.355373759999999,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":8.355456819,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":8.842629268,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":8.842674144,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":10.965860426,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":12.912632427,"data":"[NbConvertApp] Writing 284246 bytes to __results__.html\n"}
 ]
