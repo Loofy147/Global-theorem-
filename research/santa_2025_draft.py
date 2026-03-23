@@ -1,65 +1,68 @@
 """
-Santa 2025: Hamiltonian Decomposition Framework (Draft)
-Goal: Decompose a complete graph (or a dense symmetric graph) into disjoint Hamiltonian cycles.
+Santa 2025: Hamiltonian Decomposition Framework (v2.2 Basin Escape)
+Goal: Decompose a complete graph into disjoint Hamiltonian cycles.
 """
 
 import math, random
 from typing import List, Tuple, Dict
 
 class SantaOptimizer:
-    def __init__(self, n_cities: int, m_cycles: int):
+    def __init__(self, n_cities: int, m_cycles: int, seed: int = 42):
         self.n = n_cities
         self.m = m_cycles
-        # Representation: m Hamiltonian cycles
-        # Each cycle is a permutation of range(n)
+        self.rng = random.Random(seed)
         self.cycles = [list(range(self.n)) for _ in range(self.m)]
-        for c in self.cycles: random.shuffle(c)
+        for c in self.cycles: self.rng.shuffle(c)
 
     def score(self) -> int:
-        """
-        Total weight of all m cycles.
-        In SES framework, we want disjointness (score = number of shared edges).
-        """
         edges = set()
         shared = 0
         for c in self.cycles:
             for i in range(self.n):
                 e = tuple(sorted((c[i], c[(i+1)%self.n])))
-                if e in edges:
-                    shared += 1
+                if e in edges: shared += 1
                 edges.add(e)
         return shared
 
-    def step(self):
-        """Standard 2-opt move on a random cycle."""
-        c_idx = random.randrange(self.m)
-        c = self.cycles[c_idx]
-        i, j = sorted(random.sample(range(self.n), 2))
-        # Reverse segment [i, j]
-        c[i:j] = reversed(c[i:j])
-
     def solve(self, max_iter=100_000):
-        cs = self.score()
+        cs = self.score(); bs = cs; best_cycles = [c[:] for c in self.cycles]
+        T = 2.0; cool = 0.9999
+
         for it in range(max_iter):
             if cs == 0: break
-            # Try a move
-            c_idx = random.randrange(self.m)
-            c = self.cycles[c_idx]
-            i, j = sorted(random.sample(range(self.n), 2))
-            old_seg = c[i:j]
-            c[i:j] = reversed(old_seg)
-            ns = self.score()
-            if ns <= cs:
+
+            # Basin Escape v2.2 logic for Santa
+            if cs <= 5:
+                # Greedy orbit/cycle-merging move
+                c_idx = self.rng.randrange(self.m)
+                old_c = self.cycles[c_idx][:]
+                i, j = sorted(self.rng.sample(range(self.n), 2))
+                self.cycles[c_idx][i:j] = reversed(self.cycles[c_idx][i:j])
+                ns = self.score()
+                if ns < cs:
+                    cs = ns
+                    if cs < bs: bs = cs; best_cycles = [c[:] for c in self.cycles]
+                else:
+                    self.cycles[c_idx] = old_c
+                continue
+
+            c_idx = self.rng.randrange(self.m)
+            old_c = self.cycles[c_idx][:]
+            i, j = sorted(self.rng.sample(range(self.n), 2))
+            self.cycles[c_idx][i:j] = reversed(self.cycles[c_idx][i:j])
+            ns = self.score(); d = ns - cs
+            if d <= 0 or self.rng.random() < math.exp(-d / T):
                 cs = ns
+                if cs < bs: bs = cs; best_cycles = [c[:] for c in self.cycles]
             else:
-                c[i:j] = old_seg
-            if it % 10_000 == 0:
-                print(f"Iteration {it}, Shared Edges: {cs}")
-        return cs
+                self.cycles[c_idx] = old_c
+            T *= cool
+
+        self.cycles = best_cycles
+        return bs
 
 if __name__ == "__main__":
-    # Test on a small instance: 10 cities, 2 Hamiltonian cycles
-    opt = SantaOptimizer(10, 2)
-    print(f"Initial Score: {opt.score()}")
-    final = opt.solve()
-    print(f"Final Score: {final}")
+    opt = SantaOptimizer(20, 3)
+    print(f"Initial Shared: {opt.score()}")
+    final = opt.solve(max_iter=50_000)
+    print(f"Final Shared: {final}")
