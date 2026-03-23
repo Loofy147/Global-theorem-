@@ -142,3 +142,70 @@ def get_heisenberg_proof(m: int, k: int) -> Dict:
             f"3. Even {m}, odd k → obstructed by H²(Z{m}, Z{m})."
         ] if h2 else ["1. No parity obstruction for even k or odd m."]
     }
+
+# ══════════════════════════════════════════════════════════════════════════════
+# GROUP EXTENSIONS & TOWERS (v1.0)
+# ══════════════════════════════════════════════════════════════════════════════
+
+class GroupExtension:
+    """
+    Represents a group extension 0 -> H -> G -> Q -> 0.
+    G is constructed from H and Q using a 2-cocycle ω: Q × Q -> H.
+    (h, q) * (h', q') = (h + h' + ω(q, q'), q + q').
+    """
+    def __init__(self, H: Any, Q: Any, cocycle: Callable[[Any, Any], Any]):
+        self.H = H; self.Q = Q; self.cocycle = cocycle
+
+    def op(self, x: Tuple[Any, Any], y: Tuple[Any, Any]) -> Tuple[Any, Any]:
+        h1, q1 = x; h2, q2 = y
+        return (self.H.op(h1, self.H.op(h2, self.cocycle(q1, q2))), self.Q.op(q1, q2))
+
+class Tower:
+    """
+    A tower of group extensions (recursive extension).
+    Allows building G_n from G_{n-1} and Q_n.
+    """
+    def __init__(self, base_group: Any):
+        self.current_group = base_group
+
+    def extend(self, Q: Any, cocycle: Callable[[Any, Any], Any]):
+        self.current_group = GroupExtension(self.current_group, Q, cocycle)
+        return self
+
+class ZModGroup:
+    """Helper for abelian components in extensions."""
+    def __init__(self, m: int):
+        self.m = m
+    def op(self, x: int, y: int) -> int:
+        return (x + y) % self.m
+    def inv(self, x: int) -> int:
+        return (-x) % self.m
+
+def analyze_advanced_domain(domain: str) -> Dict:
+    """
+    Advanced classification for icosahedral and crystal geometries.
+    Uses SES and H2 classification logic.
+    """
+    data = DOMAIN_REGISTRY.get(domain.lower())
+    if not data: return {"exists": "UNKNOWN"}
+
+    m, k = data["m"], data["k"]
+    # For k=7 m=2 (Hamming), it's PROVED_POSSIBLE (Theorem 12.1)
+    if domain.lower() == "hamming":
+        return {"m": m, "k": k, "G": data["G"], "exists": "PROVED_POSSIBLE",
+                "theorem_id": "12.1", "theorem_name": "Perfect Covering Hamming Theorem",
+                "proof": ["1. Hamming code C is normal in Z2^7.", "2. Quotient is Z2^3.", "3. Perfect covering condition OS exact."]}
+
+    # For icosahedral/crystal, they are typically EVEN m, so check parity γ₂.
+    from core import extract_weights
+    w = extract_weights(m, k)
+    h2 = w.h2_blocks
+
+    return {
+        "m": m, "k": k, "G": data["G"],
+        "exists": "PROVED_IMPOSSIBLE" if h2 else "OPEN",
+        "theorem_id": "6.1" if h2 else "ADV-1",
+        "theorem_name": "Parity Obstruction" if h2 else "Advanced Domain Analysis",
+        "proof": [f"1. SES: {data['SES']}.", f"2. Quotient is {data['Q']}.",
+                  f"3. {'Parity γ₂ blocks.' if h2 else 'γ₂ vanishes, feasible.'}"]
+    }
