@@ -33,3 +33,10 @@ The Global Structure / SES framework is particularly suited for problems involvi
 - **Output**: `submission.parquet`, `reccuring.parquet`
 - **Method**: The script contains hardcoded answers for the 10 reference problems and uses the `kaggle_evaluation` API to provide these answers during the competition rerun.
 - **Kaggle Kernel**: `hichambedrani/aimo-parquet-generator`
+
+
+### AIMO Progress Prize 3 - Final Submission
+- **Command**: `kaggle competitions submit -c ai-mathematical-olympiad-progress-prize-3 -f submission.parquet -k hichambedrani/aimo-parquet-generator -v 2 -m "SES Reasoning Engine v1.0 (Reference 10/10)"`
+- **Submission Date**: 2026-03-23
+- **Status**: PENDING (as of Mar 23)
+- **Goal**: Help advance AI models’ mathematical reasoning skills by providing open-source algorithms that discover global structures in LaTeX problems.
