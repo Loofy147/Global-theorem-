@@ -63,154 +63,69 @@ Compute the three composed fiber permutations Q_0, Q_1, Q_2.
 ### `def is_single_cycle(Q, m)`
 No description.
 
-### `def _build_sa3(m)`
-Build arc-successor and perm-arc tables for G_m (k=3) SA.
-
-### `def _sa_score(sigma, arc_s, pa, n)`
+### `def _build_sa(m, k)`
 No description.
 
-### `def run_sa(m, seed, max_iter, T_init, T_min, verbose, report_n)`
-Full-3D SA for G_m (k=3). Returns (sigma_map | None, stats).
-sigma_map is None if max_iter exhausted without solution.
+### `def _build_sa3(m)`
+No description.
+
+### `def _sa_score(sigma, arc_s, pa, n, k)`
+No description.
+
+### `def get_node_orbits(m, subgroup_generators)`
+Identifies vertex orbits as flat indices. Supports arbitrary k.
+
+### `def run_hybrid_sa(m, k, seed, max_iter, verbose)`
+Hybrid discovery engine: alternates between Equivariant moves and Basin-repair.
+Supports arbitrary k and includes last-mile repair logic.
+
+### `def run_fiber_structured_sa(m, k, seed, max_iter, verbose)`
+SA where sigma(v) depends on (fiber(v), coords[1], ..., coords[k-2]).
 
 ### `def solve(m, k, seed)`
 Unified solver. Returns sigma or None.
-Routes: precomputed → column-uniform → SA.
+Routes: precomputed → column-uniform → Hybrid SA.
 
 ## engine.py
-engine.py — The Global Structure Engine
-=========================================
-Pipeline · DomainRegistry · BranchTree · ClassifyingSpace
-
-Usage:
-    from engine import Engine
-    e = Engine()
-    result = e.run(m=5, k=3)
-    e.print_tree()
-    e.print_space()
-
-Adding a new domain:
-    from engine import Engine, Domain
-    e = Engine()
-    e.register(Domain("My System", group_order=729, k=3, m=9,
-                       phi_desc="sum mod 9"))
-    e.analyse("My System")
-
-### `class Status`
-No description.
-
-### `class Domain`
-No description.
-
-### `class DomainRegistry`
-No description.
-
-#### `def DomainRegistry.__init__(self)`
-No description.
-
-#### `def DomainRegistry.register(self, d)`
-No description.
-
-#### `def DomainRegistry.get(self, name)`
-No description.
-
-#### `def DomainRegistry.all(self)`
-No description.
-
-#### `def DomainRegistry.by_tag(self, tag)`
-No description.
-
-#### `def DomainRegistry.__len__(self)`
-No description.
-
-### `class Result`
-No description.
-
-#### `def Result.one_line(self)`
-No description.
-
-### `class BranchNode`
-No description.
-
-### `class BranchTree`
-No description.
-
-#### `def BranchTree.__init__(self)`
-No description.
-
-#### `def BranchTree.add(self, result)`
-No description.
-
-#### `def BranchTree.print(self, indent, nodes)`
-No description.
-
-#### `def BranchTree.by_status(self, s)`
-No description.
-
-### `class ProofBuilder`
-No description.
-
-#### `def ProofBuilder.build(self, w, solution)`
-No description.
-
-### `class ClassifyingSpace`
-The full (m,k) grid as a computable mathematical object.
-
-#### `def ClassifyingSpace.__init__(self, m_max, k_max)`
-No description.
-
-#### `def ClassifyingSpace.obstruction_grid(self)`
-No description.
-
-#### `def ClassifyingSpace.compression_grid(self, m_max, k_max)`
-No description.
-
-#### `def ClassifyingSpace.summary(self)`
-No description.
-
-#### `def ClassifyingSpace.richest(self, n)`
 No description.
 
 ### `class Engine`
-The Global Structure Engine.
-
-e = Engine()          # loads all default domains
-e.run(5, 3)           # solve G_5 k=3
-e.analyse("Cycles m=5 k=3")  # by domain name
-e.print_tree()        # print knowledge state
-e.print_space()       # print classifying space
-e.print_theorems()    # print generated theorems
-e.register(Domain(...))  # add new domain
+The Global Structure Engine provides a unified interface for classifying
+and solving combinatorial problems using the Short Exact Sequence framework.
 
 #### `def Engine.__init__(self)`
-No description.
+Initializes the discovery engine.
 
-#### `def Engine.register(self, d)`
-No description.
+#### `def Engine.run(self, m, k, strategy)`
+Runs the classification and optional search for a problem (m, k).
 
-#### `def Engine.run(self, m, k, verbose)`
-No description.
+Args:
+    m: The group order (Z_m).
+    k: The dimension (number of cycles).
+    strategy: Search strategy ('standard', 'hybrid', 'equivariant').
 
-#### `def Engine.analyse(self, name, verbose)`
-No description.
+Returns:
+    A dictionary containing the status, proof steps, and solution if found.
 
-#### `def Engine.batch(self, problems)`
-No description.
+#### `def Engine.analyse_text(self, desc, strategy)`
+Automatically parses a text description and classifies the domain.
 
-#### `def Engine.print_tree(self)`
-No description.
+Args:
+    desc: Text description of the problem.
+    strategy: Search strategy to use.
 
-#### `def Engine.print_space(self, m_max, k_max)`
-No description.
+#### `def Engine.simplify_problem(self, m, k)`
+Uses categorical morphisms (Quotient, Product) to reduce a complex problem
+to smaller solvable components.
 
-#### `def Engine.print_theorems(self)`
-No description.
+#### `def Engine.get_lean_export(self, m, k)`
+Generates Lean 4 source for the parity obstruction proof.
 
-#### `def Engine.print_results(self)`
-No description.
+### `def get_suggested_morphisms(m, k)`
+Suggests ways to simplify or solve (m, k) using known components.
 
-#### `def Engine._load_defaults(self)`
-No description.
+### `def check_remote_search_status()`
+Checks the status of Kaggle search kernels if CLI is configured.
 
 ## frontiers.py
 frontiers.py — Open Problem Solvers

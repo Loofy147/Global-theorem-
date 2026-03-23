@@ -1,16 +1,29 @@
 import time, sys
 from typing import Dict, List, Optional, Tuple, Any, Callable
-from core import extract_weights, verify_sigma, PRECOMPUTED, solve, run_equivariant_sa, run_hybrid_sa
+from core import extract_weights, verify_sigma, PRECOMPUTED, solve, run_hybrid_sa
 from algebraic import get_algebraic_proof, parse_domain, export_lean_proof
 
 class Engine:
     """
-    The Global Structure Engine.
+    The Global Structure Engine provides a unified interface for classifying
+    and solving combinatorial problems using the Short Exact Sequence framework.
     """
     def __init__(self):
+        """Initializes the discovery engine."""
         pass
 
     def run(self, m: int, k: int, strategy: str = "standard") -> Dict[str, Any]:
+        """
+        Runs the classification and optional search for a problem (m, k).
+
+        Args:
+            m: The group order (Z_m).
+            k: The dimension (number of cycles).
+            strategy: Search strategy ('standard', 'hybrid', 'equivariant').
+
+        Returns:
+            A dictionary containing the status, proof steps, and solution if found.
+        """
         t0 = time.perf_counter()
         proof_obj = get_algebraic_proof(m, k)
 
@@ -18,25 +31,19 @@ class Engine:
         if proof_obj['exists'] == "PROVED_POSSIBLE":
             if (m, k) in PRECOMPUTED:
                 solution = PRECOMPUTED[(m, k)]
-            elif strategy == "equivariant":
-                print(f"    Running equivariant SA for m={m}, k={k}...")
-                solution, stats = run_equivariant_sa(m, [(m//2, m//2, m//2)] if m%2==0 else [(1,1,1)])
             elif strategy == "hybrid":
                 print(f"    Running hybrid SA for m={m}, k={k}...")
-                solution, stats = run_hybrid_sa(m)
+                solution, stats = run_hybrid_sa(m, k=k)
             else:
                 solution = solve(m, k)
 
         verified = bool(solution and verify_sigma(solution, m))
         dt = time.perf_counter() - t0
 
-        # Determine the theorem field
-        theorem_text = proof_obj.get('theorem', '')
-        proof_steps = proof_obj.get('proof', [])
-
         return {
             "m": m, "k": k, "status": proof_obj['exists'],
-            "theorem": theorem_text, "proof": proof_steps,
+            "theorem": proof_obj.get('theorem', ''),
+            "proof": proof_obj.get('proof', []),
             "theorem_id": proof_obj.get("theorem_id"),
             "theorem_name": proof_obj.get("theorem_name"),
             "witness_hash": proof_obj.get('witness_hash', ''),
@@ -44,11 +51,39 @@ class Engine:
         }
 
     def analyse_text(self, desc: str, strategy: str = "standard") -> Dict[str, Any]:
-        """Automatically parses description and classifies."""
+        """
+        Automatically parses a text description and classifies the domain.
+
+        Args:
+            desc: Text description of the problem.
+            strategy: Search strategy to use.
+        """
         d = parse_domain(desc)
         res = self.run(d['m'], d['k'], strategy=strategy)
         res['parsed'] = d
         return res
+
+    def simplify_problem(self, m: int, k: int) -> Dict[str, Any]:
+        """
+        Uses categorical morphisms (Quotient, Product) to reduce a complex problem
+        to smaller solvable components.
+        """
+        suggested = get_suggested_morphisms(m, k)
+        reduction = None
+        for m_ in suggested:
+            if m_.kind == "Quotient":
+                # Check if quotient is solvable
+                sub_res = self.run(int(m_.target.split('_')[-1]), k)
+                if sub_res['status'] == "PROVED_POSSIBLE":
+                    reduction = {
+                        "kind": m_.kind,
+                        "source": m_.source,
+                        "target": m_.target,
+                        "status": "REDUCIBLE",
+                        "proof": f"Reduces to solvable quotient {m_.target}."
+                    }
+                    break
+        return reduction or {"status": "IRREDUCIBLE"}
 
     def get_lean_export(self, m: int, k: int) -> str:
         """Generates Lean 4 source for the parity obstruction proof."""
@@ -100,7 +135,7 @@ if __name__ == "__main__":
     elif "--parse" in sys.argv:
         idx = sys.argv.index("--parse")
         desc = " ".join(sys.argv[idx+1:])
-        strat = "hybrid" if "--hybrid" in sys.argv else ("equivariant" if "--equivariant" in sys.argv else "standard")
+        strat = "hybrid" if "--hybrid" in sys.argv else "standard"
         res = e.analyse_text(desc, strategy=strat)
         print(f"\n--- Analysis for Domain: {res['parsed']['G']} ---")
         print(f"SES: {res['parsed']['SES']}")
@@ -126,26 +161,6 @@ if __name__ == "__main__":
             print(f"  {morph.kind:10} : {morph.source:15} -> {morph.target}")
 
     else:
-        # Default batch run
         for m, k in [(3,3), (4,3), (4,4), (6,3)]:
             res = e.run(m, k)
             print(f"G_{m}(k={k}): {res['status']} ({res['elapsed_ms']:.2f}ms)")
-
-    def simplify_problem(self, m: int, k: int) -> Dict[str, Any]:
-        """Uses categorical morphisms to reduce a complex problem."""
-        suggested = get_suggested_morphisms(m, k)
-        reduction = None
-        for m_ in suggested:
-            if m_.kind == "Quotient":
-                # Check if quotient is solvable
-                sub_res = self.run(int(m_.target.split('_')[-1]), k)
-                if sub_res['status'] == "PROVED_POSSIBLE":
-                    reduction = {
-                        "kind": m_.kind,
-                        "source": m_.source,
-                        "target": m_.target,
-                        "status": "REDUCIBLE",
-                        "proof": f"Reduces to solvable quotient {m_.target}."
-                    }
-                    break
-        return reduction or {"status": "IRREDUCIBLE"}

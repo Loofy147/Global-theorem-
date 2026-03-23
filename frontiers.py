@@ -25,7 +25,7 @@ from math import gcd
 from itertools import permutations, product as iprod
 from typing import Optional, Dict, Tuple
 
-from core import run_sa, extract_weights
+from core import run_hybrid_sa, extract_weights, run_fiber_structured_sa
 
 G_="\033[92m";R_="\033[91m";Y_="\033[93m";W_="\033[97m";D_="\033[2m";Z_="\033[0m"
 def found(s): print(f"  {G_}✓ {s}{Z_}")
@@ -279,7 +279,7 @@ def solve_P3(max_iter: int=3_000_000, seeds=range(2),
 
     best_overall=None; best_score=999
     for seed in seeds:
-        sol, stats = run_sa(8, seed=seed, max_iter=max_iter, verbose=verbose)
+        sol, stats = run_hybrid_sa(8, k=3, seed=seed, max_iter=max_iter, verbose=verbose)
         s=stats['best']
         sym=f"{G_}SOLVED{Z_}" if s==0 else f"best={s}"
         print(f"  seed={seed}: {sym}  iters={stats['iters']:,}  {stats['elapsed']:.1f}s")
