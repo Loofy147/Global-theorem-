@@ -198,7 +198,7 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_00
 # ══════════════════════════════════════════════════════════════════════════════
 
 def main():
-    problem = os.environ.get("KAGGLE_PROBLEM", "P3")
+    problem = os.environ.get("KAGGLE_PROBLEM", "P2")
     iters = int(os.environ.get("MAX_ITER", 10_000_000))
     seed = int(os.environ.get("SEED", 42))
     print(f"Problem: {problem}, Max Iters: {iters}, Seed: {seed}")
