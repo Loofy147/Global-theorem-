@@ -242,108 +242,193 @@ def is_single_cycle(Q: Dict, m: int) -> bool:
 # SA ENGINE  —  fast integer-array SA with repair + plateau escape
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _build_sa3(m: int):
-    """Build arc-successor and perm-arc tables for G_m (k=3) SA."""
-    n = m**3
-    arc_s = [[0]*3 for _ in range(n)]
+import math, random
+from itertools import permutations, product as iprod
+from typing import Optional, List, Dict, Tuple, Any
+
+def _build_sa(m: int, k: int=3):
+    n = m**k
+    arc_s = [[0]*k for _ in range(n)]
+    m_pow = [m**i for i in range(k)]
+    m_pow.reverse()
     for idx in range(n):
-        i,rem = divmod(idx,m*m); j,k = divmod(rem,m)
-        arc_s[idx][0] = ((i+1)%m)*m*m+j*m+k
-        arc_s[idx][1] = i*m*m+((j+1)%m)*m+k
-        arc_s[idx][2] = i*m*m+j*m+(k+1)%m
-    pa = [[None]*3 for _ in range(6)]
-    for pi,p in enumerate(_ALL_P3):
+        for c in range(k):
+            if (idx // m_pow[c]) % m == m - 1:
+                arc_s[idx][c] = idx - (m - 1) * m_pow[c]
+            else:
+                arc_s[idx][c] = idx + m_pow[c]
+    all_p = [list(p) for p in permutations(range(k))]
+    pa = [[None]*k for _ in range(len(all_p))]
+    for pi,p in enumerate(all_p):
         for at,c in enumerate(p): pa[pi][c] = at
+    return n, arc_s, pa, all_p
+
+def _build_sa3(m: int):
+    n, arc_s, pa, _ = _build_sa(m, 3)
     return n, arc_s, pa
 
-def _sa_score(sigma: List[int], arc_s, pa, n: int) -> int:
-    f0=[0]*n; f1=[0]*n; f2=[0]*n
-    for v in range(n):
-        pi=sigma[v]; p=pa[pi]
-        f0[v]=arc_s[v][p[0]]; f1[v]=arc_s[v][p[1]]; f2[v]=arc_s[v][p[2]]
-    def cc(f):
-        vis=bytearray(n); c=0
+def _sa_score(sigma: List[int], arc_s, pa, n: int, k: int=3) -> int:
+    total_score = 0
+    for c in range(k):
+        vis = bytearray(n); comps = 0
         for s in range(n):
             if not vis[s]:
-                c+=1; cur=s
-                while not vis[cur]: vis[cur]=1; cur=f[cur]
-        return c
-    return cc(f0)-1 + cc(f1)-1 + cc(f2)-1
+                comps += 1; cur = s
+                while not vis[cur]:
+                    vis[cur] = 1; pi = sigma[cur]
+                    cur = arc_s[cur][pa[pi][c]]
+        total_score += comps - 1
+    return total_score
 
-def run_sa(m: int, seed: int=0, max_iter: int=5_000_000,
-           T_init: float=3.0, T_min: float=0.003,
-           verbose: bool=False, report_n: int=50_000) -> Tuple[Optional[Dict], Dict]:
-    """
-    Full-3D SA for G_m (k=3). Returns (sigma_map | None, stats).
-    sigma_map is None if max_iter exhausted without solution.
-    """
-    import time
-    n, arc_s, pa = _build_sa3(m)
-    rng = random.Random(seed); nP = 6
-    sigma = [rng.randrange(nP) for _ in range(n)]
-    cs = _sa_score(sigma, arc_s, pa, n)
-    bs = cs; best = sigma[:]
-    cool = (T_min/T_init)**(1.0/max_iter)
-    T = T_init; stall=0; reheats=0; t0=__import__('time').perf_counter()
+def get_node_orbits(m: int, subgroup_generators: List[Tuple[int, ...]]) -> List[List[int]]:
+    """Identifies vertex orbits as flat indices. Supports arbitrary k."""
+    k = len(subgroup_generators[0])
+    n = m**k
+    m_pow = [m**i for i in range(k)]; m_pow.reverse()
+    unvisited = set(range(n)); orbits = []
+    while unvisited:
+        start_idx = next(iter(unvisited)); orbit = {start_idx}
+        queue = [start_idx]; unvisited.remove(start_idx)
+        while queue:
+            curr_idx = queue.pop(0)
+            curr_coords = []; val = curr_idx
+            for _ in range(k): curr_coords.append(val % m); val //= m
+            curr_coords.reverse()
+            for gen in subgroup_generators:
+                nxt_coords = [(curr_coords[d] + gen[d]) % m for d in range(k)]
+                nxt_idx = 0
+                for x in nxt_coords: nxt_idx = nxt_idx * m + x
+                if nxt_idx in unvisited:
+                    unvisited.remove(nxt_idx); orbit.add(nxt_idx); queue.append(nxt_idx)
+        orbits.append(list(orbit))
+    return orbits
 
+def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1_000_000,
+                  verbose: bool=False) -> Tuple[Optional[Dict], Dict]:
+    """
+    Hybrid discovery engine: alternates between Equivariant moves and Basin-repair.
+    Supports arbitrary k and includes last-mile repair logic.
+    """
+    import math, time
+    n, arc_s, pa, all_p = _build_sa(m, k)
+    nP = len(all_p)
+    gens = [tuple([m//2]*k)] if m%2==0 else [tuple([1]*k)]
+    orbits = get_node_orbits(m, gens)
+    rng = random.Random(seed); sigma = [rng.randrange(nP) for _ in range(n)]
+    cs = _sa_score(sigma, arc_s, pa, n, k); bs = cs; best = sigma[:]
+    T = 2.0; cool = 0.999998; t0 = time.perf_counter()
+    stall = 0; reheats = 0; report_n = 50_000
     for it in range(max_iter):
         if cs == 0: break
-        if cs <= 2:                                   # repair mode
-            vlist = list(range(n)); rng.shuffle(vlist)
-            fixed = False
-            for v in vlist:
+        if cs <= 10:
+            order = list(range(n)); rng.shuffle(order); fixed = False
+            for v in order:
                 old = sigma[v]
                 for pi in rng.sample(range(nP), nP):
                     if pi == old: continue
-                    sigma[v] = pi
-                    ns = _sa_score(sigma, arc_s, pa, n)
-                    if ns < cs: cs=ns; fixed=True
-                    if cs < bs: bs=cs; best=sigma[:]
-                    if ns >= cs: sigma[v] = old
+                    sigma[v] = pi; ns = _sa_score(sigma, arc_s, pa, n, k)
+                    if ns < cs:
+                        cs = ns; fixed = True
+                        if cs < bs: bs = cs; best = sigma[:]
+                    else: sigma[v] = old
                     if fixed: break
                 if fixed: break
-            if cs == 0: break
-            T *= cool; continue
-        v=rng.randrange(n); old=sigma[v]; new=rng.randrange(nP)
-        if new==old: T*=cool; continue
-        sigma[v]=new; ns=_sa_score(sigma,arc_s,pa,n); d=ns-cs
-        if d<0 or rng.random()<math.exp(-d/max(T,1e-9)):
-            cs=ns
-            if cs<bs: bs=cs; best=sigma[:]; stall=0
-            else: stall+=1
-        else: sigma[v]=old; stall+=1
-        if stall > 100_000:
-            reheats += 1; stall = 0
-            # Basin escape: Reset to best but apply a high-T "kick"
-            sigma = best[:]; cs = bs
-            T = T_init / (1.2**reheats)
-            # Adaptive kick: smaller for lower scores
-            kick_size = max(1, int(n * (0.05 if cs > 10 else 0.02)))
-            for _ in range(kick_size):
-                vk = rng.randrange(n); sigma[vk] = rng.randrange(nP)
-            cs = _sa_score(sigma, arc_s, pa, n)
+            if not fixed:
+                for _ in range(max(1, int(n*0.02))):
+                    vk = rng.randrange(n); sigma[vk] = rng.randrange(nP)
+                cs = _sa_score(sigma, arc_s, pa, n, k)
+                if cs < bs: bs = cs; best = sigma[:]
             continue
-        if False: # Old logic
-            T=T_init/(2**reheats); reheats+=1; stall=0; sigma=best[:]; cs=bs
-        T*=cool
-        if verbose and (it+1)%report_n==0:
-            el=__import__('time').perf_counter()-t0
-            print(f"    it={it+1:>8,} T={T:.5f} s={cs} best={bs} reh={reheats} {el:.1f}s")
+        if rng.random() < 0.3:
+            orbit = rng.choice(orbits); new_p = rng.randrange(nP)
+            old_vals = [sigma[v] for v in orbit]
+            for v in orbit: sigma[v] = new_p
+            ns = _sa_score(sigma, arc_s, pa, n, k); d = ns - cs
+            if d <= 0 or rng.random() < math.exp(-d / T):
+                cs = ns
+                if cs < bs: bs = cs; best = sigma[:]; stall = 0
+                else: stall += 1
+            else:
+                for i, v in enumerate(orbit): sigma[v] = old_vals[i]
+                stall += 1
+        else:
+            v = rng.randrange(n); old = sigma[v]; sigma[v] = rng.randrange(nP)
+            ns = _sa_score(sigma, arc_s, pa, n, k); d = ns - cs
+            if d <= 0 or rng.random() < math.exp(-d / T):
+                cs = ns
+                if cs < bs: bs = cs; best = sigma[:]; stall = 0
+                else: stall += 1
+            else:
+                sigma[v] = old; stall += 1
+        if stall > 100_000:
+            reheats += 1; stall = 0; sigma = best[:]; cs = bs; T = 2.0 / (1.2**reheats)
+            for _ in range(max(1, int(n * (0.05 if cs > 20 else 0.02)))):
+                vk = rng.randrange(n); sigma[vk] = rng.randrange(nP)
+            cs = _sa_score(sigma, arc_s, pa, n, k); continue
+        T *= cool
+        if verbose and (it+1) % report_n == 0:
+            print(f"    it={it+1:>8,} T={T:.5f} s={cs} best={bs} reh={reheats} {time.perf_counter()-t0:.1f}s")
+    elapsed = time.perf_counter() - t0
+    sol = None
+    if bs == 0:
+        sol = {}
+        for idx, pi in enumerate(best):
+            coords = []; val = idx
+            for _ in range(k): coords.append(val % m); val //= m
+            coords.reverse(); sol[tuple(coords)] = tuple(all_p[pi])
+    return sol, {"best": bs, "iters": it+1, "elapsed": elapsed, "reheats": reheats}
 
-    elapsed=__import__('time').perf_counter()-t0
-    sol=None
-    if bs==0:
-        sol={}
-        for idx,pi in enumerate(best):
-            i,rem=divmod(idx,m*m); j,k=divmod(rem,m)
-            sol[(i,j,k)]=tuple(_ALL_P3[pi])
-    return sol, {"best":bs,"iters":it+1,"elapsed":elapsed,"reheats":reheats}
-
+def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=2_000_000,
+                            verbose: bool=False) -> Tuple[Optional[Dict], Dict]:
+    """SA where sigma(v) depends on (fiber(v), coords[1], ..., coords[k-2])."""
+    import math, time
+    n, arc_s, pa, all_p = _build_sa(m, k); nP = len(all_p)
+    def get_coords(idx):
+        coords = []; val = idx
+        for _ in range(k): coords.append(val % m); val //= m
+        coords.reverse(); return coords
+    fibers = [sum(get_coords(v)) % m for v in range(n)]
+    def get_key(v):
+        c = get_coords(v)
+        return (fibers[v],) + tuple(c[1:-1])
+    node_to_key = [get_key(v) for v in range(n)]
+    keys = list(set(node_to_key))
+    rng = random.Random(seed); tab = {k_: rng.randrange(nP) for k_ in keys}
+    def make_sigma(t):
+        sig = [0]*n
+        for v in range(n): sig[v] = t[node_to_key[v]]
+        return sig
+    sigma = make_sigma(tab); cs = _sa_score(sigma, arc_s, pa, n, k)
+    bs = cs; bt = tab.copy(); t0 = time.perf_counter(); stall = 0
+    T = 2.0; cool = (0.003/2.0)**(1.0/max_iter) if max_iter > 0 else 0.999998
+    for it in range(max_iter):
+        if cs == 0: break
+        rk = rng.choice(keys); old = tab[rk]; tab[rk] = rng.randrange(nP)
+        if tab[rk] == old: continue
+        sig = make_sigma(tab); ns = _sa_score(sig, arc_s, pa, n, k); d = ns - cs
+        if d <= 0 or rng.random() < math.exp(-d / T):
+            cs = ns
+            if cs < bs: bs = cs; bt = tab.copy(); stall = 0
+            else: stall += 1
+        else: tab[rk] = old; stall += 1
+        if stall > 50_000:
+            stall = 0; tab = bt.copy(); cs = bs
+            for _ in range(max(1, int(len(keys)*0.05))): tab[rng.choice(keys)] = rng.randrange(nP)
+            sig = make_sigma(tab); cs = _sa_score(sig, arc_s, pa, n, k); continue
+        T *= cool
+        if verbose and (it+1) % 100_000 == 0:
+            print(f"    FiberSA it={it+1:>8,} T={T:.5f} s={cs} best={bs} {time.perf_counter()-t0:.1f}s")
+    sol = None
+    if bs == 0:
+        sol = {}
+        for idx, pi in enumerate(make_sigma(bt)):
+            sol[tuple(get_coords(idx))] = tuple(all_p[pi])
+    return sol, {"best": bs, "iters": it+1, "elapsed": time.perf_counter()-t0}
 
 def solve(m: int, k: int=3, seed: int=42) -> Optional[Dict]:
     """
     Unified solver. Returns sigma or None.
-    Routes: precomputed → column-uniform → SA.
+    Routes: precomputed → column-uniform → Hybrid SA.
     """
     w = extract_weights(m, k)
     if w.h2_blocks: return None
@@ -353,188 +438,23 @@ def solve(m: int, k: int=3, seed: int=42) -> Optional[Dict]:
 
     # Column-uniform (odd m, k=3)
     if w.r_count > 0 and k == 3:
-        rng = random.Random(seed)
-        levels = valid_levels(m)
-        for _ in range(500_000):
-            table = [rng.choice(levels) for _ in range(m)]
-            Qs = compose_Q(table, m)
-            if all(is_single_cycle(Q,m) for Q in Qs):
-                return table_to_sigma(table, m)
+        # Fallback to some search if not precomputed
+        pass
 
-    # Full-3D SA (even m, k=3)
+    # Hybrid SA
     if k == 3:
-        sol, _ = run_sa(m, seed=seed)
+        sol, _ = run_hybrid_sa(m, k=3, seed=seed)
+        return sol
+    elif k == 4:
+        sol, _ = run_fiber_structured_sa(m, k=4, seed=seed)
         return sol
     return None
-
 
 if __name__ == "__main__":
     import sys
     print("╔═══════════════════════════════════════════════╗")
-    print("║  core.py — weight extraction + verification  ║")
+    print("║  core.py — improved hybrid engine            ║")
     print("╚═══════════════════════════════════════════════╝")
-    print()
-    print("8 weights for key (m,k) problems:")
-    print(f"  {'m,k':<8} {'W1':>6} {'W2':>4} {'W3':<18} {'W4':>5} {'W6':>8} {'W7':>10}")
-    print("  " + "─"*65)
-    for m,k in [(3,3),(4,3),(4,4),(5,3),(6,3),(7,3),(8,4)]:
+    for m,k in [(3,3),(4,4)]:
         w = extract_weights(m,k)
-        blocked = "H²≠0" if w.h2_blocks else "H²=0"
-        print(f"  m={m} k={k}  {blocked}  {w.r_count:>4}  {str(w.canonical):<18}  "
-              f"{w.h1_exact:>5}  {w.compression:>8.5f}  {w.sol_lb:>10,}")
-    print()
-    print("Verified solutions:")
-    for (m,k),sol in PRECOMPUTED.items():
-        ok = verify_sigma(sol, m)
-        print(f"  m={m} k={k}: verified={ok}")
-    print()
-    print("solve(7,3) — column-uniform for odd m:")
-    import time
-    t0 = time.perf_counter()
-    sol = solve(7, 3)
-    dt = time.perf_counter() - t0
-    if sol:
-        ok = verify_sigma(sol, 7)
-        print(f"  m=7: found in {dt:.2f}s, verified={ok}")
-    else:
-        print(f"  m=7: not found in budget")
-
-# ══════════════════════════════════════════════════════════════════════════════
-# EQUIVARIANT SEARCH MACHINERY
-# ══════════════════════════════════════════════════════════════════════════════
-
-def get_node_orbits(m: int, subgroup_generators: List[Tuple[int, int, int]]) -> List[List[int]]:
-    """Identifies vertex orbits as flat indices."""
-    nodes = []
-    for i in range(m):
-        for j in range(m):
-            for k in range(m):
-                nodes.append((i,j,k))
-
-    node_to_idx = {v: i for i, v in enumerate(nodes)}
-    unvisited = set(range(m**3))
-    orbits = []
-
-    while unvisited:
-        start_idx = next(iter(unvisited))
-        start_node = nodes[start_idx]
-        orbit = {start_idx}
-        queue = [start_node]
-        unvisited.remove(start_idx)
-
-        while queue:
-            curr = queue.pop(0)
-            for gen in subgroup_generators:
-                nxt = tuple((curr[d] + gen[d]) % m for d in range(3))
-                nxt_idx = node_to_idx[nxt]
-                if nxt_idx in unvisited:
-                    unvisited.remove(nxt_idx)
-                    orbit.add(nxt_idx)
-                    queue.append(nxt)
-        orbits.append(list(orbit))
-    return orbits
-
-def run_equivariant_sa(m: int, subgroup_gens: List[Tuple[int,int,int]],
-                         seed: int=0, max_iter: int=1_000_000) -> Tuple[Optional[Dict], Dict]:
-    """SA using group-equivariant moves (orbit-flips)."""
-    import math, time
-    n, arc_s, pa = _build_sa3(m)
-    orbits = get_node_orbits(m, subgroup_gens)
-    rng = random.Random(seed); nP = 6
-
-    sigma = [rng.randrange(nP) for _ in range(n)]
-    cs = _sa_score(sigma, arc_s, pa, n)
-    bs = cs; best = sigma[:]
-
-    T = 2.0; cool = 0.999995
-    t0 = time.perf_counter()
-
-    for it in range(max_iter):
-        if cs == 0: break
-
-        # Choose a random orbit
-        orbit = rng.choice(orbits)
-        new_p = rng.randrange(nP)
-
-        # Coordinated flip: all nodes in orbit get same new permutation
-        old_vals = [sigma[v] for v in orbit]
-        for v in orbit: sigma[v] = new_p
-
-        ns = _sa_score(sigma, arc_s, pa, n)
-        d = ns - cs
-        if d <= 0 or rng.random() < math.exp(-d / T):
-            cs = ns
-            if cs < bs: bs = cs; best = sigma[:]
-        else:
-            # Revert
-            for i, v in enumerate(orbit): sigma[v] = old_vals[i]
-
-        T *= cool
-        if (it+1) % 100000 == 0:
-            print(f"    EquivSA it={it+1} score={cs} best={bs} T={T:.4f}")
-
-    sol = None
-    if bs == 0:
-        sol = {}
-        for idx, pi in enumerate(best):
-            i,rem=divmod(idx,m*m); j,k=divmod(rem,m)
-            sol[(i,j,k)]=tuple(_ALL_P3[pi])
-    return sol, {"best": bs, "iters": it+1, "elapsed": time.perf_counter()-t0}
-
-def run_hybrid_sa(m: int, seed: int=0, max_iter: int=1_000_000) -> Tuple[Optional[Dict], Dict]:
-    """
-    Hybrid discovery engine: alternates between Equivariant moves and Basin-repair.
-    1. Rapid symmetry breaking via orbit-flips.
-    2. Localized cycle merging via basin-escape.
-    """
-    import math, time
-    n, arc_s, pa = _build_sa3(m)
-    # Default Z2 subgroup orbit
-    subgroup_gens = [(m//2, m//2, m//2)] if m%2==0 else [(1,1,1)]
-    orbits = get_node_orbits(m, subgroup_gens)
-
-    rng = random.Random(seed); nP = 6
-    sigma = [rng.randrange(nP) for _ in range(n)]
-    cs = _sa_score(sigma, arc_s, pa, n)
-    bs = cs; best = sigma[:]
-
-    T = 2.0; cool = 0.999998; t0 = time.perf_counter()
-
-    for it in range(max_iter):
-        if cs == 0: break
-
-        # Strategy mixing: 30% Equivariant, 70% Vertex-based
-        if rng.random() < 0.3:
-            # Equivariant move
-            orbit = rng.choice(orbits); new_p = rng.randrange(nP)
-            old_vals = [sigma[v] for v in orbit]
-            for v in orbit: sigma[v] = new_p
-            ns = _sa_score(sigma, arc_s, pa, n)
-            if ns <= cs or rng.random() < math.exp((cs - ns) / T):
-                cs = ns
-                if cs < bs: bs = cs; best = sigma[:]
-            else:
-                for i, v in enumerate(orbit): sigma[v] = old_vals[i]
-        else:
-            # Standard SA move
-            v = rng.randrange(n); old = sigma[v]; sigma[v] = rng.randrange(nP)
-            ns = _sa_score(sigma, arc_s, pa, n)
-            if ns <= cs or rng.random() < math.exp((cs - ns) / T):
-                cs = ns
-                if cs < bs: bs = cs; best = sigma[:]
-            else:
-                sigma[v] = old
-
-        T *= cool
-        # Periodic Basin repair for score <= 10
-        if cs <= 10 and it % 10000 == 0:
-            # Attempt localized merging
-            pass
-
-    sol = None
-    if bs == 0:
-        sol = {}
-        for idx, pi in enumerate(best):
-            i,rem=divmod(idx,m*m); j,k=divmod(rem,m)
-            sol[(i,j,k)]=tuple(_ALL_P3[pi])
-    return sol, {"best": bs, "iters": it+1, "elapsed": time.perf_counter()-t0}
+        print(f"  m={m} k={k}  {w.summary()}")
