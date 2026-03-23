@@ -89,12 +89,24 @@ Routes: precomputed → column-uniform → Hybrid SA.
 ## engine.py
 No description.
 
+### `class Domain`
+No description.
+
+#### `def Domain.__init__(self, name, n, k, m, fiber_map, tags, precomputed, group, notes)`
+No description.
+
 ### `class Engine`
 The Global Structure Engine provides a unified interface for classifying
 and solving combinatorial problems using the Short Exact Sequence framework.
 
+#### `def Engine.register(self, domain)`
+No description.
+
+#### `def Engine.print_results(self)`
+No description.
+
 #### `def Engine.__init__(self)`
-Initializes the discovery engine.
+No description.
 
 #### `def Engine.run(self, m, k, strategy)`
 Runs the classification and optional search for a problem (m, k).
@@ -403,8 +415,11 @@ No description.
 ### `def build_decomposition_category()`
 No description.
 
+### `def _load_heisenberg(engine)`
+No description.
+
 ### `def load_all_domains(engine)`
-Load every domain into an engine instance.
+No description.
 
 ### `def _load_cycles(engine)`
 No description.

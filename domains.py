@@ -129,7 +129,24 @@ def build_decomposition_category():
     cat.add_morphism("Cycles G_4 k=3","S_3 Cayley k=2","non-abelian lift","G/H=Z_2, same law")
     return cat
 
+
+def _load_heisenberg(engine) -> None:
+    from engine import Domain
+    for m in [3, 4, 6]:
+        for k in [3, 4]:
+            from core import extract_weights
+            w = extract_weights(m, k)
+            h2 = w.h2_blocks
+            status = " [OBSTRUCTED]" if h2 else ""
+            engine.register(Domain(
+                f"Heisenberg H3(Z{m}) k={k}{status}", m**3, k, m,
+                f"c-coordinate mod {m}", ["heisenberg", "nonabelian"],
+                notes=f"m={m}, k={k}. Central extension 0->Zm->H->Zm^2->0. "
+                      f"Parity gamma2={'blocks' if h2 else 'vanishes'}."
+            ))
+
 def load_all_domains(engine) -> None:
+    _load_heisenberg(engine)
     """Load every domain into an engine instance."""
     _load_cycles(engine)
     _load_classical(engine)

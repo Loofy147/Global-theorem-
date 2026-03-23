@@ -3,12 +3,27 @@ from typing import Dict, List, Optional, Tuple, Any, Callable
 from core import extract_weights, verify_sigma, PRECOMPUTED, solve, run_hybrid_sa
 from algebraic import get_algebraic_proof, parse_domain, export_lean_proof
 
+class Domain:
+    def __init__(self, name, n, k, m, fiber_map, tags, precomputed=None, group="", notes=""):
+        self.name=name; self.n=n; self.k=k; self.m=m; self.fiber_map=fiber_map
+        self.tags=tags; self.precomputed=precomputed; self.group=group; self.notes=notes
+
+
 class Engine:
     """
     The Global Structure Engine provides a unified interface for classifying
     and solving combinatorial problems using the Short Exact Sequence framework.
     """
+    def register(self, domain: Domain):
+        self.registry.append(domain)
+
+    def print_results(self):
+        print(f'\n--- Engine Registry: {len(self.registry)} Domains ---')
+        for d in self.registry:
+            print(f'  {d.name:<40} (n={d.n}, k={d.k}, m={d.m})')
+
     def __init__(self):
+        self.registry = []
         """Initializes the discovery engine."""
         pass
 
