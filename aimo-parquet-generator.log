@@ -1,0 +1,21 @@
+[{"stream_name":"stdout","time":2.6722049119999998,"data":"Generating Parquet files for AIMO...\n"}
+,{"stream_name":"stdout","time":2.814076122,"data":"Saved submission.parquet\n"}
+,{"stream_name":"stdout","time":2.815716516,"data":"Saved reccuring.parquet\n"}
+,{"stream_name":"stdout","time":4.094679475,"data":"Running via AIMO 3 Gateway API...\n"}
+,{"stream_name":"stderr","time":4.094784685,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":4.094824258,"data":"  File \"/kaggle/src/script.py\", line 51, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":4.094830931,"data":"    generate_parquet()\n"}
+,{"stream_name":"stderr","time":4.094836765,"data":"  File \"/kaggle/src/script.py\", line 41, in generate_parquet\n"}
+,{"stream_name":"stderr","time":4.094931259,"data":"    for test, sample_submission in gateway.generate_data_batches():\n"}
+,{"stream_name":"stderr","time":4.095060753,"data":"                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":4.095138919,"data":"  File \"/kaggle/input/competitions/ai-mathematical-olympiad-progress-prize-3/kaggle_evaluation/aimo_3_gateway.py\", line 38, in generate_data_batches\n"}
+,{"stream_name":"stderr","time":4.095906944,"data":"    test = pl.read_csv(self.test_path)\n"}
+,{"stream_name":"stderr","time":4.095928101,"data":"                       ^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":4.095961281,"data":"AttributeError: 'AIMO3Gateway' object has no attribute 'test_path'\n"}
+,{"stream_name":"stderr","time":6.981704773,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":6.981749131,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":7.34614741,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":7.346184712,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":9.013495744,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":10.64914991,"data":"[NbConvertApp] Writing 278582 bytes to __results__.html\n"}
+]

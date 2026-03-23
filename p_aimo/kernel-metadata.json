@@ -1,7 +1,7 @@
 {
-  "id": "hichambedrani/ses-aimo-submission",
-  "title": "SES AIMO Submission",
-  "code_file": "kaggle_aimo_submission.py",
+  "id": "hichambedrani/aimo-parquet-generator",
+  "title": "AIMO Parquet Generator",
+  "code_file": "aimo_parquet_generator.py",
   "language": "python",
   "kernel_type": "script",
   "is_private": "false",

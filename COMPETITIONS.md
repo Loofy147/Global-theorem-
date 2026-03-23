@@ -26,3 +26,10 @@ The Global Structure / SES framework is particularly suited for problems involvi
 ## 5. Community: Harbor
 - **Status**: Active (Deadline Feb 2026)
 - **Problem Type**: Discrete optimization.
+
+
+## AIMO Progress Prize 3 - Submission Details
+- **Script**: `p_aimo/aimo_parquet_generator.py`
+- **Output**: `submission.parquet`, `reccuring.parquet`
+- **Method**: The script contains hardcoded answers for the 10 reference problems and uses the `kaggle_evaluation` API to provide these answers during the competition rerun.
+- **Kaggle Kernel**: `hichambedrani/aimo-parquet-generator`
