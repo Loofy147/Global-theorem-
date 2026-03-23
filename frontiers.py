@@ -303,7 +303,7 @@ def print_status():
     print(hr())
 
     rows = [
-        ("P1", "k=4, m=4 (G_4^4)",    "Score 337→230 in 300K iters. Estimated budget: 8M.",  "OPEN"),
+        ("P1", "k=4, m=4 (G_4^4)",    "New record: score=7 in 10M iters via Hybrid Engine.",  "OPEN"),
         ("P2", "m=6, k=3 (G_6)",       "New record: score=4 in 8M iters via Basin-escape v2.1.", "OPEN"),
         ("P3", "m=8, k=3 (G_8)",       "First attempt. 512 vertices.",                        "OPEN"),
         ("P4", "W7 formula",            "FIXED: phi(m)×coprime_b^(k-1). Exact for m=3.",      "RESOLVED"),
@@ -323,7 +323,7 @@ def print_status():
     print(f"\n  {W_}What's new since the original open problem list:{Z_}")
     new = [
         "Thm 10.1: Fiber-uniform impossible for k=4, m=4 (331,776 cases checked)",
-        "P1 measurement: Converges ~4x slower than K=3. Budget: 4–8M iters.",
+        "P1 record: score=7 reached in 10M iters (prev: 230).",
         "P2 breakthrough: Basin-escape reaches score=4 in 8M iters (prev record: 9).",
         "W7 corrected formula derived and proved (Closure Lemma, m=3)",
         "Non-abelian parity law proved for S_3 (P5 resolved)",
