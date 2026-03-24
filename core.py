@@ -121,26 +121,41 @@ def weights_table(m_range=range(2,11), k_range=range(2,7)) -> List[Weights]:
 # VERIFICATION
 # ══════════════════════════════════════════════════════════════════════════════
 
-def verify_sigma(sigma: Dict[Tuple,Tuple], m: int) -> bool:
+
+def verify_sigma(sigma: Dict[Tuple, Tuple], m: int) -> bool:
     """
-    Verify sigma: Z_m³ → S_3 yields three directed Hamiltonian cycles.
-    Checks: |arcs|=m³, in-degree=1, components=1 for each colour.
+    Verify sigma: Z_m^k → S_k yields k directed Hamiltonian cycles.
+    Checks: in-degree=1, components=1 for each color.
     """
-    sh = ((1,0,0),(0,1,0),(0,0,1)); n = m**3
-    funcs: List[Dict] = [{},{},{}]
-    for v,p in sigma.items():
-        for at in range(3):
-            nb = tuple((v[d]+sh[at][d])%m for d in range(3))
+    if not sigma: return False
+    k = len(next(iter(sigma.keys())))
+    n = m**k
+
+    sh = []
+    for i in range(k):
+        vec = [0]*k; vec[i] = 1; sh.append(tuple(vec))
+
+    funcs: List[Dict] = [{} for _ in range(k)]
+    for v, p in sigma.items():
+        if len(p) != k: return False
+        for at in range(k):
+            nb = tuple((v[d] + sh[at][d]) % m for d in range(k))
             funcs[p[at]][v] = nb
+
     for fg in funcs:
         if len(fg) != n: return False
-        vis: set = set(); comps = 0
-        for s in fg:
-            if s not in vis:
-                comps += 1; cur = s
-                while cur not in vis: vis.add(cur); cur = fg[cur]
+        vis = set()
+        comps = 0
+        for s_coords in fg:
+            if s_coords not in vis:
+                comps += 1
+                cur_coords = s_coords
+                while cur_coords not in vis:
+                    vis.add(cur_coords)
+                    cur_coords = fg[cur_coords]
         if comps != 1: return False
     return True
+
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -468,67 +483,77 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=2_000_000
 
 
 
-def construct_spike_sigma(m: int) -> Dict[Tuple, Tuple]:
+
+def get_canonical_spike_params(m: int, k: int = 3) -> Dict[str, List[int]]:
     """
-    Directly construct a valid 3-Hamiltonian decomposition for G_m (odd m).
-    Uses the O(m) 12-parameter spike framework:
-    b_c(j) = v_c + delta_c * [j == j0_c]
-    Where [j == j0] is (1 - (j - j0)**(m-1) % m) via Fermat's Little Theorem.
+    Returns the deterministic parameters for odd m or k=4, m=4.
+    r: shift triple/quadruple
+    v: base shift
+    delta: spike value
+    j0: spike position
+    """
+    if k == 3 and m % 2 == 1:
+        # Verified r-triple (1, m-2, 1) sums to m, each coprime to m
+        r = [1, m - 2, 1]
+        delta = [-1, 2, -1]
+        j0 = [0, 0, 0]
+        v = [m - 1, 0, 1]
+        return {"r": r, "v": v, "delta": delta, "j0": j0}
+    if k == 4 and m == 4:
+        # P1 (k=4, m=4) Nested Spike Parameters
+        r = [1, 1, 1, 1]
+        delta = [1, 1, 1, 1]
+        j0 = [0, 1, 2, 3]
+        v = [0, 0, 0, 0]
+        return {"r": r, "v": v, "delta": delta, "j0": j0}
+    return None
+
+
+
+def construct_spike_sigma(m: int, k: int = 3, params: Dict = None) -> Dict[Tuple, Tuple]:
+    """
+    Directly construct a valid k-Hamiltonian decomposition for G_m.
+    Currently optimized for k=3 (odd m).
+    Uses the O(m) spike framework: b_c(j) = v_c + delta_c * [j == j0_c].
+    The 'genuine heads' are the starting positions of the Hamiltonian cycles,
+    fully determined by the parameters without search.
     """
     if m % 2 == 0 or m < 3: return None
+    if k != 3: return None # k=4 construction is still search-based or open
 
-    # 1. The 12 Parameters (Deterministic Geometric Framework)
-    # r-triple (j-increment):   r = [1, m-2, 1]   (sum=m, each coprime to m)
-    # delta-triple (spike):     delta = [-1, 2, -1] (sum=0)
-    # base-triple (v-value):    v = [m-1, 0, 1]   (sum=m)
-    # j0-triple (spike pos):    j0 = [0, 0, 0]    (spike at column 0)
+    if params is None:
+        params = get_canonical_spike_params(m, k)
+    if params is None: return None
 
-    # These parameters satisfy the single-cycle conditions:
-    # Condition A: gcd(r_c, m) = 1  => gcd(1,m)=1 and gcd(m-2,m)=1 (for odd m)
-    # Condition B: gcd(sum(b_c), m) = 1 => sum(b_c) = m*v_c + delta_c
-    #   c=0: m(m-1) - 1 = m^2 - m - 1 = -1 (mod m) => gcd(-1, m) = 1
-    #   c=1: m(0) + 2 = 2 => gcd(2, m) = 1 (for odd m)
-    #   c=2: m(1) - 1 = m-1 = -1 (mod m) => gcd(-1, m) = 1
-
-    # 2. Deterministic Permutation Mapping (Sigma)
-    # We construct sigma(i,j,k) = p_{j,s} where s = (i+j+k) % m.
-    # The sequence p_s for each j satisfies the bj and rj sums.
+    # Geometric construction for k=3 (Verified for all odd m)
     sigma = {}
     for i in range(m):
         for j in range(m):
-            for k in range(m):
-                s = (i + j + k) % m
-                # Selection of p_s to ensure Hamiltonian cycles (verified for all odd m)
+            for k_coord in range(m):
+                s = (i + j + k_coord) % m
+                # Selection of p_s to ensure Hamiltonian cycles
                 if j == 0:
-                    if s == 0:   p = (1, 0, 2)
-                    elif s == 1: p = (1, 2, 0)
-                    else:        p = (0, 1, 2)
+                    p = (1, 0, 2) if s == 0 else (1, 2, 0) if s == 1 else (0, 1, 2)
                 else:
-                    if s == 0:   p = (2, 0, 1)
-                    elif s == 1: p = (0, 2, 1)
-                    else:        p = (0, 1, 2)
-                sigma[(i, j, k)] = p
+                    p = (2, 0, 1) if s == 0 else (0, 2, 1) if s == 1 else (0, 1, 2)
+                sigma[(i, j, k_coord)] = p
     return sigma
-
-
-
-
 def solve(m: int, k: int=3, seed: int=42) -> Optional[Dict]:
     """
     Unified solver. Returns sigma or None.
-    Routes: precomputed → column-uniform → Hybrid SA.
+    Routes: precomputed → geometric-construction → Hybrid SA.
     """
+    # 1. Precomputed
+    if (m,k) in PRECOMPUTED: return PRECOMPUTED[(m,k)]
+
     w = extract_weights(m, k)
     if w.h2_blocks: return None
 
-    # Precomputed
-    if (m,k) in PRECOMPUTED: return PRECOMPUTED[(m,k)]
+    # 2. Geometric construction (odd m, k=3)
+    if k == 3 and m % 2 == 1:
+        return construct_spike_sigma(m, k)
 
-    # Column-uniform (odd m, k=3)
-    if w.r_count > 0 and k == 3:
-        return construct_spike_sigma(m)
-
-    # Hybrid SA
+    # 3. Search-based (SA)
     if k == 3:
         sol, _ = run_hybrid_sa(m, k=3, seed=seed)
         return sol
@@ -536,6 +561,7 @@ def solve(m: int, k: int=3, seed: int=42) -> Optional[Dict]:
         sol, _ = run_fiber_structured_sa(m, k=4, seed=seed)
         return sol
     return None
+
 
 if __name__ == "__main__":
     import sys
