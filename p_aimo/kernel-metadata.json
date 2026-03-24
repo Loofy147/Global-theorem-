@@ -1,0 +1,14 @@
+{
+  "id": "hichambedrani/aimo-parquet-generator",
+  "title": "AIMO Parquet Generator",
+  "code_file": "aimo_parquet_generator.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "false",
+  "enable_gpu": "false",
+  "enable_internet": "false",
+  "dataset_sources": [],
+  "competition_sources": ["ai-mathematical-olympiad-progress-prize-3"],
+  "kernel_sources": [],
+  "model_sources": []
+}

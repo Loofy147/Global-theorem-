@@ -303,9 +303,9 @@ def print_status():
     print(hr())
 
     rows = [
-        ("P1", "k=4, m=4 (G_4^4)",    "New record: score=7 in 10M iters via Hybrid Engine.",  "OPEN"),
+        ("P1", "k=4, m=4 (G_4^4)",    "New record: score=7 (v2.1). v2.2 reached score 15 for m=8.",  "OPEN"),
         ("P2", "m=6, k=3 (G_6)",       "New record: score=4 in 8M iters via Basin-escape v2.1.", "OPEN"),
-        ("P3", "m=8, k=3 (G_8)",       "First attempt. 512 vertices.",                        "OPEN"),
+        ("P3", "m=8, k=3 (G_8)",       "New record: score=15 in 10M iters (v2.2).",                        "OPEN"),
         ("P4", "W7 formula",            "FIXED: phi(m)×coprime_b^(k-1). Exact for m=3.",      "RESOLVED"),
         ("P5", "Non-abelian S_3",       "PROVED: same parity law. k=2 ok, k=3 blocked.",      "RESOLVED"),
         ("P6", "Product Z_m×Z_n",       "PROVED: fiber quotient=Z_gcd. Framework complete.",  "RESOLVED"),

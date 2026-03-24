@@ -1,6 +1,6 @@
 # Global Structure in Highly Symmetric Systems
 
-**Finding global structure in combinatorial problems via the short exact sequence**  
+**Developing open-source reasoning algorithms to solve Olympiad-level math via global structure via the short exact sequence**
 **0 → H → G → G/H → 0**
 
 Derived from Knuth's *Claude's Cycles* (Feb 2026). Converges on a universal framework governing Cayley digraphs, Latin squares, Hamming codes, magic squares, difference sets, and Pythagorean triples.
@@ -8,6 +8,7 @@ Derived from Knuth's *Claude's Cycles* (Feb 2026). Converges on a universal fram
 ---
 
 ## Repository Structure
+- **AIMO Reasoning**: `research/aimo_reasoning_engine.py`, `research/aimo_solver.py`
 
 - **Core Engine**: `core.py`, `engine.py`, `search.py`, `fiber.py`
 - **Verification**: `theorems.py`, `benchmark.py`

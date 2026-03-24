@@ -320,7 +320,8 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1_000_000,
     stall = 0; reheats = 0; report_n = 50_000
     for it in range(max_iter):
         if cs == 0: break
-        if cs <= 10:
+        if cs <= 12:
+            # Basin Escape v2.2: greedy descent + orbit swaps
             order = list(range(n)); rng.shuffle(order); fixed = False
             for v in order:
                 old = sigma[v]
@@ -334,10 +335,25 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1_000_000,
                     if fixed: break
                 if fixed: break
             if not fixed:
-                for _ in range(max(1, int(n*0.02))):
+                # Try orbit-flip greedy
+                for orbit in rng.sample(orbits, min(len(orbits), 20)):
+                    old_vals = [sigma[v] for v in orbit]
+                    for pi in rng.sample(range(nP), nP):
+                        if all(sigma[v] == pi for v in orbit): continue
+                        for v in orbit: sigma[v] = pi
+                        ns = _sa_score(sigma, arc_s, pa, n, k)
+                        if ns < cs:
+                            cs = ns; fixed = True
+                            if cs < bs: bs = cs; best = sigma[:]
+                        else:
+                            for i, v in enumerate(orbit): sigma[v] = old_vals[i]
+                        if fixed: break
+                    if fixed: break
+            if not fixed:
+                reheats += 1; stall = 0; sigma = best[:]; cs = bs; T = 1.0
+                for _ in range(max(1, int(n * 0.03))):
                     vk = rng.randrange(n); sigma[vk] = rng.randrange(nP)
                 cs = _sa_score(sigma, arc_s, pa, n, k)
-                if cs < bs: bs = cs; best = sigma[:]
             continue
         if rng.random() < 0.3:
             orbit = rng.choice(orbits); new_p = rng.randrange(nP)
@@ -403,6 +419,27 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=2_000_000
     T = 2.0; cool = (0.003/2.0)**(1.0/max_iter) if max_iter > 0 else 0.999998
     for it in range(max_iter):
         if cs == 0: break
+        if cs <= 20:
+            # Basin Escape v2.2 for FiberSA
+            rk_list = list(keys); rng.shuffle(rk_list); fixed = False
+            for rk in rk_list:
+                old = tab[rk]
+                for pi in rng.sample(range(nP), nP):
+                    if pi == old: continue
+                    tab[rk] = pi; sig = make_sigma(tab)
+                    ns = _sa_score(sig, arc_s, pa, n, k)
+                    if ns < cs:
+                        cs = ns; fixed = True
+                        if cs < bs: bs = cs; bt = tab.copy()
+                    else: tab[rk] = old
+                    if fixed: break
+                if fixed: break
+            if not fixed:
+                tab = bt.copy()
+                for _ in range(max(1, int(len(keys)*0.05))): tab[rng.choice(keys)] = rng.randrange(nP)
+                sig = make_sigma(tab); cs = _sa_score(sig, arc_s, pa, n, k)
+            continue
+
         rk = rng.choice(keys); old = tab[rk]; tab[rk] = rng.randrange(nP)
         if tab[rk] == old: continue
         sig = make_sigma(tab); ns = _sa_score(sig, arc_s, pa, n, k); d = ns - cs
