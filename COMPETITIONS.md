@@ -40,3 +40,10 @@ The Global Structure / SES framework is particularly suited for problems involvi
 - **Submission Date**: 2026-03-23
 - **Status**: PENDING (as of Mar 23)
 - **Goal**: Help advance AI models’ mathematical reasoning skills by providing open-source algorithms that discover global structures in LaTeX problems.
+
+
+### AIMO Progress Prize 3 - Final Robust Submission
+- **Command**: `kaggle competitions submit -c ai-mathematical-olympiad-progress-prize-3 -f submission.parquet -k hichambedrani/aimo-parquet-generator -v 18 -m "SES Reasoning Engine v1.2 (Reference 10/10, Robust API)"`
+- **Submission Date**: 2026-03-24
+- **Version**: 18
+- **Fix**: Correctly handles Polars Series input in the synchronous `predict` loop and returns a compliant Polars DataFrame.

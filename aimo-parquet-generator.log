@@ -1,13 +1,14 @@
-[{"stream_name":"stdout","time":4.725188614,"data":"Kaggle Evaluation API found.\n"}
-,{"stream_name":"stdout","time":4.725280516,"data":"Methods in AIMO3InferenceServer: ['__abstractmethods__', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__slots__', '__str__', '__subclasshook__', '__weakref__', '_abc_impl', '_get_gateway_for_test', 'run_local_gateway', 'serve']\n"}
-,{"stream_name":"stdout","time":4.876797053,"data":"Archival Parquet files saved.\n"}
-,{"stream_name":"stdout","time":4.876829345,"data":"Starting AIMO 3 Inference Server...\n"}
-,{"stream_name":"stdout","time":4.959470576,"data":"Calling server.serve()...\n"}
-,{"stream_name":"stdout","time":4.963373035,"data":"server.serve() finished.\n"}
-,{"stream_name":"stderr","time":8.355373759999999,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":8.355456819,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":8.842629268,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":8.842674144,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":10.965860426,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
-,{"stream_name":"stderr","time":12.912632427,"data":"[NbConvertApp] Writing 284246 bytes to __results__.html\n"}
+[{"stream_name":"stdout","time":3.2745097850000002,"data":"AIMO Submission Script Initializing...\n"}
+,{"stream_name":"stdout","time":3.402953666,"data":"Archival files saved (submission.parquet, reccuring.parquet, submission.csv).\n"}
+,{"stream_name":"stdout","time":3.757031314,"data":"Kaggle AIMO 3 Evaluation API detected.\n"}
+,{"stream_name":"stdout","time":3.818194495,"data":"Mode: LOCAL TEST. Running against sample test.csv.\n"}
+,{"stream_name":"stdout","time":5.016763136,"data":"Solving problem: 111bbb\n"}
+,{"stream_name":"stdout","time":5.038853548,"data":"Solving problem: 000aaa\n"}
+,{"stream_name":"stdout","time":5.044301457,"data":"Solving problem: 222ccc\n"}
+,{"stream_name":"stderr","time":7.907397608,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":7.907461275,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":8.241969792,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":8.242000775,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":9.088704633,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":10.630656304,"data":"[NbConvertApp] Writing 282491 bytes to __results__.html\n"}
 ]
