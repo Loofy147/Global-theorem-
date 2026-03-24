@@ -1,14 +1,7 @@
-[{"stream_name":"stdout","time":3.2745097850000002,"data":"AIMO Submission Script Initializing...\n"}
-,{"stream_name":"stdout","time":3.402953666,"data":"Archival files saved (submission.parquet, reccuring.parquet, submission.csv).\n"}
-,{"stream_name":"stdout","time":3.757031314,"data":"Kaggle AIMO 3 Evaluation API detected.\n"}
-,{"stream_name":"stdout","time":3.818194495,"data":"Mode: LOCAL TEST. Running against sample test.csv.\n"}
-,{"stream_name":"stdout","time":5.016763136,"data":"Solving problem: 111bbb\n"}
-,{"stream_name":"stdout","time":5.038853548,"data":"Solving problem: 000aaa\n"}
-,{"stream_name":"stdout","time":5.044301457,"data":"Solving problem: 222ccc\n"}
-,{"stream_name":"stderr","time":7.907397608,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":7.907461275,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":8.241969792,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":8.242000775,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":9.088704633,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
-,{"stream_name":"stderr","time":10.630656304,"data":"[NbConvertApp] Writing 282491 bytes to __results__.html\n"}
+[{"stream_name":"stderr","time":13.893157195,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":13.893268559,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":14.326472467,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":14.326499228,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":15.382570881,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":17.312306814,"data":"[NbConvertApp] Writing 286220 bytes to __results__.html\n"}
 ]
