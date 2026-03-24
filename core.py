@@ -318,11 +318,11 @@ def get_node_orbits(m: int, subgroup_generators: List[Tuple[int, ...]]) -> List[
         orbits.append(list(orbit))
     return orbits
 
-def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1_000_000,
+def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=10_000_000,
                   verbose: bool=False) -> Tuple[Optional[Dict], Dict]:
     """
     Hybrid discovery engine: alternates between Equivariant moves and Basin-repair.
-    Supports arbitrary k and includes last-mile repair logic.
+    Includes Basin Escape v3.0 logic for score <= 15.
     """
     import math, time
     n, arc_s, pa, all_p = _build_sa(m, k)
@@ -331,12 +331,12 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1_000_000,
     orbits = get_node_orbits(m, gens)
     rng = random.Random(seed); sigma = [rng.randrange(nP) for _ in range(n)]
     cs = _sa_score(sigma, arc_s, pa, n, k); bs = cs; best = sigma[:]
-    T = 2.0; cool = 0.999998; t0 = time.perf_counter()
-    stall = 0; reheats = 0; report_n = 50_000
+    T = 2.0; cool = (0.003/2.0)**(1.0/max_iter) if max_iter > 0 else 0.999998
+    t0 = time.perf_counter(); stall = 0; reheats = 0; report_n = 100_000
     for it in range(max_iter):
         if cs == 0: break
-        if cs <= 12:
-            # Basin Escape v2.2: greedy descent + orbit swaps
+        if cs <= 15:
+            # Basin Escape v3.0
             order = list(range(n)); rng.shuffle(order); fixed = False
             for v in order:
                 old = sigma[v]
@@ -350,7 +350,7 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1_000_000,
                     if fixed: break
                 if fixed: break
             if not fixed:
-                # Try orbit-flip greedy
+                # Orbit-flip greedy
                 for orbit in rng.sample(orbits, min(len(orbits), 20)):
                     old_vals = [sigma[v] for v in orbit]
                     for pi in rng.sample(range(nP), nP):
@@ -365,8 +365,27 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1_000_000,
                         if fixed: break
                     if fixed: break
             if not fixed:
+                # Exhaustive 2-vertex swaps
+                v_list = list(range(n)); rng.shuffle(v_list)
+                for i in range(min(n, 50)):
+                    v1 = v_list[i]
+                    for j in range(i+1, min(n, 100)):
+                        v2 = v_list[j]
+                        old1, old2 = sigma[v1], sigma[v2]
+                        for _ in range(10):
+                            pi1, pi2 = rng.randrange(nP), rng.randrange(nP)
+                            sigma[v1], sigma[v2] = pi1, pi2
+                            ns = _sa_score(sigma, arc_s, pa, n, k)
+                            if ns < cs:
+                                cs = ns; fixed = True
+                                if cs < bs: bs = cs; best = sigma[:]
+                                break
+                            else: sigma[v1], sigma[v2] = old1, old2
+                        if fixed: break
+                    if fixed: break
+            if not fixed:
                 reheats += 1; stall = 0; sigma = best[:]; cs = bs; T = 1.0
-                for _ in range(max(1, int(n * 0.03))):
+                for _ in range(max(1, int(n * 0.05))):
                     vk = rng.randrange(n); sigma[vk] = rng.randrange(nP)
                 cs = _sa_score(sigma, arc_s, pa, n, k)
             continue
@@ -408,6 +427,7 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1_000_000,
             for _ in range(k): coords.append(val % m); val //= m
             coords.reverse(); sol[tuple(coords)] = tuple(all_p[pi])
     return sol, {"best": bs, "iters": it+1, "elapsed": elapsed, "reheats": reheats}
+
 
 def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_000,
                             verbose: bool=False) -> Tuple[Optional[Dict], Dict]:
