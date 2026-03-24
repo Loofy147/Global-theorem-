@@ -1,6 +1,6 @@
 {
-  "id": "hichambedrani/claudes-cycles-p1-equiv",
-  "title": "claudes-cycles-p1-equiv",
+  "id": "hichambedrani/claudes-cycles-p1-v3",
+  "title": "claudes-cycles-p1-v3",
   "code_file": "kaggle_search.py",
   "language": "python",
   "kernel_type": "script",
@@ -10,5 +10,5 @@
   "dataset_sources": [],
   "competition_sources": [],
   "kernel_sources": [],
-  "model_sources": []
+  "model_sources": [], "environment_variables": [{"key": "KAGGLE_PROBLEM", "value": "P1"}, {"key": "KAGGLE_M", "value": "4"}, {"key": "KAGGLE_K", "value": "4"}, {"key": "KAGGLE_ENGINE", "value": "fiber"}]
 }
