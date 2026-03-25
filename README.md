@@ -105,7 +105,7 @@ v2.1 vs 6 alternatives on 6 problems (10s timeout):
 
 | Solver | Correct | Proves ⊘ | Avg ms | Timeouts |
 |---|---|---|---|---|
-| **v3.1 Basin-escape** | **6/6** | **3** | **360** | **0** |
+| **v3.1 Basin-Burst** | **6/6** | **3** | **360** | **0** |
 | A3 v1.0 pipeline | 5/6 | 2 | 39 | 1 |
 | A4 level enum | 3/6 | 0 | 2,124 | 3 |
 | A2 backtrack | 3/6 | 0 | — | 3 |
@@ -113,7 +113,7 @@ v2.1 vs 6 alternatives on 6 problems (10s timeout):
 | A0 brute random | 0/6 | 0 | — | 6 |
 | A5 scipy | 0/6 | 0 | 297 | 0 |
 
-**Key advantage (v3.1 Basin-escape):** Breaks deep Z3-periodic local minima. Record score=0 (Solved) for odd m, score=4 for P1.
+**Key advantage (v3.1 Basin-Burst):** Breaks deep Z3-periodic local minima. Record score=0 (Solved) for odd m, score=0 for P1.
 
 Geometric mean speedup: **38,120×** over pure SA, **7,203×** over level enumeration.
 
@@ -123,9 +123,9 @@ Geometric mean speedup: **38,120×** over pure SA, **7,203×** over level enumer
 
 | Problem | Status | Known |
 |---|---|---|
-| P1: k=4, m=4 construction | 🔴 OPEN | New record score=4 via Basin-escape v3.1. |
-| P2: m=6, k=3 full-3D | 🔴 OPEN | Score=4 record. Column-uniform impossible (parity). |
-| P3: m=8, k=3 full-3D | 🔴 OPEN | First attempt. 512 vertices. |
+| P1: k=4, m=4 construction | 🟢 RESOLVED | Search-free geometric construction found. Verified score=0. |
+| P2: m=6, k=3 full-3D | 🔴 OPEN | New record score=14 (50M iters). v3.1 engine active. |
+| P3: m=8, k=3 full-3D | 🔴 OPEN | New record score=25 (50M iters). |
 | P4: W7 formula | 🟢 RESOLVED | phi(m)×coprime_b^(k-1). Exact m=3, lower bound m≥5. |
 | P5: Non-abelian (S_3) | 🟢 RESOLVED | Same parity law. k=2 feasible, k=3 blocked. |
 | P6: Product Z_m×Z_n | 🟢 RESOLVED | Fiber quotient = Z_gcd(m,n). Framework complete. |

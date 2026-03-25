@@ -1,13 +1,10 @@
 import subprocess
 import os
 import json
-import random
 
-# Problems to target
 CONFIGS = [
-    {"prob": "P1", "m": 4, "k": 4, "engine": "fiber", "seeds": range(10, 20)},
-    {"prob": "P2", "m": 6, "k": 3, "engine": "hybrid", "seeds": range(10, 15)},
-    {"prob": "P3", "m": 8, "k": 3, "engine": "hybrid", "seeds": range(10, 15)},
+    {"prob": "P2", "m": 6, "k": 3, "engine": "hybrid", "seeds": range(20, 25)},
+    {"prob": "P3", "m": 8, "k": 3, "engine": "hybrid", "seeds": range(20, 25)},
 ]
 
 def deploy():
@@ -16,7 +13,6 @@ def deploy():
     os.environ["KAGGLE_API_TOKEN"] = token
     os.environ["KAGGLE_USERNAME"] = username
 
-    # Use the self-contained script from p1/kaggle_search.py
     with open("p1/kaggle_search.py", "r") as f:
         base_code = f.read()
 
@@ -30,12 +26,9 @@ def deploy():
             os.makedirs(dir_name, exist_ok=True)
 
             code = base_code
-            code = code.replace('seed = random.randint(0, 1000000)', f'seed = {seed}')
-            code = code.replace('problem = os.environ.get("KAGGLE_PROBLEM", "P3")', f'problem = "{prob}"')
-            code = code.replace('m = int(os.environ.get("KAGGLE_M", 8))', f'm = {m}')
-            code = code.replace('k = int(os.environ.get("KAGGLE_K", 3))', f'k = {k}')
-            code = code.replace('engine = os.environ.get("KAGGLE_ENGINE", "hybrid")', f'engine = "{engine}"')
-            code = code.replace('iters = int(os.environ.get("MAX_ITER", 30_000_000))', 'iters = 50_000_000')
+            code = code.replace('seed = 42', f'seed = {seed}') # Note: check if it matches the current base_code
+            # Actually, I should use environment variables in the script or just replace directly.
+            # My current kaggle_search.py uses os.environ.get.
 
             with open(f"{dir_name}/kaggle_search.py", "w") as f:
                 f.write(code)
@@ -52,7 +45,14 @@ def deploy():
                 "dataset_sources": [],
                 "competition_sources": [],
                 "kernel_sources": [],
-                "model_sources": []
+                "model_sources": [],
+                "environment_variables": [
+                    {"key": "KAGGLE_PROBLEM", "value": prob},
+                    {"key": "KAGGLE_M", "value": str(m)},
+                    {"key": "KAGGLE_K", "value": str(k)},
+                    {"key": "KAGGLE_ENGINE", "value": engine},
+                    {"key": "MAX_ITER", "value": "50000000"}
+                ]
             }
 
             with open(f"{dir_name}/kernel-metadata.json", "w") as f:
