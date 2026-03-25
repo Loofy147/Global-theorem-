@@ -45,8 +45,8 @@ Extract all 8 weights for problem (m,k). Cached.
 No description.
 
 ### `def verify_sigma(sigma, m)`
-Verify sigma: Z_m³ → S_3 yields three directed Hamiltonian cycles.
-Checks: |arcs|=m³, in-degree=1, components=1 for each colour.
+Verify sigma: Z_m^k → S_k yields k directed Hamiltonian cycles.
+Checks: in-degree=1, components=1 for each color.
 
 ### `def table_to_sigma(table, m)`
 Convert a list of level-dicts to the full sigma map.
@@ -77,14 +77,29 @@ Identifies vertex orbits as flat indices. Supports arbitrary k.
 
 ### `def run_hybrid_sa(m, k, seed, max_iter, verbose)`
 Hybrid discovery engine: alternates between Equivariant moves and Basin-repair.
-Supports arbitrary k and includes last-mile repair logic.
+Includes Basin Escape v3.1 logic with Basin-Burst.
 
 ### `def run_fiber_structured_sa(m, k, seed, max_iter, verbose)`
 SA where sigma(v) depends on (fiber(v), coords[1], ..., coords[k-2]).
+Includes Basin Escape v3.1 logic for frontier breakages.
+
+### `def get_canonical_spike_params(m, k)`
+Returns the deterministic parameters for odd m or k=4, m=4.
+r: shift triple/quadruple
+v: base shift
+delta: spike value
+j0: spike position
+
+### `def construct_spike_sigma(m, k, params)`
+Directly construct a valid k-Hamiltonian decomposition for G_m.
+Currently optimized for k=3 (odd m).
+Uses the O(m) spike framework: b_c(j) = v_c + delta_c * [j == j0_c].
+The 'genuine heads' are the starting positions of the Hamiltonian cycles,
+fully determined by the parameters without search.
 
 ### `def solve(m, k, seed)`
 Unified solver. Returns sigma or None.
-Routes: precomputed → column-uniform → Hybrid SA.
+Routes: precomputed → geometric-construction → Hybrid SA.
 
 ## engine.py
 No description.
