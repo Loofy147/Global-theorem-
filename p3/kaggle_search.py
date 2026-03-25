@@ -312,4 +312,4 @@ if __name__ == "__main__":
     if sol:
         print("SOLUTION FOUND!")
         with open("solution.json", "w") as f:
-            json.dump(sol, f)
+            json.dump({str(k_): v_ for k_, v_ in sol.items()}, f)
