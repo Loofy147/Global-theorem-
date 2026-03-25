@@ -322,7 +322,7 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=10_000_000,
                   verbose: bool=False) -> Tuple[Optional[Dict], Dict]:
     """
     Hybrid discovery engine: alternates between Equivariant moves and Basin-repair.
-    Includes Basin Escape v3.0 logic for score <= 15.
+    Includes Basin Escape v3.1 logic with Basin-Burst.
     """
     import math, time
     n, arc_s, pa, all_p = _build_sa(m, k)
@@ -336,7 +336,7 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=10_000_000,
     for it in range(max_iter):
         if cs == 0: break
         if cs <= 15:
-            # Basin Escape v3.0
+            # Basin Escape v3.1
             order = list(range(n)); rng.shuffle(order); fixed = False
             for v in order:
                 old = sigma[v]
@@ -350,8 +350,7 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=10_000_000,
                     if fixed: break
                 if fixed: break
             if not fixed:
-                # Orbit-flip greedy
-                for orbit in rng.sample(orbits, min(len(orbits), 20)):
+                for orbit in rng.sample(orbits, min(len(orbits), 30)):
                     old_vals = [sigma[v] for v in orbit]
                     for pi in rng.sample(range(nP), nP):
                         if all(sigma[v] == pi for v in orbit): continue
@@ -365,14 +364,13 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=10_000_000,
                         if fixed: break
                     if fixed: break
             if not fixed:
-                # Exhaustive 2-vertex swaps
                 v_list = list(range(n)); rng.shuffle(v_list)
-                for i in range(min(n, 50)):
+                for i in range(min(n, 60)):
                     v1 = v_list[i]
-                    for j in range(i+1, min(n, 100)):
+                    for j in range(i+1, min(n, 120)):
                         v2 = v_list[j]
                         old1, old2 = sigma[v1], sigma[v2]
-                        for _ in range(10):
+                        for _ in range(20):
                             pi1, pi2 = rng.randrange(nP), rng.randrange(nP)
                             sigma[v1], sigma[v2] = pi1, pi2
                             ns = _sa_score(sigma, arc_s, pa, n, k)
@@ -383,6 +381,18 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=10_000_000,
                             else: sigma[v1], sigma[v2] = old1, old2
                         if fixed: break
                     if fixed: break
+            if not fixed and cs <= 10:
+                # Basin-Burst (3-vertex)
+                for _ in range(200):
+                    v1, v2, v3 = rng.sample(range(n), 3)
+                    old1, old2, old3 = sigma[v1], sigma[v2], sigma[v3]
+                    sigma[v1], sigma[v2], sigma[v3] = rng.randrange(nP), rng.randrange(nP), rng.randrange(nP)
+                    ns = _sa_score(sigma, arc_s, pa, n, k)
+                    if ns < cs:
+                        cs = ns; fixed = True
+                        if cs < bs: bs = cs; best = sigma[:]
+                        break
+                    else: sigma[v1], sigma[v2], sigma[v3] = old1, old2, old3
             if not fixed:
                 reheats += 1; stall = 0; sigma = best[:]; cs = bs; T = 1.0
                 for _ in range(max(1, int(n * 0.05))):
@@ -429,10 +439,12 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=10_000_000,
     return sol, {"best": bs, "iters": it+1, "elapsed": elapsed, "reheats": reheats}
 
 
+
+
 def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_000,
                             verbose: bool=False) -> Tuple[Optional[Dict], Dict]:
     """SA where sigma(v) depends on (fiber(v), coords[1], ..., coords[k-2]).
-    Includes Basin Escape v3.0 logic for score <= 15.
+    Includes Basin Escape v3.1 logic for frontier breakages.
     """
     import math, time
     n, arc_s, pa, all_p = _build_sa(m, k); nP = len(all_p)
@@ -457,7 +469,7 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_00
     for it in range(max_iter):
         if cs == 0: break
         if cs <= 15:
-            # Basin Escape v3.0
+            # Basin Escape v3.1
             fixed = False
             rk_list = list(keys); rng.shuffle(rk_list)
             for rk in rk_list:
@@ -478,9 +490,9 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_00
                     for idx2 in range(idx1 + 1, len(rk_list)):
                         pairs.append((rk_list[idx1], rk_list[idx2]))
                 rng.shuffle(pairs)
-                for k1, k2 in pairs[:50]:
+                for k1, k2 in pairs[:150]:
                     old1, old2 = tab[k1], tab[k2]
-                    for _ in range(20):
+                    for _ in range(40):
                         pi1, pi2 = rng.randrange(nP), rng.randrange(nP)
                         tab[k1], tab[k2] = pi1, pi2
                         sig = make_sigma(tab)
@@ -491,9 +503,21 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_00
                             break
                         else: tab[k1], tab[k2] = old1, old2
                     if fixed: break
+            if not fixed and cs <= 10:
+                # Basin-Burst (3-key)
+                for _ in range(100):
+                    k1, k2, k3 = rng.sample(keys, 3)
+                    old1, old2, old3 = tab[k1], tab[k2], tab[k3]
+                    tab[k1], tab[k2], tab[k3] = rng.randrange(nP), rng.randrange(nP), rng.randrange(nP)
+                    sig = make_sigma(tab); ns = _sa_score(sig, arc_s, pa, n, k)
+                    if ns < cs:
+                        cs = ns; fixed = True
+                        if cs < bs: bs = cs; bt = tab.copy()
+                        break
+                    else: tab[k1], tab[k2], tab[k3] = old1, old2, old3
             if not fixed:
                 tab = bt.copy()
-                for _ in range(max(1, int(len(keys)*0.05))): tab[rng.choice(keys)] = rng.randrange(nP)
+                for _ in range(max(1, int(len(keys)*0.08))): tab[rng.choice(keys)] = rng.randrange(nP)
                 sig = make_sigma(tab); cs = _sa_score(sig, arc_s, pa, n, k)
             continue
         rk = rng.choice(keys); old = tab[rk]; tab[rk] = rng.randrange(nP)
@@ -504,7 +528,7 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_00
             if cs < bs: bs = cs; bt = tab.copy(); stall = 0
             else: stall += 1
         else: tab[rk] = old; stall += 1
-        if stall > 50_000:
+        if stall > 100_000:
             stall = 0; tab = bt.copy(); cs = bs
             for _ in range(max(1, int(len(keys)*0.05))): tab[rng.choice(keys)] = rng.randrange(nP)
             sig = make_sigma(tab); cs = _sa_score(sig, arc_s, pa, n, k); continue
@@ -517,6 +541,8 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_00
         for idx, pi in enumerate(make_sigma(bt)):
             sol[tuple(get_coords(idx))] = tuple(all_p[pi])
     return sol, {"best": bs, "iters": it+1, "elapsed": time.perf_counter()-t0}
+
+
 
 
 
