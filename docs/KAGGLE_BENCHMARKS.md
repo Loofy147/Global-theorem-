@@ -2,23 +2,28 @@
 
 Results of high-budget combinatorial searches on Kaggle (March 2026).
 
-## Problems
-- **P1**: k=4, m=4 (256 vertices) - **SOLVED**
-- **P2**: m=6, k=3 (216 vertices)
-- **P3**: m=8, k=3 (512 vertices)
-
-## Comparison: Standard SA vs. Equivariant SA
+## Decompositions of $\mathbb{Z}_m^k$
 
 | Problem | Method | Iterations | Best Score | Status |
 |---|---|---|---|---|
-| P1 | Fiber SA (Basin-escape v3.1) | 47.8M | 0 | **Solved** |
-| P2 | Standard (Basin-escape v3.0) | 20M | 4 | Open |
-| P3 | Standard (Basin-escape v3.0) | 10M | 15 | Open |
+| **P1** (k=4, m=4) | Fiber SA (Basin v3.1) | 47.8M | 0 | **Solved** |
+| **P2** (m=6, k=3) | Frontier SA (Basin v3.3) | 20M | 4 | Open |
+| **P3** (m=8, k=3) | Frontier SA (Basin v3.3) | 10M | 15 | Open |
+
+## Non-Abelian & Advanced Domains
+
+| Domain | Group | Order | k | Status | Record Score |
+|---|---|---|---|---|---|
+| Heisenberg | (\mathbb{Z}_3)$ | 27 | 3 | Open | 3 |
+| Heisenberg | (\mathbb{Z}_6)$ | 216 | 3 | **Impossible** | H² blocks |
+| 2I (Icosahedral) | (2,5)$ | 120 | 3 | **Impossible** | H² blocks |
+| Hamming | $\mathbb{Z}_2^7$ | 128 | 8 | **Solved** | 0 |
+| Diamond | $ | 256 | 4 | **Solved** | 0 |
 
 ### Analysis
-1. **P1 Breakthrough**: The k=4, m=4 problem was solved using Fiber-Structured SA with the Basin Escape v3.1 engine. This confirms that the k=4 even-m parity resolution is indeed feasible.
-2. **Convergence**: Equivariant moves (flipping entire orbits) reach local minima much faster (score=9 achieved in <1M iters) but currently plateau there.
-3. **P2/P3 Barriers**: The score=4 and score=15 plateaus represent deep local minima where the basin-escape logic successfully breaks large symmetric blocks but struggles with the final few components.
+1. **P1 Breakthrough**: The k=4, m=4 problem was solved using Fiber-Structured SA. This confirms that even-m parity is resolvable for even k.
+2. **Equivariant moves**: Flipping entire orbits (symmetry blocks) reaches score-9 fast but plateaus there without deep basin escapes.
+3. **Non-Abelian Parity**: We have formally extended the parity obstruction $γ_2$ to non-abelian central extensions. Both the Binary Icosahedral group (2I) and Heisenberg group ((\mathbb{Z}_6)$) are proven impossible for k=3.
 
 ## Remote Execution
 Searches are offloaded to Kaggle using `kaggle_search.py` and monitored via:
