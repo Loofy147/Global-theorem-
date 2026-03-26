@@ -1,0 +1,10 @@
+[{"stream_name":"stdout","time":0.972910833,"data":"Problem: P2, Max Iters: 10000000, Seed: 42 (v3.0)\n"}
+,{"stream_name":"stdout","time":902.508094339,"data":"\n"}
+,{"stream_name":"stdout","time":902.508164308,"data":"Final Stats: {'best': 14, 'iters': 10000000, 'elapsed': 901.5341655469999}\n"}
+,{"stream_name":"stderr","time":906.483205757,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":906.483246242,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":907.107494224,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":907.107519145,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":909.836566498,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":911.978316776,"data":"[NbConvertApp] Writing 345778 bytes to __results__.html\n"}
+]

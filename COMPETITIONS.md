@@ -30,7 +30,7 @@ The Global Structure / SES framework is particularly suited for problems involvi
 
 ## AIMO Progress Prize 3 - Submission Details
 - **Script**: `p_aimo/aimo_parquet_generator.py`
-- **Output**: `submission.parquet`, `reccuring.parquet`
+- **Output**: `submission.parquet`, `recurring.parquet`
 - **Method**: The script contains hardcoded answers for the 10 reference problems and uses the `kaggle_evaluation` API to provide these answers during the competition rerun.
 - **Kaggle Kernel**: `hichambedrani/aimo-parquet-generator`
 
