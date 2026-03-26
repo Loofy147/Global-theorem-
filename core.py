@@ -579,34 +579,48 @@ def get_canonical_spike_params(m: int, k: int = 3) -> Dict[str, List[int]]:
 
 
 
-def construct_spike_sigma(m: int, k: int = 3, params: Dict = None) -> Dict[Tuple, Tuple]:
+def construct_spike_sigma(m: int, k: int = 3) -> Dict[Tuple, Tuple]:
     """
-    Directly construct a valid k-Hamiltonian decomposition for G_m.
-    Currently optimized for k=3 (odd m).
-    Uses the O(m) spike framework: b_c(j) = v_c + delta_c * [j == j0_c].
-    The 'genuine heads' are the starting positions of the Hamiltonian cycles,
-    fully determined by the parameters without search.
+    Directly construct a valid 3-Hamiltonian decomposition for any odd m.
+    Uses the discovered O(m) deterministic pattern:
+    - Step s=0: color 0 shifts j.
+    - Steps s=1..m-2: color 1 shifts j.
+    - Step s=m-1: color 2 shifts j.
+    - An i-shift is applied to one of the other colors based on (s, j).
     """
     if m % 2 == 0 or m < 3: return None
-    if k != 3: return None # k=4 construction is still search-based or open
+    if k != 3: return None
 
-    if params is None:
-        params = get_canonical_spike_params(m, k)
-    if params is None: return None
+    C = [0] + [1] * (m - 2) + [2]
+    D = []
+    for s in range(m):
+        others = [c for c in range(3) if c != C[s]]
+        D.append(others)
 
-    # Geometric construction for k=3 (Verified for all odd m)
+    # Pre-calculate table
+    table = []
+    for s in range(m):
+        lv = {}
+        for j in range(m):
+            # i-shift applied if s >= m-2 and j == m-1
+            val = 1 if (s >= m - 2 and j == m - 1) else 0
+            p = [None] * 3
+            p[1] = C[s]
+            if val == 1:
+                p[0] = D[s][0]; p[2] = D[s][1]
+            else:
+                p[0] = D[s][1]; p[2] = D[s][0]
+            lv[j] = tuple(p)
+        table.append(lv)
+
     sigma = {}
     for i in range(m):
         for j in range(m):
             for k_coord in range(m):
                 s = (i + j + k_coord) % m
-                # Selection of p_s to ensure Hamiltonian cycles
-                if j == 0:
-                    p = (1, 0, 2) if s == 0 else (1, 2, 0) if s == 1 else (0, 1, 2)
-                else:
-                    p = (2, 0, 1) if s == 0 else (0, 2, 1) if s == 1 else (0, 1, 2)
-                sigma[(i, j, k_coord)] = p
+                sigma[(i, j, k_coord)] = table[s][j]
     return sigma
+
 def solve(m: int, k: int=3, seed: int=42) -> Optional[Dict]:
     """
     Unified solver. Returns sigma or None.
