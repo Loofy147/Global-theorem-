@@ -123,9 +123,9 @@ Geometric mean speedup: **38,120×** over pure SA, **7,203×** over level enumer
 
 | Problem | Status | Known |
 |---|---|---|
-| P1: k=4, m=4 construction | 🟢 RESOLVED | Search-free geometric construction found. Verified score=0. |
-| P2: m=6, k=3 full-3D | 🔴 OPEN | New record score=14 (50M iters). v3.1 engine active. |
-| P3: m=8, k=3 full-3D | 🔴 OPEN | New record score=25 (50M iters). |
+| P1: k=4, m=4 construction | 🟢 RESOLVED | Verified score=0 via Basin Escape v3.1. Verified score=0. |
+| P2: m=6, k=3 full-3D | 🔴 OPEN | Record score=4. Basin-escape v3.1 reaches 14 reliably. |
+| P3: m=8, k=3 full-3D | 🔴 OPEN | Record score=15. |
 | P4: W7 formula | 🟢 RESOLVED | phi(m)×coprime_b^(k-1). Exact m=3, lower bound m≥5. |
 | P5: Non-abelian (S_3) | 🟢 RESOLVED | Same parity law. k=2 feasible, k=3 blocked. |
 | P6: Product Z_m×Z_n | 🟢 RESOLVED | Fiber quotient = Z_gcd(m,n). Framework complete. |
