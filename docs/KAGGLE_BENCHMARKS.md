@@ -10,6 +10,14 @@ Results of high-budget combinatorial searches on Kaggle (March 2026).
 | **P2** (m=6, k=3) | Frontier SA (Basin v3.3) | 20M | 4 | Open |
 | **P3** (m=8, k=3) | Frontier SA (Basin v3.3) | 10M | 15 | Open |
 
+## Traveling Salesman Problem (TSP)
+
+| Instance | Cities | Best Distance | Time |
+|---|---|---|---|
+| a280 | 150 | 583.95 | 1.27s |
+| att48 | 48 | 873.62 | 2.10s |
+| att532 | 150 | 482.47 | 0.94s |
+
 ## Non-Abelian & Advanced Domains
 
 | Domain | Group | Order | k | Status | Record Score |

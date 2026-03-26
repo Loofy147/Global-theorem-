@@ -552,3 +552,33 @@ No (r_0,r_1,r_2) with gcd(r_c,m)=1 can sum to m when m is even.
 ### 4. Hamming(7,4) Code
 - **Status**: PROVED_POSSIBLE.
 - **Result**: Orbit-Stabilizer equation is exact, matching perfect covering condition.
+
+##  - TSP & Non-Abelian
+
+### `class TSPSolver`
+A specialized solver for the Traveling Salesman Problem using the Basin Escape engine logic.
+
+#### `def TSPSolver.__init__(self, name, coords, seed)`
+- **name**: Name of the TSP instance (e.g., 'a280').
+- **coords**: List of (x, y) tuples for city coordinates.
+
+#### `def TSPSolver.solve(self, max_iter, verbose)`
+Performs simulated annealing with 2-opt swaps to find the shortest Hamiltonian cycle.
+
+### `def load_tsplib_instances(csv_path)`
+Utility to load instances from the integrated TSPLIB dataset.
+
+## `research/advanced_solvers.py` - TSP & Non-Abelian
+
+### `class TSPSolver`
+A specialized solver for the Traveling Salesman Problem using the Basin Escape engine logic.
+
+#### `def TSPSolver.__init__(self, name, coords, seed)`
+- **name**: Name of the TSP instance (e.g., 'a280').
+- **coords**: List of (x, y) tuples for city coordinates.
+
+#### `def TSPSolver.solve(self, max_iter, verbose)`
+Performs simulated annealing with 2-opt swaps to find the shortest Hamiltonian cycle.
+
+### `def load_tsplib_instances(csv_path)`
+Utility to load instances from the integrated TSPLIB dataset.
