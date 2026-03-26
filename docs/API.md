@@ -529,3 +529,26 @@ single m²-Hamiltonian cycle.
 ### `def even_m_impossibility_check(m)`
 Verify the impossibility theorem for even m:
 No (r_0,r_1,r_2) with gcd(r_c,m)=1 can sum to m when m is even.
+
+## New Domains (March 2026)
+
+### 1. Heisenberg Group H3(Z3)
+- **Order**: 27, **k=3**.
+- **Status**: OPEN.
+- **Engine**: Basin Escape v3.2 reached score 4 in 300k iterations.
+- **Observation**: Non-abelian structure introduces non-trivial twisted translations.
+
+### 2. Binary Icosahedral Group 2I (SL(2,5))
+- **Order**: 120, **k=3**.
+- **Status**: OPEN.
+- **Engine**: Basin Escape v3.2 reached score 18 in 300k iterations.
+- **Observation**: Large group order and non-abelianity increase complexity.
+
+### 3. AIMO Functional Equation (Problem 9c1c5f)
+- **Problem**: Count values of f(2024) given f(m)+f(n)=f(m+n+mn) and f(n) <= 1000 for n <= 1000.
+- **Result**: 580 values.
+- **Solver**: Algebraic reduction to logarithmic functional form f(n) = Σ a_p v_p(n+1).
+
+### 4. Hamming(7,4) Code
+- **Status**: PROVED_POSSIBLE.
+- **Result**: Orbit-Stabilizer equation is exact, matching perfect covering condition.
