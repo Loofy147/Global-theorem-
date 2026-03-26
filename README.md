@@ -142,3 +142,4 @@ Geometric mean speedup: **38,120×** over pure SA, **7,203×** over level enumer
 ---
 
 *March 2026*
+| TSP (TSPLIB) | 🟢 RESOLVED | Integrated 2-opt Basin Escape solver. Verified on a280, att48. |
