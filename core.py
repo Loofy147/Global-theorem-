@@ -442,9 +442,10 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=10_000_000,
 
 
 def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_000,
-                            verbose: bool=False) -> Tuple[Optional[Dict], Dict]:
+                            verbose: bool=False, fiber_map_idx: int=0) -> Tuple[Optional[Dict], Dict]:
     """SA where sigma(v) depends on (fiber(v), coords[1], ..., coords[k-2]).
     Includes Basin Escape v3.1 logic for frontier breakages.
+    fiber_map_idx: index of the fiber map to use (0: sum, 1: i+2j+k, 2: 2i+j+k, 3: i+j+2k)
     """
     import math, time
     n, arc_s, pa, all_p = _build_sa(m, k); nP = len(all_p)
@@ -452,7 +453,15 @@ def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=10_000_00
         coords = []; val = idx
         for _ in range(k): coords.append(val % m); val //= m
         coords.reverse(); return coords
-    fibers = [sum(get_coords(v)) % m for v in range(n)]
+
+    def f_sum(c): return sum(c) % m
+    def f_1(c): return (c[0] + 2*c[1] + c[2]) % m if len(c)==3 else sum(c)%m
+    def f_2(c): return (2*c[0] + c[1] + c[2]) % m if len(c)==3 else sum(c)%m
+    def f_3(c): return (c[0] + c[1] + 2*c[2]) % m if len(c)==3 else sum(c)%m
+    f_maps = [f_sum, f_1, f_2, f_3]
+    f_map = f_maps[fiber_map_idx % len(f_maps)]
+
+    fibers = [f_map(get_coords(v)) for v in range(n)]
     def get_key(v):
         c = get_coords(v)
         return (fibers[v],) + tuple(c[1:-1])

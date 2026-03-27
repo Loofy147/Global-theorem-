@@ -9,11 +9,11 @@ The core task is to find a set of $k$ permutations $\sigma_c$ that decompose the
 | Problem | Parameters | Method | Iterations | Best Score | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **P1** | $k=4, m=4$ | Fiber-Structured SA | 50M | 0 | **Solved** |
-| **P2** | $k=3, m=6$ | Basin Escape v3.3 | 30M | 13 | Open |
-| **P3** | $k=3, m=8$ | Basin Escape v3.3 | 10M | 15 | Open |
+| **P2** | $k=3, m=6$ | Multi-Fiber Basin Escape | 500k | **1** | Open (Near-Solved) |
+| **P3** | $k=3, m=8$ | Fiber-Structured SA | 500k | 17 | Open |
 | **Odd $m$** | $k=3, m \in \{3, 5, \dots\}$ | Spike Construction | $O(m)$ | 0 | **Solved (Deterministic)** |
 
-*Note: P1 was solved in 47.8M iterations in a previous run. Recent massive search (s13) reached score 2 in 50M iterations.*
+*Note: P1 was solved in 47.8M iterations. P2 reached score 1 (near-miss) in just 500k iterations using the improved Fiber-Structured SA engine.*
 
 ## 2. Proven Impossibilities ($H^2$ Parity Obstructions)
 
