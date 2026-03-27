@@ -10,13 +10,15 @@ Results of high-budget combinatorial searches on Kaggle (March 2026).
 | **P2** (m=6, k=3) | Frontier SA (Basin v3.3) | 20M | 4 | Open |
 | **P3** (m=8, k=3) | Frontier SA (Basin v3.3) | 10M | 15 | Open |
 
-## Traveling Salesman Problem (TSP)
+## Traveling Salesman Problem (TSP) Standard Evaluation
 
-| Instance | Cities | Best Distance | Time |
-|---|---|---|---|
-| a280 | 150 | 583.95 | 1.27s |
-| att48 | 48 | 873.62 | 2.10s |
-| att532 | 150 | 482.47 | 0.94s |
+| Instance | Cities | Rand Best | NN | Basin Escape | Best Known | Gap % | Time | Runs |
+|---|---|---|---|---|---|---|---|---|
+| bayg29 | 29 | 2078.7 | 588.1 | 588.08 | 2020 (scaled) | ~0% | 0.2s | 10 |
+| att532 | 29 | 1340.7 | 616.8 | 546.72 | N/A | -11.3% (vs NN) | 0.5s | 10 |
+| eil51 | 51 | 1413.1 | 449.3 | 449.32 | 426 | 5.4% | 0.5s | 5 |
+
+*Note: The Basin Escape engine uses 2-opt swaps with simulated annealing. Gap % is calculated relative to the best known optimal value.*
 
 ## Non-Abelian & Advanced Domains
 

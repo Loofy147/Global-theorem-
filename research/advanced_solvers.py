@@ -58,7 +58,6 @@ class GeneralCayleyEngine:
                 for _ in range(max(1, int(self.n * 0.03))): sigma[self.rng.randrange(self.n)] = self.rng.randrange(self.nP)
                 cs = self.score(sigma)
             T *= cool
-            if verbose and (it+1) % 50000 == 0: print(f"  it={it+1:>8,} T={T:.5f} score={cs} best={bs} reh={reh} {time.perf_counter()-t0:.1f}s")
         return best if bs == 0 else None, bs
 
 class HeisenbergSolver(GeneralCayleyEngine):
@@ -66,12 +65,6 @@ class HeisenbergSolver(GeneralCayleyEngine):
         elements = [(a,b,c) for a in range(m) for b in range(m) for c in range(m)]
         def op(x, y): return ((x[0]+y[0])%m, (x[1]+y[1])%m, (x[2]+y[2] + x[0]*y[1])%m)
         gens = [(1,0,0), (0,1,0), (0,0,1)]; super().__init__(elements, op, gens, seed)
-
-class BinaryIcosahedralSolver(GeneralCayleyEngine):
-    def __init__(self, seed: int=42):
-        elements = []; [elements.append((a,b,c,d)) for a,b,c,d in iprod(range(5), repeat=4) if (a*d - b*c) % 5 == 1]
-        def op(x, y): return x # Simplified
-        gens = [(0, 1, 4, 0), (1, 1, 0, 1)]; super().__init__(elements, op, gens, seed)
 
 class TSPSolver:
     def __init__(self, name: str, coords: List[Tuple[float, float]], seed: int=42):
@@ -86,16 +79,21 @@ class TSPSolver:
         for i in range(self.n): d += self.dist_matrix[tour[i]][tour[(i+1)%self.n]]
         return d
 
-    def nearest_neighbor_tour(self) -> List[int]:
+    def nearest_neighbor(self) -> List[int]:
         unvisited = list(range(1, self.n)); tour = [0]; curr = 0
         while unvisited:
             nxt = min(unvisited, key=lambda x: self.dist_matrix[curr][x])
             unvisited.remove(nxt); tour.append(nxt); curr = nxt
         return tour
 
-    def solve(self, max_iter=100000, verbose=True):
-        tour = self.nearest_neighbor_tour() # Better initialization
-        cs = self.score(tour); bs = cs; best = tour[:]; T = 100.0; cool = 0.99995; t0 = time.perf_counter()
+    def solve(self, max_iter=100000, init_method='nn', verbose=False):
+        if init_method == 'nn':
+            tour = self.nearest_neighbor()
+        else:
+            tour = list(range(self.n)); self.rng.shuffle(tour)
+
+        cs = self.score(tour); bs = cs; best = tour[:]
+        T = 100.0; cool = 0.99995; t0 = time.perf_counter()
         for it in range(max_iter):
             i, j = sorted(self.rng.sample(range(self.n), 2))
             if j - i < 2: continue
@@ -105,7 +103,6 @@ class TSPSolver:
                 cs = ns; tour = new_tour
                 if cs < bs: bs = cs; best = tour[:]
             T *= cool
-            if verbose and (it+1) % 20000 == 0: print(f"  [{self.name}] it={it+1} dist={bs:.2f} {time.perf_counter()-t0:.1f}s")
         return best, bs
 
 def load_tsplib_instances(csv_path: str) -> List[TSPSolver]:
@@ -113,25 +110,12 @@ def load_tsplib_instances(csv_path: str) -> List[TSPSolver]:
     df = pd.read_csv(csv_path); solvers = []
     for _, row in df.iterrows():
         name = row['TSP_Instance']; coords = []
-        for i in range(1, 150):
+        for i in range(1, 151):
             x, y = row.get(f'City_{i}_X'), row.get(f'City_{i}_Y')
             if pd.isna(x) or pd.isna(y): break
             coords.append((float(x), float(y)))
         if coords: solvers.append(TSPSolver(name, coords))
     return solvers
 
-def main():
-    prob = os.environ.get("PROB", "H3"); iters = int(os.environ.get("MAX_ITER", 500000)); seed = int(os.environ.get("SEED", 42))
-    print(f"Problem: {prob}, Max Iters: {iters}, Seed: {seed}")
-    if prob == "H3": sol, best = HeisenbergSolver(3, seed=seed).solve(max_iter=iters)
-    elif prob == "TSP":
-        tsps = load_tsplib_instances("datasets/tsplib/tsp_instances_dataset.csv")
-        for t in tsps[:3]: t.solve(max_iter=iters//3)
-        return
-    else: print(f"Unknown: {prob}"); return
-    print(f"\nFinal Stats: {{'best': best, 'iters': iters}}")
-    if sol:
-        print("SOLUTION FOUND!")
-        with open(f"solution_{prob}.json", "w") as f: json.dump(sol, f)
-
-if __name__ == "__main__": main()
+if __name__ == "__main__":
+    pass
