@@ -143,3 +143,23 @@ Geometric mean speedup: **38,120×** over pure SA, **7,203×** over level enumer
 
 *March 2026*
 | TSP (TSPLIB) | 🟢 RESOLVED | Integrated 2-opt Basin Escape solver. Verified on a280, att48. |
+
+---
+
+## Topological General Intelligence (TGI)
+
+TGI is a framework for autonomous navigation of non-Euclidean state-space manifolds. It replaces statistical prediction with algebraic lifting.
+
+| Core | Function | Implementation |
+|---|---|---|
+| **Core A: Algebraic** | Symmetry & Quotient Discovery | `algebraic.py` |
+| **Core B: Fibration** | Path Lifting & Generation | `research/tgi_core.py` |
+| **Core C: Basin** | Topological Error Correction | `core.py` (Basin Escape) |
+| **Core D: Symbolic** | Group-Theoretic Reasoning | `research/aimo_solver.py` |
+
+**Topological Language Model (TLM)**: A fibration-based linguistic engine that maps tokens to Hamiltonian paths on tori.
+
+```bash
+# Run the TGI System Demo
+python research/tgi_system_demo.py
+```

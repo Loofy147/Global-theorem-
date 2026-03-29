@@ -537,3 +537,81 @@ single m²-Hamiltonian cycle.
 ### `def even_m_impossibility_check(m)`
 Verify the impossibility theorem for even m:
 No (r_0,r_1,r_2) with gcd(r_c,m)=1 can sum to m when m is even.
+
+## research/tgi_core.py
+No description.
+
+### `class TGICore`
+The heartbeat of Topological General Intelligence (TGI).
+
+#### `def TGICore.__init__(self, m, k)`
+No description.
+
+#### `def TGICore.set_topology(self, m, k)`
+Changes the current topological domain.
+
+#### `def TGICore.reflect(self)`
+Topological Reflection: Explains the current state manifold in natural language.
+
+#### `def TGICore.reason_on(self, data)`
+Routes and reasons over arbitrary data using the TGI-Parser.
+
+#### `def TGICore.reasoning_path(self)`
+No description.
+
+#### `def TGICore.solve_manifold(self, max_iter)`
+Finds the global structure (Hamiltonian decomposition) with Basin Escape feedback.
+
+#### `def TGICore.lift_path(self, sequence, color)`
+No description.
+
+#### `def TGICore.measure_intelligence(self)`
+No description.
+
+## research/tlm.py
+No description.
+
+### `class TopologicalLanguageModel`
+The Topological Language Model (TLM) with Path Lifting and Coordinate Mapping.
+
+#### `def TopologicalLanguageModel.__init__(self, m, k)`
+No description.
+
+#### `def TopologicalLanguageModel.tokenize(self, text)`
+Maps arbitrary text tokens to Z_m coordinates via hashing.
+
+#### `def TopologicalLanguageModel._ensure_sigma(self)`
+No description.
+
+#### `def TopologicalLanguageModel.topological_attention(self)`
+W4 Gauge Multiplicity acts as the 'attention breadth'.
+
+#### `def TopologicalLanguageModel.generate(self, seed_text, length)`
+Generates completion using Hamiltonian path lifting.
+
+## research/tgi_parser.py
+No description.
+
+### `class TGIParser`
+The TGI-Parser: Maps datasets, languages, and math to topological parameters (m, k).
+
+#### `def TGIParser.__init__(self)`
+No description.
+
+#### `def TGIParser.parse_input(self, data)`
+Detects content type and routes to the correct TGI core.
+
+#### `def TGIParser._route(self, domain, raw_data)`
+No description.
+
+## research/tgi_agent.py
+No description.
+
+### `class TGIAgent`
+The High-Level Topological General Intelligence (TGI) Agent.
+
+#### `def TGIAgent.__init__(self)`
+No description.
+
+#### `def TGIAgent.query(self, data)`
+Processes a query through the full TGI pipeline.
