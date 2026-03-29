@@ -11,7 +11,7 @@ The core task is to find a set of $k$ permutations $\sigma_c$ that decompose the
 | **P1** | $k=4, m=4$ | Fiber-Structured SA | 50M | 0 | **Solved** |
 | **P2** | $k=3, m=6$ | Multi-Fiber Basin Escape | 500k | **1** | Open (Near-Solved) |
 | **P3** | $k=3, m=8$ | Fiber-Structured SA | 500k | 17 | Open |
-| **Odd $m$** | $k=3, m \in \{3, 5, \dots\}$ | Spike Construction | $O(m)$ | 0 | **Solved (Deterministic)** |
+| **Odd $m$** | $k=3, m \in \{3, 5, \dots\}$ | Spike Construction | $O(m)$ | 0 | **Analytically Proven** |
 
 *Note: P1 was solved in 47.8M iterations. P2 reached score 1 (near-miss) in just 500k iterations using the improved Fiber-Structured SA engine.*
 
@@ -54,8 +54,16 @@ The following theorems are verified via `python3 theorems.py`:
 - **Thm 8.2**: Explicit verification of the $m=4, k=3$ non-uniform solution.
 - **Thm 9.1**: Arithmetic feasibility for $k=4, m \in \{4, 8\}$.
 - **Thm 10.1**: Exhaustive proof of impossibility for fiber-uniform $k=4, m=4$.
+- **Thm 11.1**: Analytic Proof of Spike Construction for all odd m.
+- **Cor 10.2**: k=2 2D Solvability for G_m^2 (m=3, 4).
 - **W4 Theorem**: Proof that $H^1$ torsor count is exactly $\phi(m)$.
 - **Moduli Theorem**: Closure Lemma validation for $\mathbb{Z}_3^3$.
 
 ---
-*Last Updated: March 2026*
+*Last Updated: April 2026*
+
+## 6. Full-2D Decompositions ($\mathbb{Z}_m^2, k=2$)
+
+| Problem | Parameters | Method | Iterations | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **G_m^2** | $k=2, m \in \{3, 4, \dots\}$ | Full-2D Search | < 1s | **Verified (m=3, 4)** |

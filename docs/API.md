@@ -79,9 +79,10 @@ Identifies vertex orbits as flat indices. Supports arbitrary k.
 Hybrid discovery engine: alternates between Equivariant moves and Basin-repair.
 Includes Basin Escape v3.1 logic with Basin-Burst.
 
-### `def run_fiber_structured_sa(m, k, seed, max_iter, verbose)`
+### `def run_fiber_structured_sa(m, k, seed, max_iter, verbose, fiber_map_idx)`
 SA where sigma(v) depends on (fiber(v), coords[1], ..., coords[k-2]).
 Includes Basin Escape v3.1 logic for frontier breakages.
+fiber_map_idx: index of the fiber map to use (0: sum, 1: i+2j+k, 2: 2i+j+k, 3: i+j+2k)
 
 ### `def get_canonical_spike_params(m, k)`
 Returns the deterministic parameters for odd m or k=4, m=4.
@@ -90,12 +91,13 @@ v: base shift
 delta: spike value
 j0: spike position
 
-### `def construct_spike_sigma(m, k, params)`
-Directly construct a valid k-Hamiltonian decomposition for G_m.
-Currently optimized for k=3 (odd m).
-Uses the O(m) spike framework: b_c(j) = v_c + delta_c * [j == j0_c].
-The 'genuine heads' are the starting positions of the Hamiltonian cycles,
-fully determined by the parameters without search.
+### `def construct_spike_sigma(m, k)`
+Directly construct a valid 3-Hamiltonian decomposition for any odd m.
+Uses the discovered O(m) deterministic pattern:
+- Step s=0: color 0 shifts j.
+- Steps s=1..m-2: color 1 shifts j.
+- Step s=m-1: color 2 shifts j.
+- An i-shift is applied to one of the other colors based on (s, j).
 
 ### `def solve(m, k, seed)`
 Unified solver. Returns sigma or None.
@@ -357,6 +359,12 @@ No description.
 ### `def build_proof(m, k, solution)`
 Build a formal proof dict from weights (and optionally a solution).
 
+### `def verify_k2_2d_solvable(m, trials)`
+Check if k=2 2D graph G_m^2 is solvable for given m.
+
+### `def check_spike_conditions(m)`
+Analytically verify Theorem 11.1 conditions for odd m.
+
 ### `def verify_all_theorems(verbose)`
 No description.
 
@@ -529,56 +537,3 @@ single m²-Hamiltonian cycle.
 ### `def even_m_impossibility_check(m)`
 Verify the impossibility theorem for even m:
 No (r_0,r_1,r_2) with gcd(r_c,m)=1 can sum to m when m is even.
-
-## New Domains (March 2026)
-
-### 1. Heisenberg Group H3(Z3)
-- **Order**: 27, **k=3**.
-- **Status**: OPEN.
-- **Engine**: Basin Escape v3.2 reached score 4 in 300k iterations.
-- **Observation**: Non-abelian structure introduces non-trivial twisted translations.
-
-### 2. Binary Icosahedral Group 2I (SL(2,5))
-- **Order**: 120, **k=3**.
-- **Status**: OPEN.
-- **Engine**: Basin Escape v3.2 reached score 18 in 300k iterations.
-- **Observation**: Large group order and non-abelianity increase complexity.
-
-### 3. AIMO Functional Equation (Problem 9c1c5f)
-- **Problem**: Count values of f(2024) given f(m)+f(n)=f(m+n+mn) and f(n) <= 1000 for n <= 1000.
-- **Result**: 580 values.
-- **Solver**: Algebraic reduction to logarithmic functional form f(n) = Σ a_p v_p(n+1).
-
-### 4. Hamming(7,4) Code
-- **Status**: PROVED_POSSIBLE.
-- **Result**: Orbit-Stabilizer equation is exact, matching perfect covering condition.
-
-##  - TSP & Non-Abelian
-
-### `class TSPSolver`
-A specialized solver for the Traveling Salesman Problem using the Basin Escape engine logic.
-
-#### `def TSPSolver.__init__(self, name, coords, seed)`
-- **name**: Name of the TSP instance (e.g., 'a280').
-- **coords**: List of (x, y) tuples for city coordinates.
-
-#### `def TSPSolver.solve(self, max_iter, verbose)`
-Performs simulated annealing with 2-opt swaps to find the shortest Hamiltonian cycle.
-
-### `def load_tsplib_instances(csv_path)`
-Utility to load instances from the integrated TSPLIB dataset.
-
-## `research/advanced_solvers.py` - TSP & Non-Abelian
-
-### `class TSPSolver`
-A specialized solver for the Traveling Salesman Problem using the Basin Escape engine logic.
-
-#### `def TSPSolver.__init__(self, name, coords, seed)`
-- **name**: Name of the TSP instance (e.g., 'a280').
-- **coords**: List of (x, y) tuples for city coordinates.
-
-#### `def TSPSolver.solve(self, max_iter, verbose)`
-Performs simulated annealing with 2-opt swaps to find the shortest Hamiltonian cycle.
-
-### `def load_tsplib_instances(csv_path)`
-Utility to load instances from the integrated TSPLIB dataset.
