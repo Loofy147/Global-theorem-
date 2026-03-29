@@ -2,7 +2,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Dict, List, Optional, Tuple, Any
 from algebraic import AlgebraicClassifier
-from core import solve, extract_weights
+from core import solve, extract_weights, run_hybrid_sa, run_fiber_structured_sa
 from tgi_parser import TGIParser
 
 class TGICore:
@@ -20,6 +20,20 @@ class TGICore:
         """Changes the current topological domain."""
         self.__init__(m, k)
 
+    def reflect(self) -> str:
+        """Topological Reflection: Explains the current state manifold in natural language."""
+        if self.weights.h2_blocks:
+            return f"The manifold G_{self.m}^{self.k} is obstructed. An H2 parity mismatch prevents a " \
+                   f"Hamiltonian decomposition. This is a fundamental topological limit."
+
+        explanation = f"The manifold G_{self.m}^{self.k} is solvable. "
+        if self.weights.r_count > 0:
+            explanation += f"It has {self.weights.r_count} valid column-uniform construction seeds. "
+
+        explanation += f"The moduli space M is a torsor of order {self.weights.h1_exact} (phi({self.m})). "
+        explanation += f"Abstraction IQ (W6) is {self.measure_intelligence():.4f}."
+        return explanation
+
     def reason_on(self, data: Any):
         """Routes and reasons over arbitrary data using the TGI-Parser."""
         parsed = self.parser.parse_input(data)
@@ -29,14 +43,11 @@ class TGICore:
         print(f"║  TGI REASONING — {parsed['target_core']} Core ║")
         print(f"╚═══════════════════════════════════════════════╝")
         print(f"  Input Type: {parsed['domain']}")
-        print(f"  Topological IQ (W6): {self.measure_intelligence():.4f}")
         print(f"  Status: {self.status['exists']}")
-
-        for step in self.reasoning_path():
-            print(f"    {step}")
+        print(f"  Reflection: {self.reflect()}")
 
         if self.status["exists"] != "PROVED_IMPOSSIBLE":
-            sol = self.solve_manifold()
+            sol = self.solve_manifold(max_iter=1000)
             if sol: print("  Global Manifold Completion: SUCCESS")
         else:
             print("  Topological Obstruction: NO SOLUTION REACHABLE")
@@ -44,9 +55,27 @@ class TGICore:
     def reasoning_path(self) -> List[str]:
         return self.status.get("proof", ["1. Unknown domain.", "2. Brute-force search required."])
 
-    def solve_manifold(self) -> Optional[Dict]:
+    def solve_manifold(self, max_iter: int = 100000) -> Optional[Dict]:
+        """Finds the global structure (Hamiltonian decomposition) with Basin Escape feedback."""
         if self.weights.h2_blocks: return None
-        if self._sigma is None: self._sigma = solve(self.m, self.k)
+        if self._sigma is not None: return self._sigma
+
+        # Core C: Basin Escape Feedback Loop
+        self._sigma = solve(self.m, self.k)
+        if self._sigma: return self._sigma
+
+        print(f"  Core C: Basin Escape activated for G_{self.m}^{self.k}")
+        if self.k == 3:
+            sol, info = run_hybrid_sa(self.m, self.k, max_iter=max_iter)
+        else:
+            sol, info = run_fiber_structured_sa(self.m, self.k, max_iter=max_iter)
+
+        if sol:
+            self._sigma = sol
+            print(f"  Basin Escape successful: best_score={info['best']}, iters={info['iters']}")
+        else:
+            print(f"  Basin Escape failed: best_score={info['best']}")
+
         return self._sigma
 
     def lift_path(self, sequence: List[int], color: int = 0) -> Optional[int]:
@@ -65,4 +94,5 @@ if __name__ == "__main__":
     tgi = TGICore()
     tgi.reason_on("x^2 + 5 = 14")
     print()
-    tgi.reason_on("I love topology")
+    tgi.set_topology(4, 3)
+    print(f"Reflecting on m=4 k=3: {tgi.reflect()}")
