@@ -9,13 +9,14 @@ class TGIParser:
     def __init__(self):
         # Adjusted mappings: ensure solvable configurations (m odd or k even)
         self.router = {
-            "math":       {"m": 9,  "k": 3, "core": "Symbolic"}, # Z_9^3 (odd m)
-            "language":   {"m": 25, "k": 3, "core": "TLM"},      # Z_25^3 (odd m)
-            "binary":     {"m": 2,  "k": 4, "core": "Algebraic"}, # Z_2^4 (even k)
-            "lattice":    {"m": 4,  "k": 4, "core": "Fibration"}, # Z_4^4 (even k)
-            "heisenberg": {"m": 3,  "k": 3, "core": "Heisenberg"}, # Heisenberg H3(Z_3)
-            "tsp":        {"m": 0,  "k": 0, "core": "Geometric"},  # TSP (Coordinate Manifolds)
-            "default":    {"m": 3,  "k": 3, "core": "Basin"}
+            "math":       {"m": 9,   "k": 3, "core": "Symbolic"},  # Z_9^3 (odd m)
+            "language":   {"m": 25,  "k": 3, "core": "TLM"},       # Z_25^3 (odd m)
+            "binary":     {"m": 2,   "k": 4, "core": "Algebraic"},  # Z_2^4 (even k)
+            "lattice":    {"m": 4,   "k": 4, "core": "Fibration"},  # Z_4^4 (even k)
+            "heisenberg": {"m": 3,   "k": 3, "core": "Heisenberg"}, # Heisenberg H3(Z_3)
+            "tsp":        {"m": 0,   "k": 0, "core": "Geometric"},   # TSP (Coordinate Manifolds)
+            "knowledge":  {"m": 256, "k": 4, "core": "Ontology"},    # Z_256^4 (Ontology Grid)
+            "default":    {"m": 3,   "k": 3, "core": "Basin"}
         }
 
     def parse_input(self, data: Any) -> Dict[str, Any]:
@@ -29,10 +30,15 @@ class TGIParser:
             if all(c in "01 " for c in data) and len(data) > 0:
                 return self._route("binary", data)
             return self._route("language", data)
+        elif isinstance(data, dict):
+            if "category" in data and "name" in data:
+                return self._route("knowledge", data)
+            if "color" in data and "rgba" in data:
+                return self._route("knowledge", data)
+            if "points" in data:
+                return self._route("lattice", data)
         elif isinstance(data, list) and len(data) > 0 and (isinstance(data[0], tuple) or isinstance(data[0], list)):
             return self._route("tsp", data)
-        elif isinstance(data, dict) and "points" in data:
-            return self._route("lattice", data)
         return self._route("default", data)
 
     def _route(self, domain: str, raw_data: Any) -> Dict[str, Any]:
@@ -54,7 +60,8 @@ if __name__ == "__main__":
         "1011",
         {"points": []},
         "Heisenberg Group",
-        [(0.0, 0.0), (1.0, 1.0), (2.0, 0.0)]
+        [(0.0, 0.0), (1.0, 1.0)],
+        {"category": "LAW_MATH", "name": "Closure_Lemma", "payload": "Theory"}
     ]
     for inp in test_inputs:
         parsed = parser.parse_input(inp)

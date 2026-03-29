@@ -615,3 +615,15 @@ No description.
 
 #### `def TGIAgent.query(self, data)`
 Processes a query through the full TGI pipeline.
+
+## KnowledgeMapper (research/knowledge_mapper.py)
+Implements the Universal Ontology Mapper (Project ELECTRICITY logic).
+- **m=256, k=4**: Default grid sizing for high-resolution mapping.
+- **ingest_concept(category, name, payload)**: Maps a concept to a unique coordinate using Closure Hashing.
+- **ingest_color(name, r, g, b, a)**: Natively embeds RGBA colors as topological coordinates.
+- **map_relation(name_a, name_b, relation_type)**: Calculates the geometric trajectory (vector) between two concepts in the knowledge manifold.
+
+## TGI Agent Enhancements (research/tgi_agent.py)
+- **ingest_knowledge(category, name, payload)**: High-level interface for ontology mapping.
+- **forge_relation(name_a, name_b, relation_type)**: Creates a topological link between concepts.
+- **cross_reason(data_list)**: Synthesizes a comparative analysis of multiple topological manifolds.

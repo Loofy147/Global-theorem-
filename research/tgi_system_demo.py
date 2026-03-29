@@ -35,8 +35,18 @@ def run_demo():
     core = TGICore(4, 3)
     print(f"Reflecting on m=4 k=3: {core.reflect()}")
 
-    # 6. Cross-Reasoning
-    print("\n[DEMO] Domain 6: Multi-Manifold Cross-Reasoning")
+    # 6. Knowledge Mapping (Project ELECTRICITY)
+    print("\n[DEMO] Domain 6: Universal Knowledge Mapping")
+    print(agent.ingest_knowledge("LAW_MATH", "Closure_Lemma", "The k-1 dimension mathematically forces the k-th cycle closure."))
+    print(agent.ingest_knowledge("TECHNOLOGY", "FSO_Compiler", "Converts Abstract Syntax Trees into Z_m^3 coordinate logic."))
+    print(agent.forge_relation("Closure_Lemma", "FSO_Compiler", "Theoretical Foundation For"))
+
+    # 7. Aesthetic Mapping
+    print("\n[DEMO] Domain 7: Aesthetic Color Coordinate Mapping")
+    print(agent.query({"name": "Primary_Sovereign_Blue", "rgba": (10, 25, 200, 255), "color": True}))
+
+    # 8. Cross-Reasoning
+    print("\n[DEMO] Domain 8: Multi-Manifold Cross-Reasoning")
     cross_res = agent.cross_reason([
         "x + 5 = 10",
         "101101",

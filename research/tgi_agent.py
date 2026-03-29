@@ -57,7 +57,18 @@ class TGIAgent:
             status = "SUCCESS" if tour else "FAILED"
             return f"[TGI_RESPONSE: GEOMETRIC_OPTIMIZATION] Tour Length: {len(tour) if tour else 0}, Status: {status}"
 
+        elif parsed["domain"] == "knowledge":
+            coord = self.core.solve_manifold(target_core="Ontology", payload=data)
+            return f"[TGI_RESPONSE: KNOWLEDGE_INGESTED] Concept mapped to {coord}"
+
         return f"[TGI_RESPONSE: STRUCTURE_DISCOVERED] Manifold G_{m}^{k} solved with IQ {self.core.measure_intelligence():.4f}."
+
+    def ingest_knowledge(self, category: str, name: str, payload: Any):
+        return self.query({"category": category, "name": name, "payload": payload})
+
+    def forge_relation(self, name_a: str, name_b: str, relation_type: str):
+        vec = self.core.ontology.map_relation(name_a, name_b, relation_type)
+        return f"[TGI_RESPONSE: RELATION_FORGED] {name_a} --({relation_type})--> {name_b} | Vector: {vec}"
 
     def cross_reason(self, data_list: List[Any]) -> str:
         """Decomposes multiple queries and merges results for comparative reasoning."""
@@ -107,5 +118,11 @@ if __name__ == "__main__":
     print(agent.query([(0,0), (1,1), (2,0), (1,-1)]))
     print()
 
-    # Test 5: Cross-Reasoning
+    # Test 5: Knowledge Mapping
+    print(agent.ingest_knowledge("LAW_MATH", "Closure_Lemma", "Theoretical Foundation"))
+    print(agent.ingest_knowledge("TECHNOLOGY", "FSO_Compiler", "Compiles Coordinate Logic"))
+    print(agent.forge_relation("Closure_Lemma", "FSO_Compiler", "Underlies"))
+    print()
+
+    # Test 6: Cross-Reasoning
     print(agent.cross_reason(["x+5=10", "10110", "Topology"]))

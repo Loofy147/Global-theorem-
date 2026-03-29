@@ -6,10 +6,18 @@ from core import solve, extract_weights, run_hybrid_sa, run_fiber_structured_sa
 from tgi_parser import TGIParser
 from research.aimo_reasoning_engine import AIMOReasoningEngine
 from research.advanced_solvers import HeisenbergSolver, TSPSolver
+from research.knowledge_mapper import KnowledgeMapper
 
 class TGICore:
     """The heartbeat of Topological General Intelligence (TGI)."""
     def __init__(self, m: int = 3, k: int = 3):
+        self.parser = TGIParser()
+        self.math_engine = AIMOReasoningEngine()
+        self.ontology = KnowledgeMapper(m=256, k=4)
+        self.set_topology(m, k)
+
+    def set_topology(self, m: int, k: int):
+        """Changes the current topological domain without wiping persistent engines."""
         self.m = m; self.k = k
         self.classifier = AlgebraicClassifier(m, k)
         from core import extract_weights
@@ -19,12 +27,6 @@ class TGICore:
             self.weights = None
         self.status = self.classifier.analyze() if m > 0 else {"exists": "OPEN", "proof": ["1. Geometric manifold.", "2. Numerical search."]}
         self._sigma = None
-        self.parser = TGIParser()
-        self.math_engine = AIMOReasoningEngine()
-
-    def set_topology(self, m: int, k: int):
-        """Changes the current topological domain."""
-        self.__init__(m, k)
 
     def reflect(self) -> str:
         """Topological Reflection: Explains the current state manifold in natural language."""
@@ -85,6 +87,16 @@ class TGICore:
             solver = TSPSolver("TGI_TSP", payload)
             tour, distance = solver.solve(max_iter=max_iter)
             return tour
+
+        if target_core == "Ontology" and payload:
+            if "category" in payload:
+                coord = self.ontology.ingest_concept(payload["category"], payload["name"], payload["payload"])
+                print(f"  Core O: Knowledge Concept Ingested at {coord}")
+                return coord
+            elif "rgba" in payload:
+                coord = self.ontology.ingest_color(payload["name"], *payload["rgba"])
+                print(f"  Core O: Color Palette Ingested at {coord}")
+                return coord
 
         if self.weights and self.weights.h2_blocks: return None
         if self._sigma is not None: return self._sigma
