@@ -4,6 +4,8 @@ from typing import Dict, List, Optional, Tuple, Any
 from tgi_core import TGICore
 from tlm import TopologicalLanguageModel
 from tgi_parser import TGIParser
+from research.hierarchical_tlm import HierarchicalTLM
+import numpy as np
 
 class TGIAgent:
     """The High-Level Topological General Intelligence (TGI) Agent."""
@@ -11,8 +13,9 @@ class TGIAgent:
         self.parser = TGIParser()
         self.core = TGICore()
         self.tlm = None # Initialized per query domain
+        self.htlm = None
 
-    def query(self, data: Any):
+    def query(self, data: Any, hierarchical: bool = False):
         """Processes a query through the full TGI pipeline."""
         # 1. Parse and Route
         parsed = self.parser.parse_input(data)
@@ -21,7 +24,10 @@ class TGIAgent:
         # 2. Update Core and TLM for the target manifold
         self.core.set_topology(m, k)
         if parsed["domain"] == "language":
-            self.tlm = TopologicalLanguageModel(m, k)
+            if hierarchical:
+                self.htlm = HierarchicalTLM(m, k, depth=2)
+            else:
+                self.tlm = TopologicalLanguageModel(m, k)
 
         # 3. Generate Topological Reasoning Path
         print(f"╔═══════════════════════════════════════════════╗")
@@ -44,8 +50,12 @@ class TGIAgent:
 
         # 5. Generate Response via Core/TLM
         if parsed["domain"] == "language":
-            response = self.tlm.generate(data, 20)
-            return f"[TGI_RESPONSE: LIFT_SUCCESS] {response}"
+            if hierarchical and self.htlm:
+                response = self.htlm.generate_hierarchical(data, 20)
+                return f"[TGI_RESPONSE: HIERARCHICAL_LIFT_SUCCESS] {response}"
+            else:
+                response = self.tlm.generate(data, 20)
+                return f"[TGI_RESPONSE: LIFT_SUCCESS] {response}"
 
         elif parsed["domain"] == "heisenberg":
             sol = self.core.solve_manifold(target_core="Heisenberg")
@@ -60,6 +70,10 @@ class TGIAgent:
         elif parsed["domain"] == "knowledge":
             coord = self.core.solve_manifold(target_core="Ontology", payload=data)
             return f"[TGI_RESPONSE: KNOWLEDGE_INGESTED] Concept mapped to {coord}"
+
+        elif parsed["domain"] == "neural":
+            res = self.core.solve_manifold(target_core="Neural", payload=data)
+            return f"[TGI_RESPONSE: NEURAL_LIFTED] Topological Entropy: {res['topological_entropy']:.4f}, Points: {len(res['points'])}"
 
         return f"[TGI_RESPONSE: STRUCTURE_DISCOVERED] Manifold G_{m}^{k} solved with IQ {self.core.measure_intelligence():.4f}."
 
@@ -102,27 +116,5 @@ class TGIAgent:
 if __name__ == "__main__":
     agent = TGIAgent()
 
-    # Test 1: Language
-    print(agent.query("Topology is the study of"))
-    print()
-
-    # Test 2: Math
-    print(agent.query("x + 5 = 14"))
-    print()
-
-    # Test 3: Heisenberg
-    print(agent.query("Heisenberg Group m=3"))
-    print()
-
-    # Test 4: TSP
-    print(agent.query([(0,0), (1,1), (2,0), (1,-1)]))
-    print()
-
-    # Test 5: Knowledge Mapping
-    print(agent.ingest_knowledge("LAW_MATH", "Closure_Lemma", "Theoretical Foundation"))
-    print(agent.ingest_knowledge("TECHNOLOGY", "FSO_Compiler", "Compiles Coordinate Logic"))
-    print(agent.forge_relation("Closure_Lemma", "FSO_Compiler", "Underlies"))
-    print()
-
-    # Test 6: Cross-Reasoning
-    print(agent.cross_reason(["x+5=10", "10110", "Topology"]))
+    # Test Hierarchical TLM
+    print(agent.query("Topology is the study of", hierarchical=True))

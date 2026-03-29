@@ -627,3 +627,9 @@ Implements the Universal Ontology Mapper (Project ELECTRICITY logic).
 - **ingest_knowledge(category, name, payload)**: High-level interface for ontology mapping.
 - **forge_relation(name_a, name_b, relation_type)**: Creates a topological link between concepts.
 - **cross_reason(data_list)**: Synthesizes a comparative analysis of multiple topological manifolds.
+
+## TensorFibrationMapper (research/tensor_fibration.py)
+Lifts continuous neural weights into discrete topological manifolds.
+- **m=255, k=3**: Optimized for odd m to ensure Hamiltonian solvability.
+- **lift_layer(weights)**: Quantizes weights and projects them into ^k$, returning topological entropy and point distribution.
+- **calculate_topological_entropy(weights)**: Measures the complexity of the neural-manifold projection.

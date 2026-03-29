@@ -7,6 +7,8 @@ from tgi_parser import TGIParser
 from research.aimo_reasoning_engine import AIMOReasoningEngine
 from research.advanced_solvers import HeisenbergSolver, TSPSolver
 from research.knowledge_mapper import KnowledgeMapper
+from research.tensor_fibration import TensorFibrationMapper
+from research.tgi_autonomy import SubgroupDiscovery, DynamicKLift
 
 class TGICore:
     """The heartbeat of Topological General Intelligence (TGI)."""
@@ -14,6 +16,7 @@ class TGICore:
         self.parser = TGIParser()
         self.math_engine = AIMOReasoningEngine()
         self.ontology = KnowledgeMapper(m=256, k=4)
+        self.neural_mapper = TensorFibrationMapper(m=256, k=3)
         self.set_topology(m, k)
 
     def set_topology(self, m: int, k: int):
@@ -23,15 +26,22 @@ class TGICore:
         from core import extract_weights
         if m > 0:
             self.weights = extract_weights(m, k)
+            self.autonomy = SubgroupDiscovery(m, k)
+            self.lift_engine = DynamicKLift(m, k)
         else:
             self.weights = None
+            self.autonomy = None
+            self.lift_engine = None
         self.status = self.classifier.analyze() if m > 0 else {"exists": "OPEN", "proof": ["1. Geometric manifold.", "2. Numerical search."]}
         self._sigma = None
 
     def reflect(self) -> str:
         """Topological Reflection: Explains the current state manifold in natural language."""
         if self.weights and self.weights.h2_blocks:
-            return f"The manifold G_{self.m}^{self.k} is obstructed. An H2 parity mismatch prevents a "                    f"Hamiltonian decomposition. This is a fundamental topological limit."
+            explanation = f"The manifold G_{self.m}^{self.k} is obstructed. An H2 parity mismatch prevents a "                           f"Hamiltonian decomposition. This is a fundamental topological limit."
+            if self.lift_engine:
+                explanation += f"\n  Autonomous Correction: {self.lift_engine.get_lift_reflection()}"
+            return explanation
 
         explanation = f"The manifold G_{self.m}^{self.k} is solvable. " if self.m > 0 else "Advanced geometry detected. "
         if self.weights:
@@ -97,6 +107,13 @@ class TGICore:
                 coord = self.ontology.ingest_color(payload["name"], *payload["rgba"])
                 print(f"  Core O: Color Palette Ingested at {coord}")
                 return coord
+
+        if target_core == "Neural" and payload is not None:
+            import numpy as np
+            weights = payload["weights"] if isinstance(payload, dict) else payload
+            res = self.neural_mapper.lift_layer(weights)
+            print(f"  Core N: Neural Tensor Lifted (Entropy={res['topological_entropy']:.4f})")
+            return res
 
         if self.weights and self.weights.h2_blocks: return None
         if self._sigma is not None: return self._sigma
