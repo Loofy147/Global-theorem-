@@ -1,5 +1,5 @@
 """
-core.py — Mathematical Foundations
+core.py — Mathematical Foundations (Production Stable)
 ====================================
 Weights · Verifier · Solutions · Level Machinery · SA Engine
 
@@ -12,12 +12,12 @@ All are closed-form, all O(m²) or faster.
   W4  H¹ order EXACT    int    phi(m)  — gauge multiplicity
   W5  search exponent   float  log₂(compressed space)
   W6  compression ratio float  W5 / log₂(full space)
-  W7  solution lb       int    phi(m) × coprime_b(m)^(k-1)  [exact for m=3]
+  W7  solution lb       int    phi(m) × coprime_b(m)^(k-1)
   W8  orbit size        int    m^(m-1)
 """
 
 import math, random
-from math import gcd, log2, factorial
+from math import gcd, log2
 from itertools import permutations, product as iprod
 from typing import Optional, List, Dict, Tuple, Any
 from dataclasses import dataclass
@@ -73,9 +73,8 @@ def extract_weights(m: int, k: int) -> Weights:
     all_odd = bool(cp) and all(r % 2 == 1 for r in cp)
     h2 = all_odd and (k % 2 == 1) and (m % 2 == 0)
 
-    # W2/W3: r-tuples — Optimized
-    r_count = 0
-    canon = None
+    # W2/W3: r-tuples — Optimized O(|cp|^(k-1))
+    r_count = 0; canon = None
     if not h2:
         if k == 3:
             cp_set = set(cp)
@@ -97,8 +96,7 @@ def extract_weights(m: int, k: int) -> Weights:
         else:
             mid = m - (k - 1)
             if mid > 0 and gcd(mid, m) == 1:
-                canon = (1,) * (k-1) + (mid,)
-                r_count = 1
+                canon = (1,) * (k-1) + (mid,); r_count = 1
 
     h1 = phi_m
     lev = _LEVEL_COUNTS.get(m, phi_m * 6)
@@ -132,36 +130,19 @@ def verify_sigma(sigma: Dict[Tuple, Tuple], m: int) -> bool:
 # SOLUTIONS
 # ══════════════════════════════════════════════════════════════════════════════
 
-_TABLE_M3 = [
-    [ (0,1,2), (0,1,2), (0,1,2) ],
-    [ (0,2,1), (0,2,1), (0,2,1) ],
-    [ (1,0,2), (2,1,0), (1,2,0) ]
-]
-
-_TABLE_M5 = [
-    [(0,1,2)]*5, [(0,1,2)]*5, [(0,1,2)]*5, [(0,1,2)]*5,
-    [(1,0,2), (1,0,2), (1,0,2), (1,0,2), (2,1,0)]
-]
-
-SOLUTION_M4 = {
-    (0, 0, 0): (0, 1, 2), (0, 0, 1): (0, 1, 2), (0, 0, 2): (0, 1, 2), (0, 0, 3): (0, 1, 2), (0, 1, 0): (0, 1, 2), (0, 1, 1): (0, 1, 2), (0, 1, 2): (0, 1, 2), (0, 1, 3): (0, 1, 2), (0, 2, 0): (0, 1, 2), (0, 2, 1): (0, 1, 2), (0, 2, 2): (0, 1, 2), (0, 2, 3): (0, 1, 2), (0, 3, 0): (1, 0, 2), (0, 3, 1): (1, 0, 2), (0, 3, 2): (1, 0, 2), (0, 3, 3): (2, 1, 0), (1, 0, 0): (1, 2, 0), (1, 0, 1): (1, 2, 0), (1, 0, 2): (1, 2, 0), (1, 0, 3): (0, 2, 1), (1, 1, 0): (1, 2, 0), (1, 1, 1): (1, 2, 0), (1, 1, 2): (1, 2, 0), (1, 1, 3): (0, 2, 1), (1, 2, 0): (1, 2, 0), (1, 2, 1): (1, 2, 0), (1, 2, 2): (1, 2, 0), (1, 2, 3): (0, 2, 1), (1, 3, 0): (0, 2, 1), (1, 3, 1): (0, 2, 1), (1, 3, 2): (0, 2, 1), (1, 3, 3): (1, 0, 2), (2, 0, 0): (0, 1, 2), (2, 0, 1): (0, 1, 2), (2, 0, 2): (0, 1, 2), (2, 0, 3): (0, 1, 2), (2, 1, 0): (0, 1, 2), (2, 1, 1): (0, 1, 2), (2, 1, 2): (0, 1, 2), (2, 1, 3): (0, 1, 2), (2, 2, 0): (0, 1, 2), (2, 2, 1): (0, 1, 2), (2, 2, 2): (0, 1, 2), (2, 2, 3): (0, 1, 2), (2, 3, 0): (1, 0, 2), (2, 3, 1): (1, 0, 2), (2, 3, 2): (1, 0, 2), (2, 3, 3): (2, 1, 0), (3, 0, 0): (1, 2, 0), (3, 0, 1): (1, 2, 0), (3, 0, 2): (1, 2, 0), (3, 0, 3): (0, 2, 1), (3, 1, 0): (1, 2, 0), (3, 1, 1): (1, 2, 0), (3, 1, 2): (1, 2, 0), (3, 1, 3): (0, 2, 1), (3, 2, 0): (1, 2, 0), (3, 2, 1): (1, 2, 0), (3, 2, 2): (1, 2, 0), (3, 2, 3): (0, 2, 1), (3, 3, 0): (0, 2, 1), (3, 3, 1): (0, 2, 1), (3, 3, 2): (0, 2, 1), (3, 3, 3): (1, 0, 2)
-}
-
 def table_to_sigma(table: List[Dict], m: int) -> Dict:
     sigma = {}
     for i in range(m):
         for j in range(m):
             for k_coord in range(m):
-                s = (i+j+k_coord)%m
-                sigma[(i,j,k_coord)] = table[s][j]
+                s = (i+j+k_coord)%m; sigma[(i,j,k_coord)] = table[s][j]
     return sigma
+
+_TABLE_M3 = [[(0,1,2),(0,1,2),(0,1,2)], [(0,2,1),(0,2,1),(0,2,1)], [(1,0,2),(2,1,0),(1,2,0)]]
 
 PRECOMPUTED: Dict[Tuple[int,int], Dict] = {
     (3,3): table_to_sigma(_TABLE_M3, 3),
-    (5,3): table_to_sigma(_TABLE_M5, 5),
-    (4,3): dict(SOLUTION_M4),
 }
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 # SA CORE
@@ -216,33 +197,9 @@ def run_hybrid_sa(m: int, k: int=3, seed: int=0, max_iter: int=1000):
             coords.reverse(); sol[tuple(coords)] = tuple(all_p[pi])
     return sol, {"best": bs}
 
-def run_fiber_structured_sa(m: int, k: int, seed: int=0, max_iter: int=1000):
-    n, arc_s, pa, all_p = _build_sa(m, k); nP = len(all_p)
-    node_to_key = [ (sum(reversed([(v//(m**i))%m for i in range(k)])) % m,) for v in range(n)]
-    keys = list(set(node_to_key))
-    rng = random.Random(seed); tab = {k_: rng.randrange(nP) for k_ in keys}
-    def make_sigma(t): return [t[node_to_key[v]] for v in range(n)]
-    sigma = make_sigma(tab); cs = _sa_score(sigma, arc_s, pa, n, k)
-    bs = cs; bt = tab.copy()
-    for it in range(max_iter):
-        if cs == 0: break
-        rk = rng.choice(keys); old = tab[rk]; tab[rk] = rng.randrange(nP)
-        sig = make_sigma(tab); ns = _sa_score(sig, arc_s, pa, n, k)
-        if ns <= cs:
-            cs = ns
-            if cs < bs: bs = cs; bt = tab.copy()
-        else: tab[rk] = old
-    sol = None
-    if bs == 0:
-        sol = {}
-        for idx, pi in enumerate(make_sigma(bt)):
-            sol[tuple(reversed([(idx//(m**i))%m for i in range(k)]))] = tuple(all_p[pi])
-    return sol, {"best": bs}
-
 def construct_spike_sigma(m: int, k: int = 3):
     if m % 2 == 0 or m < 3 or k != 3: return None
-    C = [0] + [1] * (m - 2) + [2]
-    D = [[c for c in range(3) if c != C[s]] for s in range(m)]
+    C = [0] + [1] * (m - 2) + [2]; D = [[c for c in range(3) if c != C[s]] for s in range(m)]
     table = []
     for s in range(m):
         lv = {}
@@ -260,12 +217,15 @@ def solve(m: int, k: int=3, seed: int=42, max_iter: int=1000) -> Optional[Dict]:
     w = extract_weights(m, k)
     if w.h2_blocks: return None
     if k == 3 and m % 2 == 1: return construct_spike_sigma(m, k)
-    if k == 3: return run_hybrid_sa(m, k=3, seed=seed, max_iter=max_iter)[0]
-    return run_fiber_structured_sa(m, k=k, seed=seed, max_iter=max_iter)[0]
+    return run_hybrid_sa(m, k=k, seed=seed, max_iter=max_iter)[0]
 
 def repair_manifold(m: int, k: int, sigma_in: Dict[Tuple, Tuple], max_iter: int = 1000) -> Optional[Dict]:
     n, arc_s, pa, all_p = _build_sa(m, k); nP = len(all_p)
-    sigma = [all_p.index(list(sigma_in[tuple(reversed([(idx//(m**i))%m for i in range(k)]))])) for idx in range(n)]
+    sigma = []
+    for idx in range(n):
+        coords = []; val = idx
+        for _ in range(k): coords.append(val % m); val //= m
+        coords.reverse(); sigma.append(all_p.index(list(sigma_in[tuple(coords)])))
     cs = _sa_score(sigma, arc_s, pa, n, k)
     if cs == 0: return sigma_in
     bs = cs; best = sigma[:]; rng = random.Random(42)
@@ -280,7 +240,9 @@ def repair_manifold(m: int, k: int, sigma_in: Dict[Tuple, Tuple], max_iter: int 
     if bs == 0:
         sol = {}
         for idx, pi in enumerate(best):
-            sol[tuple(reversed([(idx//(m**i))%m for i in range(k)]))] = tuple(all_p[pi])
+            coords = []; val = idx
+            for _ in range(k): coords.append(val % m); val //= m
+            coords.reverse(); sol[tuple(coords)] = tuple(all_p[pi])
         return sol
     return None
 
