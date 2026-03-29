@@ -1,53 +1,83 @@
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from typing import List, Dict, Tuple, Any
+from typing import List, Dict, Tuple, Any, Optional
+import hashlib
 from algebraic import AlgebraicClassifier
-from core import solve
+from core import solve, extract_weights
 
 class TopologicalLanguageModel:
-    """The Topological Language Model (TLM) prototype."""
-    def __init__(self, vocabulary_size: int, context_dimension: int):
-        self.m = vocabulary_size
-        self.k = context_dimension
-        self.classifier = AlgebraicClassifier(self.m, self.k)
+    """The Topological Language Model (TLM) with Path Lifting and Coordinate Mapping."""
+    def __init__(self, m: int, k: int = 3):
+        self.m = m
+        self.k = k
+        self.classifier = AlgebraicClassifier(m, k)
+        from core import extract_weights
+        self.weights = extract_weights(m, k)
+        self._sigma = None # The discovered global structure
 
     def tokenize(self, text: str) -> List[int]:
-        """Maps characters/tokens to the base group Z_m."""
-        return [(ord(c) % self.m) for c in text]
+        """Maps arbitrary text tokens to Z_m coordinates via hashing."""
+        tokens = []
+        # Simple word-based or char-based tokenizer
+        words = text.split() if ' ' in text else list(text)
+        for w in words:
+            # Map word/char to an integer in [0, m-1]
+            h = int(hashlib.md5(w.encode()).hexdigest(), 16)
+            tokens.append(h % self.m)
+        return tokens
 
-    def check_grammar(self, tokens: List[int]) -> bool:
-        """A sentence is 'topologically grammatical' if its path can be lifted."""
-        # For this prototype, we check if the global manifold is obstructed.
-        analysis = self.classifier.analyze()
-        return analysis['exists'] != "PROVED_IMPOSSIBLE"
+    def _ensure_sigma(self):
+        if self._sigma is None and not self.weights.h2_blocks:
+            from core import solve
+            self._sigma = solve(self.m, self.k)
 
-    def predict_next(self, sequence: List[int]) -> int:
-        """Predicts next coordinate by following the Hamiltonian path."""
-        # In a real TLM, this would follow sigma_c(v).
-        # Here we simulate by returning the next element in a Z_m cycle.
-        if not sequence: return 0
-        return (sequence[-1] + 1) % self.m
+    def topological_attention(self) -> float:
+        """W4 Gauge Multiplicity acts as the 'attention breadth'."""
+        return float(self.weights.h1_exact)
 
     def generate(self, seed_text: str, length: int) -> str:
-        """Generates a completion based on the topological path."""
+        """Generates completion using Hamiltonian path lifting."""
         tokens = self.tokenize(seed_text)
-        if not self.check_grammar(tokens):
+        if self.weights.h2_blocks:
             return "[TOPOLOGICAL_ERROR: Obstruction detected]"
 
-        result = list(tokens)
-        for _ in range(length):
-            result.append(self.predict_next(result))
+        self._ensure_sigma()
+        if not self._sigma:
+            return "[TOPOLOGICAL_ERROR: Failed to discover global structure]"
 
-        # Convert back to chars
-        return "".join(chr((t % 26) + ord('a')) for t in result)
+        current_tokens = list(tokens)
+
+        # State vertex for the torus G_m^k
+        state = [0]*self.k
+        for i, t in enumerate(current_tokens[-self.k:]):
+            state[self.k - min(len(current_tokens), self.k) + i] = t
+
+        generated_tokens = []
+        for _ in range(length):
+            v = tuple(state)
+            p = self._sigma.get(v)
+            if not p: break
+
+            # Follow Color 0's path
+            arc_type = p[0]
+            next_state = list(state)
+            next_state[arc_type] = (next_state[arc_type] + 1) % self.m
+
+            new_token = next_state[arc_type]
+            generated_tokens.append(new_token)
+            state = next_state
+
+        # Mapping back to chars (simple lookup for this prototype)
+        char_map = {i: chr(ord('a') + i % 26) for i in range(self.m)}
+        return seed_text + " " + "".join(char_map[t] for t in generated_tokens)
 
 if __name__ == "__main__":
-    # TLM with vocabulary size 3 (small group Z_3)
-    tlm = TopologicalLanguageModel(vocabulary_size=3, context_dimension=3)
+    # TLM with m=3, k=3 (Solvable)
+    tlm = TopologicalLanguageModel(m=3, k=3)
     print(f"TLM (m=3, k=3) Generation:")
-    print(f"  Seed: 'abc' -> {tlm.generate('abc', 10)}")
+    print(f"  Seed: 'hello world' -> {tlm.generate('hello world', 15)}")
 
-    # TLM with obstruction (m=4, k=3)
-    tlm_obs = TopologicalLanguageModel(vocabulary_size=4, context_dimension=3)
-    print(f"TLM (m=4, k=3) Generation:")
-    print(f"  Seed: 'abcd' -> {tlm_obs.generate('abcd', 10)}")
+    # TLM with m=7 (Odd)
+    tlm_m7 = TopologicalLanguageModel(m=7, k=3)
+    print(f"TLM (m=7, k=3) Generation:")
+    print(f"  Seed: 'topology' -> {tlm_m7.generate('topology', 20)}")

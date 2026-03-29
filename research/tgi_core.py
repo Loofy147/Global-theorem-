@@ -12,6 +12,7 @@ class TGICore:
         from core import extract_weights
         self.weights = extract_weights(m, k)
         self.status = self.classifier.analyze()
+        self._sigma = None
 
     def reasoning_path(self) -> List[str]:
         """Returns the algebraic reasoning path for the current domain."""
@@ -21,7 +22,25 @@ class TGICore:
         """Finds the global structure (Hamiltonian decomposition) of the state space."""
         if self.weights.h2_blocks:
             return None # Impossible due to parity obstruction
-        return solve(self.m, self.k)
+        if self._sigma is None:
+            self._sigma = solve(self.m, self.k)
+        return self._sigma
+
+    def lift_path(self, sequence: List[int], color: int = 0) -> Optional[int]:
+        """Lifts a path (sequence) to its unique next point in the total space."""
+        # Core B: Fibration Navigation
+        sol = self.solve_manifold()
+        if not sol: return None
+
+        # Vertex representation in G_m^k
+        v = tuple(sequence[-self.k:] if len(sequence) >= self.k else [0]*(self.k-len(sequence)) + list(sequence))
+        p = sol.get(v)
+        if not p: return None
+
+        # Follow the arc for the given color
+        arc_type = p[color]
+        next_val = (v[arc_type] + 1) % self.m
+        return next_val
 
     def measure_intelligence(self) -> float:
         """Calculates the Intelligence Quotient (IQ) as search compression W6."""
@@ -42,6 +61,9 @@ class TGICore:
         sol = self.solve_manifold()
         if sol:
             print(f"  Global Structure: FOUND (Sigma verified)")
+            # Demo a lift
+            next_p = self.lift_path([0, 1, 2])
+            print(f"  Path Lifting (Core B): [0, 1, 2] -> {next_p}")
         elif self.weights.h2_blocks:
             print(f"  Global Structure: OBSTRUCTED (H2 Parity Error)")
         else:
