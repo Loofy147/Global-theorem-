@@ -776,5 +776,155 @@
         167
       ]
     }
+  },
+  "(204, 10, 1, 43)": {
+    "name": "Happiness_Finland",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.769, GDP: 1.34"
+  },
+  "(242, 151, 231, 146)": {
+    "name": "Happiness_Denmark",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.6, GDP: 1.383"
+  },
+  "(25, 72, 11, 150)": {
+    "name": "Happiness_Norway",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.554, GDP: 1.488"
+  },
+  "(55, 184, 67, 208)": {
+    "name": "Happiness_Iceland",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.494, GDP: 1.38"
+  },
+  "(254, 156, 110, 250)": {
+    "name": "Happiness_Netherlands",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.488, GDP: 1.396"
+  },
+  "(186, 81, 226, 21)": {
+    "name": "Happiness_Switzerland",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.48, GDP: 1.452"
+  },
+  "(108, 233, 147, 26)": {
+    "name": "Happiness_Sweden",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.343, GDP: 1.387"
+  },
+  "(193, 163, 244, 170)": {
+    "name": "Happiness_New Zealand",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.307, GDP: 1.303"
+  },
+  "(47, 111, 208, 148)": {
+    "name": "Happiness_Canada",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.278, GDP: 1.365"
+  },
+  "(236, 34, 185, 59)": {
+    "name": "Happiness_Austria",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.246, GDP: 1.376"
+  },
+  "(1, 254, 57, 202)": {
+    "name": "Happiness_Australia",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.228, GDP: 1.372"
+  },
+  "(126, 35, 91, 6)": {
+    "name": "Happiness_Costa Rica",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.167, GDP: 1.034"
+  },
+  "(245, 241, 225, 59)": {
+    "name": "Happiness_Israel",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.139, GDP: 1.276"
+  },
+  "(57, 153, 42, 6)": {
+    "name": "Happiness_Luxembourg",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.09, GDP: 1.609"
+  },
+  "(57, 29, 248, 180)": {
+    "name": "Happiness_United Kingdom",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.054, GDP: 1.333"
+  },
+  "(175, 237, 202, 156)": {
+    "name": "Happiness_Ireland",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 7.021, GDP: 1.499"
+  },
+  "(27, 232, 168, 87)": {
+    "name": "Happiness_Germany",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 6.985, GDP: 1.373"
+  },
+  "(212, 58, 78, 166)": {
+    "name": "Happiness_Belgium",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 6.923, GDP: 1.356"
+  },
+  "(68, 52, 67, 71)": {
+    "name": "Happiness_United States",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 6.892, GDP: 1.433"
+  },
+  "(136, 52, 145, 181)": {
+    "name": "Happiness_Czech Republic",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Score: 6.852, GDP: 1.269"
+  },
+  "(0, 219, 26, 14)": {
+    "name": "Fashion_0_Ankle boot",
+    "category": "AESTHETICS",
+    "fiber": 3,
+    "payload": "Topological Signature: [TGI_RESPONSE: NEURAL_LIFTED] Topological Entropy: 5.6232, Points: 261"
+  },
+  "(236, 44, 40, 195)": {
+    "name": "Fashion_1_T-shirt/top",
+    "category": "AESTHETICS",
+    "fiber": 3,
+    "payload": "Topological Signature: [TGI_RESPONSE: NEURAL_LIFTED] Topological Entropy: 6.4192, Points: 261"
+  },
+  "(102, 12, 66, 79)": {
+    "name": "Fashion_2_T-shirt/top",
+    "category": "AESTHETICS",
+    "fiber": 3,
+    "payload": "Topological Signature: [TGI_RESPONSE: NEURAL_LIFTED] Topological Entropy: 4.3196, Points: 261"
+  },
+  "(119, 53, 156, 187)": {
+    "name": "Fashion_3_Dress",
+    "category": "AESTHETICS",
+    "fiber": 3,
+    "payload": "Topological Signature: [TGI_RESPONSE: NEURAL_LIFTED] Topological Entropy: 5.4207, Points: 261"
+  },
+  "(24, 76, 75, 84)": {
+    "name": "Fashion_4_T-shirt/top",
+    "category": "AESTHETICS",
+    "fiber": 3,
+    "payload": "Topological Signature: [TGI_RESPONSE: NEURAL_LIFTED] Topological Entropy: 4.2366, Points: 261"
   }
 }
