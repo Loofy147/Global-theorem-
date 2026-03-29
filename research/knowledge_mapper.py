@@ -1,5 +1,6 @@
 import hashlib
 import json
+import os
 from typing import Dict, List, Tuple, Any, Optional
 
 class KnowledgeMapper:
@@ -8,10 +9,11 @@ class KnowledgeMapper:
     Maps datasets, mathematics, physics laws, and design systems into the Z_256^4 grid.
     Uses the CLOSURE LEMMA to deterministically force concepts into functional fibers.
     """
-    def __init__(self, m: int = 256, k: int = 4):
+    def __init__(self, m: int = 256, k: int = 4, state_path: str = "research/ontology_state.json"):
         self.m = m
         self.k = k
         self.grid = {}
+        self.state_path = state_path
 
         # Structural Fibers (sum mod m)
         self.FIBERS = {
@@ -21,6 +23,9 @@ class KnowledgeMapper:
             "AESTHETICS": 3,     # Colors, UI Designs, Golden Ratios
             "RELATION": 4        # Optimization paths, Associations
         }
+
+        if os.path.exists(self.state_path):
+            self.load_state()
 
     def _apply_closure_hashing(self, concept_name: str, target_fiber: int) -> Tuple[int, ...]:
         """
@@ -44,7 +49,7 @@ class KnowledgeMapper:
         target_fiber = self.FIBERS[category]
         coord = self._apply_closure_hashing(concept_name, target_fiber)
 
-        self.grid[coord] = {
+        self.grid[str(coord)] = {
             "name": concept_name,
             "category": category,
             "fiber": target_fiber,
@@ -56,7 +61,7 @@ class KnowledgeMapper:
         coord = (r % self.m, g % self.m, b % self.m, a % self.m)
         s = sum(coord) % self.m
 
-        self.grid[coord] = {
+        self.grid[str(coord)] = {
             "name": color_name,
             "category": "AESTHETICS",
             "fiber": s,
@@ -72,17 +77,35 @@ class KnowledgeMapper:
             return None
 
         vector = tuple((cb - ca) % self.m for ca, cb in zip(coord_a, coord_b))
+
+        # Ingest the relation as well
+        rel_name = f"{name_a}_to_{name_b}_{relationship_type}"
+        self.ingest_concept("RELATION", rel_name, {"source": name_a, "target": name_b, "type": relationship_type, "vector": vector})
+
         return vector
 
     def _find_coord(self, name: str) -> Optional[Tuple[int, ...]]:
-        for coord, data in self.grid.items():
+        for coord_str, data in self.grid.items():
             if data["name"] == name:
-                return coord
+                # Parse back from string "(x, y, z, w)"
+                return tuple(map(int, coord_str.strip("()").split(", ")))
         return None
+
+    def save_state(self):
+        with open(self.state_path, "w") as f:
+            json.dump(self.grid, f, indent=2)
+
+    def load_state(self):
+        try:
+            with open(self.state_path, "r") as f:
+                self.grid = json.load(f)
+        except Exception:
+            self.grid = {}
 
 if __name__ == "__main__":
     km = KnowledgeMapper()
     c1 = km.ingest_concept("LAW_MATH", "Closure_Lemma", "Theory")
     c2 = km.ingest_concept("TECHNOLOGY", "FSO_Compiler", "Implementation")
     rel = km.map_relation("Closure_Lemma", "FSO_Compiler", "Foundational")
-    print(f"Closure_Lemma: {c1}, FSO_Compiler: {c2}, Relation Vector: {rel}")
+    km.save_state()
+    print(f"Ontology saved with {len(km.grid)} concepts.")

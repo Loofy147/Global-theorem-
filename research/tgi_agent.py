@@ -84,6 +84,21 @@ class TGIAgent:
         vec = self.core.ontology.map_relation(name_a, name_b, relation_type)
         return f"[TGI_RESPONSE: RELATION_FORGED] {name_a} --({relation_type})--> {name_b} | Vector: {vec}"
 
+    def ontology_summary(self) -> str:
+        """Provides a summary of the Universal Ontology Mapper state."""
+        grid = self.core.ontology.grid
+        count = len(grid)
+        cats = {}
+        for d in grid.values():
+            cats[d["category"]] = cats.get(d["category"], 0) + 1
+
+        summary = f"═══ TGI ONTOLOGY SUMMARY ═══\n"
+        summary += f"Total Entities: {count}\n"
+        summary += f"Fiber Distribution:\n"
+        for cat, c in cats.items():
+            summary += f"  - {cat}: {c} entities\n"
+        return summary
+
     def cross_reason(self, data_list: List[Any]) -> str:
         """Decomposes multiple queries and merges results for comparative reasoning."""
         results = []
@@ -115,6 +130,4 @@ class TGIAgent:
 
 if __name__ == "__main__":
     agent = TGIAgent()
-
-    # Test Hierarchical TLM
-    print(agent.query("Topology is the study of", hierarchical=True))
+    print(agent.ontology_summary())

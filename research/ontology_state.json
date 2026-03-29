@@ -1,0 +1,304 @@
+{
+  "(193, 2, 169, 148)": {
+    "name": "Closure_Lemma",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "The k-1 dimension mathematically forces the k-th cycle closure."
+  },
+  "(164, 98, 45, 205)": {
+    "name": "Parity_Obstruction",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Manifolds G_m^k with even m and odd k are Hamiltonian-impossible."
+  },
+  "(120, 142, 254, 252)": {
+    "name": "Sylow_Theorems",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Governing conditions for the existence and number of subgroups."
+  },
+  "(214, 29, 113, 156)": {
+    "name": "H2_Cohomology",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "The group of 2-cocycles that classifies central extensions."
+  },
+  "(184, 171, 201, 212)": {
+    "name": "Spike_Construction",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Deterministic O(m) method for 3-Hamiltonian decompositions."
+  },
+  "(105, 71, 248, 88)": {
+    "name": "Gauge_Multiplicity_W4",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "The number of equivalent representations of a topological state."
+  },
+  "(148, 192, 225, 203)": {
+    "name": "Torsor_Structure_H1",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "The moduli space of valid Hamiltonian decompositions."
+  },
+  "(3, 227, 68, 215)": {
+    "name": "Basin_Escape_v3",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Randomized orbit-flip engine for breaking local topological minima."
+  },
+  "(79, 110, 78, 246)": {
+    "name": "FSO_Compiler",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Converts high-level logical structures into coordinate-based manifolds."
+  },
+  "(228, 24, 47, 214)": {
+    "name": "Topological_Language_Model",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "A linguistic engine where meaning is a fibration over a base group."
+  },
+  "(107, 151, 23, 232)": {
+    "name": "AIMO_Reasoning_Engine",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Hybrid symbolic-search solver for mathematical olympiads."
+  },
+  "(62, 29, 185, 237)": {
+    "name": "Knowledge_Mapper",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Topological ontology implementation for Project ELECTRICITY."
+  },
+  "(223, 210, 21, 59)": {
+    "name": "Tensor_Fibration",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Mapping of continuous neural weights into discrete group structures."
+  },
+  "(124, 134, 160, 96)": {
+    "name": "AIMO_Progress_Prize_3",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Collection of high-level competitive mathematical problems."
+  },
+  "(26, 89, 97, 46)": {
+    "name": "TSPLIB_Benchmarks",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Standardized instances for the Traveling Salesman Problem."
+  },
+  "(22, 251, 244, 253)": {
+    "name": "Sovereign_OS_Logs",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Topological route paths and system state histories."
+  },
+  "(21, 89, 190, 214)": {
+    "name": "Algebraic_Atlas",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Mapping of all solvable (m, k) parameters for abelian groups."
+  },
+  "(212, 175, 55, 255)": {
+    "name": "Sovereign_Gold",
+    "category": "AESTHETICS",
+    "fiber": 185,
+    "payload": "RGBA(212,175,55,255)"
+  },
+  "(0, 102, 204, 255)": {
+    "name": "Topological_Blue",
+    "category": "AESTHETICS",
+    "fiber": 49,
+    "payload": "RGBA(0,102,204,255)"
+  },
+  "(255, 0, 0, 255)": {
+    "name": "Obstruction_Red",
+    "category": "AESTHETICS",
+    "fiber": 254,
+    "payload": "RGBA(255,0,0,255)"
+  },
+  "(50, 205, 50, 255)": {
+    "name": "Solvable_Green",
+    "category": "AESTHETICS",
+    "fiber": 48,
+    "payload": "RGBA(50,205,50,255)"
+  },
+  "(4, 79, 215, 218)": {
+    "name": "Closure_Lemma_to_FSO_Compiler_Theoretical Foundation",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Closure_Lemma",
+      "target": "FSO_Compiler",
+      "type": "Theoretical Foundation",
+      "vector": [
+        142,
+        108,
+        165,
+        98
+      ]
+    }
+  },
+  "(224, 91, 3, 198)": {
+    "name": "Parity_Obstruction_to_Basin_Escape_v3_Optimization Target",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Parity_Obstruction",
+      "target": "Basin_Escape_v3",
+      "type": "Optimization Target",
+      "vector": [
+        95,
+        129,
+        23,
+        10
+      ]
+    }
+  },
+  "(97, 105, 32, 26)": {
+    "name": "Spike_Construction_to_AIMO_Reasoning_Engine_Algorithmic Core",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Spike_Construction",
+      "target": "AIMO_Reasoning_Engine",
+      "type": "Algorithmic Core",
+      "vector": [
+        179,
+        236,
+        78,
+        20
+      ]
+    }
+  },
+  "(139, 110, 227, 40)": {
+    "name": "Topological_Language_Model_to_Tensor_Fibration_Conceptual Bridge",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Topological_Language_Model",
+      "target": "Tensor_Fibration",
+      "type": "Conceptual Bridge",
+      "vector": [
+        251,
+        186,
+        230,
+        101
+      ]
+    }
+  },
+  "(158, 239, 215, 160)": {
+    "name": "Knowledge_Mapper_to_Sovereign_OS_Logs_Index Engine",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Knowledge_Mapper",
+      "target": "Sovereign_OS_Logs",
+      "type": "Index Engine",
+      "vector": [
+        216,
+        222,
+        59,
+        16
+      ]
+    }
+  },
+  "(116, 114, 163, 123)": {
+    "name": "Sylow_Theorems_to_Algebraic_Atlas_Categorification",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Sylow_Theorems",
+      "target": "Algebraic_Atlas",
+      "type": "Categorification",
+      "vector": [
+        157,
+        203,
+        192,
+        218
+      ]
+    }
+  },
+  "(219, 26, 179, 92)": {
+    "name": "H2_Cohomology_to_Parity_Obstruction_Structural Cause",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "H2_Cohomology",
+      "target": "Parity_Obstruction",
+      "type": "Structural Cause",
+      "vector": [
+        206,
+        69,
+        188,
+        49
+      ]
+    }
+  },
+  "(129, 230, 249, 164)": {
+    "name": "Gauge_Multiplicity_W4_to_Basin_Escape_v3_Search Space Metric",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Gauge_Multiplicity_W4",
+      "target": "Basin_Escape_v3",
+      "type": "Search Space Metric",
+      "vector": [
+        154,
+        156,
+        76,
+        127
+      ]
+    }
+  },
+  "(74, 40, 228, 174)": {
+    "name": "Torsor_Structure_H1_to_Spike_Construction_Geometric Context",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Torsor_Structure_H1",
+      "target": "Spike_Construction",
+      "type": "Geometric Context",
+      "vector": [
+        36,
+        235,
+        232,
+        9
+      ]
+    }
+  },
+  "(3, 104, 58, 95)": {
+    "name": "AIMO_Progress_Prize_3_to_AIMO_Reasoning_Engine_Primary Benchmark",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "AIMO_Progress_Prize_3",
+      "target": "AIMO_Reasoning_Engine",
+      "type": "Primary Benchmark",
+      "vector": [
+        239,
+        17,
+        119,
+        136
+      ]
+    }
+  },
+  "(80, 142, 229, 65)": {
+    "name": "Closure_Lemma_to_FSO_Compiler_Foundational",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Closure_Lemma",
+      "target": "FSO_Compiler",
+      "type": "Foundational",
+      "vector": [
+        142,
+        108,
+        165,
+        98
+      ]
+    }
+  }
+}
