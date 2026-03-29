@@ -2,7 +2,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Dict, List, Optional, Tuple, Any
 from algebraic import AlgebraicClassifier, GroupExtension, Tower
-from core import solve, extract_weights, run_hybrid_sa, run_fiber_structured_sa
+from core import solve, extract_weights, run_hybrid_sa
 from tgi_parser import TGIParser
 from research.aimo_reasoning_engine import AIMOReasoningEngine
 from research.advanced_solvers import HeisenbergSolver, TSPSolver
@@ -124,10 +124,7 @@ class TGICore:
         if self._sigma: return self._sigma
 
         if self.m > 0:
-            if self.k == 3:
-                sol, info = run_hybrid_sa(self.m, self.k, max_iter=max_iter)
-            else:
-                sol, info = run_fiber_structured_sa(self.m, self.k, max_iter=max_iter)
+            sol, info = run_hybrid_sa(self.m, self.k, max_iter=max_iter)
             self._sigma = sol
 
         return self._sigma

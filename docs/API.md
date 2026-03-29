@@ -25,14 +25,21 @@ The heartbeat of TGI. Manages domain state and cross-core reasoning.
 ### `class TGIAgent`
 High-level interface for TGI operations.
 
-#### `def query(self, data, hierarchical=False)`
-Processes a query through the full pipeline. Reports topological transitions and autonomous corrections (lifts).
+#### `def query(self, data, hierarchical=False, admin_vision=False)`
+Processes a query through the full pipeline. Reports topological transitions, autonomous corrections (lifts), and advanced vision metrics in `admin_vision` mode.
 
 ## research/hierarchical_tlm.py
 
 ### `class HierarchicalTLM`
 **New in Phase 4.** Rigorous linguistic scale-up engine.
 Uses the algebraic `Tower` to navigate total manifold spaces ($G_{total}$) and projects states down to base tokens ($G_m$) for output, ensuring multi-level semantic consistency.
+
+## research/topological_vision.py
+
+### `class TopologicalVisionMapper`
+**New in Phase 5.** Lifts pixel data (x, y, R, G, B) into discrete topological manifolds ($G_{256}^5$).
+- `lift_image(data)`: Projects image array or file into $G_m^k$, returning topological entropy, cohomological gradient, and unique signature.
+- `calculate_cohomological_gradient(img_array)`: Measures color distribution complexity and boundary density across the spatial manifold.
 
 ## research/tgi_autonomy.py
 
@@ -41,14 +48,3 @@ Handles the logic for manifold expansion when obstructions are detected.
 
 ### `class SubgroupDiscovery`
 Automatically identifies solvable quotients and normal subgroups for recursive decomposition.
-
-## research/topological_vision.py
-
-### `class TopologicalVisionMapper`
-**New in Phase 5.** Lifts pixel data (x, y, R, G, B) into discrete topological manifolds.
-- `lift_image(data)`: Projects image array or file into $G_m^k$, returning topological entropy and point distribution.
-- `calculate_spatial_entropy(img_array)`: Measures color distribution complexity across the spatial manifold.
-
-### Vision Core Metrics (v2.0)
-- **Topological Signature**: A unique 8-character hex code (e.g., `TGI-VIS-00034EDD`) that identifies the global algebraic structure of an image manifold.
-- **Cohomological Gradient**: Measures the density of local manifold transitions (proxy for edge/boundary density). Calculated as the total variation across spatial fibers.

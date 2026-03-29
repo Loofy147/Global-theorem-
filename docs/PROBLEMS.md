@@ -9,15 +9,19 @@ The core task is to find a set of $k$ permutations $\sigma_c$ that decompose the
 | Problem | Parameters | Method | Iterations | Best Score | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **P1** | $k=4, m=4$ | Fiber-Structured SA | 50M | 0 | **Solved** |
-| **P2** | $k=3, m=6$ | Multi-Fiber Basin Escape | 500k | **1** | Open (Near-Solved) |
+| **P2** | $k=3, m=6$ | Multi-Fiber Basin Escape | 500k | **0** (via Repair) | **Solved** |
 | **P3** | $k=3, m=8$ | Fiber-Structured SA | 500k | 17 | Open |
 | **Odd $m$** | $k=3, m \in \{3, 5, \dots\}$ | Spike Construction | $O(m)$ | 0 | **Analytically Proven** |
 
-*Note: P1 was solved in 47.8M iterations. P2 reached score 1 (near-miss) in just 500k iterations using the improved Fiber-Structured SA engine.*
+## 2. Multi-Modal Manifolds (Phase 5)
 
-## 2. Proven Impossibilities ($H^2$ Parity Obstructions)
+| Domain | Sizing | Metric | Status |
+| :--- | :--- | :--- | :--- |
+| **Vision** | $G_{256}^5$ | Cohomological Gradient | **Stable (v2.0)** |
+| **Neural** | $G_{255}^3$ | Topological Entropy | **Stable** |
+| **Knowledge** | $G_{256}^4$ | Closure Hash Density | **Stable (83 concepts)** |
 
-We have formally proven that certain configurations are impossible due to $H^2$ parity obstructions. For even $m$ and odd $k$, the product of permutations across the fiber is odd, making a single Hamiltonian cycle impossible for column-uniform decompositions.
+## 3. Proven Impossibilities ($H^2$ Parity Obstructions)
 
 | Configuration | Parameters | Group | Reason |
 | :--- | :--- | :--- | :--- |
@@ -25,9 +29,7 @@ We have formally proven that certain configurations are impossible due to $H^2$ 
 | **Heisenberg** | $m=6, k=3$ | $Heis(\mathbb{Z}_6)$ | Non-Abelian $H^2$ Block |
 | **Icosahedral** | $k=3$ | $2I$ (Binary) | $H^2$ Parity Obstruction |
 
-## 3. Traveling Salesman Problem (TSP)
-
-The Basin Escape v3.3 engine achieves near-optimal results on standard benchmarks.
+## 4. Traveling Salesman Problem (TSP)
 
 | Instance | Cities | Basin Escape (L) | Best Known (L*) | Gap % |
 | :--- | :--- | :--- | :--- | :--- |
@@ -35,35 +37,14 @@ The Basin Escape v3.3 engine achieves near-optimal results on standard benchmark
 | **eil51** | 51 | 449.3 | 426 | 5.4% |
 | **st70** | 70 | 748.6 | 675 | 10.9% |
 
-## 4. AI Mathematical Olympiad (AIMO) Progress
-
-The SES Reasoning Engine v1.2 has been adapted for LaTeX-based mathematical problems.
-
-- **Reference Problems**: 10/10 solved (including Tournaments, Functional Equations, and Number Theory).
-- **Core Strategy**: Map symbolic constraints to underlying group structures or search spaces.
-- **Submission Status**: Version 18 of the `aimo-parquet-generator` kernel is the current robust baseline.
-
 ## 5. Verified Theorems
 
 The following theorems are verified via `python3 theorems.py`:
 
-- **Thm 3.2**: Orbit-Stabilizer consistency for $\mathbb{Z}_m^3$.
-- **Thm 5.1**: Single-Cycle Conditions for $(m, r, b)$.
-- **Thm 6.1**: Parity Obstruction for all even $m \in \{4 \dots 16\}$ ($k=3$).
-- **Thm 7.1**: Existence of $r$-triple $(1, m-2, 1)$ for all odd $m$.
-- **Thm 8.2**: Explicit verification of the $m=4, k=3$ non-uniform solution.
-- **Thm 9.1**: Arithmetic feasibility for $k=4, m \in \{4, 8\}$.
-- **Thm 10.1**: Exhaustive proof of impossibility for fiber-uniform $k=4, m=4$.
 - **Thm 11.1**: Analytic Proof of Spike Construction for all odd m.
+- **Thm 10.1**: Exhaustive proof of impossibility for fiber-uniform $k=4, m=4$.
 - **Cor 10.2**: k=2 2D Solvability for G_m^2 (m=3, 4).
-- **W4 Theorem**: Proof that $H^1$ torsor count is exactly $\phi(m)$.
-- **Moduli Theorem**: Closure Lemma validation for $\mathbb{Z}_3^3$.
+- **Thm 6.1**: Parity Obstruction for all even $m \in \{4 \dots 16\}$ ($k=3$).
 
 ---
-*Last Updated: April 2026*
-
-## 6. Full-2D Decompositions ($\mathbb{Z}_m^2, k=2$)
-
-| Problem | Parameters | Method | Iterations | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **G_m^2** | $k=2, m \in \{3, 4, \dots\}$ | Full-2D Search | < 1s | **Verified (m=3, 4)** |
+*Last Updated: March 2026*
