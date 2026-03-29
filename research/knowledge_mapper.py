@@ -22,7 +22,8 @@ class KnowledgeMapper:
             "DATASET": 2,        # Raw Information, Histories, Logs
             "AESTHETICS": 3,     # Colors, UI Designs, Golden Ratios
             "RELATION": 4,       # Optimization paths, Associations
-            "LANGUAGE": 5        # Dictionary, Grammars, Linguistic Units
+            "LANGUAGE": 5,       # Dictionary, Grammars, Linguistic Units
+            "API_MCP": 6         # Render, Supabase, Context7, Tool Signatures
         }
 
         if os.path.exists(self.state_path):
@@ -59,10 +60,7 @@ class KnowledgeMapper:
         return coord
 
     def ingest_dictionary(self, file_path: str, limit: int = 1000):
-        """
-        Bulk ingests a dictionary file into the LANGUAGE fiber.
-        Default limit is 1000 to keep the prototype fast.
-        """
+        """Bulk ingests a dictionary file into the LANGUAGE fiber."""
         if not os.path.exists(file_path):
             return 0
 
@@ -75,7 +73,15 @@ class KnowledgeMapper:
                 count += 1
                 if count >= limit: break
 
-        print(f"Ingested {count} words into the LANGUAGE fiber.")
+        return count
+
+    def ingest_mcp_tools(self, tool_defs: List[Dict[str, Any]]):
+        """Ingests MCP Tool Definitions into the API_MCP fiber."""
+        count = 0
+        for tool in tool_defs:
+            name = tool.get("name", "unknown_tool")
+            self.ingest_concept("API_MCP", name, tool)
+            count += 1
         return count
 
     def ingest_color(self, color_name: str, r: int, g: int, b: int, a: int = 255) -> Tuple[int, ...]:
@@ -108,7 +114,6 @@ class KnowledgeMapper:
     def _find_coord(self, name: str) -> Optional[Tuple[int, ...]]:
         for coord_str, data in self.grid.items():
             if data["name"] == name:
-                # Parse back from string "(x, y, z, w)"
                 return tuple(map(int, coord_str.strip("()").split(", ")))
         return None
 
@@ -125,13 +130,4 @@ class KnowledgeMapper:
 
 if __name__ == "__main__":
     km = KnowledgeMapper()
-    # Test dictionary ingestion
-    word_file = "research/wordlist.txt"
-    if os.path.exists(word_file):
-        km.ingest_dictionary(word_file, limit=100)
-
-    km.ingest_concept("LAW_MATH", "Closure_Lemma", "Theory")
-    km.ingest_concept("TECHNOLOGY", "FSO_Compiler", "Implementation")
-    rel = km.map_relation("Closure_Lemma", "FSO_Compiler", "Foundational")
-    km.save_state()
-    print(f"Ontology saved with {len(km.grid)} concepts.")
+    print(f"Ontology ready with fibers: {list(km.FIBERS.keys())}")

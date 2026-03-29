@@ -30926,5 +30926,105 @@
     "category": "LANGUAGE",
     "fiber": 5,
     "payload": "Dictionary Entry"
+  },
+  "(24, 142, 166, 186)": {
+    "name": "render_create_web_service",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_create_web_service",
+      "params": [
+        "name",
+        "runtime",
+        "buildCommand"
+      ],
+      "domain": "cloud"
+    }
+  },
+  "(30, 137, 68, 27)": {
+    "name": "render_list_services",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_list_services",
+      "params": [],
+      "domain": "cloud"
+    }
+  },
+  "(15, 25, 197, 25)": {
+    "name": "render_get_metrics",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_get_metrics",
+      "params": [
+        "resourceId"
+      ],
+      "domain": "cloud"
+    }
+  },
+  "(193, 251, 168, 162)": {
+    "name": "supabase_create_project",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_create_project",
+      "params": [
+        "name",
+        "region"
+      ],
+      "domain": "db"
+    }
+  },
+  "(227, 115, 185, 247)": {
+    "name": "supabase_execute_sql",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_execute_sql",
+      "params": [
+        "project_id",
+        "query"
+      ],
+      "domain": "db"
+    }
+  },
+  "(71, 203, 79, 165)": {
+    "name": "supabase_deploy_edge_function",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_deploy_edge_function",
+      "params": [
+        "project_id",
+        "name"
+      ],
+      "domain": "db"
+    }
+  },
+  "(160, 60, 160, 138)": {
+    "name": "context7_resolve_library_id",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "context7_resolve_library_id",
+      "params": [
+        "libraryName"
+      ],
+      "domain": "docs"
+    }
+  },
+  "(27, 198, 42, 251)": {
+    "name": "context7_query_docs",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "context7_query_docs",
+      "params": [
+        "libraryId",
+        "query"
+      ],
+      "domain": "docs"
+    }
   }
 }
