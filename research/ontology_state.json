@@ -300,5 +300,481 @@
         98
       ]
     }
+  },
+  "(70, 218, 39, 185)": {
+    "name": "Second_Law_Thermodynamics",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Entropy of an isolated system always increases."
+  },
+  "(151, 115, 137, 109)": {
+    "name": "General_Relativity",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Gravity is the curvature of spacetime manifold."
+  },
+  "(91, 253, 58, 110)": {
+    "name": "Quantum_Superposition",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Linear combination of state vectors in Hilbert space."
+  },
+  "(151, 59, 233, 69)": {
+    "name": "Maxwell_Equations",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Foundational laws of electromagnetism."
+  },
+  "(2, 135, 109, 10)": {
+    "name": "Schrodinger_Equation",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Evolution of the wave function in quantum mechanics."
+  },
+  "(34, 237, 63, 178)": {
+    "name": "Noether_Theorem",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Every differentiable symmetry has a corresponding conservation law."
+  },
+  "(10, 212, 96, 194)": {
+    "name": "Heisenberg_Uncertainty",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Limits on precision of conjugate variables."
+  },
+  "(25, 103, 228, 156)": {
+    "name": "Shannon_Entropy",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Measure of information content and uncertainty."
+  },
+  "(127, 253, 179, 209)": {
+    "name": "Yang_Mills_Theory",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Gauge theory for strong and weak nuclear forces."
+  },
+  "(22, 95, 138, 2)": {
+    "name": "P_vs_NP",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Foundational question of computational complexity."
+  },
+  "(143, 167, 48, 155)": {
+    "name": "Turing_Completeness",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "System's ability to simulate any Turing machine."
+  },
+  "(46, 228, 255, 240)": {
+    "name": "CAP_Theorem",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Consistency, Availability, Partition tolerance trade-offs."
+  },
+  "(62, 195, 245, 11)": {
+    "name": "Byzantine_Fault_Tolerance",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Reliability in distributed systems with malicious actors."
+  },
+  "(202, 253, 14, 44)": {
+    "name": "Lambda_Calculus",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Formal system for function definition and application."
+  },
+  "(170, 168, 85, 90)": {
+    "name": "Von_Neumann_Architecture",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Instruction/data stored in shared memory."
+  },
+  "(45, 165, 36, 11)": {
+    "name": "RISC_V",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Open standard instruction set architecture."
+  },
+  "(139, 118, 134, 122)": {
+    "name": "Kernel_Space",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Privileged execution level for OS cores."
+  },
+  "(71, 100, 247, 95)": {
+    "name": "Graph_Neural_Networks",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Lifting neural weights to graph structures."
+  },
+  "(199, 83, 149, 82)": {
+    "name": "Microservices",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Decomposing apps into independent functional units."
+  },
+  "(37, 24, 1, 195)": {
+    "name": "Serverless_Computing",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Event-driven execution without infrastructure management."
+  },
+  "(141, 92, 16, 8)": {
+    "name": "Event_Sourcing",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "State persistence as a sequence of events."
+  },
+  "(195, 144, 10, 164)": {
+    "name": "Kubernetes_Orchestration",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Automated scaling and management of containers."
+  },
+  "(3, 103, 125, 26)": {
+    "name": "Blockchain_Consensus",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Distributed agreement on state transitions."
+  },
+  "(118, 15, 202, 178)": {
+    "name": "Hardware_Abstraction_Layer",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Mediating between software and physical hardware."
+  },
+  "(164, 1, 49, 43)": {
+    "name": "Single_Instruction_Multiple_Data",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Parallel processing at the register level."
+  },
+  "(149, 51, 92, 221)": {
+    "name": "Zero_Knowledge_Proofs",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Proving knowledge without revealing the secret."
+  },
+  "(213, 105, 145, 50)": {
+    "name": "Virtual_Memory_Management",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Paging and segmentation of address spaces."
+  },
+  "(233, 176, 146, 213)": {
+    "name": "DNA_Replication",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Semi-conservative duplication of the genetic manifold."
+  },
+  "(14, 243, 119, 136)": {
+    "name": "Protein_Folding_Problem",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Predicting 3D structure from 1D amino acid sequence."
+  },
+  "(54, 160, 194, 104)": {
+    "name": "CRISPR_Cas9",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Programmable genomic editing technology."
+  },
+  "(226, 47, 162, 77)": {
+    "name": "Neural_Plasticity",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Ability of the brain manifold to reorganize structures."
+  },
+  "(21, 106, 93, 36)": {
+    "name": "Mendelian_Inheritance",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Laws of segregation and independent assortment."
+  },
+  "(152, 108, 170, 82)": {
+    "name": "Endosymbiosis_Theory",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Origin of eukaryotic organelles."
+  },
+  "(84, 7, 23, 142)": {
+    "name": "Metabolic_Pathways",
+    "category": "LAW_MATH",
+    "fiber": 0,
+    "payload": "Topological graphs of biochemical reactions."
+  },
+  "(211, 184, 58, 63)": {
+    "name": "General_Relativity_to_Maxwell_Equations_Unified Field Context",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "General_Relativity",
+      "target": "Maxwell_Equations",
+      "type": "Unified Field Context",
+      "vector": [
+        0,
+        200,
+        96,
+        216
+      ]
+    }
+  },
+  "(149, 211, 103, 53)": {
+    "name": "Shannon_Entropy_to_Second_Law_Thermodynamics_Information-Energy Link",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Shannon_Entropy",
+      "target": "Second_Law_Thermodynamics",
+      "type": "Information-Energy Link",
+      "vector": [
+        45,
+        115,
+        67,
+        29
+      ]
+    }
+  },
+  "(14, 36, 222, 244)": {
+    "name": "Turing_Completeness_to_Lambda_Calculus_Equivalence",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Turing_Completeness",
+      "target": "Lambda_Calculus",
+      "type": "Equivalence",
+      "vector": [
+        59,
+        86,
+        222,
+        145
+      ]
+    }
+  },
+  "(24, 218, 110, 164)": {
+    "name": "Byzantine_Fault_Tolerance_to_Blockchain_Consensus_Implementation Base",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Byzantine_Fault_Tolerance",
+      "target": "Blockchain_Consensus",
+      "type": "Implementation Base",
+      "vector": [
+        197,
+        164,
+        136,
+        15
+      ]
+    }
+  },
+  "(158, 144, 221, 249)": {
+    "name": "Neural_Plasticity_to_Graph_Neural_Networks_Biological Inspiration",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Neural_Plasticity",
+      "target": "Graph_Neural_Networks",
+      "type": "Biological Inspiration",
+      "vector": [
+        101,
+        53,
+        85,
+        18
+      ]
+    }
+  },
+  "(144, 205, 216, 207)": {
+    "name": "Virtual_Memory_Management_to_Hardware_Abstraction_Layer_Resource Control",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Virtual_Memory_Management",
+      "target": "Hardware_Abstraction_Layer",
+      "type": "Resource Control",
+      "vector": [
+        161,
+        166,
+        57,
+        128
+      ]
+    }
+  },
+  "(73, 100, 18, 69)": {
+    "name": "DNA_Replication_to_CRISPR_Cas9_Target Mechanism",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "DNA_Replication",
+      "target": "CRISPR_Cas9",
+      "type": "Target Mechanism",
+      "vector": [
+        77,
+        240,
+        48,
+        147
+      ]
+    }
+  },
+  "(117, 249, 97, 53)": {
+    "name": "Quantum_Superposition_to_Lambda_Calculus_Computational Formalism",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Quantum_Superposition",
+      "target": "Lambda_Calculus",
+      "type": "Computational Formalism",
+      "vector": [
+        111,
+        0,
+        212,
+        190
+      ]
+    }
+  },
+  "(100, 35, 52, 73)": {
+    "name": "Shannon_Entropy_to_Graph_Neural_Networks_Information Flow Metric",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Shannon_Entropy",
+      "target": "Graph_Neural_Networks",
+      "type": "Information Flow Metric",
+      "vector": [
+        46,
+        253,
+        19,
+        195
+      ]
+    }
+  },
+  "(116, 44, 182, 174)": {
+    "name": "Second_Law_Thermodynamics_to_Basin_Escape_v3_Stochastic Driving Force",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Second_Law_Thermodynamics",
+      "target": "Basin_Escape_v3",
+      "type": "Stochastic Driving Force",
+      "vector": [
+        189,
+        9,
+        29,
+        30
+      ]
+    }
+  },
+  "(235, 215, 200, 122)": {
+    "name": "Metabolic_Pathways_to_Event_Sourcing_State Transition Mapping",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Metabolic_Pathways",
+      "target": "Event_Sourcing",
+      "type": "State Transition Mapping",
+      "vector": [
+        57,
+        85,
+        249,
+        122
+      ]
+    }
+  },
+  "(157, 154, 248, 213)": {
+    "name": "Endosymbiosis_Theory_to_Microservices_Evolutionary Modularization",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Endosymbiosis_Theory",
+      "target": "Microservices",
+      "type": "Evolutionary Modularization",
+      "vector": [
+        47,
+        231,
+        235,
+        0
+      ]
+    }
+  },
+  "(143, 172, 77, 124)": {
+    "name": "Mendelian_Inheritance_to_Algebraic_Atlas_Combinatorial Encoding",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Mendelian_Inheritance",
+      "target": "Algebraic_Atlas",
+      "type": "Combinatorial Encoding",
+      "vector": [
+        0,
+        239,
+        97,
+        178
+      ]
+    }
+  },
+  "(252, 244, 42, 234)": {
+    "name": "General_Relativity_to_Topological_Language_Model_Manifold Curvature Analogy",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "General_Relativity",
+      "target": "Topological_Language_Model",
+      "type": "Manifold Curvature Analogy",
+      "vector": [
+        77,
+        165,
+        166,
+        105
+      ]
+    }
+  },
+  "(42, 13, 130, 75)": {
+    "name": "Noether_Theorem_to_Blockchain_Consensus_Invariance Guarantee",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Noether_Theorem",
+      "target": "Blockchain_Consensus",
+      "type": "Invariance Guarantee",
+      "vector": [
+        225,
+        122,
+        62,
+        104
+      ]
+    }
+  },
+  "(184, 11, 99, 222)": {
+    "name": "P_vs_NP_to_Spike_Construction_Complexity Boundary Analysis",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "P_vs_NP",
+      "target": "Spike_Construction",
+      "type": "Complexity Boundary Analysis",
+      "vector": [
+        162,
+        76,
+        63,
+        210
+      ]
+    }
+  },
+  "(174, 183, 195, 220)": {
+    "name": "Byzantine_Fault_Tolerance_to_Hardware_Abstraction_Layer_Robust System Interface",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "Byzantine_Fault_Tolerance",
+      "target": "Hardware_Abstraction_Layer",
+      "type": "Robust System Interface",
+      "vector": [
+        56,
+        76,
+        213,
+        167
+      ]
+    }
   }
 }
