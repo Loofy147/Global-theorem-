@@ -18,12 +18,15 @@ class TGIParser:
             "tsp":        {"m": 0,   "k": 0, "core": "Geometric"},   # TSP (Coordinate Manifolds)
             "knowledge":  {"m": 256, "k": 4, "core": "Ontology"},    # Z_256^4 (Ontology Grid)
             "neural":     {"m": 255, "k": 3, "core": "Neural"},    # Z_255^3 (odd m, solvable)
+            "vision":     {"m": 255, "k": 5, "core": "Vision"},    # Z_256^5 (x,y,r,g,b)
             "default":    {"m": 3,   "k": 3, "core": "Basin"}
         }
 
     def parse_input(self, data: Any) -> Dict[str, Any]:
         """Detects content type and routes to the correct TGI core."""
         if isinstance(data, np.ndarray):
+            if data.ndim == 3 and data.shape[-1] in [1, 3, 4]: # Likely Image
+                return self._route("vision", data)
             return self._route("neural", data)
         elif isinstance(data, dict):
             if "category" in data and "name" in data:
@@ -36,7 +39,10 @@ class TGIParser:
                 return self._route("neural", data)
         elif isinstance(data, str):
             # Detection logic
-            if "heisenberg" in data.lower():
+            low_data = data.lower()
+            if low_data.endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
+                return self._route("vision", data)
+            if "heisenberg" in low_data:
                 return self._route("heisenberg", data)
             if any(c in data for c in "$=+-*/^"):
                 return self._route("math", data)
@@ -63,6 +69,8 @@ if __name__ == "__main__":
     test_inputs = [
         "x + 5 = 10",
         "Language",
+        "image.png",
+        np.zeros((64, 64, 3)),
         "1011",
         {"points": []},
         "Heisenberg Group",
