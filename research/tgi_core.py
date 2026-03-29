@@ -9,6 +9,7 @@ from research.advanced_solvers import HeisenbergSolver, TSPSolver
 from research.knowledge_mapper import KnowledgeMapper
 from research.tensor_fibration import TensorFibrationMapper
 from research.tgi_autonomy import SubgroupDiscovery, DynamicKLift
+from research.topological_vision import TopologicalVisionMapper
 
 class TGICore:
     """The heartbeat of Topological General Intelligence (TGI)."""
@@ -17,6 +18,7 @@ class TGICore:
         self.math_engine = AIMOReasoningEngine()
         self.ontology = KnowledgeMapper(m=256, k=4)
         self.neural_mapper = TensorFibrationMapper(m=256, k=3)
+        self.vision_mapper = TopologicalVisionMapper(m=256, k=5)
         self.set_topology(m, k)
 
     def set_topology(self, m: int, k: int):
@@ -38,10 +40,7 @@ class TGICore:
     def reflect(self) -> str:
         """Topological Reflection: Explains the current state manifold in natural language."""
         if self.weights and self.weights.h2_blocks:
-            explanation = f"The manifold G_{self.m}^{self.k} is obstructed. An H2 parity mismatch prevents a "                           f"Hamiltonian decomposition. This is a fundamental topological limit."
-            if self.lift_engine:
-                explanation += f"\n  Autonomous Correction: {self.lift_engine.get_lift_reflection()}"
-            return explanation
+            return f"The manifold G_{self.m}^{self.k} is obstructed. An H2 parity mismatch prevents a "                    f"Hamiltonian decomposition. This is a fundamental topological limit."
 
         explanation = f"The manifold G_{self.m}^{self.k} is solvable. " if self.m > 0 else "Advanced geometry detected. "
         if self.weights:
@@ -57,7 +56,7 @@ class TGICore:
     def solve_math(self, latex: str) -> int:
         return self.math_engine.solve(latex)
 
-    def reason_on(self, data: Any):
+    def reason_on(self, data: Any, solve_manifold: bool = True):
         """Routes and reasons over arbitrary data using the TGI-Parser."""
         parsed = self.parser.parse_input(data)
         self.set_topology(parsed["m"], parsed["k"])
@@ -75,16 +74,25 @@ class TGICore:
         print(f"  Status: {self.status.get('exists', 'UNKNOWN')}")
         print(f"  Reflection: {self.reflect()}")
 
+        if self.status.get("exists") == "PROVED_IMPOSSIBLE":
+            new_k = self.lift_engine.suggest_lift() if self.lift_engine else None
+            if new_k:
+                print(f"  Autonomous Correction: {self.lift_engine.get_lift_reflection()}")
+                self.set_topology(self.m, new_k)
+                print(f"  New Status: {self.status.get('exists')}")
+                print(f"  New Reflection: {self.reflect()}")
+
         if self.status.get("exists") != "PROVED_IMPOSSIBLE":
-            sol = self.solve_manifold(target_core=parsed["target_core"], payload=parsed["payload"])
-            if sol: print("  Global Manifold Completion: SUCCESS")
+            if solve_manifold:
+                sol = self.solve_manifold(target_core=parsed["target_core"], payload=parsed["payload"])
+                if sol: print("  Global Manifold Completion: SUCCESS")
         else:
             print("  Topological Obstruction: NO SOLUTION REACHABLE")
 
     def reasoning_path(self) -> List[str]:
         return self.status.get("proof", ["1. Unknown domain.", "2. Brute-force search required."])
 
-    def solve_manifold(self, max_iter: int = 1000, target_core: str = "Basin", payload: Any = None) -> Optional[Any]:
+    def solve_manifold(self, max_iter: int = 5, target_core: str = "Basin", payload: Any = None) -> Optional[Any]:
         """Finds the global structure (Hamiltonian decomposition) with Basin Escape feedback."""
         if target_core == "Heisenberg":
             solver = HeisenbergSolver(self.m)
@@ -106,10 +114,13 @@ class TGICore:
             weights = payload["weights"] if isinstance(payload, dict) else payload
             return self.neural_mapper.lift_layer(weights)
 
+        if target_core == "Vision" and payload is not None:
+            return self.vision_mapper.lift_image(payload)
+
         if self.weights and self.weights.h2_blocks: return None
         if self._sigma is not None: return self._sigma
 
-        self._sigma = solve(self.m, self.k)
+        self._sigma = solve(self.m, self.k, max_iter=max_iter)
         if self._sigma: return self._sigma
 
         if self.m > 0:
@@ -140,7 +151,4 @@ class TGICore:
 
 if __name__ == "__main__":
     tgi = TGICore()
-    tgi.reason_on("x^2 + 5 = 14")
-    print()
-    tgi.set_topology(4, 3)
-    print(f"Reflecting on m=4 k=3: {tgi.reflect()}")
+    tgi.reason_on("x^2 + 5 = 14", solve_manifold=False)

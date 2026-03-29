@@ -41,3 +41,10 @@ Handles the logic for manifold expansion when obstructions are detected.
 
 ### `class SubgroupDiscovery`
 Automatically identifies solvable quotients and normal subgroups for recursive decomposition.
+
+## research/topological_vision.py
+
+### `class TopologicalVisionMapper`
+**New in Phase 5.** Lifts pixel data (x, y, R, G, B) into discrete topological manifolds.
+- `lift_image(data)`: Projects image array or file into $G_m^k$, returning topological entropy and point distribution.
+- `calculate_spatial_entropy(img_array)`: Measures color distribution complexity across the spatial manifold.

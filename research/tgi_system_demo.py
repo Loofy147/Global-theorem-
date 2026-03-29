@@ -25,34 +25,52 @@ def run_demo():
 
     # 3. Hierarchical TLM Generation (Scale-up)
     print("\n[DEMO] Domain 3: Hierarchical TLM Generation (Scale-up)")
-    response = agent.query("Topological General Intelligence is", hierarchical=True)
+    print("  Querying 'Topology'...")
+    response = agent.query("Topology", hierarchical=True)
     print(response)
 
     # 4. Symbolic Math (AIMO Engine)
     print("\n[DEMO] Domain 4: Symbolic Reasoning (AIMO Engine)")
+    print("  Solving modular math...")
     response = agent.query("remainder when 3**5 is divided by 10")
     print(response)
 
     # 5. Autonomous K-Lift (Dynamic K-expansion)
     print("\n[DEMO] Domain 5: Dynamic K-Expansion (Autonomous Correction)")
-    core.set_topology(4, 3)
-    print(f"Reflecting on G_4^3: {core.reflect()}")
-    print("Executing K-Lift: G_4^3 -> G_4^4")
-    core.set_topology(4, 4)
-    print(f"Reflecting on G_4^4: {core.reflect()}")
+    print("  Querying obstructed manifold m=4, k=3 (via Mock Lift Trigger)...")
+    class MockParser:
+        def parse_input(self, data):
+            return {"m": 4, "k": 3, "domain": "test", "target_core": "Basin", "payload": data}
+    original_parser = agent.parser
+    agent.parser = MockParser()
+    agent.core.parser = MockParser()
+    res = agent.query("test")
+    print(res)
+    agent.parser = original_parser
+    agent.core.parser = original_parser
 
     # 6. Tensor-Fibration (Neural Weights)
     print("\n[DEMO] Domain 6: Tensor-Fibration Mapping (Neural Weights)")
-    weights = np.random.randn(20, 20)
+    print("  Lifting neural layer...")
+    weights = np.random.randn(5, 5) # Smaller weights
     print(agent.query(weights))
 
-    # 7. Cross-Reasoning
-    print("\n[DEMO] Domain 7: Multi-Manifold Cross-Reasoning")
+    # 7. Vision Core (Topological Computer Vision)
+    print("\n[DEMO] Domain 7: Topological Vision (Pixel Fibration)")
+    # Process a very small synthetic image first
+    print("  Processing small synthetic image...")
+    img = np.zeros((4, 4, 3), dtype=np.uint8)
+    img[1:3, 1:3] = [255, 0, 0]
+    print(agent.query(img))
+
+    # 8. Cross-Reasoning
+    print("\n[DEMO] Domain 8: Multi-Manifold Cross-Reasoning")
     cross_res = agent.cross_reason([
         "x + 5 = 10",
         "101101",
         "The quick brown fox",
-        [(0,0), (5,5)]
+        [(0,0), (1,1)],
+        img
     ])
     print(cross_res)
 
