@@ -615,3 +615,33 @@ No description.
 
 #### `def TGIAgent.query(self, data)`
 Processes a query through the full TGI pipeline.
+
+## KnowledgeMapper (research/knowledge_mapper.py)
+Implements the Universal Ontology Mapper (Project ELECTRICITY logic).
+- **m=256, k=4**: Default grid sizing for high-resolution mapping.
+- **ingest_concept(category, name, payload)**: Maps a concept to a unique coordinate using Closure Hashing.
+- **ingest_color(name, r, g, b, a)**: Natively embeds RGBA colors as topological coordinates.
+- **map_relation(name_a, name_b, relation_type)**: Calculates the geometric trajectory (vector) between two concepts in the knowledge manifold.
+
+## TGI Agent Enhancements (research/tgi_agent.py)
+- **ingest_knowledge(category, name, payload)**: High-level interface for ontology mapping.
+- **forge_relation(name_a, name_b, relation_type)**: Creates a topological link between concepts.
+- **cross_reason(data_list)**: Synthesizes a comparative analysis of multiple topological manifolds.
+
+## TensorFibrationMapper (research/tensor_fibration.py)
+Lifts continuous neural weights into discrete topological manifolds.
+- **m=255, k=3**: Optimized for odd m to ensure Hamiltonian solvability.
+- **lift_layer(weights)**: Quantizes weights and projects them into ^k$, returning topological entropy and point distribution.
+- **calculate_topological_entropy(weights)**: Measures the complexity of the neural-manifold projection.
+
+## GroupExtension & Tower (algebraic.py)
+Formal algebraic tools for Core B (Fibration Navigation).
+- **GroupExtension(G_order, Q_order)**: Defines an SES -bash \to H \to G \to Q \to 0$.
+- **Tower(orders)**: Creates a hierarchy of extensions for deep lifting.
+- **lift_sequence(states)**: Maps a sequence of fiber states to a global coordinate.
+- **project_sequence(g_state)**: Decomposes a global state into its constituent fibers.
+
+## HierarchicalTLM (research/hierarchical_tlm.py)
+Linguistic scale-up via semantic towers.
+- **m, k, depth**: Default depth=2 for base, semantic, and structural fibers.
+- **generate_hierarchical(seed, length)**: Generates text by navigating a formal algebraic tower of manifolds.
