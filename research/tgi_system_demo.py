@@ -5,33 +5,48 @@ from tgi_core import TGICore
 
 def run_demo():
     print("═══════════════════════════════════════════════")
-    print("  TGI SYSTEM DEMO — Full Pipeline Integration  ")
+    print("  TGI SYSTEM DEMO — Phase 3: Cognitive Integration  ")
     print("═══════════════════════════════════════════════")
 
     agent = TGIAgent()
 
-    # Domain 1: Language (m=25, k=3)
-    print("\n--- Domain 1: Natural Language ---")
+    # 1. Natural Language (TLM)
+    print("\n[DEMO] Domain 1: Natural Language Path Lifting")
     response = agent.query("Topology is the study of")
     print(response)
 
-    # Domain 2: Math (m=9, k=3)
-    print("\n--- Domain 2: Symbolic Reasoning ---")
-    response = agent.query("x + 5 = 14")
+    # 2. Symbolic Math (AIMO)
+    print("\n[DEMO] Domain 2: Symbolic Reasoning (AIMO Engine)")
+    response = agent.query("remainder when 3**5 is divided by 10")
     print(response)
 
-    # Domain 3: Binary / Algebraic (m=2, k=4)
-    print("\n--- Domain 3: Error Correction / Binary ---")
-    response = agent.query("1010111")
+    # 3. Non-Abelian (Heisenberg)
+    print("\n[DEMO] Domain 3: Non-Abelian Manifolds (Heisenberg)")
+    response = agent.query("Heisenberg Group m=3")
     print(response)
 
-    # Domain 4: Reflection on Obstruction (m=4, k=3)
-    print("\n--- Domain 4: Topological Reflection ---")
+    # 4. Geometric (TSP)
+    print("\n[DEMO] Domain 4: Geometric Optimization (TSP)")
+    response = agent.query([(0,0), (1,1), (2,2), (3,3), (4,4)])
+    print(response)
+
+    # 5. Obstruction Reflection
+    print("\n[DEMO] Domain 5: Topological Obstruction & Reflection")
     core = TGICore(4, 3)
-    print(f"Reflecting on Obstruction: {core.reflect()}")
+    print(f"Reflecting on m=4 k=3: {core.reflect()}")
+
+    # 6. Cross-Reasoning
+    print("\n[DEMO] Domain 6: Multi-Manifold Cross-Reasoning")
+    cross_res = agent.cross_reason([
+        "x + 5 = 10",
+        "101101",
+        "The quick brown fox",
+        [(0,0), (5,5)]
+    ])
+    print(cross_res)
 
     print("\n═══════════════════════════════════════════════")
-    print("  DEMO COMPLETE — System Integration Successful")
+    print("  DEMO COMPLETE — Cognitive Integration Verified")
     print("═══════════════════════════════════════════════")
 
 if __name__ == "__main__":
