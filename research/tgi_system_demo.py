@@ -56,21 +56,27 @@ def run_demo():
     print(agent.query(weights))
 
     # 7. Vision Core (Topological Computer Vision)
-    print("\n[DEMO] Domain 7: Topological Vision (Pixel Fibration)")
-    # Process a very small synthetic image first
-    print("  Processing small synthetic image...")
-    img = np.zeros((4, 4, 3), dtype=np.uint8)
-    img[1:3, 1:3] = [255, 0, 0]
-    print(agent.query(img))
+    print("\n[DEMO] Domain 7: Topological Vision (Admin Mode)")
+    # Use the provided image if it exists
+    image_path = os.path.join(os.path.dirname(__file__), "portrait_only.png")
+    if os.path.exists(image_path):
+        print(f"  Processing image in Admin Mode: {image_path}")
+        print(agent.query(image_path, admin_vision=True))
+    else:
+        print("  Image not found, using synthetic fallback.")
+        img = np.zeros((8, 8, 3), dtype=np.uint8)
+        img[2:6, 2:6] = [255, 0, 0]
+        print(agent.query(img, admin_vision=True))
 
     # 8. Cross-Reasoning
     print("\n[DEMO] Domain 8: Multi-Manifold Cross-Reasoning")
+    dummy_img = np.zeros((4, 4, 3), dtype=np.uint8)
     cross_res = agent.cross_reason([
         "x + 5 = 10",
         "101101",
         "The quick brown fox",
         [(0,0), (1,1)],
-        img
+        dummy_img
     ])
     print(cross_res)
 

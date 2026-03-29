@@ -48,3 +48,7 @@ Automatically identifies solvable quotients and normal subgroups for recursive d
 **New in Phase 5.** Lifts pixel data (x, y, R, G, B) into discrete topological manifolds.
 - `lift_image(data)`: Projects image array or file into $G_m^k$, returning topological entropy and point distribution.
 - `calculate_spatial_entropy(img_array)`: Measures color distribution complexity across the spatial manifold.
+
+### Vision Core Metrics (v2.0)
+- **Topological Signature**: A unique 8-character hex code (e.g., `TGI-VIS-00034EDD`) that identifies the global algebraic structure of an image manifold.
+- **Cohomological Gradient**: Measures the density of local manifold transitions (proxy for edge/boundary density). Calculated as the total variation across spatial fibers.

@@ -15,7 +15,7 @@ class TGIAgent:
         self.tlm = None # Initialized per query domain
         self.htlm = None
 
-    def query(self, data: Any, hierarchical: bool = False):
+    def query(self, data: Any, hierarchical: bool = False, admin_vision: bool = False):
         """Processes a query through the full TGI pipeline."""
         # 1. Parse and Route
         parsed = self.parser.parse_input(data)
@@ -82,7 +82,11 @@ class TGIAgent:
 
         elif parsed["domain"] == "vision":
             res = self.core.solve_manifold(target_core="Vision", payload=data)
-            return f"[TGI_RESPONSE: VISION_LIFTED]{lift_msg} Entropy: {res['topological_entropy']:.4f}, Points: {res['points_count']}"
+            resp = f"[TGI_RESPONSE: VISION_LIFTED]{lift_msg} Entropy: {res['topological_entropy']:.4f}, Points: {res['points_count']}"
+            if admin_vision:
+                resp += f"\n[ADMIN_VISION] Signature: {res['topological_signature']}"
+                resp += f"\n[ADMIN_VISION] Cohomological Gradient: {res['cohomological_gradient']:.4f}"
+            return resp
 
         return f"[TGI_RESPONSE: STRUCTURE_DISCOVERED]{lift_msg} Manifold G_{m}^{k} solved with IQ {self.core.measure_intelligence():.4f}."
 
