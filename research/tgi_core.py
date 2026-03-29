@@ -1,7 +1,7 @@
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Dict, List, Optional, Tuple, Any
-from algebraic import AlgebraicClassifier
+from algebraic import AlgebraicClassifier, GroupExtension, Tower
 from core import solve, extract_weights, run_hybrid_sa, run_fiber_structured_sa
 from tgi_parser import TGIParser
 from research.aimo_reasoning_engine import AIMOReasoningEngine
@@ -87,51 +87,37 @@ class TGICore:
     def solve_manifold(self, max_iter: int = 1000, target_core: str = "Basin", payload: Any = None) -> Optional[Any]:
         """Finds the global structure (Hamiltonian decomposition) with Basin Escape feedback."""
         if target_core == "Heisenberg":
-            print(f"  Core H: Heisenberg Solver activated for m={self.m}")
             solver = HeisenbergSolver(self.m)
             sol, score = solver.solve(max_iter=max_iter)
             return sol
 
         if target_core == "Geometric" and payload:
-            print(f"  Core G: Geometric (TSP) Solver activated for {len(payload)} cities")
             solver = TSPSolver("TGI_TSP", payload)
             tour, distance = solver.solve(max_iter=max_iter)
             return tour
 
         if target_core == "Ontology" and payload:
             if "category" in payload:
-                coord = self.ontology.ingest_concept(payload["category"], payload["name"], payload["payload"])
-                print(f"  Core O: Knowledge Concept Ingested at {coord}")
-                return coord
+                return self.ontology.ingest_concept(payload["category"], payload["name"], payload["payload"])
             elif "rgba" in payload:
-                coord = self.ontology.ingest_color(payload["name"], *payload["rgba"])
-                print(f"  Core O: Color Palette Ingested at {coord}")
-                return coord
+                return self.ontology.ingest_color(payload["name"], *payload["rgba"])
 
         if target_core == "Neural" and payload is not None:
-            import numpy as np
             weights = payload["weights"] if isinstance(payload, dict) else payload
-            res = self.neural_mapper.lift_layer(weights)
-            print(f"  Core N: Neural Tensor Lifted (Entropy={res['topological_entropy']:.4f})")
-            return res
+            return self.neural_mapper.lift_layer(weights)
 
         if self.weights and self.weights.h2_blocks: return None
         if self._sigma is not None: return self._sigma
 
-        # Core C: Basin Escape Feedback Loop
-        if self.m > 0:
-            self._sigma = solve(self.m, self.k)
-            if self._sigma: return self._sigma
+        self._sigma = solve(self.m, self.k)
+        if self._sigma: return self._sigma
 
-            print(f"  Core C: Basin Escape activated for G_{self.m}^{self.k}")
+        if self.m > 0:
             if self.k == 3:
                 sol, info = run_hybrid_sa(self.m, self.k, max_iter=max_iter)
             else:
                 sol, info = run_fiber_structured_sa(self.m, self.k, max_iter=max_iter)
-
-            if sol:
-                self._sigma = sol
-                print(f"  Basin Escape successful: best_score={info['best']}, iters={info['iters']}")
+            self._sigma = sol
 
         return self._sigma
 
@@ -143,6 +129,11 @@ class TGICore:
         if not p: return None
         arc_type = p[color]
         return (v[arc_type] + 1) % self.m
+
+    def hierarchical_lift(self, orders: List[int], states: List[int]) -> int:
+        """Formal tower lifting through multiple manifold layers."""
+        tower = Tower(orders)
+        return tower.lift_sequence(states)
 
     def measure_intelligence(self) -> float:
         return self.weights.compression if self.weights else 0.0
