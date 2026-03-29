@@ -49,3 +49,19 @@ A TLM maps a sequence of tokens $T = [t_1, t_2, \dots, t_n]$ to a path $P$ on a 
 
 ---
 *Blueprint Version: 1.0 (Topological Genesis)*
+
+---
+
+## 5. The TGI-Parser: Universal Mapping
+The **TGI-Parser** (`research/tgi_parser.py`) is the topological interface between raw data and algebraic cores. It maps information to the moduli space $\mathcal{M}_k(G_m)$.
+
+### Functions
+1.  **Domain Routing**: Directs data to the correct core (e.g., Symbolic for math, TLM for text).
+2.  **Topological Sizing**: Dynamically selects $(m, k)$ parameters to ensure solvability (e.g., odd $m$ for $k=3$).
+3.  **Coordinate Translation**: Maps tokens/words to coordinates in $\mathbb{Z}_m^k$ using MD5 hashing.
+
+### Mapping Dictionary
+- **Math** ($m=9, k=3$): Symbolic Reasoning core.
+- **Language** ($m=25, k=3$): TLM core.
+- **Binary** ($m=2, k=4$): Algebraic/Error-Correction core.
+- **Lattice** ($m=4, k=4$): Fibration/Crystal core.

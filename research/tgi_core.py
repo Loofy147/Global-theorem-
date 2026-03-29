@@ -3,75 +3,66 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from typing import Dict, List, Optional, Tuple, Any
 from algebraic import AlgebraicClassifier
 from core import solve, extract_weights
+from tgi_parser import TGIParser
 
 class TGICore:
     """The heartbeat of Topological General Intelligence (TGI)."""
-    def __init__(self, m: int, k: int):
+    def __init__(self, m: int = 3, k: int = 3):
         self.m = m; self.k = k
         self.classifier = AlgebraicClassifier(m, k)
         from core import extract_weights
         self.weights = extract_weights(m, k)
         self.status = self.classifier.analyze()
         self._sigma = None
+        self.parser = TGIParser()
 
-    def reasoning_path(self) -> List[str]:
-        """Returns the algebraic reasoning path for the current domain."""
-        return self.status.get("proof", ["1. Unknown domain.", "2. Brute-force search required."])
+    def set_topology(self, m: int, k: int):
+        """Changes the current topological domain."""
+        self.__init__(m, k)
 
-    def solve_manifold(self) -> Optional[Dict]:
-        """Finds the global structure (Hamiltonian decomposition) of the state space."""
-        if self.weights.h2_blocks:
-            return None # Impossible due to parity obstruction
-        if self._sigma is None:
-            self._sigma = solve(self.m, self.k)
-        return self._sigma
+    def reason_on(self, data: Any):
+        """Routes and reasons over arbitrary data using the TGI-Parser."""
+        parsed = self.parser.parse_input(data)
+        self.set_topology(parsed["m"], parsed["k"])
 
-    def lift_path(self, sequence: List[int], color: int = 0) -> Optional[int]:
-        """Lifts a path (sequence) to its unique next point in the total space."""
-        # Core B: Fibration Navigation
-        sol = self.solve_manifold()
-        if not sol: return None
-
-        # Vertex representation in G_m^k
-        v = tuple(sequence[-self.k:] if len(sequence) >= self.k else [0]*(self.k-len(sequence)) + list(sequence))
-        p = sol.get(v)
-        if not p: return None
-
-        # Follow the arc for the given color
-        arc_type = p[color]
-        next_val = (v[arc_type] + 1) % self.m
-        return next_val
-
-    def measure_intelligence(self) -> float:
-        """Calculates the Intelligence Quotient (IQ) as search compression W6."""
-        # Lower compression ratio means higher 'intelligence' (better abstraction).
-        return self.weights.compression
-
-    def generate_report(self):
         print(f"╔═══════════════════════════════════════════════╗")
-        print(f"║  TGI CORE — Topological General Intelligence   ║")
+        print(f"║  TGI REASONING — {parsed['target_core']} Core ║")
         print(f"╚═══════════════════════════════════════════════╝")
-        print(f"  Domain: G_{self.m}^{self.k}")
+        print(f"  Input Type: {parsed['domain']}")
+        print(f"  Topological IQ (W6): {self.measure_intelligence():.4f}")
         print(f"  Status: {self.status['exists']}")
-        print(f"  IQ (W6 Compression): {self.measure_intelligence():.4f}")
-        print(f"  Reasoning Path:")
+
         for step in self.reasoning_path():
             print(f"    {step}")
 
-        sol = self.solve_manifold()
-        if sol:
-            print(f"  Global Structure: FOUND (Sigma verified)")
-            # Demo a lift
-            next_p = self.lift_path([0, 1, 2])
-            print(f"  Path Lifting (Core B): [0, 1, 2] -> {next_p}")
-        elif self.weights.h2_blocks:
-            print(f"  Global Structure: OBSTRUCTED (H2 Parity Error)")
+        if self.status["exists"] != "PROVED_IMPOSSIBLE":
+            sol = self.solve_manifold()
+            if sol: print("  Global Manifold Completion: SUCCESS")
         else:
-            print(f"  Global Structure: OPEN (Search in progress)")
+            print("  Topological Obstruction: NO SOLUTION REACHABLE")
+
+    def reasoning_path(self) -> List[str]:
+        return self.status.get("proof", ["1. Unknown domain.", "2. Brute-force search required."])
+
+    def solve_manifold(self) -> Optional[Dict]:
+        if self.weights.h2_blocks: return None
+        if self._sigma is None: self._sigma = solve(self.m, self.k)
+        return self._sigma
+
+    def lift_path(self, sequence: List[int], color: int = 0) -> Optional[int]:
+        sol = self.solve_manifold()
+        if not sol: return None
+        v = tuple(sequence[-self.k:] if len(sequence) >= self.k else [0]*(self.k-len(sequence)) + list(sequence))
+        p = sol.get(v)
+        if not p: return None
+        arc_type = p[color]
+        return (v[arc_type] + 1) % self.m
+
+    def measure_intelligence(self) -> float:
+        return self.weights.compression
 
 if __name__ == "__main__":
-    # Test on solvable (3,3) and obstructed (4,3)
-    for (m, k) in [(3,3), (4,3)]:
-        tgi = TGICore(m, k)
-        tgi.generate_report()
-        print()
+    tgi = TGICore()
+    tgi.reason_on("x^2 + 5 = 14")
+    print()
+    tgi.reason_on("I love topology")
