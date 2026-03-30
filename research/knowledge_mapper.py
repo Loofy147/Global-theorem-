@@ -23,7 +23,8 @@ class KnowledgeMapper:
             "AESTHETICS": 3,     # Colors, UI Designs, Golden Ratios
             "RELATION": 4,       # Optimization paths, Associations
             "LANGUAGE": 5,       # Dictionary, Grammars, Linguistic Units
-            "API_MCP": 6         # Render, Supabase, Context7, Tool Signatures
+            "API_MCP": 6,        # Render, Supabase, Context7, Tool Signatures
+            "LIBRARY": 7         # NumPy, SymPy, Kivy, PSUtil, etc.
         }
 
         if os.path.exists(self.state_path):
@@ -83,6 +84,11 @@ class KnowledgeMapper:
             self.ingest_concept("API_MCP", name, tool)
             count += 1
         return count
+
+    def ingest_library(self, lib_data: Dict[str, Any]):
+        """Ingests library metadata into the LIBRARY fiber."""
+        name = lib_data.get("name", "unknown_lib")
+        return self.ingest_concept("LIBRARY", name, lib_data)
 
     def ingest_color(self, color_name: str, r: int, g: int, b: int, a: int = 255) -> Tuple[int, ...]:
         coord = (r % self.m, g % self.m, b % self.m, a % self.m)

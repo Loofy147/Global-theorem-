@@ -11,7 +11,8 @@ This document tracks the milestones for the Topological General Intelligence (TG
 
 ## Phase 7: Full Autonomy & Prototype (IN PROGRESS)
 - [x] **Agentic API Awareness**: Integrate MCP (Render, Supabase, Context7) tool signatures into the TGI ontology.
-- [x] **Topological Agentic Bridge**: Map topological coordinates directly to cloud/database tool execution plans.
+- [x] **Library-Aware Manifolds**: Ingest NumPy, SymPy, Kivy, and psutil metadata into the LIBRARY fiber.
+- [x] **Topological Agentic Bridge**: Map topological coordinates directly to cloud/database tool execution plans and libraries.
 - [ ] **Natural Language Interaction**: Voice-to-TGI lifting using the TLM.
 - [ ] **Agentic Action Engine**: Full autonomous task completion based on topological path lifting.
 - [ ] **Hardware-Responsive Manifolds**: Dynamic manifold sizing based on device capabilities (e.g., $m=255$ for flagship, $m=127$ for mid-range).

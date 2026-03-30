@@ -31026,5 +31026,53 @@
       ],
       "domain": "docs"
     }
+  },
+  "(32, 243, 189, 55)": {
+    "name": "NumPy",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "NumPy",
+      "id": "/numpy/numpy",
+      "description": "Fundamental package for scientific computing with Python, providing N-dimensional arrays and linear algebra.",
+      "snippets": 6139,
+      "domain": "math"
+    }
+  },
+  "(118, 177, 140, 84)": {
+    "name": "Kivy",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Kivy",
+      "id": "/kivy/kivy",
+      "description": "Open-source Python framework for cross-platform GUI applications (desktop, mobile, embedded).",
+      "snippets": 1139,
+      "domain": "ui"
+    }
+  },
+  "(124, 189, 15, 191)": {
+    "name": "psutil",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "psutil",
+      "id": "/giampaolo/psutil",
+      "description": "Cross-platform library for retrieving information on running processes and system utilization (CPU, memory, sensors).",
+      "snippets": 542,
+      "domain": "hardware"
+    }
+  },
+  "(30, 13, 67, 153)": {
+    "name": "SymPy",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "SymPy",
+      "id": "/sympy/sympy",
+      "description": "Python library for symbolic mathematics, providing computer algebra system (CAS) capabilities.",
+      "snippets": 1200,
+      "domain": "math"
+    }
   }
 }

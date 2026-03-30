@@ -16,7 +16,7 @@ def run_demo():
     res = mobile.mobile_query("Analyze environment")
     print(f"  Current Coord: {res['hw_coord']} | Entropy: {res['thermal_entropy']:.4f}")
 
-    # 2. Agentic Task Lifting (Lifting intent to API tools)
+    # 2. Agentic Task Lifting (Intent to API Tools)
     print("\n[STEP 2] Agentic Task Lifting (Intent to API Tools)")
     intents = [
         "Create a new database for user logs",
@@ -28,17 +28,16 @@ def run_demo():
         plan = bridge.generate_agentic_plan(intent)
         print(f"\n  > Intent: '{intent}'")
         print(f"    Topological Action: {plan['resolved_action']['action']}")
-        if plan['mcp_tool']:
-            print(f"    Resolved Tool: {plan['mcp_tool']['name']} ({plan['mcp_tool']['domain']})")
+        if plan['resource']:
+            name = plan['resource'].get('name', 'N/A')
+            print(f"    Resolved Resource: {name} ({plan['resource_type']})")
         print(f"    Status: {plan['status']}")
 
     # 3. Code Generation (Simulated Topological Lift)
     print("\n[STEP 3] Code Generation (Topological-Linguistic Synthesis)")
-    # Using the grounded TLM logic implicitly via the intent plan
     plan = bridge.generate_agentic_plan("Write a python function to query Render metrics")
     print(f"  Topological Plan: {plan['resolved_action']['action']} (Coord: {plan['topological_coord']})")
 
-    # Simple simulated code output from the 'TLM' (Ontology-grounded)
     print("\n  [GENERATED CODE SNIPPET (Topologically Resolved)]")
     print("  def query_render_agent(resource_id):")
     print("      # Path Lifted from ActionMapper.DEPLOY_RENDER")
