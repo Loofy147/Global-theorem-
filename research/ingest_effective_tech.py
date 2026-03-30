@@ -103,3 +103,42 @@ def ingest_extra():
 if __name__ == "__main__":
     ingest()
     ingest_extra()
+
+def ingest_final():
+    km = KnowledgeMapper()
+
+    # TECHNOLOGY (FIBER 1) - Advanced Techniques
+    adv_tech = [
+        {"name": "CoT", "payload": "Chain-of-Thought Prompting: Breaking down reasoning into intermediate steps."},
+        {"name": "ReAct", "payload": "Reasoning and Acting: Interleaving reasoning with action execution (API calls)."},
+        {"name": "Model_Merging", "payload": "Combining weights of multiple models (e.g., TIES, SLERP) to merge capabilities."},
+        {"name": "Speculative_Decoding", "payload": "Accelerating LLM inference using a smaller model to predict draft tokens."},
+        {"name": "DPO", "payload": "Direct Preference Optimization: Aligning LLMs directly on preference data without RL."},
+        {"name": "KV_Cache", "payload": "Caching Key and Value tensors to speed up autoregressive LLM decoding."},
+        {"name": "Beam_Search", "payload": "Heuristic search algorithm that explores multiple paths simultaneously in sequence generation."},
+        {"name": "Vector_DB", "payload": "Specialized databases (e.g., Pinecone, ChromaDB, Weaviate) for high-dimensional vector search."}
+    ]
+    for tech in adv_tech:
+        km.ingest_concept("TECHNOLOGY", tech["name"], tech["payload"])
+
+    # LIBRARY (FIBER 7) - Frameworks and Ecosystems
+    ecosystem_libs = [
+        {"name": "LangChain", "domain": "ai", "description": "Framework for building applications powered by language models."},
+        {"name": "LlamaIndex", "domain": "ai", "description": "Data framework for LLM applications to connect, index, and query data."},
+        {"name": "Pinecone", "domain": "db", "description": "Managed, cloud-native vector database for high-performance AI applications."},
+        {"name": "ChromaDB", "domain": "db", "description": "Open-source AI application database for vector embeddings."},
+        {"name": "Sentry", "domain": "infra", "description": "Error tracking and performance monitoring for software development."},
+        {"name": "NewRelic", "domain": "infra", "description": "Observability platform for monitoring cloud and application performance."},
+        {"name": "Loguru", "domain": "infra", "description": "Python library that aims to make logging enjoyable."},
+        {"name": "Typer", "domain": "ui", "description": "Library for building CLI applications based on Python type hints."}
+    ]
+    for lib in ecosystem_libs:
+        km.ingest_library(lib)
+
+    km.save_state()
+    print(f"Ingested {len(adv_tech)} advanced technologies and {len(ecosystem_libs)} ecosystem libraries.")
+
+if __name__ == "__main__":
+    ingest()
+    ingest_extra()
+    ingest_final()

@@ -31753,5 +31753,133 @@
     "category": "TECHNOLOGY",
     "fiber": 1,
     "payload": "A mechanism for weighting semantic fibers by gauge multiplicity (W4) during linguistic generation."
+  },
+  "(215, 242, 137, 175)": {
+    "name": "CoT",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Chain-of-Thought Prompting: Breaking down reasoning into intermediate steps."
+  },
+  "(30, 183, 1, 43)": {
+    "name": "ReAct",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Reasoning and Acting: Interleaving reasoning with action execution (API calls)."
+  },
+  "(19, 56, 243, 195)": {
+    "name": "Model_Merging",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Combining weights of multiple models (e.g., TIES, SLERP) to merge capabilities."
+  },
+  "(175, 155, 178, 5)": {
+    "name": "Speculative_Decoding",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Accelerating LLM inference using a smaller model to predict draft tokens."
+  },
+  "(84, 157, 165, 107)": {
+    "name": "DPO",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Direct Preference Optimization: Aligning LLMs directly on preference data without RL."
+  },
+  "(78, 222, 194, 19)": {
+    "name": "KV_Cache",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Caching Key and Value tensors to speed up autoregressive LLM decoding."
+  },
+  "(201, 98, 9, 205)": {
+    "name": "Beam_Search",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Heuristic search algorithm that explores multiple paths simultaneously in sequence generation."
+  },
+  "(248, 31, 211, 23)": {
+    "name": "Vector_DB",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Specialized databases (e.g., Pinecone, ChromaDB, Weaviate) for high-dimensional vector search."
+  },
+  "(99, 195, 77, 148)": {
+    "name": "LangChain",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "LangChain",
+      "domain": "ai",
+      "description": "Framework for building applications powered by language models."
+    }
+  },
+  "(187, 239, 40, 53)": {
+    "name": "LlamaIndex",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "LlamaIndex",
+      "domain": "ai",
+      "description": "Data framework for LLM applications to connect, index, and query data."
+    }
+  },
+  "(181, 186, 141, 11)": {
+    "name": "Pinecone",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Pinecone",
+      "domain": "db",
+      "description": "Managed, cloud-native vector database for high-performance AI applications."
+    }
+  },
+  "(74, 91, 39, 59)": {
+    "name": "ChromaDB",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "ChromaDB",
+      "domain": "db",
+      "description": "Open-source AI application database for vector embeddings."
+    }
+  },
+  "(94, 206, 82, 137)": {
+    "name": "Sentry",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Sentry",
+      "domain": "infra",
+      "description": "Error tracking and performance monitoring for software development."
+    }
+  },
+  "(154, 9, 98, 2)": {
+    "name": "NewRelic",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "NewRelic",
+      "domain": "infra",
+      "description": "Observability platform for monitoring cloud and application performance."
+    }
+  },
+  "(183, 218, 20, 98)": {
+    "name": "Loguru",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Loguru",
+      "domain": "infra",
+      "description": "Python library that aims to make logging enjoyable."
+    }
+  },
+  "(76, 0, 112, 75)": {
+    "name": "Typer",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Typer",
+      "domain": "ui",
+      "description": "Library for building CLI applications based on Python type hints."
+    }
   }
 }

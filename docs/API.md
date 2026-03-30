@@ -502,11 +502,11 @@ Maps arbitrary text tokens to Z_m coordinates via hashing.
 #### `def TopologicalLanguageModel._ensure_sigma(self)`
 No description.
 
-#### `def TopologicalLanguageModel.topological_attention(self)`
-W4 Gauge Multiplicity acts as the 'attention breadth'.
-
 #### `def TopologicalLanguageModel.generate(self, seed_text, length)`
 Generates completion using Hamiltonian path lifting.
+
+#### `def TopologicalLanguageModel.generate_path(self, seed_text, length)`
+Lifts a seed into a Hamiltonian path of coordinates.
 
 #### `def TopologicalLanguageModel.generate_ontology_grounded(self, seed_text, length)`
 Uses the LANGUAGE fiber in the Ontology to ground generation.
@@ -546,6 +546,9 @@ No description.
 
 #### `def TGIAgent.ontology_summary(self)`
 Provides a summary of the Universal Ontology Mapper state.
+
+#### `def TGIAgent.autonomous_query(self, intent)`
+Performs a multi-step autonomous topological plan generation.
 
 #### `def TGIAgent.cross_reason(self, data_list)`
 Decomposes multiple queries and merges results for comparative reasoning.
@@ -634,6 +637,9 @@ No description.
 No description.
 
 ### `def ingest_extra()`
+No description.
+
+### `def ingest_final()`
 No description.
 
 ## research/agentic_expansion_demo.py
