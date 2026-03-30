@@ -134,14 +134,15 @@ def run_hybrid_sa(m, k=3, seed=0, max_iter=1000):
             cs = ns
             if cs < bs: bs = cs; best = sigma[:]
         else: sigma[v] = old
-    sol = None
-    if bs == 0:
-        sol = {}
-        for idx, pi in enumerate(best):
-            coords = []; val = idx
-            for _ in range(k): coords.append(val % m); val //= m
-            coords.reverse(); sol[tuple(coords)] = tuple(all_p[pi])
-    return sol, {"best": bs}
+
+    best_sol_dict = {}
+    for idx, pi in enumerate(best):
+        coords = []; val = idx
+        for _ in range(k): coords.append(val % m); val //= m
+        coords.reverse(); best_sol_dict[tuple(coords)] = tuple(all_p[pi])
+
+    sol = best_sol_dict if bs == 0 else None
+    return sol, {"best": bs, "best_sigma": best_sol_dict}
 
 def construct_spike_sigma(m, k=3):
     """Sovereign Spike Construction (O(m)). Proven Golden Path for all odd m."""
@@ -203,3 +204,17 @@ def repair_manifold(m, k, sigma_in, max_iter=1000):
 if __name__ == "__main__":
     for m,k in [(3,3),(5,3)]:
         w = extract_weights(m,k); print(f"  m={m} k={k}  {w.summary()}")
+
+def verify_basin_escape_success(m, k, sigma_in, max_iter=10000):
+    n, arc_s, pa, all_p = _build_sa(m, k); nP = len(all_p); sigma = []
+    for idx in range(n):
+        coords = []; val = idx
+        for _ in range(k): coords.append(val % m); val //= m
+        coords.reverse(); sigma.append(all_p.index(list(sigma_in[tuple(coords)])))
+    cs = _sa_score(sigma, arc_s, pa, n, k); rng = random.Random(42)
+    for _ in range(max_iter):
+        if cs == 0: return True
+        v = rng.randrange(n); old = sigma[v]; sigma[v] = rng.randrange(nP); ns = _sa_score(sigma, arc_s, pa, n, k)
+        if ns < cs: cs = ns
+        else: sigma[v] = old
+    return cs == 0
