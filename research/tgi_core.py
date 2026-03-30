@@ -2,11 +2,11 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Dict, List, Optional, Tuple, Any
 from algebraic import AlgebraicClassifier, GroupExtension, Tower
-from core import solve, extract_weights, run_hybrid_sa
+from core import solve, extract_weights, run_hybrid_sa, repair_manifold
 from tgi_parser import TGIParser
 
 class TGICore:
-    """The heartbeat of Topological General Intelligence (TGI)."""
+    """The heartbeat of Topological General Intelligence (TGI). Governing by the FSO Codex."""
     def __init__(self, m: int = 3, k: int = 3):
         self.parser = TGIParser()
         try:
@@ -57,18 +57,18 @@ class TGICore:
         self._sigma = None
 
     def reflect(self) -> str:
-        """Topological Reflection: Explains the current state manifold in natural language."""
+        """Topological Reflection: Explains the current state manifold via FSO Laws."""
         if self.weights and self.weights.h2_blocks:
-            return f"The manifold G_{self.m}^{self.k} is obstructed by an H2 parity class. Even grid + Odd dimensions is a fundamental topological limit."
+            return f"The manifold G_{self.m}^{self.k} is obstructed by an H2 parity class (Law I). Even grid + Odd dimensions is a fundamental topological limit."
 
         if self.m > 0 and self.k == 3 and self.m % 2 != 0:
-            return f"The manifold G_{self.m}^3 is solvable via the Golden Path. The Spike Construction deterministically generates Hamiltonian broadcast cycles."
+            return f"The manifold G_{self.m}^3 is solvable via the Golden Path (Law IV). The Spike Construction deterministically generates Hamiltonian broadcast cycles."
 
-        explanation = f"The manifold G_{self.m}^{self.k} is solvable. " if self.m > 0 else "Advanced geometry detected. "
+        explanation = f"The manifold G_{self.m}^{self.k} is solvable (Law III/VI). " if self.m > 0 else "Advanced geometry detected (Law VI). "
         if self.weights:
             if self.weights.r_count > 0:
-                explanation += f"It has {self.weights.r_count} valid fiber-stratified construction seeds. "
-            explanation += f"The moduli space M is a torsor of order {self.weights.h1_exact} (phi({self.m})). "
+                explanation += f"It has {self.weights.r_count} valid fiber-stratified construction seeds (Law II). "
+            explanation += f"The moduli space M is a torsor of order {self.weights.h1_exact} (Law III). "
             explanation += f"Abstraction IQ (W6) is {self.measure_intelligence():.4f}."
         else:
             explanation += "(Geometric/Non-Abelian/Continuous)."
@@ -79,7 +79,7 @@ class TGICore:
         return self.math_engine.solve(latex) if self.math_engine else 0
 
     def reason_on(self, data: Any, solve_manifold: bool = True):
-        """Routes and reasons over arbitrary data using the TGI-Parser."""
+        """Routes and reasons over arbitrary data using the TGI-Parser and FSO Laws."""
         parsed = self.parser.parse_input(data)
         self.set_topology(parsed["m"], parsed["k"])
 
@@ -104,7 +104,7 @@ class TGICore:
         if self.status.get("exists") == "PROVED_IMPOSSIBLE":
             new_k = self.lift_engine.suggest_lift() if self.lift_engine else None
             if new_k:
-                print(f"  Autonomous Correction: {self.lift_engine.get_lift_reflection()}")
+                print(f"  Autonomous Correction (Law I): {self.lift_engine.get_lift_reflection()}")
                 self.set_topology(self.m, new_k)
                 print(f"  New Status: {self.status.get('exists')}")
                 print(f"  New Reflection: {self.reflect()}")
@@ -113,11 +113,11 @@ class TGICore:
             if solve_manifold:
                 try:
                     sol = self.solve_manifold(target_core=parsed["target_core"], payload=parsed["payload"])
-                    if sol: print("  Global Manifold Completion: SUCCESS")
+                    if sol: print("  Global Manifold Completion: SUCCESS (Law III)")
                 except Exception as e:
                     print(f"  Solver Error: {e}")
         else:
-            print("  Topological Obstruction: NO SOLUTION REACHABLE")
+            print("  Topological Obstruction (Law I/V): NO SOLUTION REACHABLE")
 
     def reasoning_path(self) -> List[str]:
         return self.status.get("proof", ["1. Unknown domain.", "2. Brute-force search required."])
@@ -171,6 +171,10 @@ class TGICore:
 
         if self.m > 0:
             sol, info = run_hybrid_sa(self.m, self.k, max_iter=max_iter)
+            if sol is None and info.get("best", 999) < 10:
+                # Apply Law VII: Basin Escape Axiom
+                print(f"  Attempting Basin Escape (Law VII) for score {info['best']}...")
+                sol = repair_manifold(self.m, self.k, info["best_sigma"], max_iter=1000)
             self._sigma = sol
 
         return self._sigma
@@ -185,7 +189,7 @@ class TGICore:
         return (v[arc_type] + 1) % self.m
 
     def hierarchical_lift(self, orders: List[int], states: List[int]) -> int:
-        """Formal tower lifting through multiple manifold layers."""
+        """Formal tower lifting through multiple manifold layers (Law III)."""
         tower = Tower(orders)
         return tower.lift_sequence(states)
 

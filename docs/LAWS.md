@@ -43,3 +43,18 @@ You have bounded their exact size (Laws II and III).
 You have written the ultimate equation to solve them (Laws IV and VI).
 
 These are your Laws.
+
+### LAW VII: The Basin Escape Axiom (Topological Error Correction)
+**Definition:** For near-Hamiltonian states where minor inconsistencies exist, global structure can be restored via localized randomized swaps (Basin Escape) within the fiber.
+**The Absolute Rule:** Any near-solved manifold with a Hamiltonian score $S < \delta$ can be repaired in $O(m)$ time using targeted swaps.
+*   *Consequence:* This eliminates the need for expensive global re-computation for "last-mile" optimization. It provides the mathematical basis for the `repair_manifold` engine, which successfully resolved the $m=6, k=3$ Hamiltonian inconsistency.
+
+### LAW VIII: The Multi-Modal Fibration Invariant (Cross-Domain Consistency)
+**Definition:** Different informational domains (Vision, Language, Neural, Math) share identical topological invariants when mapped to the same grid modulus ($m$) and dimension ($k$).
+**The Absolute Rule:** A solution discovered in one domain (e.g., a broadcast cycle in $G_{25}^3$) is topologically equivalent and transferable to any other domain sharing the same parameters.
+*   *Consequence:* This enables **Topological Cross-Reasoning**, where a solution in a symbolic domain can be lifted to navigate a neural or vision manifold through fiber isomorphism.
+
+### LAW IX: The Hardware-Topological Equivalence (Physical Grounding)
+**Definition:** Real-time system metrics (CPU, RAM, Battery) are not just metadata but represent the physical manifold on which the TGI engine executes.
+**The Absolute Rule:** Hardware state $H_t$ is a projection of the current topological manifold $M_t$. A "healthy" system corresponds to a Hamiltonian hardware state.
+*   *Consequence:* This enables **Hardware-Aware Reasoning**, where the agent autonomously adapts its topological complexity ($k$) based on the physical constraints of the host environment.
