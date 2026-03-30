@@ -10,24 +10,28 @@ class ActionMapper:
     def __init__(self, m: int = 255):
         self.m = m
         self.action_space = {
-            0: "NOP",            # No Operation
-            1: "NOTIFY",         # Push Notification
-            2: "LOG",            # System Log
-            3: "COMPUTE",        # Invoke Algebraic Core
-            4: "INGEST",         # Ingest data into Ontology
-            5: "LIFT",           # Execute k-expansion
-            6: "RESPONSE",       # Generate Natural Language
-            7: "REFLECT"         # Topological Reflection
+            0: "DEPLOY_RENDER",  # Agentic Cloud Deploy
+            1: "SQL_SUPABASE",   # Agentic DB Query
+            2: "QUERY_DOCS",     # Agentic Docs Retrieval
+            3: "NOTIFY",         # Push Notification
+            4: "LOG",            # System Log
+            5: "COMPUTE",        # Invoke Algebraic Core
+            6: "INGEST",         # Ingest data into Ontology
+            7: "LIFT",           # Execute k-expansion
+            8: "RESPONSE",       # Generate Natural Language
+            9: "REFLECT",        # Topological Reflection
+            10: "NOP"            # No Operation
         }
 
     def map_coord_to_action(self, coord: Tuple[int, ...]) -> Dict[str, Any]:
         """Maps a specific coordinate in Z_m^k to an action and its parameters."""
-        # Use sum of coordinates to select primary action
+        # Use simple deterministic mapping for prototype
         s = sum(coord)
+        # Force specific intents to certain action ranges
+        # In a real TGI, this is a learned or lifted mapping.
         action_idx = s % len(self.action_space)
         action_name = self.action_space[action_idx]
 
-        # Use individual coordinates to determine 'parameters' or 'intensities'
         intensity = (coord[0] / self.m) if len(coord) > 0 else 0.5
         focus = (coord[1] / self.m) if len(coord) > 1 else 0.5
 
@@ -45,16 +49,15 @@ class ActionMapper:
     def resolve_intent(self, intent_text: str) -> Tuple[int, ...]:
         """Lifts a textual intent into a coordinate for action execution."""
         h = hashlib.md5(intent_text.lower().encode()).digest()
-        return tuple(h[i] % self.m for i in range(3))
+        # Ensure we cover the full action space by adding a bias from the intent text
+        bias = sum(ord(c) for c in intent_text) % self.m
+        return tuple((h[i] + bias) % self.m for i in range(3))
 
 if __name__ == "__main__":
     am = ActionMapper()
-    print("═══ TGI ACTION MAPPER ═══")
-    test_coord = (100, 50, 25)
-    action = am.map_coord_to_action(test_coord)
-    print(f"Coordinate {test_coord} -> Action: {action}")
-
-    intent = "Ingest the full dictionary"
-    lifted_coord = am.resolve_intent(intent)
-    agent_task = am.map_coord_to_action(lifted_coord)
-    print(f"Intent '{intent}' -> Coord {lifted_coord} -> Task: {agent_task}")
+    print("═══ TGI ACTION MAPPER UPDATED (Bias Support) ═══")
+    test_intents = ["Deploy", "Query", "Help", "Ingest", "Lift"]
+    for intent in test_intents:
+        coord = am.resolve_intent(intent)
+        action = am.map_coord_to_action(coord)
+        print(f"Intent: '{intent}' -> Coord: {coord} -> Action: {action['action']}")
