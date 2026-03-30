@@ -7,6 +7,12 @@ Derived from Knuth's *Claude's Cycles* (Feb 2026). Converges on a universal fram
 
 ---
 
+## THE CODEX OF FIBER-STRATIFIED OPTIMIZATION (FSO)
+The **Immutable Axioms of TGI** are now codified. These six laws govern the mathematical bounds of symmetric topology and formalize the $H^2$ parity obstruction.
+👉 **[Read the Codex of FSO](docs/LAWS.md)**
+
+---
+
 ## Topological General Intelligence (TGI)
 
 TGI is a framework for autonomous navigation of non-Euclidean state-space manifolds. It replaces statistical prediction with algebraic lifting across five functional cores.
@@ -41,7 +47,7 @@ python3 research/tgi_system_demo.py
 # Solve m=4 k=4 (Fiber-Structured SA)
 python3 core.py
 
-# Verify all 12 core theorems
+# Verify all core theorems (including Law II & III)
 python3 theorems.py
 ```
 
@@ -52,7 +58,7 @@ python3 theorems.py
 - **Vision Core**: `research/topological_vision.py`
 - **Core Engine**: `core.py`, `engine.py`, `search.py`, `fiber.py`
 - **Verification**: `theorems.py`, `benchmark.py`
-- **[Documentation](docs/)**: `API.md`, `ROADMAP.md`, `PROBLEMS.md`
+- **[Documentation](docs/)**: `API.md`, `ROADMAP.md`, `PROBLEMS.md`, `LAWS.md`
 
 ---
 *March 2026 — Advancing towards Multi-Modal Topological Autonomy.*
