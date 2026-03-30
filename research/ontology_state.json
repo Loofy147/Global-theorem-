@@ -30933,11 +30933,6 @@
     "fiber": 6,
     "payload": {
       "name": "render_create_web_service",
-      "params": [
-        "name",
-        "runtime",
-        "buildCommand"
-      ],
       "domain": "cloud"
     }
   },
@@ -30947,7 +30942,6 @@
     "fiber": 6,
     "payload": {
       "name": "render_list_services",
-      "params": [],
       "domain": "cloud"
     }
   },
@@ -30957,9 +30951,6 @@
     "fiber": 6,
     "payload": {
       "name": "render_get_metrics",
-      "params": [
-        "resourceId"
-      ],
       "domain": "cloud"
     }
   },
@@ -30969,10 +30960,6 @@
     "fiber": 6,
     "payload": {
       "name": "supabase_create_project",
-      "params": [
-        "name",
-        "region"
-      ],
       "domain": "db"
     }
   },
@@ -30982,10 +30969,6 @@
     "fiber": 6,
     "payload": {
       "name": "supabase_execute_sql",
-      "params": [
-        "project_id",
-        "query"
-      ],
       "domain": "db"
     }
   },
@@ -30995,10 +30978,6 @@
     "fiber": 6,
     "payload": {
       "name": "supabase_deploy_edge_function",
-      "params": [
-        "project_id",
-        "name"
-      ],
       "domain": "db"
     }
   },
@@ -31008,9 +30987,6 @@
     "fiber": 6,
     "payload": {
       "name": "context7_resolve_library_id",
-      "params": [
-        "libraryName"
-      ],
       "domain": "docs"
     }
   },
@@ -31020,10 +30996,6 @@
     "fiber": 6,
     "payload": {
       "name": "context7_query_docs",
-      "params": [
-        "libraryId",
-        "query"
-      ],
       "domain": "docs"
     }
   },
@@ -31074,5 +31046,712 @@
       "snippets": 1200,
       "domain": "math"
     }
+  },
+  "(247, 127, 181, 214)": {
+    "name": "RAG",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Retrieval-Augmented Generation: Enhancing LLMs with external knowledge retrieval."
+  },
+  "(192, 245, 226, 106)": {
+    "name": "LoRA",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Low-Rank Adaptation: Efficient fine-tuning of large models by updating low-rank matrices."
+  },
+  "(244, 124, 121, 24)": {
+    "name": "QLoRA",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Quantized LoRA: Efficient fine-tuning with 4-bit quantization."
+  },
+  "(14, 106, 143, 250)": {
+    "name": "Mamba",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Selective State Space Models: Linear-time alternative to Transformers for long sequences."
+  },
+  "(177, 89, 149, 98)": {
+    "name": "Flash_Attention",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Memory-efficient and fast implementation of the attention mechanism."
+  },
+  "(113, 81, 71, 248)": {
+    "name": "Transformer",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "The foundational architecture for modern LLMs using self-attention."
+  },
+  "(242, 100, 124, 47)": {
+    "name": "SES",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Short Exact Sequence: A sequence of objects and morphisms where the image of one equals the kernel of the next (0 -> H -> G -> Q -> 0)."
+  },
+  "(227, 245, 112, 185)": {
+    "name": "Cohomology",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "A tool in algebraic topology for measuring global structural obstructions (e.g., H^2 for central extensions)."
+  },
+  "(4, 20, 22, 211)": {
+    "name": "Hamiltonian_Cycle",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "A path in a graph that visits every vertex exactly once, foundational to TGI navigation."
+  },
+  "(120, 67, 117, 209)": {
+    "name": "RLHF",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Reinforcement Learning from Human Feedback: Aligning LLMs with human preferences."
+  },
+  "(25, 248, 189, 51)": {
+    "name": "PPO",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Proximal Policy Optimization: A stable reinforcement learning algorithm used in LLM alignment."
+  },
+  "(169, 31, 98, 215)": {
+    "name": "Diffusion_Models",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Generative models that create data by reversing a noise-adding process."
+  },
+  "(163, 228, 217, 161)": {
+    "name": "Quantization",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Reducing the precision of model weights (e.g., FP16 to INT8) to save memory and compute."
+  },
+  "(72, 11, 19, 155)": {
+    "name": "Topological_General_Intelligence",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Reasoning via algebraic lifting and manifold navigation (TGI)."
+  },
+  "(196, 224, 236, 119)": {
+    "name": "Pandas",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Pandas",
+      "domain": "data",
+      "description": "Powerful data manipulation and analysis library for Python."
+    }
+  },
+  "(147, 21, 12, 83)": {
+    "name": "Polars",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Polars",
+      "domain": "data",
+      "description": "Lightning-fast DataFrame library written in Rust."
+    }
+  },
+  "(3, 49, 43, 168)": {
+    "name": "PyTorch",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "PyTorch",
+      "domain": "ai",
+      "description": "Flexible deep learning framework with dynamic computational graphs."
+    }
+  },
+  "(144, 207, 123, 45)": {
+    "name": "TensorFlow",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "TensorFlow",
+      "domain": "ai",
+      "description": "Comprehensive open-source platform for machine learning."
+    }
+  },
+  "(3, 53, 73, 134)": {
+    "name": "Transformers",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Transformers",
+      "domain": "ai",
+      "description": "State-of-the-art machine learning for Pytorch, TensorFlow, and JAX."
+    }
+  },
+  "(45, 217, 235, 22)": {
+    "name": "FastAPI",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "FastAPI",
+      "domain": "web",
+      "description": "Modern, fast (high-performance) web framework for building APIs with Python 3.8+."
+    }
+  },
+  "(68, 69, 217, 165)": {
+    "name": "Django",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Django",
+      "domain": "web",
+      "description": "High-level Python web framework that encourages rapid development and clean design."
+    }
+  },
+  "(143, 173, 53, 150)": {
+    "name": "Scikit-Learn",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Scikit-Learn",
+      "domain": "math",
+      "description": "Simple and efficient tools for predictive data analysis."
+    }
+  },
+  "(205, 247, 76, 247)": {
+    "name": "Matplotlib",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Matplotlib",
+      "domain": "viz",
+      "description": "Comprehensive library for creating static, animated, and interactive visualizations in Python."
+    }
+  },
+  "(103, 192, 166, 58)": {
+    "name": "Seaborn",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Seaborn",
+      "domain": "viz",
+      "description": "Statistical data visualization library based on matplotlib."
+    }
+  },
+  "(142, 222, 223, 188)": {
+    "name": "Plotly",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Plotly",
+      "domain": "viz",
+      "description": "Interactive, open-source plotting library for Python."
+    }
+  },
+  "(224, 195, 243, 113)": {
+    "name": "BeautifulSoup",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "BeautifulSoup",
+      "domain": "web",
+      "description": "Library for pulling data out of HTML and XML files."
+    }
+  },
+  "(173, 162, 117, 67)": {
+    "name": "Requests",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Requests",
+      "domain": "web",
+      "description": "Simple, yet elegant, HTTP library for Python."
+    }
+  },
+  "(221, 8, 4, 30)": {
+    "name": "SQLAlchemy",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "SQLAlchemy",
+      "domain": "db",
+      "description": "The Python SQL Toolkit and Object Relational Mapper."
+    }
+  },
+  "(71, 116, 30, 46)": {
+    "name": "Pydantic",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Pydantic",
+      "domain": "data",
+      "description": "Data validation and settings management using Python type annotations."
+    }
+  },
+  "(23, 215, 139, 142)": {
+    "name": "Celery",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Celery",
+      "domain": "infra",
+      "description": "Distributed task queue for Python."
+    }
+  },
+  "(2, 199, 137, 181)": {
+    "name": "Redis-py",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Redis-py",
+      "domain": "infra",
+      "description": "Python client for Redis key-value store."
+    }
+  },
+  "(244, 253, 85, 192)": {
+    "name": "render_get_service",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_get_service",
+      "domain": "cloud"
+    }
+  },
+  "(85, 137, 202, 94)": {
+    "name": "render_update_web_service",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_update_web_service",
+      "domain": "cloud"
+    }
+  },
+  "(211, 153, 238, 172)": {
+    "name": "render_create_static_site",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_create_static_site",
+      "domain": "cloud"
+    }
+  },
+  "(19, 231, 30, 238)": {
+    "name": "render_update_static_site",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_update_static_site",
+      "domain": "cloud"
+    }
+  },
+  "(217, 61, 109, 131)": {
+    "name": "render_create_postgres",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_create_postgres",
+      "domain": "cloud"
+    }
+  },
+  "(15, 190, 1, 56)": {
+    "name": "render_get_postgres",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_get_postgres",
+      "domain": "cloud"
+    }
+  },
+  "(246, 57, 81, 134)": {
+    "name": "render_list_postgres_instances",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_list_postgres_instances",
+      "domain": "cloud"
+    }
+  },
+  "(107, 176, 115, 120)": {
+    "name": "render_query_render_postgres",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_query_render_postgres",
+      "domain": "cloud"
+    }
+  },
+  "(132, 41, 108, 237)": {
+    "name": "render_create_key_value",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_create_key_value",
+      "domain": "cloud"
+    }
+  },
+  "(88, 21, 102, 51)": {
+    "name": "render_get_key_value",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_get_key_value",
+      "domain": "cloud"
+    }
+  },
+  "(106, 209, 42, 161)": {
+    "name": "render_list_key_value",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_list_key_value",
+      "domain": "cloud"
+    }
+  },
+  "(19, 57, 109, 77)": {
+    "name": "render_create_cron_job",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_create_cron_job",
+      "domain": "cloud"
+    }
+  },
+  "(179, 182, 163, 250)": {
+    "name": "render_update_cron_job",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_update_cron_job",
+      "domain": "cloud"
+    }
+  },
+  "(245, 194, 55, 24)": {
+    "name": "render_list_workspaces",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_list_workspaces",
+      "domain": "cloud"
+    }
+  },
+  "(246, 44, 176, 52)": {
+    "name": "render_get_selected_workspace",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_get_selected_workspace",
+      "domain": "cloud"
+    }
+  },
+  "(106, 36, 179, 197)": {
+    "name": "render_select_workspace",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_select_workspace",
+      "domain": "cloud"
+    }
+  },
+  "(27, 6, 166, 63)": {
+    "name": "render_list_deploys",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_list_deploys",
+      "domain": "cloud"
+    }
+  },
+  "(135, 114, 173, 96)": {
+    "name": "render_get_deploy",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_get_deploy",
+      "domain": "cloud"
+    }
+  },
+  "(136, 162, 155, 65)": {
+    "name": "render_list_logs",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_list_logs",
+      "domain": "cloud"
+    }
+  },
+  "(237, 99, 88, 94)": {
+    "name": "render_list_log_label_values",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_list_log_label_values",
+      "domain": "cloud"
+    }
+  },
+  "(195, 5, 77, 241)": {
+    "name": "render_update_environment_variables",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "render_update_environment_variables",
+      "domain": "cloud"
+    }
+  },
+  "(173, 195, 146, 4)": {
+    "name": "supabase_list_organizations",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_list_organizations",
+      "domain": "db"
+    }
+  },
+  "(52, 102, 59, 49)": {
+    "name": "supabase_get_organization",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_get_organization",
+      "domain": "db"
+    }
+  },
+  "(247, 212, 219, 96)": {
+    "name": "supabase_list_projects",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_list_projects",
+      "domain": "db"
+    }
+  },
+  "(20, 173, 6, 63)": {
+    "name": "supabase_get_project",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_get_project",
+      "domain": "db"
+    }
+  },
+  "(180, 110, 79, 149)": {
+    "name": "supabase_get_cost",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_get_cost",
+      "domain": "db"
+    }
+  },
+  "(74, 168, 43, 233)": {
+    "name": "supabase_confirm_cost",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_confirm_cost",
+      "domain": "db"
+    }
+  },
+  "(10, 165, 233, 110)": {
+    "name": "supabase_pause_project",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_pause_project",
+      "domain": "db"
+    }
+  },
+  "(89, 56, 232, 141)": {
+    "name": "supabase_restore_project",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_restore_project",
+      "domain": "db"
+    }
+  },
+  "(203, 63, 16, 236)": {
+    "name": "supabase_list_tables",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_list_tables",
+      "domain": "db"
+    }
+  },
+  "(144, 51, 76, 247)": {
+    "name": "supabase_list_extensions",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_list_extensions",
+      "domain": "db"
+    }
+  },
+  "(14, 220, 251, 33)": {
+    "name": "supabase_list_migrations",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_list_migrations",
+      "domain": "db"
+    }
+  },
+  "(108, 95, 161, 154)": {
+    "name": "supabase_apply_migration",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_apply_migration",
+      "domain": "db"
+    }
+  },
+  "(99, 135, 189, 95)": {
+    "name": "supabase_get_logs",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_get_logs",
+      "domain": "db"
+    }
+  },
+  "(142, 251, 175, 206)": {
+    "name": "supabase_get_advisors",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_get_advisors",
+      "domain": "db"
+    }
+  },
+  "(232, 35, 166, 85)": {
+    "name": "supabase_get_project_url",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_get_project_url",
+      "domain": "db"
+    }
+  },
+  "(213, 220, 82, 3)": {
+    "name": "supabase_get_publishable_keys",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_get_publishable_keys",
+      "domain": "db"
+    }
+  },
+  "(129, 3, 146, 240)": {
+    "name": "supabase_generate_typescript_types",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_generate_typescript_types",
+      "domain": "db"
+    }
+  },
+  "(55, 88, 33, 86)": {
+    "name": "supabase_list_edge_functions",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_list_edge_functions",
+      "domain": "db"
+    }
+  },
+  "(213, 106, 85, 114)": {
+    "name": "supabase_get_edge_function",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_get_edge_function",
+      "domain": "db"
+    }
+  },
+  "(237, 73, 243, 221)": {
+    "name": "supabase_create_branch",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_create_branch",
+      "domain": "db"
+    }
+  },
+  "(70, 148, 2, 42)": {
+    "name": "supabase_list_branches",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_list_branches",
+      "domain": "db"
+    }
+  },
+  "(104, 122, 41, 251)": {
+    "name": "supabase_delete_branch",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_delete_branch",
+      "domain": "db"
+    }
+  },
+  "(71, 151, 38, 2)": {
+    "name": "supabase_merge_branch",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_merge_branch",
+      "domain": "db"
+    }
+  },
+  "(238, 194, 15, 71)": {
+    "name": "supabase_reset_branch",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_reset_branch",
+      "domain": "db"
+    }
+  },
+  "(114, 179, 137, 88)": {
+    "name": "supabase_rebase_branch",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_rebase_branch",
+      "domain": "db"
+    }
+  },
+  "(244, 204, 51, 19)": {
+    "name": "supabase_search_docs",
+    "category": "API_MCP",
+    "fiber": 6,
+    "payload": {
+      "name": "supabase_search_docs",
+      "domain": "db"
+    }
+  },
+  "(27, 133, 69, 28)": {
+    "name": "Project_ELECTRICITY",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "A logic framework for mapping all datasets, laws, and designs into TGI functional fibers."
+  },
+  "(98, 6, 244, 165)": {
+    "name": "Mobile_Genesis",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Phase 6 of TGI development: Hardware-aware manifolds and mobile-first agentic actions."
+  },
+  "(247, 133, 206, 183)": {
+    "name": "Full_Autonomy",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "Phase 7 of TGI development: Autonomous task completion via topological path lifting."
+  },
+  "(108, 76, 47, 26)": {
+    "name": "Action_Coordinate_Mapping",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "The deterministic translation of Hamiltonian paths into system-level agentic actions."
+  },
+  "(41, 26, 187, 3)": {
+    "name": "Topological_Attention",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": "A mechanism for weighting semantic fibers by gauge multiplicity (W4) during linguistic generation."
   }
 }
