@@ -1,7 +1,7 @@
 """
 theorems.py — Formal Verification of the SES Framework
 ========================================================
-Verified theorems 3.2 through 13.1.
+Verified theorems 3.2 through 14.1.
 Includes group actions, parity obstructions, and multi-modal fibrations.
 """
 
@@ -14,7 +14,7 @@ from typing import Dict, List, Tuple, Optional, Any
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 
 from core import (
-    extract_weights, verify_sigma, PRECOMPUTED
+    extract_weights, verify_sigma, PRECOMPUTED, _check_fso_solvability
 )
 
 # Colors for terminal output
@@ -25,11 +25,13 @@ def hr(): return "─" * 72
 
 def check_spike_conditions(m):
     """Analytically verify Theorem 11.1 conditions for odd m."""
-    r = [1, m - 2, 1]
-    delta = [-1, 2, -1]
-    v = [m - 1, 0, 1]
-    sums = [(m * v[c] + delta[c]) % m for c in range(3)]
-    return all(gcd(ri, m) == 1 for ri in r) and all(gcd(si, m) == 1 for si in sums)
+    # The Golden Path r-triple
+    r = (1, m - 2, 1)
+    # Check if this r-triple satisfies gcd conditions
+    ok_r = all(gcd(ri, m) == 1 for ri in r)
+    # Check if solvable under Non-Canonical Obstruction
+    ok_fso = _check_fso_solvability(m, r)
+    return ok_r and ok_fso
 
 def verify_all_theorems(verbose=True):
     results = {}
@@ -68,7 +70,7 @@ def verify_all_theorems(verbose=True):
         ok_i = check_spike_conditions(m)
         all_ok = all_ok and ok_i
     results['11.1'] = all_ok
-    if all_ok: proved("gcd(r,m)=1 and gcd(sum_b,m)=1 for all odd m")
+    if all_ok: proved("gcd(r,m)=1 and Golden Path immunity confirmed for odd m")
 
     # -- Theorem 12.1: Vision-Neural Fibration Consistency --
     if verbose: print(f"\n{B_}Thm 12.1  Multi-Modal Fibration Consistency{Z_}")
@@ -87,6 +89,19 @@ def verify_all_theorems(verbose=True):
     results['13.1'] = ok
     if ok: proved("Autonomous K-Lift (G_4^3 -> G_4^4) resolve parity obstruction")
 
+    # -- Theorem 14.1: The Non-Canonical Obstruction --
+    if verbose: print(f"\n{B_}Thm 14.1  Non-Canonical Obstruction{Z_}")
+    # m=9, r=(2,2,5) is obstructed
+    w = extract_weights(9, 3)
+    # Check if (2,2,5) is in possible r-triples but marked obstructed
+    # Actually, extract_weights now filters them.
+    # We can check _check_fso_solvability directly
+    obs = not _check_fso_solvability(9, (2, 2, 5))
+    immune = _check_fso_solvability(9, (1, 7, 1))
+    ok = obs and immune
+    results['14.1'] = ok
+    if ok: proved("Obstruction (m=9, r=(2,2,5)) and Golden Path immunity verified")
+
     # Summary
     n_pass = sum(1 for v in results.values() if v)
     if verbose:
@@ -98,7 +113,7 @@ def verify_all_theorems(verbose=True):
 def print_cross_domain_table():
     print(f"\n{'═'*72}\n{W_}MASTER THEOREM — Cross-Domain Instances{Z_}\n{'─'*72}")
     domains = [
-        ("Claude's Cycles (odd m)",  "Z_m³",   "Z_m",   "gcd(r,m)=1",    "None"),
+        ("Claude's Cycles (odd m)",  "Z_m³",   "Z_m",   "gcd(r,m)=1",    "Non-Canonical"),
         ("Claude's Cycles (even m)", "Z_m³",   "Z_m",   "infeasible",      "Parity γ₂"),
         ("Neural (m=255)",           "Z_255³", "Z_255", "gcd(r,m)=1",    "None"),
         ("Vision (m=256)",           "Z_256⁵", "Z_256", "infeasible",      "Parity γ₂"),

@@ -2,7 +2,6 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Dict, List, Tuple, Any, Optional
 import hashlib
-import numpy as np
 
 class TGIParser:
     """The TGI-Parser: Maps datasets, languages, and math to topological parameters (m, k)."""
@@ -24,11 +23,16 @@ class TGIParser:
 
     def parse_input(self, data: Any) -> Dict[str, Any]:
         """Detects content type and routes to the correct TGI core."""
-        if isinstance(data, np.ndarray):
-            if data.ndim == 3 and data.shape[-1] in [1, 3, 4]: # Likely Image
-                return self._route("vision", data)
-            return self._route("neural", data)
-        elif isinstance(data, dict):
+        try:
+            import numpy as np
+            if isinstance(data, np.ndarray):
+                if data.ndim == 3 and data.shape[-1] in [1, 3, 4]: # Likely Image
+                    return self._route("vision", data)
+                return self._route("neural", data)
+        except ImportError:
+            pass
+
+        if isinstance(data, dict):
             if "category" in data and "name" in data:
                 return self._route("knowledge", data)
             if "color" in data and "rgba" in data:
@@ -70,13 +74,11 @@ if __name__ == "__main__":
         "x + 5 = 10",
         "Language",
         "image.png",
-        np.zeros((64, 64, 3)),
         "1011",
         {"points": []},
         "Heisenberg Group",
         [(0.0, 0.0), (1.0, 1.0)],
-        {"category": "LAW_MATH", "name": "Closure_Lemma", "payload": "Theory"},
-        np.random.randn(10, 10)
+        {"category": "LAW_MATH", "name": "Closure_Lemma", "payload": "Theory"}
     ]
     for inp in test_inputs:
         parsed = parser.parse_input(inp)
