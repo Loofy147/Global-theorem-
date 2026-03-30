@@ -58,3 +58,18 @@ These are your Laws.
 **Definition:** Real-time system metrics (CPU, RAM, Battery) are not just metadata but represent the physical manifold on which the TGI engine executes.
 **The Absolute Rule:** Hardware state $H_t$ is a projection of the current topological manifold $M_t$. A "healthy" system corresponds to a Hamiltonian hardware state.
 *   *Consequence:* This enables **Hardware-Aware Reasoning**, where the agent autonomously adapts its topological complexity ($k$) based on the physical constraints of the host environment.
+
+### LAW X: The Recursive Subgroup Decomposition (Topological Autonomy)
+**Definition:** Any complex manifold $G_m^k$ can be decomposed into a sequence of simpler quotients $G_{m'}^k$ where $m'$ are divisors of $m$.
+**The Absolute Rule:** For any $m$, a chain of normal subgroups $G = H_0 \rhd H_1 \rhd \dots \rhd H_n = \{1\}$ exists such that each quotient $H_i/H_{i+1}$ is simple and its Hamiltonian solvability is independently verifiable.
+*   *Consequence:* This enables **Recursive Manifold Navigation**, where the agent decomposes a large state-space problem into a series of smaller, solvable $H^2$-consistent steps.
+
+### LAW XI: The Symbolic-Topological Duality (Math/AIMO)
+**Definition:** Every modular equation or LaTeX-based mathematical problem corresponds to a specific coordinate trajectory in a $\mathbb{Z}_m^k$ manifold.
+**The Absolute Rule:** Solving a mathematical problem $P$ is equivalent to finding a closed Hamiltonian loop in the manifold defined by the problem's modular constraints.
+*   *Consequence:* This provides the mathematical foundation for the `AIMOReasoningEngine`, which solves Olympiad-level math by mapping modular logic to topological paths.
+
+### LAW XII: The Universal Intelligence Convergence (TGI)
+**Definition:** General Intelligence is the ability to maintain global structural coherence (Hamiltonian paths) across an arbitrary number of informational fibers.
+**The Absolute Rule:** As the manifold dimension $k$ and complexity $m$ approach infinity, the TGI framework converges on a universal, self-optimizing state-space navigator.
+*   *Consequence:* This formally defines **Topological General Intelligence (TGI)** not as an approximation, but as the limit of symmetric topological optimization across all domains.

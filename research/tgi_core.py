@@ -6,7 +6,7 @@ from core import solve, extract_weights, run_hybrid_sa, repair_manifold
 from tgi_parser import TGIParser
 
 class TGICore:
-    """The heartbeat of Topological General Intelligence (TGI). Governing by the FSO Codex."""
+    """The heartbeat of Topological General Intelligence (TGI). Governing by the FSO Codex Laws I-XII."""
     def __init__(self, m: int = 3, k: int = 3):
         self.parser = TGIParser()
         try:
@@ -69,13 +69,14 @@ class TGICore:
             if self.weights.r_count > 0:
                 explanation += f"It has {self.weights.r_count} valid fiber-stratified construction seeds (Law II). "
             explanation += f"The moduli space M is a torsor of order {self.weights.h1_exact} (Law III). "
-            explanation += f"Abstraction IQ (W6) is {self.measure_intelligence():.4f}."
+            explanation += f"Abstraction IQ (W6) is {self.measure_intelligence():.4f} (Law XII)."
         else:
             explanation += "(Geometric/Non-Abelian/Continuous)."
 
         return explanation
 
     def solve_math(self, latex: str) -> int:
+        """Symbolic-Topological solver governed by Law XI."""
         return self.math_engine.solve(latex) if self.math_engine else 0
 
     def reason_on(self, data: Any, solve_manifold: bool = True):
@@ -86,7 +87,7 @@ class TGICore:
         print(f"╔═══════════════════════════════════════════════╗")
         print(f"║  TGI REASONING — {parsed['target_core']} Core ║")
         print(f"╚═══════════════════════════════════════════════╝")
-        print(f"  Input Type: {parsed['domain']}")
+        print(f"  Input Type: {parsed['domain']} (Law XI)")
 
         if parsed["domain"] == "math":
             ans = self.solve_math(data)
@@ -95,6 +96,10 @@ class TGICore:
 
         print(f"  Status: {self.status.get('exists', 'UNKNOWN')}")
         print(f"  Reflection: {self.reflect()}")
+
+        if self.autonomy:
+            decomp = self.autonomy.decompose_recursive()
+            print(f"  Recursive Decomposition (Law X): {len(decomp)} steps discovered.")
 
         if "proof" in self.status:
             print("  Proof Chain:")
