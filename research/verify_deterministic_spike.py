@@ -4,7 +4,7 @@ from core import construct_spike_sigma, verify_sigma
 
 def test_odd_m():
     print("Verifying Deterministic Spike Construction for Odd m...")
-    for m in [3, 5, 7, 9, 11]:
+    for m in [3, 5, 7, 9, 11, 13, 15]:
         sol = construct_spike_sigma(m, 3)
         if sol and verify_sigma(sol, m):
             print(f"  [PASS] m={m} verified.")
