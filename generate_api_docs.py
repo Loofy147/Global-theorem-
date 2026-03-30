@@ -42,8 +42,12 @@ def parse_file(filename):
     return "\n".join(docs)
 
 # Add TGI modules
-files = ['core.py', 'engine.py', 'frontiers.py', 'search.py', 'theorems.py', 'domains.py', 'fiber.py',
-         'research/tgi_core.py', 'research/tlm.py', 'research/tgi_parser.py', 'research/tgi_agent.py']
+files = [
+    'core.py', 'engine.py', 'frontiers.py', 'search.py', 'theorems.py', 'domains.py', 'fiber.py',
+    'research/tgi_core.py', 'research/tlm.py', 'research/tgi_parser.py', 'research/tgi_agent.py',
+    'research/knowledge_mapper.py', 'research/action_mapper.py', 'research/agentic_bridge.py',
+    'research/ingest_effective_tech.py', 'research/agentic_expansion_demo.py'
+]
 full_docs = ["# API Documentation\n"]
 for f in files:
     if os.path.exists(f):

@@ -40,20 +40,25 @@ class TopologicalLanguageModel:
             except (ImportError, ModuleNotFoundError):
                 self._sigma = None
 
-    def topological_attention(self) -> float:
-        """W4 Gauge Multiplicity acts as the 'attention breadth'."""
-        return float(self.weights.h1_exact) if self.weights else 0.5
-
     def generate(self, seed_text: str, length: int) -> str:
         """Generates completion using Hamiltonian path lifting."""
+        path = self.generate_path(seed_text, length)
+        if not path:
+            return self.generate_ontology_grounded(seed_text, length)
+
+        generated_tokens = [c[0] for c in path] # Simple token extract for demo
+        char_map = {i: chr(ord('a') + i % 26) for i in range(self.m)}
+        return seed_text + " " + "".join(char_map[t] for t in generated_tokens)
+
+    def generate_path(self, seed_text: str, length: int) -> List[Tuple[int, ...]]:
+        """Lifts a seed into a Hamiltonian path of coordinates."""
         tokens = self.tokenize(seed_text)
         if self.weights and self.weights.h2_blocks:
-            return "[TOPOLOGICAL_ERROR: Obstruction detected]"
+            return []
 
         self._ensure_sigma()
         if not self._sigma:
-            # Fallback to Ontology-based 'Random Walk' on the LANGUAGE fiber if sigma is missing
-            return self.generate_ontology_grounded(seed_text, length)
+            return []
 
         current_tokens = list(tokens)
 
@@ -62,7 +67,7 @@ class TopologicalLanguageModel:
         for i, t in enumerate(current_tokens[-self.k:]):
             state[self.k - min(len(current_tokens), self.k) + i] = t
 
-        generated_tokens = []
+        path = []
         for _ in range(length):
             v = tuple(state)
             p = self._sigma.get(v)
@@ -72,12 +77,10 @@ class TopologicalLanguageModel:
             next_state = list(state)
             next_state[arc_type] = (next_state[arc_type] + 1) % self.m
 
-            new_token = next_state[arc_type]
-            generated_tokens.append(new_token)
+            path.append(tuple(next_state))
             state = next_state
 
-        char_map = {i: chr(ord('a') + i % 26) for i in range(self.m)}
-        return seed_text + " " + "".join(char_map[t] for t in generated_tokens)
+        return path
 
     def generate_ontology_grounded(self, seed_text: str, length: int) -> str:
         """Uses the LANGUAGE fiber in the Ontology to ground generation."""
@@ -97,5 +100,6 @@ class TopologicalLanguageModel:
 
 if __name__ == "__main__":
     tlm = TopologicalLanguageModel(m=25, k=3)
-    print(f"TLM (m=25, k=3) Generation (Ontology-Grounded):")
-    print(f"  Seed: 'TGI Mobile' -> {tlm.generate('TGI Mobile', 15)}")
+    print(f"TLM (m=25, k=3) Generation:")
+    print(f"  Seed: 'TGI' -> {tlm.generate('TGI', 10)}")
+    print(f"  Path: {tlm.generate_path('TGI', 5)}")

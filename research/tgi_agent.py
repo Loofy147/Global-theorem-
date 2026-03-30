@@ -1,10 +1,11 @@
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Dict, List, Optional, Tuple, Any
-from tgi_core import TGICore
-from tlm import TopologicalLanguageModel
-from tgi_parser import TGIParser
+from research.tgi_core import TGICore
+from research.tlm import TopologicalLanguageModel
+from research.tgi_parser import TGIParser
 from research.hierarchical_tlm import HierarchicalTLM
+from research.agentic_action_engine import TopologicalActionEngine
 import numpy as np
 
 class TGIAgent:
@@ -14,6 +15,7 @@ class TGIAgent:
         self.core = TGICore()
         self.tlm = None # Initialized per query domain
         self.htlm = None
+        self.action_engine = TopologicalActionEngine()
 
     def query(self, data: Any, hierarchical: bool = False, admin_vision: bool = False):
         """Processes a query through the full TGI pipeline."""
@@ -48,7 +50,7 @@ class TGIAgent:
 
         # 4. Attempt Global Completion
         if self.core.status.get("exists") == "PROVED_IMPOSSIBLE":
-            return f"[TGI_RESPONSE: TOPOLOGICAL_OBSTRUCTION] The query path is obstructed. "                     f"{self.core.reflect()}"
+            return f"[TGI_RESPONSE: TOPOLOGICAL_OBSTRUCTION] The query path is obstructed. "                    f"{self.core.reflect()}"
 
         # 5. Generate Response via Core/TLM
         lifted = (m != m_orig or k != k_orig)
@@ -111,6 +113,26 @@ class TGIAgent:
         for cat, c in cats.items():
             summary += f"  - {cat}: {c} entities\n"
         return summary
+
+    def autonomous_query(self, intent: str) -> Dict[str, Any]:
+        """Performs a multi-step autonomous topological plan generation."""
+        # Detect target manifold (m=25, k=3 for language)
+        parsed = self.parser.parse_input(intent)
+        m, k = parsed["m"], parsed["k"]
+
+        # Initialize TLM and generate path
+        tlm = TopologicalLanguageModel(m, k)
+        path = tlm.generate_path(intent, 20)
+
+        # Resolve path to plan
+        plan = self.action_engine.resolve_path_to_plan(path, intent)
+
+        return {
+            "intent": intent,
+            "manifold": f"G_{m}^{k}",
+            "path_length": len(path),
+            "plan": plan
+        }
 
     def cross_reason(self, data_list: List[Any]) -> str:
         """Decomposes multiple queries and merges results for comparative reasoning."""
