@@ -33,6 +33,12 @@ class TGICore:
         except ImportError:
             self.vision_mapper = None
 
+        try:
+            from research.hardware_awareness import HardwareMapper
+            self.hardware = HardwareMapper(m=255, k=3)
+        except ImportError:
+            self.hardware = None
+
         self.set_topology(m, k)
 
     def set_topology(self, m: int, k: int):
@@ -69,7 +75,10 @@ class TGICore:
             if self.weights.r_count > 0:
                 explanation += f"It has {self.weights.r_count} valid fiber-stratified construction seeds (Law II). "
             explanation += f"The moduli space M is a torsor of order {self.weights.h1_exact} (Law III). "
-            explanation += f"Abstraction IQ (W6) is {self.measure_intelligence():.4f} (Law XII)."
+            explanation += f"Abstraction IQ (W6) is {self.measure_intelligence():.4f} (Law XII). "
+            if self.hardware:
+                health = self.hardware.verify_hamiltonian_health(self._sigma)
+                explanation += f"Physical Manifold (Law IX): {health}."
         else:
             explanation += "(Geometric/Non-Abelian/Continuous)."
 
@@ -100,6 +109,8 @@ class TGICore:
         if self.autonomy:
             decomp = self.autonomy.decompose_recursive()
             print(f"  Recursive Decomposition (Law X): {len(decomp)} steps discovered.")
+            for step in decomp:
+                print(f"    {step}")
 
         if "proof" in self.status:
             print("  Proof Chain:")

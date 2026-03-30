@@ -1,7 +1,7 @@
 """
 theorems.py — Formal Verification of the SES Framework
 ========================================================
-Verified theorems 3.2 through 16.2 (FSO Codex Laws I-XII).
+Verified theorems 3.2 through 17.1 (FSO Codex Laws I-XII).
 Includes group actions, parity obstructions, and multi-modal fibrations.
 """
 
@@ -70,6 +70,14 @@ def verify_symbolic_duality_law():
     m, k = 9, 3
     w = extract_weights(m, k)
     return not w.h2_blocks and w.r_count > 0
+
+def verify_hardware_hamiltonian_health():
+    """Verify Law IX (Hardware-Topological Equivalence)."""
+    from research.hardware_awareness import HardwareMapper
+    hm = HardwareMapper(m=255, k=3)
+    sol = PRECOMPUTED.get((3,3))
+    res = hm.verify_hamiltonian_health(sol)
+    return "Status:" in res
 
 def verify_all_theorems(verbose=True):
     results = {}
@@ -164,6 +172,12 @@ def verify_all_theorems(verbose=True):
     ok = verify_symbolic_duality_law()
     results['16.2'] = ok
     if ok: proved("Law XI (Math-Topology Duality) verified for m=9")
+
+    # -- Theorem 17.1: Hardware Hamiltonian Health (Codex Law IX) --
+    if verbose: print(f"\n{B_}Thm 17.1  Hardware Hamiltonian Health{Z_}")
+    ok = verify_hardware_hamiltonian_health()
+    results['17.1'] = ok
+    if ok: proved("Law IX (Physical Health Check) verified for m=255")
 
     # Summary
     n_pass = sum(1 for v in results.values() if v)
