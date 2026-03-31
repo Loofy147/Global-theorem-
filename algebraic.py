@@ -1,5 +1,5 @@
 import math, random, re
-from typing import Dict, List, Optional, Tuple, Any, Callable
+from typing import Dict, List, Tuple, Any
 from math import gcd
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -7,8 +7,12 @@ from math import gcd
 # ══════════════════════════════════════════════════════════════════════════════
 
 class AlgebraicClassifier:
-    """Classifies symmetric combinatorial problems in O(1) using cohomology."""
+    """
+    Classifies symmetric combinatorial problems in O(1) using cohomology.
+    Guided by Law I (Dimensional Parity Harmony) and Law V (Joint-Sum Constraint).
+    """
     def __init__(self, m: int, k: int):
+        """Initializes the classifier with grid modulus m and dimensionality k."""
         self.m = m; self.k = k
         try:
             from core import extract_weights
@@ -17,6 +21,7 @@ class AlgebraicClassifier:
             self.w = None
 
     def analyze(self) -> Dict[str, Any]:
+        """Performs a deep audit of the topological domain and returns a formal proof."""
         if not self.w: return {"exists": "UNKNOWN"}
         w = self.w
         res = {"m": self.m, "k": self.k, "exists": "PROVED_IMPOSSIBLE" if w.h2_blocks else ("PROVED_POSSIBLE" if w.r_count > 0 else "OPEN"),
@@ -51,6 +56,7 @@ class GroupExtension:
     Enables decomposition of G into fiber H and quotient Q.
     """
     def __init__(self, G_order: int, Q_order: int):
+        """Initializes the extension with global order G and quotient order Q."""
         self.G = G_order
         self.Q = Q_order
         self.H = G_order // Q_order
@@ -70,22 +76,21 @@ class Tower:
     Enables deep cognitive mapping across multiple manifold layers.
     """
     def __init__(self, orders: List[int]):
-        # orders: [base, ..., total]
+        """Initializes the tower with a list of orders [base, ..., total]."""
         self.extensions = []
         for i in range(len(orders) - 1):
             self.extensions.append(GroupExtension(orders[i+1], orders[i]))
         self.orders = orders
 
     def lift_sequence(self, states: List[int]) -> int:
-        """Lifts a state through the entire tower."""
-        # states: [s0, s1, ..., sn] where si is the fiber at level i
+        """Lifts a state through the entire tower from base to total space."""
         current = states[0]
         for i, ext in enumerate(self.extensions):
             current = ext.lift(current, states[i+1])
         return current
 
     def project_sequence(self, g_state: int) -> List[int]:
-        """Decomposes a global state into its constituent fiber components."""
+        """Decomposes a global state into its constituent fiber components across the tower."""
         states = []
         current = g_state
         for ext in reversed(self.extensions):
@@ -105,14 +110,15 @@ DOMAIN_REGISTRY = {
 class NonAbelianSubgroup:
     """Helper for subgroups with non-abelian central extensions."""
     def __init__(self, G_order: int, H_order: int, is_central: bool=True):
+        """Initializes the subgroup with global, fiber, and central metadata."""
         self.G = G_order; self.H = H_order; self.Q = G_order // H_order
         self.is_central = is_central
     def parity_law(self, k: int) -> bool:
-        # Finalized Law: k odd, m even -> blocked.
+        """Checks the finalized parity law for non-abelian extensions."""
         return (k % 2 == 1) and (self.Q % 2 == 0)
 
 def analyze_advanced_domain(domain: str) -> Dict:
-    """Advanced classification for icosahedral and crystal geometries."""
+    """Advanced classification for icosahedral, crystal, and Hamming geometries."""
     data = DOMAIN_REGISTRY.get(domain.lower())
     if not data: return {"exists": "UNKNOWN"}
     m, k = data["m"], data["k"]
@@ -128,14 +134,11 @@ def analyze_advanced_domain(domain: str) -> Dict:
     return {"m": m, "k": k, "G": data["G"], "exists": "PROVED_IMPOSSIBLE" if h2 else "OPEN", "theorem_id": "6.1" if h2 else "ADV-1", "proof": [f"1. SES: {data['SES']}.", f"2. Finalized Parity Law: Even m + Odd k blocked.", f"3. {'Parity gamma_2 blocks.' if h2 else 'gamma_2 vanishes.'}"]}
 
 def get_algebraic_proof(m: int, k: int) -> Dict:
+    """Convenience wrapper for AlgebraicClassifier.analyze."""
     return AlgebraicClassifier(m, k).analyze()
 
-# ══════════════════════════════════════════════════════════════════════════════
-# HEISENBERG H3(Z_m) ANALYSIS (v1.1)
-# ══════════════════════════════════════════════════════════════════════════════
-
 def get_heisenberg_proof(m: int, k: int) -> Dict:
-    """Analysis of Hamiltonian decomposition for Heisenberg groups."""
+    """Analysis of Hamiltonian decomposition for Heisenberg groups H3(Z_m)."""
     h2 = (k % 2 == 1) and (m % 2 == 0)
     return {
         "m": m, "k": k, "group": f"H3(Z{m})",
