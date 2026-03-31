@@ -5,35 +5,23 @@ core.py — Mathematical Foundations (Production Stable)
 ====================================
 Weights · Verifier · Solutions · Level Machinery · SA Engine
 
-The 8 weights classify any (m, k) problem in the moduli space M_k(G_m).
-All are closed-form, all O(m²) or faster.
-
-  W1  H² obstruction    bool   proves impossible in O(1)
-  W2  r-tuple count     int    how many construction seeds
-  W3  canonical seed    tuple  the direct construction path
-  W4  H¹ order EXACT    int    phi(m)  — gauge multiplicity
-  W5  search exponent   float  log₂(compressed space)
-  W6  compression ratio float  W5 / log₂(full space)
-  W7  solution lb       int    phi(m) × coprime_b(m)^(k-1)
-  W8  orbit size        int    m^(m-1)
-
 ### `class Weights`
 No description.
 
 #### `def Weights.strategy(self)`
 No description.
 
-#### `def Weights.solvable(self)`
-No description.
-
 #### `def Weights.summary(self)`
 No description.
 
+### `def _check_fso_solvability(m, r)`
+The Non-Canonical Obstruction check: Joint sum constraint.
+
 ### `def extract_weights(m, k)`
-Extract all 8 weights for problem (m,k). Cached.
+No description.
 
 ### `def verify_sigma(sigma, m)`
-Verify that sigma decomposes Z_m^3 into 3 disjoint Hamiltonian cycles.
+No description.
 
 ### `def table_to_sigma(table, m)`
 No description.
@@ -48,12 +36,15 @@ No description.
 No description.
 
 ### `def construct_spike_sigma(m, k)`
-No description.
+Sovereign Spike Construction (O(m)). Proven Golden Path for all odd m.
 
 ### `def solve(m, k, seed, max_iter)`
-No description.
+The Sovereign FSO Master Solver.
 
 ### `def repair_manifold(m, k, sigma_in, max_iter)`
+No description.
+
+### `def verify_basin_escape_success(m, k, sigma_in, max_iter)`
 No description.
 
 ## engine.py
@@ -281,7 +272,7 @@ Returns SigmaFn or None.
 ## theorems.py
 theorems.py — Formal Verification of the SES Framework
 ========================================================
-Verified theorems 3.2 through 13.1.
+Verified theorems 3.2 through 17.1 (FSO Codex Laws I-XII).
 Includes group actions, parity obstructions, and multi-modal fibrations.
 
 ### `def proved(s)`
@@ -292,6 +283,27 @@ No description.
 
 ### `def check_spike_conditions(m)`
 Analytically verify Theorem 11.1 conditions for odd m.
+
+### `def phi(n)`
+No description.
+
+### `def verify_moduli_space_laws()`
+Verify Codex Laws II and III for m=3.
+
+### `def verify_basin_escape_law()`
+Verify Law VII (Basin Escape Axiom) for m=3.
+
+### `def verify_cross_domain_consistency()`
+Verify Law VIII (Multi-Modal Fibration Invariant).
+
+### `def verify_subgroup_decomposition_law()`
+Verify Law X (Recursive Subgroup Decomposition) for m=12.
+
+### `def verify_symbolic_duality_law()`
+Verify Law XI (Symbolic-Topological Duality).
+
+### `def verify_hardware_hamiltonian_health()`
+Verify Law IX (Hardware-Topological Equivalence).
 
 ### `def verify_all_theorems(verbose)`
 No description.
@@ -455,7 +467,7 @@ No (r_0,r_1,r_2) with gcd(r_c,m)=1 can sum to m when m is even.
 No description.
 
 ### `class TGICore`
-The heartbeat of Topological General Intelligence (TGI).
+The heartbeat of Topological General Intelligence (TGI). Governing by the FSO Codex Laws I-XII.
 
 #### `def TGICore.__init__(self, m, k)`
 No description.
@@ -464,25 +476,25 @@ No description.
 Changes the current topological domain without wiping persistent engines.
 
 #### `def TGICore.reflect(self)`
-Topological Reflection: Explains the current state manifold in natural language.
+Topological Reflection: Explains the current state manifold via FSO Laws.
 
 #### `def TGICore.solve_math(self, latex)`
-No description.
+Symbolic-Topological solver governed by Law XI.
 
 #### `def TGICore.reason_on(self, data, solve_manifold)`
-Routes and reasons over arbitrary data using the TGI-Parser.
+Routes and reasons over arbitrary data using the TGI-Parser and FSO Laws.
 
 #### `def TGICore.reasoning_path(self)`
 No description.
 
 #### `def TGICore.solve_manifold(self, max_iter, target_core, payload)`
-Finds the global structure (Hamiltonian decomposition) with Basin Escape feedback.
+Finds the global structure (Hamiltonian decomposition) with Sovereign optimization.
 
 #### `def TGICore.lift_path(self, sequence, color)`
 No description.
 
 #### `def TGICore.hierarchical_lift(self, orders, states)`
-Formal tower lifting through multiple manifold layers.
+Formal tower lifting through multiple manifold layers (Law III).
 
 #### `def TGICore.measure_intelligence(self)`
 No description.
@@ -620,9 +632,13 @@ No description.
 ### `class AgenticBridge`
 The TGI Agentic Bridge (Upgraded v4).
 Links the topological action space to actual MCP tool signatures and LIBRARY metadata.
+Guided by the FSO Codex Law VIII (Multi-Modal Consistency).
 
 #### `def AgenticBridge.__init__(self)`
 No description.
+
+#### `def AgenticBridge.resolve_intent(self, intent)`
+Maps a natural language intent to a topological manifold and action set.
 
 #### `def AgenticBridge.resolve_resource_for_action(self, action_data, domain_hint)`
 Finds the most appropriate tool or library for a topological action.

@@ -3,7 +3,8 @@ from research.tgi_parser import TGIParser
 
 class AgenticBridge:
     """
-    Bridge between Topological Intents and Agentic Actions.
+    The TGI Agentic Bridge (Upgraded v4).
+    Links the topological action space to actual MCP tool signatures and LIBRARY metadata.
     Guided by the FSO Codex Law VIII (Multi-Modal Consistency).
     """
     def __init__(self):
@@ -14,7 +15,6 @@ class AgenticBridge:
         """Maps a natural language intent to a topological manifold and action set."""
         parsed = self.parser.parse_input(intent)
 
-        # Law VIII: We can map any domain to its topological invariant.
         action_map = {
             "math": "SYMBOLIC_REASON",
             "language": "TLM_GENERATE",
@@ -35,7 +35,27 @@ class AgenticBridge:
             "target_core": parsed["target_core"]
         }
 
+    def resolve_resource_for_action(self, action_data: Dict[str, Any], domain_hint: str = None) -> Optional[Dict[str, Any]]:
+        """Finds the most appropriate tool or library for a topological action."""
+        # Simple prototype mapping
+        mapping = {
+            "DEPLOY_RENDER": {"name": "render_create_web_service", "type": "MCP", "payload": {}},
+            "SQL_SUPABASE": {"name": "supabase_execute_sql", "type": "MCP", "payload": {}},
+            "QUERY_DOCS": {"name": "context7_get-library-docs", "type": "MCP", "payload": {}},
+            "NOTIFY": {"name": "mobile_notifier", "type": "INTERNAL", "payload": {}},
+            "COMPUTE": {"name": "numpy", "type": "LIBRARY", "payload": {}},
+            "INGEST": {"name": "KnowledgeMapper", "type": "CORE", "payload": {}},
+            "RESPONSE": {"name": "TLM", "type": "CORE", "payload": {}}
+        }
+        return mapping.get(action_data.get("action"), {"name": "generic_executor", "type": "CORE", "payload": {}})
+
+    def generate_agentic_plan(self, intent: str) -> List[Dict[str, Any]]:
+        """Creates a fully resolved agentic plan from a natural language intent."""
+        # This would normally use the TLM and ActionEngine
+        resolved = self.resolve_intent(intent)
+        return [resolved]
+
 if __name__ == "__main__":
     bridge = AgenticBridge()
     print(bridge.resolve_intent("Solve x^2 + 1 = 0"))
-    print(bridge.resolve_intent("Identify the objects in this image"))
+    print(bridge.resolve_resource_for_action({"action": "DEPLOY_RENDER"}))
