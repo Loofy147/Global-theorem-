@@ -1,11 +1,17 @@
 import hashlib
 from typing import Dict, List, Tuple, Any, Optional
+try:
+    from research.tlm import TopologicalLanguageModel
+    tlm_ready = True
+except ImportError:
+    tlm_ready = False
 
 class ActionMapper:
     """
     TGI Action-Coordinate Mapping.
     Translates topological paths and coordinates into system-level 'Agentic' actions.
     Ensures the TGI can 'do' things as a result of manifold reasoning.
+    Guided by Law VIII (Multi-Modal Consistency).
     """
     def __init__(self, m: int = 255):
         self.m = m
@@ -22,13 +28,12 @@ class ActionMapper:
             9: "REFLECT",        # Topological Reflection
             10: "NOP"            # No Operation
         }
+        self.tlm = TopologicalLanguageModel(m=m, k=3) if tlm_ready else None
 
     def map_coord_to_action(self, coord: Tuple[int, ...]) -> Dict[str, Any]:
         """Maps a specific coordinate in Z_m^k to an action and its parameters."""
         # Use simple deterministic mapping for prototype
         s = sum(coord)
-        # Force specific intents to certain action ranges
-        # In a real TGI, this is a learned or lifted mapping.
         action_idx = s % len(self.action_space)
         action_name = self.action_space[action_idx]
 
@@ -47,15 +52,26 @@ class ActionMapper:
         return [self.map_coord_to_action(c) for c in path]
 
     def resolve_intent(self, intent_text: str) -> Tuple[int, ...]:
-        """Lifts a textual intent into a coordinate for action execution."""
+        """
+        Lifts a textual intent into a coordinate for action execution.
+        Uses grounded TLM semantic mapping if available (Phase 8 Refinement).
+        """
+        if self.tlm:
+            tokens = self.tlm.tokenize(intent_text)
+            # Lift the semantic tokens to a single coordinate in G_m^3
+            # We use the mean of token values and sum of ordinals as a stable semantic anchor
+            val = sum(tokens) % self.m
+            bias = sum(ord(c) for c in intent_text) % self.m
+            return (val, bias, (val + bias) % self.m)
+
+        # Fallback to MD5 hashing if TLM is unavailable
         h = hashlib.md5(intent_text.lower().encode()).digest()
-        # Ensure we cover the full action space by adding a bias from the intent text
         bias = sum(ord(c) for c in intent_text) % self.m
         return tuple((h[i] + bias) % self.m for i in range(3))
 
 if __name__ == "__main__":
     am = ActionMapper()
-    print("═══ TGI ACTION MAPPER UPDATED (Bias Support) ═══")
+    print("═══ TGI ACTION MAPPER UPDATED (TLM Grounded) ═══")
     test_intents = ["Deploy", "Query", "Help", "Ingest", "Lift"]
     for intent in test_intents:
         coord = am.resolve_intent(intent)

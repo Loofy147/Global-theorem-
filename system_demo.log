@@ -1,0 +1,75 @@
+Traceback (most recent call last):
+  File "/app/research/tgi_system_demo.py", line 3, in <module>
+    from research.tgi_agent import TGIAgent
+  File "/app/research/tgi_agent.py", line 9, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+═══ ENHANCED TGI / TLM INTEGRATION TEST ═══
+Testing TGICore(m=3, k=3): Lifted next point = 2
+Testing TLM(m=3, k=3): Generated completion = 'abc bbccc'
+Testing TGICore(m=4, k=3): Lift on obstructed manifold = None
+Testing TLM(m=4, k=3): Result on obstructed manifold = 'abcd achromate'
+Traceback (most recent call last):
+  File "/app/research/tgi_integration_test.py", line 42, in <module>
+    run_integration_test()
+  File "/app/research/tgi_integration_test.py", line 32, in run_integration_test
+    assert "TOPOLOGICAL_ERROR" in gen_obs
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+────────────────────────────────────────────────────────────────────────
+[97mTHEOREM VERIFICATION — Complete Record[0m
+────────────────────────────────────────────────────────────────────────
+
+[94mThm 3.2  Orbit-Stabilizer[0m
+  [92m■ m³ = m × m² for m=2..11 ■[0m
+
+[94mThm 6.1  Parity Obstruction[0m
+  [92m■ Column-uniform impossible for all even m in {4..16} ■[0m
+
+[94mThm 7.1  Existence for Odd m[0m
+  [92m■ r-triple (1,m-2,1) valid for all odd m=3..15 ■[0m
+
+[94mThm 11.1  Spike Construction (Odd m)[0m
+  [92m■ gcd(r,m)=1 and Golden Path immunity confirmed for odd m ■[0m
+
+[94mThm 12.1  Multi-Modal Fibration Consistency[0m
+  [92m■ Vision parity obstruction and Neural solvability confirmed ■[0m
+
+[94mThm 13.1  K-Lift Convergence[0m
+  [92m■ Autonomous K-Lift (G_4^3 -> G_4^4) resolve parity obstruction ■[0m
+
+[94mThm 14.1  Non-Canonical Obstruction[0m
+  [92m■ Obstruction (m=9, r=(2,2,5)) and Golden Path immunity verified ■[0m
+
+[94mThm 15.1  Moduli Space Density[0m
+  [92m■ Law II (Nb=18) and Law III (|M|=648) verified for m=3 ■[0m
+
+[94mThm 15.2  Basin Escape Axiom[0m
+  [92m■ Law VII (Basin Repair) verified for m=3 ■[0m
+
+[94mThm 15.3  Multi-Modal Consistency[0m
+  [92m■ Law VIII (Structural Transfer) verified for m=3 ■[0m
+
+[94mThm 16.1  Recursive Decomposition[0m
+  [92m■ Law X (Subgroup Chain) verified for m=12 ■[0m
+
+[94mThm 16.2  Symbolic Duality[0m
+  [92m■ Law XI (Math-Topology Duality) verified for m=9 ■[0m
+
+[94mThm 17.1  Hardware Hamiltonian Health[0m
+  [92m■ Law IX (Physical Health Check) verified for m=255 ■[0m
+
+────────────────────────────────────────────────────────────────────────
+  [92mTheorems: 13/13 passed[0m
+
+════════════════════════════════════════════════════════════════════════
+[97mMASTER THEOREM — Cross-Domain Instances[0m
+────────────────────────────────────────────────────────────────────────
+  Domain                       G        G/H     Governing       Obstruction
+  ───────────────────────────────────────────────────────────────────────────
+  Claude's Cycles (odd m)      Z_m³     Z_m     gcd(r,m)=1      Non-Canonical
+  Claude's Cycles (even m)     Z_m³     Z_m     infeasible      Parity γ₂
+  Neural (m=255)               Z_255³   Z_255   gcd(r,m)=1      None
+  Vision (m=256)               Z_256⁵   Z_256   infeasible      Parity γ₂
+  S_3 (non-abelian)            S_3      Z_2     k=2 feasible    k=3 blocked

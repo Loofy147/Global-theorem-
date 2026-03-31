@@ -13,8 +13,11 @@ def format_args(args):
     return ", ".join(arg_names)
 
 def parse_file(filename):
-    with open(filename, "r") as f:
-        tree = ast.parse(f.read())
+    try:
+        with open(filename, "r") as f:
+            tree = ast.parse(f.read())
+    except Exception as e:
+        return f"## {filename}\nError parsing file: {e}\n"
 
     docs = []
     docs.append(f"## {filename}")
@@ -41,17 +44,22 @@ def parse_file(filename):
                     docs.append("")
     return "\n".join(docs)
 
-# Add TGI modules
-files = [
-    'core.py', 'engine.py', 'frontiers.py', 'search.py', 'theorems.py', 'domains.py', 'fiber.py',
-    'research/tgi_core.py', 'research/tlm.py', 'research/tgi_parser.py', 'research/tgi_agent.py',
-    'research/knowledge_mapper.py', 'research/action_mapper.py', 'research/agentic_bridge.py',
-    'research/ingest_effective_tech.py', 'research/agentic_expansion_demo.py'
-]
+# Discover files
+discovery_dirs = ['.', 'research']
+all_files = []
+for d in discovery_dirs:
+    if os.path.isdir(d):
+        files_in_dir = sorted(os.listdir(d))
+        for f in files_in_dir:
+            if f.endswith('.py') and not f.startswith('__'):
+                path = os.path.join(d, f) if d != '.' else f
+                if os.path.isfile(path):
+                    all_files.append(path)
+
 full_docs = ["# API Documentation\n"]
-for f in files:
-    if os.path.exists(f):
-        full_docs.append(parse_file(f))
+for f in all_files:
+    full_docs.append(parse_file(f))
 
 with open("docs/API.md", "w") as f:
     f.write("\n".join(full_docs))
+print(f"Generated documentation for {len(all_files)} files.")

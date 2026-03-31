@@ -42,6 +42,9 @@ class TopologicalLanguageModel:
 
     def generate(self, seed_text: str, length: int) -> str:
         """Generates completion using Hamiltonian path lifting."""
+        if self.weights and self.weights.h2_blocks:
+             return f"{seed_text} [TOPOLOGICAL_ERROR: H2_PARITY_OBSTRUCTED]"
+
         path = self.generate_path(seed_text, length)
         if not path:
             return self.generate_ontology_grounded(seed_text, length)
