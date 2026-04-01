@@ -10,9 +10,15 @@ class AlgebraicClassifier:
     """
     Classifies symmetric combinatorial problems in O(1) using cohomology.
     Guided by Law I (Dimensional Parity Harmony) and Law V (Joint-Sum Constraint).
+    Determines existence of Hamiltonian paths in Z_m^k.
     """
     def __init__(self, m: int, k: int):
-        """Initializes the classifier with grid modulus m and dimensionality k."""
+        """Initializes the classifier with grid modulus m and dimensionality k.
+
+        Args:
+            m (int): The grid modulus (number of levels per dimension).
+            k (int): The dimensionality of the manifold.
+        """
         self.m = m; self.k = k
         try:
             from core import extract_weights
@@ -21,7 +27,11 @@ class AlgebraicClassifier:
             self.w = None
 
     def analyze(self) -> Dict[str, Any]:
-        """Performs a deep audit of the topological domain and returns a formal proof."""
+        """Performs a deep audit of the topological domain and returns a formal proof.
+
+        Returns:
+            Dict[str, Any]: Proof metadata including existence, theorem ID, and proof steps.
+        """
         if not self.w: return {"exists": "UNKNOWN"}
         w = self.w
         res = {"m": self.m, "k": self.k, "exists": "PROVED_IMPOSSIBLE" if w.h2_blocks else ("PROVED_POSSIBLE" if w.r_count > 0 else "OPEN"),

@@ -54,20 +54,35 @@ class ActionMapper:
     def resolve_intent(self, intent_text: str) -> Tuple[int, ...]:
         """
         Lifts a textual intent into a coordinate for action execution.
-        Uses grounded TLM semantic mapping if available (Phase 8 Refinement).
+        Uses grounded TLM semantic mapping and Law VIII (Multi-Modal Consistency).
         """
+        from research.tgi_parser import TGIParser
+        parser = TGIParser()
+        parsed = parser.parse_input(intent_text)
+
+        # Use the domain as a fiber anchor (Law VIII)
+        fiber_map = {
+            "math": 0, "language": 5, "vision": 3, "neural": 7,
+            "knowledge": 2, "heisenberg": 0, "tsp": 4
+        }
+        target_fiber = fiber_map.get(parsed["domain"], 6) # Default to API_MCP fiber
+
         if self.tlm:
             tokens = self.tlm.tokenize(intent_text)
             # Lift the semantic tokens to a single coordinate in G_m^3
-            # We use the mean of token values and sum of ordinals as a stable semantic anchor
+            # Ensure the coordinate sum satisfies the fiber anchor (Law V)
             val = sum(tokens) % self.m
             bias = sum(ord(c) for c in intent_text) % self.m
-            return (val, bias, (val + bias) % self.m)
+            # Deterministically force the 3rd coordinate to close the fiber sum
+            z = (target_fiber - val - bias) % self.m
+            return (val, bias, z)
 
-        # Fallback to MD5 hashing if TLM is unavailable
+        # Fallback to deterministic hashing anchored to the fiber
         h = hashlib.md5(intent_text.lower().encode()).digest()
-        bias = sum(ord(c) for c in intent_text) % self.m
-        return tuple((h[i] + bias) % self.m for i in range(3))
+        x = (h[0] + target_fiber) % self.m
+        y = (h[1] + target_fiber) % self.m
+        z = (target_fiber - x - y) % self.m
+        return (x, y, z)
 
 if __name__ == "__main__":
     am = ActionMapper()
