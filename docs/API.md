@@ -2948,6 +2948,51 @@ Formal tower lifting through multiple manifold layers (Law III).
 #### `def TGICore.measure_intelligence(self)`
 No description.
 
+## research/tgi_engine.py
+No description.
+
+### `class TopologicalProjection`
+TGI Topological Projection Layer.
+Maps raw data into Z_m^k using symmetry-preserving circular embeddings.
+Logic: Similar meaning -> Similar Parity -> Identical Geometric Fiber.
+
+#### `def TopologicalProjection.__init__(self, m, k)`
+No description.
+
+#### `def TopologicalProjection.project(self, raw_data)`
+Maps data to a coordinate in the Torus.
+
+### `class BouncerGate`
+TGI Bouncer Gate (Strict Parity Validation).
+Enforces Law I (Dimensional Parity Harmony) at O(1).
+Drops "Garbage" (H2 Parity Obstructions) without processing.
+
+#### `def BouncerGate.__init__(self, m, k, target_sum)`
+No description.
+
+#### `def BouncerGate.validate(self, coord)`
+Law I: (Even m -> Even k). Checks if sum satisfies target parity S.
+
+### `class FiberImputation`
+TGI Self-Healing Layer.
+Uses the Closure Lemma (Law III) to solve for missing dimensions.
+
+#### `def FiberImputation.__init__(self, m, target_sum)`
+No description.
+
+#### `def FiberImputation.impute_missing(self, partial_coord, k)`
+Calculates r_k to close the Hamiltonian loop.
+
+### `class TGIEngine`
+The Moaziz System Execution Layer (Upgraded).
+Zero-Preprocessing Ingestion via Geometric Invariant Mapping.
+
+#### `def TGIEngine.__init__(self, m, k, target_sum)`
+No description.
+
+#### `def TGIEngine.ingest_transaction(self, tx)`
+Ingests a BaridiMob/CIB transaction with zero preprocessing.
+
 ## research/tgi_integration_test.py
 No description.
 

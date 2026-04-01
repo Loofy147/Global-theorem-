@@ -23,3 +23,8 @@
 
 ---
 *Last Updated: March 2026 — Phase 8 COMPLETED*
+
+## 5. Transition to Zero-Preprocessing (Phase 9 Bridge)
+- [x] **Topological Projection**: Implemented in `research/tgi_engine.py`.
+- [x] **Self-Healing Imputer**: Verified on missing BaridiMob transaction data.
+- [x] **Bouncer Gate**: $O(1)$ topological filter for noise rejection.

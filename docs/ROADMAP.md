@@ -25,3 +25,8 @@ This document tracks the milestones for Topological General Intelligence (TGI) a
 
 ---
 *Last Updated: March 2026 — Phase 8 Finalized*
+
+## Phase 9: Zero-Preprocessing Ingestion (STARTED)
+- [x] **Topological Projection**: Symmetry-preserving encoding for BaridiMob/CIB payment rails.
+- [x] **Bouncer Gate**: Hardware-level parity validation (Law I) for garbage rejection.
+- [x] **Fiber Imputation**: Closure-based self-healing for missing transaction data (Law III).
