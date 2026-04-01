@@ -2,7 +2,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import List, Dict, Tuple, Any, Optional
 import hashlib
-from tlm import TopologicalLanguageModel
+from research.tlm import TopologicalLanguageModel
 from algebraic import Tower
 
 class HierarchicalTLM:

@@ -4,19 +4,26 @@
 Gateway notebook for https://www.kaggle.com/competitions/ai-mathematical-olympiad-progress-prize-3
 
 ### `class AIMO3Gateway`
-No description.
+Gateway class for the AI Mathematical Olympiad Progress Prize 3.
+Provides the interface between the competition platform and the TGI solver.
 
 #### `def AIMO3Gateway.__init__(self, data_paths)`
-No description.
+Initializes the AIMO gateway with data paths and sets a generous timeout.
+
+Args:
+    data_paths (tuple[str] | None): Tuple containing the test CSV path.
 
 #### `def AIMO3Gateway.unpack_data_paths(self)`
-No description.
+Unpacks the provided data paths or uses default competition paths.
 
 #### `def AIMO3Gateway.generate_data_batches(self)`
-No description.
+Generates batches of test data for evaluation.
+
+Returns:
+    Generator[tuple[pl.DataFrame, pl.DataFrame], None, None]: Batches of (row, row_id).
 
 #### `def AIMO3Gateway.competition_specific_validation(self, prediction_batch, row_ids, data_batch)`
-No description.
+Performs competition-specific validation on predictions.
 
 ## algebraic.py
 No description.
@@ -24,12 +31,20 @@ No description.
 ### `class AlgebraicClassifier`
 Classifies symmetric combinatorial problems in O(1) using cohomology.
 Guided by Law I (Dimensional Parity Harmony) and Law V (Joint-Sum Constraint).
+Determines existence of Hamiltonian paths in Z_m^k.
 
 #### `def AlgebraicClassifier.__init__(self, m, k)`
 Initializes the classifier with grid modulus m and dimensionality k.
 
+Args:
+    m (int): The grid modulus (number of levels per dimension).
+    k (int): The dimensionality of the manifold.
+
 #### `def AlgebraicClassifier.analyze(self)`
 Performs a deep audit of the topological domain and returns a formal proof.
+
+Returns:
+    Dict[str, Any]: Proof metadata including existence, theorem ID, and proof steps.
 
 ### `class GroupExtension`
 Formalizes the Short Exact Sequence 0 -> H -> G -> Q -> 0.
@@ -271,6 +286,21 @@ The Sovereign FSO Master Solver.
 No description.
 
 ### `def verify_basin_escape_success(m, k, sigma_in, max_iter)`
+No description.
+
+### `def build_functional_graphs(sigma, m)`
+No description.
+
+### `def verify_functional_graph(fg, m)`
+No description.
+
+### `def vertices(m, k)`
+No description.
+
+### `def trace_cycle(fg, m)`
+No description.
+
+### `def arc_sequence(path, m)`
 No description.
 
 ## debug_m4.py
@@ -777,7 +807,7 @@ Converts a Hamiltonian path into a sequence of agentic actions.
 
 #### `def ActionMapper.resolve_intent(self, intent_text)`
 Lifts a textual intent into a coordinate for action execution.
-Uses grounded TLM semantic mapping if available (Phase 8 Refinement).
+Uses grounded TLM semantic mapping and Law VIII (Multi-Modal Consistency).
 
 ## research/admin_vision_process.py
 No description.
@@ -826,6 +856,20 @@ No description.
 
 ## research/agentic_action_engine.py
 No description.
+
+### `class ActionExecutor`
+TGI Action Executor (Phase 8 Completion).
+Handles real execution of agentic plans and establishes the feedback loop.
+Guided by Law VII (Basin Escape) and Law IX (Hardware Grounding).
+
+#### `def ActionExecutor.__init__(self)`
+No description.
+
+#### `def ActionExecutor.execute_step(self, step)`
+Executes a single step of an agentic plan.
+
+#### `def ActionExecutor.execute_plan(self, plan)`
+Executes a full multi-step plan and returns the audit trail.
 
 ### `class TopologicalActionEngine`
 TGI Agentic Action Engine.
@@ -2903,6 +2947,51 @@ Formal tower lifting through multiple manifold layers (Law III).
 
 #### `def TGICore.measure_intelligence(self)`
 No description.
+
+## research/tgi_engine.py
+No description.
+
+### `class TopologicalProjection`
+TGI Topological Projection Layer.
+Maps raw data into Z_m^k using symmetry-preserving circular embeddings.
+Logic: Similar meaning -> Similar Parity -> Identical Geometric Fiber.
+
+#### `def TopologicalProjection.__init__(self, m, k)`
+No description.
+
+#### `def TopologicalProjection.project(self, raw_data)`
+Maps data to a coordinate in the Torus.
+
+### `class BouncerGate`
+TGI Bouncer Gate (Strict Parity Validation).
+Enforces Law I (Dimensional Parity Harmony) at O(1).
+Drops "Garbage" (H2 Parity Obstructions) without processing.
+
+#### `def BouncerGate.__init__(self, m, k, target_sum)`
+No description.
+
+#### `def BouncerGate.validate(self, coord)`
+Law I: (Even m -> Even k). Checks if sum satisfies target parity S.
+
+### `class FiberImputation`
+TGI Self-Healing Layer.
+Uses the Closure Lemma (Law III) to solve for missing dimensions.
+
+#### `def FiberImputation.__init__(self, m, target_sum)`
+No description.
+
+#### `def FiberImputation.impute_missing(self, partial_coord, k)`
+Calculates r_k to close the Hamiltonian loop.
+
+### `class TGIEngine`
+The Moaziz System Execution Layer (Upgraded).
+Zero-Preprocessing Ingestion via Geometric Invariant Mapping.
+
+#### `def TGIEngine.__init__(self, m, k, target_sum)`
+No description.
+
+#### `def TGIEngine.ingest_transaction(self, tx)`
+Ingests a BaridiMob/CIB transaction with zero preprocessing.
 
 ## research/tgi_integration_test.py
 No description.

@@ -44,14 +44,14 @@ class TGIParser:
         elif isinstance(data, str):
             # Detection logic
             low_data = data.lower()
-            if low_data.endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
-                return self._route("vision", data)
+            if low_data.endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')) or any(w in low_data for w in ["image", "pixel", "vision", "color", "imagery"]):
+                return self._route("vision", low_data)
             if "heisenberg" in low_data:
-                return self._route("heisenberg", data)
-            if any(c in data for c in "$=+-*/^"):
-                return self._route("math", data)
-            if all(c in "01 " for c in data) and len(data) > 0:
-                return self._route("binary", data)
+                return self._route("heisenberg", low_data)
+            if any(c in data for c in "$=+-*/^") or any(w in low_data for w in ["solve", "calculate", "equation"]):
+                return self._route("math", low_data)
+            if all(c in "01 " for c in data) and len(data) > 0 and len(data) < 100:
+                return self._route("binary", low_data)
             return self._route("language", data)
         elif isinstance(data, list) and len(data) > 0 and (isinstance(data[0], tuple) or isinstance(data[0], list)):
             return self._route("tsp", data)
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     test_inputs = [
         "x + 5 = 10",
         "Language",
-        "image.png",
+        "Analyze high-res medical imagery",
         "1011",
         {"points": []},
         "Heisenberg Group",

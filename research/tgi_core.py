@@ -3,7 +3,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from typing import Dict, List, Optional, Tuple, Any
 from algebraic import AlgebraicClassifier, GroupExtension, Tower
 from core import solve, extract_weights, run_hybrid_sa, repair_manifold
-from tgi_parser import TGIParser
+from research.tgi_parser import TGIParser
 
 class TGICore:
     """The heartbeat of Topological General Intelligence (TGI). Governing by the FSO Codex Laws I-XII."""
