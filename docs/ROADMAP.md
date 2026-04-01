@@ -23,10 +23,11 @@ This document tracks the milestones for Topological General Intelligence (TGI) a
 - [x] **Agentic Completion**: Fully autonomous multi-step plan generation and execution (Core F).
 - [x] **Robust Verification**: Implementation of the Phase 8 test suite (27+ unit tests).
 
----
-*Last Updated: March 2026 — Phase 8 Finalized*
-
 ## Phase 9: Zero-Preprocessing Ingestion (STARTED)
 - [x] **Topological Projection**: Symmetry-preserving encoding for BaridiMob/CIB payment rails.
 - [x] **Bouncer Gate**: Hardware-level parity validation (Law I) for garbage rejection.
 - [x] **Fiber Imputation**: Closure-based self-healing for missing transaction data (Law III).
+- [x] **Formal FSO Manuscript**: High-impact formalization of the TGI/FSO framework in research/FSO_MANUSCRIPT.md.
+
+---
+*Last Updated: March 2026 — Phase 9 Formalized*

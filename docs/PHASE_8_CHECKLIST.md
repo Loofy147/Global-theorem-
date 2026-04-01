@@ -21,10 +21,11 @@
 - [x] **COMPLETED**: Established the autonomous "Intent -> Action -> Feedback" loop.
 - [x] **COMPLETED**: Added unit test coverage for H2 parity recovery and manifold adaptation.
 
----
-*Last Updated: March 2026 — Phase 8 COMPLETED*
-
 ## 5. Transition to Zero-Preprocessing (Phase 9 Bridge)
 - [x] **Topological Projection**: Implemented in `research/tgi_engine.py`.
 - [x] **Self-Healing Imputer**: Verified on missing BaridiMob transaction data.
 - [x] **Bouncer Gate**: $O(1)$ topological filter for noise rejection.
+- [x] **FSO Formalization**: Formal manuscript finalized in `research/FSO_MANUSCRIPT.md`.
+
+---
+*Last Updated: March 2026 — Phase 8 COMPLETED*
