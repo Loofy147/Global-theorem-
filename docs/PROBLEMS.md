@@ -20,6 +20,7 @@ The core task is to find a set of $k$ permutations $\sigma_c$ that decompose the
 | **Vision** | $G_{256}^5$ | Cohomological Gradient | **Stable (v2.0)** |
 | **Neural** | $G_{255}^3$ | Topological Entropy | **Stable** |
 | **Knowledge** | $G_{256}^4$ | Closure Hash Density | **Stable (v16.0)** |
+| **Frontier** | $G_{256}^{128}$ | Hilbert Spectrum | **Stable (v1.0)** |
 
 ## 3. Proven Impossibilities ($H^2$ Parity Obstructions)
 
