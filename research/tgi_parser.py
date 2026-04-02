@@ -17,7 +17,8 @@ class TGIParser:
             "tsp":        {"m": 0,   "k": 0, "core": "Geometric"},   # TSP (Coordinate Manifolds)
             "knowledge":  {"m": 256, "k": 4, "core": "Ontology"},    # Z_256^4 (Ontology Grid)
             "neural":     {"m": 255, "k": 3, "core": "Neural"},    # Z_255^3 (odd m, solvable)
-            "vision":     {"m": 255, "k": 5, "core": "Vision"},    # Z_256^5 (x,y,r,g,b)
+            "vision":     {"m": 255, "k": 5, "core": "Vision"},
+            "frontier":   {"m": 256, "k": 128, "core": "Frontier"}, # Non-Abelian Hilbert Space
             "default":    {"m": 3,   "k": 3, "core": "Basin"}
         }
 
@@ -46,8 +47,14 @@ class TGIParser:
             low_data = data.lower()
             if low_data.endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')) or any(w in low_data for w in ["image", "pixel", "vision", "color", "imagery"]):
                 return self._route("vision", low_data)
+
+            # Frontier Detection (Non-Abelian Hilbert Trajectories)
+            if any(w in low_data for w in ["frontier", "hilbert", "spectrum", "omniscient", "trajectory", "resonance", "langlands", "holonomy"]):
+                return self._route("frontier", low_data)
+
             if "heisenberg" in low_data:
                 return self._route("heisenberg", low_data)
+
             if any(c in data for c in "$=+-*/^") or any(w in low_data for w in ["solve", "calculate", "equation"]):
                 return self._route("math", low_data)
             if all(c in "01 " for c in data) and len(data) > 0 and len(data) < 100:
@@ -77,6 +84,7 @@ if __name__ == "__main__":
         "1011",
         {"points": []},
         "Heisenberg Group",
+        "The infinite-dimensional Hilbert trajectory",
         [(0.0, 0.0), (1.0, 1.0)],
         {"category": "LAW_MATH", "name": "Closure_Lemma", "payload": "Theory"}
     ]

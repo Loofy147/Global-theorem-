@@ -39,6 +39,12 @@ class TGICore:
         except ImportError:
             self.hardware = None
 
+        try:
+            from research.non_abelian_bridge import NonAbelianHilbertBridge
+            self.frontier_bridge = NonAbelianHilbertBridge(m=256, dimension=128)
+        except ImportError:
+            self.frontier_bridge = None
+
         self.set_topology(m, k)
 
     def set_topology(self, m: int, k: int):
@@ -80,7 +86,7 @@ class TGICore:
                 health = self.hardware.verify_hamiltonian_health(self._sigma)
                 explanation += f"Physical Manifold (Law IX): {health}."
         else:
-            explanation += "(Geometric/Non-Abelian/Continuous)."
+            explanation += "(Geometric/Non-Abelian/Continuous/Frontier)."
 
         return explanation
 
@@ -129,7 +135,11 @@ class TGICore:
             if solve_manifold:
                 try:
                     sol = self.solve_manifold(target_core=parsed["target_core"], payload=parsed["payload"])
-                    if sol: print("  Global Manifold Completion: SUCCESS (Law III)")
+                    if sol:
+                        if parsed["target_core"] == "Frontier":
+                            print(f"  Frontier Resonance (Law XII): {sol.get('resonance_potential', 0):.4f}")
+                        else:
+                            print("  Global Manifold Completion: SUCCESS (Law III)")
                 except Exception as e:
                     print(f"  Solver Error: {e}")
         else:
@@ -140,6 +150,9 @@ class TGICore:
 
     def solve_manifold(self, max_iter: int = 5, target_core: str = "Basin", payload: Any = None) -> Optional[Any]:
         """Finds the global structure (Hamiltonian decomposition) with Sovereign optimization."""
+        if target_core == "Frontier":
+            return self.frontier_bridge.analyze_frontier_intent(str(payload)) if self.frontier_bridge else None
+
         if target_core == "Heisenberg":
             try:
                 from research.advanced_solvers import HeisenbergSolver

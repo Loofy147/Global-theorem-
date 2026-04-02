@@ -51,24 +51,30 @@ def run_demo():
     print(agent.query(image_path, admin_vision=True))
 
     hr()
-    print("[DEMO] Domain 8: Multi-Manifold Cross-Reasoning")
+    print("[DEMO] Domain 8: Non-Abelian Hilbert Frontier")
+    print("  Navigating the Infinite-Dimensional Spectrum...")
+    print(agent.query("The ultimate trajectory of TGI: Non-Abelian Hilbert Trajectories"))
+
+    hr()
+    print("[DEMO] Domain 9: Multi-Manifold Cross-Reasoning")
     queries = [
         "x^2 + 5 = 14",
         {"category": "BINARY", "name": "B1", "payload": "0101"},
         "The quick brown fox jumps over the lazy dog",
         {"m": 0, "k": 0, "domain": "tsp", "target_core": "Geometric", "payload": [[0,0], [1,1], [0,1], [1,0]]},
+        "Infinite-dimensional resonance energy",
         image_path
     ]
     print(agent.cross_reason(queries))
 
     hr()
-    print("[DEMO] Domain 9: Hardware-Topological Health (Law IX)")
+    print("[DEMO] Domain 10: Hardware-Topological Health (Law IX)")
     core.set_topology(255, 3)
     core._sigma = core.solve_manifold(target_core="Basin", max_iter=1) # Solve it
     print(f"  Reflecting on Hardware Manifold: {core.reflect()}")
 
     hr()
-    print("[DEMO] Domain 10: Recursive Autonomy Chain (Law X)")
+    print("[DEMO] Domain 11: Recursive Autonomy Chain (Law X)")
     print("  Triggering decomposition for G_12^3...")
     core.reason_on({"m": 12, "k": 3, "domain": "language", "target_core": "TLM", "payload": "recursive_test"}, solve_manifold=False)
 
