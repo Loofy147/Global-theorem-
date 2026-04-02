@@ -3320,3 +3320,18 @@ No description.
 
 ### `def main()`
 No description.
+
+### `class NonAbelianHilbertBridge`
+Implementation: `research/non_abelian_bridge.py`
+
+Bridges discrete non-commutative groups with continuous infinite-dimensional Hilbert spaces.
+
+#### `def NonAbelianHilbertBridge.__init__(self, m, dimension)`
+- `m`: The modulus of the base Heisenberg group.
+- `dimension`: The dimensionality of the Hilbert space approximation.
+
+#### `def calculate_holonomy(self, path)`
+Calculates the geometric phase shift for a closed loop in the manifold.
+
+#### `def analyze_frontier_intent(self, intent)`
+Performs spectral analysis and resonance energy calculation for a natural language intent.

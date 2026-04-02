@@ -80,6 +80,10 @@ class TGIAgent:
             status = "SUCCESS" if sol else "FAILED"
             return f"[TGI_RESPONSE: HEISENBERG_DECOMPOSITION]{lift_msg} Status: {status}"
 
+        elif parsed["domain"] == "frontier":
+            res = self.core.solve_manifold(target_core="Frontier", payload=data)
+            return f"[TGI_RESPONSE: FRONTIER_LIFTED]{lift_msg} Resonance: {res.get('resonance_potential', 0):.4f}, Phase: {res.get('geometric_phase', 0):.4f}"
+
         elif parsed["domain"] == "tsp":
             tour = self.core.solve_manifold(target_core="Geometric", payload=data)
             status = "SUCCESS" if tour else "FAILED"
@@ -95,10 +99,12 @@ class TGIAgent:
 
         elif parsed["domain"] == "vision":
             res = self.core.solve_manifold(target_core="Vision", payload=data)
-            resp = f"[TGI_RESPONSE: VISION_LIFTED]{lift_msg} Entropy: {res['topological_entropy']:.4f}, Points: {res['points_count']}"
+            if res is None:
+                return f"[TGI_RESPONSE: VISION_FAILED]{lift_msg} Vision mapper returned no results."
+            resp = f"[TGI_RESPONSE: VISION_LIFTED]{lift_msg} Entropy: {res.get('topological_entropy', 0):.4f}, Points: {res.get('points_count', 0)}"
             if admin_vision:
-                resp += f"\n[ADMIN_VISION] Signature: {res['topological_signature']}"
-                resp += f"\n[ADMIN_VISION] Cohomological Gradient: {res['cohomological_gradient']:.4f}"
+                resp += f"\n[ADMIN_VISION] Signature: {res.get('topological_signature', 'N/A')}"
+                resp += f"\n[ADMIN_VISION] Cohomological Gradient: {res.get('cohomological_gradient', 0):.4f}"
             return resp
 
         return f"[TGI_RESPONSE: STRUCTURE_DISCOVERED]{lift_msg} Manifold G_{m}^{k} solved with IQ {self.core.measure_intelligence():.4f}."
