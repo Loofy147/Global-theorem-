@@ -31,8 +31,36 @@ def ingest():
             "name": "SymPy",
             "id": "/sympy/sympy",
             "description": "Python library for symbolic mathematics, providing computer algebra system (CAS) capabilities.",
-            "snippets": 1200, # Estimated
+            "snippets": 1200,
             "domain": "math"
+        },
+        {
+            "name": "Transformers",
+            "id": "/huggingface/transformers",
+            "description": "State-of-the-art Machine Learning for Pytorch, TensorFlow, and JAX.",
+            "snippets": 5000,
+            "domain": "neural"
+        },
+        {
+            "name": "Datasets",
+            "id": "/huggingface/datasets",
+            "description": "The largest hub of ready-to-use datasets for ML models.",
+            "snippets": 2000,
+            "domain": "data"
+        },
+        {
+            "name": "Diffusers",
+            "id": "/huggingface/diffusers",
+            "description": "State-of-the-art diffusion models for image and audio generation.",
+            "snippets": 1500,
+            "domain": "vision"
+        },
+        {
+            "name": "Timm",
+            "id": "/huggingface/timm",
+            "description": "PyTorch Image Models, scripts, pretrained weights.",
+            "snippets": 1200,
+            "domain": "vision"
         }
     ]
 

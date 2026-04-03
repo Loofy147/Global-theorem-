@@ -3,7 +3,7 @@
     "name": "Closure_Lemma",
     "category": "LAW_MATH",
     "fiber": 0,
-    "payload": "Theory"
+    "payload": "The k-1 dimension mathematically forces the k-th cycle closure."
   },
   "(164, 98, 45, 205)": {
     "name": "Parity_Obstruction",
@@ -51,7 +51,7 @@
     "name": "FSO_Compiler",
     "category": "TECHNOLOGY",
     "fiber": 1,
-    "payload": "Implementation"
+    "payload": "Converts high-level logical structures into coordinate-based manifolds."
   },
   "(228, 24, 47, 214)": {
     "name": "Topological_Language_Model",
@@ -31943,6 +31943,42 @@
     "payload": {
       "status": "SUCCESS",
       "output": "MCP Tool context7_get-library-docs invoked with success."
+    }
+  },
+  "(233, 250, 247, 45)": {
+    "name": "Datasets",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Datasets",
+      "id": "/huggingface/datasets",
+      "description": "The largest hub of ready-to-use datasets for ML models.",
+      "snippets": 2000,
+      "domain": "data"
+    }
+  },
+  "(22, 68, 136, 37)": {
+    "name": "Diffusers",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Diffusers",
+      "id": "/huggingface/diffusers",
+      "description": "State-of-the-art diffusion models for image and audio generation.",
+      "snippets": 1500,
+      "domain": "vision"
+    }
+  },
+  "(222, 230, 191, 132)": {
+    "name": "Timm",
+    "category": "LIBRARY",
+    "fiber": 7,
+    "payload": {
+      "name": "Timm",
+      "id": "/huggingface/timm",
+      "description": "PyTorch Image Models, scripts, pretrained weights.",
+      "snippets": 1200,
+      "domain": "vision"
     }
   }
 }
