@@ -2,6 +2,7 @@ import asyncio
 import time
 import sys
 import os
+import random
 from typing import List, Dict, Any, Tuple
 
 # Add parent directory to path for core imports
@@ -26,23 +27,20 @@ class FSOMeshSimulator:
         packet = FSODataStream.create_packet(data, target, color)
         self.total_packets_injected += 1
 
-        # Injection always starts at (0,0,0) for the demo
-        current_node = (0,0,0)
+        current_node_coords = (0,0,0)
         hops = 0
         max_hops = self.m**3
 
         while hops < max_hops:
-            node = self.nodes[current_node]
-            next_hop = await node.route_packet(packet)
+            node = self.nodes[current_node_coords]
+            result = await node.route_packet(packet)
 
-            if next_hop is None:
-                # print(f"  [SUCCESS] Task '{data}' delivered to {target} in {hops} hops (Color {color})")
+            if result is True or isinstance(result, dict):
                 return True, hops
 
-            current_node = next_hop
+            current_node_coords = result
             hops += 1
 
-        # print(f"  [FAILURE] Task '{data}' lost in the manifold.")
         return False, hops
 
     async def run_benchmark(self, num_tasks: int = 100):
@@ -51,7 +49,6 @@ class FSOMeshSimulator:
 
         start_time = time.time()
         tasks = []
-        import random
         random.seed(42)
 
         for i in range(num_tasks):

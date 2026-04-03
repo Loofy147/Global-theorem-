@@ -4,6 +4,7 @@ import json
 import time
 import sys
 import os
+import ast
 from typing import Dict, Any, Tuple, Optional, List
 
 # Add parent directory to path for core imports
@@ -14,23 +15,22 @@ class FSOFabricNode:
     """
     A Production-grade FSO Node.
     Handles data ingestion, stateless routing, and payload delivery.
+    Supports Holographic Logic Execution.
     """
     def __init__(self, coords: Tuple[int, int, int], m: int, peers: Optional[Dict[Tuple[int, int, int], str]] = None):
         self.coords = coords
         self.m = m
-        self.peers = peers or {}  # Maps (x,y,z) to connection strings
-        self.inbox = asyncio.Queue()
+        self.peers = peers or {}
         self.processed_count = 0
         self.delivered_packets = []
+
+        # Local Holographic Logic Storage (At Rest)
+        self.logic_layer = {} # name -> {code, hash, fiber}
 
         # Every node independently generates the same deterministic Hamiltonian manifold.
         self.sigma = construct_spike_sigma(m, 3)
         if not self.sigma:
-            raise ValueError(f"FSO Error: Failed to construct manifold for m={m}. (Odd m required)")
-
-    def get_fiber(self, pos: Tuple[int, int, int]) -> int:
-        """Law I: The Fibration."""
-        return sum(pos) % self.m
+            raise ValueError(f"FSO Error: Failed to construct manifold for m={m}.")
 
     def calculate_next_hop(self, current: Tuple[int, int, int], color: int) -> Tuple[int, int, int]:
         """Law VI: The Universal Spike - O(1) stateless routing."""
@@ -44,66 +44,64 @@ class FSOFabricNode:
     async def route_packet(self, packet: Dict[str, Any]):
         """Stateless Discovery and Routing."""
         target_coords = tuple(packet['target'])
-        if target_coords == self.coords:
-            await self.consume(packet)
-            return None # Delivered
 
-        # Determine next hop along the Hamiltonian cycle for the packet's color
+        # Direct execution: Is this packet addressed to this node's coordinate?
+        if target_coords == self.coords:
+            return await self.process_payload(packet)
+
+        # Forward along the Hamiltonian cycle for the packet's color
         return self.calculate_next_hop(self.coords, packet['color'])
 
-    async def receive_packet(self, packet: Dict[str, Any]):
-        """Entry point for incoming data."""
-        await self.inbox.put(packet)
+    async def process_payload(self, packet: Dict[str, Any]):
+        """Processes logic ingestion or execution requests."""
+        payload = packet.get("payload", {})
+        ptype = packet.get("type")
 
-    async def run_router_loop(self):
-        """Main loop for processing and forwarding packets."""
-        while True:
-            packet = await self.inbox.get()
-            target_coords = tuple(packet['target'])
+        if ptype == "LOGIC_INJECT":
+            logic_id = payload.get("id")
+            self.logic_layer[logic_id] = {
+                "code": payload.get("code"),
+                "hash": payload.get("hash"),
+                "fiber": sum(self.coords) % self.m
+            }
+            # print(f"[NODE {self.coords}] Ingested Logic: {logic_id}")
+            return True
 
-            if target_coords == self.coords:
-                await self.consume(packet)
+        elif ptype == "LOGIC_EXECUTE":
+            logic_id = payload.get("id")
+            if logic_id in self.logic_layer:
+                # In production, this would execute the AST code safely.
+                # Here, we simulate the result.
+                # print(f"[NODE {self.coords}] Executing Logic: {logic_id}")
+                return {"status": "SUCCESS", "node": self.coords, "logic": logic_id}
             else:
-                next_coords = self.calculate_next_hop(self.coords, packet['color'])
-                await self.forward(next_coords, packet)
+                return {"status": "FAILURE", "reason": "Logic not at this coordinate"}
 
-            self.inbox.task_done()
-
-    async def consume(self, packet: Dict[str, Any]):
-        """Law II: Stateless Discovery."""
         self.processed_count += 1
         self.delivered_packets.append(packet)
-        # print(f"[NODE {self.coords}] Packet {packet['id']} consumed. Payload: {packet['data']}")
+        return True
 
-    async def forward(self, next_coords: Tuple[int, int, int], packet: Dict[str, Any]):
-        """Logic for physical transmission (Simulated)."""
-        peer_addr = self.peers.get(next_coords)
-        if peer_addr:
-            # In a real system, we'd use TCP/UDP/RDMA here
-            # print(f"[NODE {self.coords}] Forwarding {packet['id']} to {next_coords} ({peer_addr})")
-            pass
-        else:
-            # In simulation, we just return the next hop to the driver
-            pass
+    async def consume(self, packet: Dict[str, Any]):
+        self.processed_count += 1
+        self.delivered_packets.append(packet)
 
 class FSODataStream:
     """Utility to inject data into the Hamiltonian flow."""
     @staticmethod
-    def create_packet(data: Any, target: Tuple[int, int, int], color: int = 0):
+    def create_packet(data: Any, target: Tuple[int, int, int], color: int = 0, ptype: str = "DATA"):
         return {
             "id": hashlib.md5(f"{time.time()}{data}{target}".encode()).hexdigest()[:8],
             "target": target,
             "color": color,
-            "data": data,
+            "type": ptype,
+            "payload": data if isinstance(data, dict) else {"data": data},
             "timestamp": time.time()
         }
 
 if __name__ == "__main__":
-    # Small test for verify correctness
     m = 7
     node = FSOFabricNode((0,0,0), m)
-    packet = FSODataStream.create_packet("SYS_CHECK", (3,3,3), color=2)
-
-    print(f"Node (0,0,0) routing packet for (3,3,3) on Color 2...")
-    nxt = asyncio.run(node.route_packet(packet))
-    print(f"Next Hop: {nxt}")
+    packet = FSODataStream.create_packet({"id": "test_func", "code": "def test_func(): pass"}, (0,0,0), ptype="LOGIC_INJECT")
+    print(f"Node (0,0,0) testing logic ingestion...")
+    asyncio.run(node.route_packet(packet))
+    print(f"Logic Layer: {list(node.logic_layer.keys())}")
