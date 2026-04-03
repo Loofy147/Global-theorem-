@@ -4,7 +4,14 @@ import json
 import socket
 import uuid
 import os
-from typing import Tuple, Dict
+import sys
+import ipaddress
+from typing import Tuple, Dict, List, Any
+
+# Add parent directory to path for core imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from research.fso_fabric import FSOFabricNode
 
 # --- FSO TOPOLOGICAL KERNEL ---
 class FSOTopology:
@@ -23,6 +30,12 @@ class FSOTopology:
 
 # --- PLANETARY DECENTRALIZED NODE ---
 class GlobalFSONode:
+    # Render Outbound IP Ranges for Security Trust Layer
+    TRUSTED_BACKBONE_RANGES = [
+        ipaddress.ip_network("74.220.48.0/24"),
+        ipaddress.ip_network("74.220.56.0/24")
+    ]
+
     def __init__(self, m: int, seed_ip: str = None):
         self.m = m
         self.topo = FSOTopology(m)
@@ -32,6 +45,7 @@ class GlobalFSONode:
 
         self.coords = None # Will be assigned upon network join
         self.fiber = None
+        self.fabric_node: FSOFabricNode = None # Local FSO processing unit
         self.peer_directory: Dict[Tuple[int,int,int], str] = {} # Map coords to IP:PORT
 
         self.seed_ip = seed_ip # The bootstrap server to discover the mesh
@@ -48,6 +62,14 @@ class GlobalFSONode:
             s.close()
         return IP
 
+    def is_trusted_peer(self, ip_str: str) -> bool:
+        """Verifies if an incoming IP belongs to the trusted backbone (Render)."""
+        try:
+            ip_obj = ipaddress.ip_address(ip_str)
+            return any(ip_obj in network for network in self.TRUSTED_BACKBONE_RANGES)
+        except ValueError:
+            return False
+
     async def join_mesh(self):
         """Contacts the seed node to claim an (x,y,z) coordinate in the Torus."""
         print(f"[*] Booting Global Node {self.node_id} at {self.public_ip}:{self.port}")
@@ -63,7 +85,36 @@ class GlobalFSONode:
             self.coords = (0, 0, 0)
 
         self.fiber = sum(self.coords) % self.m
+
+        # Initialize the FSO Cognitive Core for this physical node
+        self.fabric_node = FSOFabricNode(self.coords, self.m)
+
         print(f"[+] Successfully integrated into FSO Manifold at {self.coords} (Fiber {self.fiber})")
+
+    async def handle_high_level_command(self, concept: str, data: Any = None):
+        """
+        Translates abstract dashboard inputs into specific Hamiltonian waves.
+        One input button -> complex FSO wave generation.
+        """
+        print(f"[DASHBOARD] Mapping Concept '{concept}' to Hamiltonian Logic...")
+
+        if "sync" in concept.lower():
+            # Broadcast Color 2 Wave to all nodes for manifold calibration
+            return await self.fabric_node.process_waveform({
+                "color": 2, "type": "SYNC_CALIBRATION", "payload": {"fiber": self.fiber}
+            })
+        elif "smelt" in concept.lower():
+            # Trigger Logic Ingestion Wave (Color 0)
+            return await self.fabric_node.process_waveform({
+                "color": 0, "type": "LOGIC_INJECT", "payload": {"id": "refinery_task", "code": "smelt_repo()"}
+            })
+        elif "heal" in concept.lower():
+            # Trigger Color 2 Resilience Wave
+            return await self.fabric_node.process_waveform({
+                "color": 2, "type": "RESILIENCE_HEAL", "payload": {"target_fiber": self.fiber}
+            })
+
+        return {"status": "MAPPING_NOT_FOUND"}
 
     async def start_server(self):
         """Listens for Hamiltonian Waves arriving over the public internet."""
@@ -74,22 +125,42 @@ class GlobalFSONode:
 
     async def handle_wave(self, reader, writer):
         """Processes incoming network traffic in O(1) time."""
+        addr = writer.get_extra_info('peername')
+        client_ip = addr[0]
+
         data = await reader.read(4096)
         if not data: return
 
-        packet = json.loads(data.decode())
-        color = packet.get("color")
+        try:
+            packet = json.loads(data.decode())
 
-        print(f"[~] Received Color {color} Wave from Torus.")
+            # 0. Check for High-Level Dashboard Commands
+            if packet.get("type") == "DASHBOARD_CONCEPT":
+                result = await self.handle_high_level_command(packet.get("concept"), packet.get("data"))
+                writer.write(json.dumps(result).encode())
+                await writer.drain()
+                writer.close()
+                return
 
-        # 1. Process Logic (Execution, TGI, Storage)
-        # ... logic execution goes here ...
+            color = packet.get("color")
+            # Security Trust Verification
+            trusted = self.is_trusted_peer(client_ip)
+            trust_marker = "[TRUSTED]" if trusted else "[EXTERNAL]"
+            print(f"{trust_marker} Received Color {color} Wave from {client_ip}")
 
-        # 2. Forward the Wave physically across the internet
-        if packet.get('ttl', 0) > 0:
-            packet['ttl'] -= 1
-            next_coords = self.topo.spike_step(self.coords, color)
-            await self._physical_forward(next_coords, packet)
+            # 1. Process Logic via Holographic Layer (Intersection, Execution, Storage)
+            result = await self.fabric_node.process_waveform(packet)
+            if result:
+                print(f"[*] FSO Cognitive Core Status: {result.get('status')}")
+
+            # 2. Forward the Wave physically across the internet if not at target
+            target_coords = tuple(packet.get('target', (0,0,0)))
+            if target_coords != self.coords and packet.get('ttl', 0) > 0:
+                packet['ttl'] -= 1
+                next_coords = self.topo.spike_step(self.coords, color)
+                await self._physical_forward(next_coords, packet)
+        except Exception as e:
+            print(f"[!] Error processing wave from {client_ip}: {e}")
 
         writer.close()
         await writer.wait_closed()
@@ -104,12 +175,13 @@ class GlobalFSONode:
             # writer.write(json.dumps(packet).encode())
             # writer.close()
         else:
-            print(f"[!] Network Partition: IP for coordinate {next_coords} unknown.")
+            # For demonstration, if we don't have the IP, we log the intent
+            print(f"[!] Network Partition: IP for coordinate {next_coords} unknown. Packet dropped.")
 
 async def main():
     # To run a seed node: python fso_global_node.py
     # To run a worker node: export SEED_IP=192.168.1.100 && python fso_global_node.py
-    m = 31 # Planetary scale (29,791 nodes)
+    m = 101 # Planetary scale (1,030,301 nodes)
     seed = os.getenv("SEED_IP", None)
 
     node = GlobalFSONode(m, seed_ip=seed)
