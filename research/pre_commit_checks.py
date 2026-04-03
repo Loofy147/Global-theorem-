@@ -17,7 +17,9 @@ if __name__ == "__main__":
         "python3 research/fso_fabric.py",
         "python3 research/fso_mesh_demo.py",
         "python3 research/fso_repo_ingestor.py",
-        "python3 research/fso_holographic_demo.py"
+        "python3 research/fso_holographic_demo.py",
+        "python3 research/fso_mesh_daemon.py",
+        "python3 research/fso_distributed_intel_app.py"
     ]
     all_ok = True
     for check in checks:
