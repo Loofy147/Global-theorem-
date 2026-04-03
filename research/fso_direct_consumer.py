@@ -39,13 +39,33 @@ class FSODirectConsumer:
 
         # Dynamic Resolution
         try:
+            if len(parts) == 1:
+                module = importlib.import_module(package_name)
+                # If it's just a package name, return the module
+                return module
+
             module_path = ".".join(parts[:-1])
             func_name = parts[-1]
-            module = importlib.import_module(module_path)
+
+            # Try to import the module path
+            try:
+                module = importlib.import_module(module_path)
+            except ImportError:
+                # Fallback to importing the base package and getting attributes
+                module = importlib.import_module(package_name)
+                for part in parts[1:-1]:
+                    module = getattr(module, part)
+
             func = getattr(module, func_name)
 
-            # Execute the industrial-grade logic
-            return func(**params)
+            # Execute if callable. Use empty dict if params is None.
+            if callable(func):
+                p = params if params is not None else {}
+                # Special case: if it's a class and we are "instantiating" it
+                # or a function we are calling.
+                return func(**p)
+
+            return func
         except Exception as e:
             return f"DIRECT_EXEC_ERROR: {str(e)}"
 

@@ -103,6 +103,51 @@ if __name__ == "__main__":
         "Tokenizer", "models.BPE", "trainers.BpeTrainer", "pre_tokenizers.Whitespace"
     ])
 
+    # 12. Diffusers (Generative Vision Industry)
+    populator.populate_library("diffusers", [
+        "StableDiffusionPipeline", "DiffusionPipeline", "AutoencoderKL", "UNet2DConditionModel"
+    ])
+
+    # 13. TIMM (Vision Models)
+    populator.populate_library("timm", [
+        "create_model", "list_models", "list_pretrained"
+    ])
+
+    # 14. Sentence Transformers (Embeddings Industry)
+    populator.populate_library("sentence_transformers", [
+        "SentenceTransformer", "util.cos_sim", "util.semantic_search"
+    ])
+
+    # 15. PEFT (Parameter-Efficient Fine-Tuning)
+    populator.populate_library("peft", [
+        "get_peft_model", "LoraConfig", "TaskType"
+    ])
+
+    # 16. Accelerate (Distributed Training)
+    populator.populate_library("accelerate", [
+        "Accelerator", "init_empty_weights", "load_checkpoint_and_dispatch"
+    ])
+
+    # 17. Evaluate (Model Evaluation Industry)
+    populator.populate_library("evaluate", [
+        "load", "list_evaluation_modules", "combine"
+    ])
+
+    # 18. Optimum (Hardware Optimization)
+    populator.populate_library("optimum", [
+        "pipelines.pipeline", "onnxruntime.ORTModelForCausalLM", "bettertransformer.BetterTransformer"
+    ])
+
+    # 19. TRL (Transformer Reinforcement Learning)
+    populator.populate_library("trl", [
+        "SFTTrainer", "RewardTrainer", "PPOTrainer", "AutoModelForCausalLMWithValueHead"
+    ])
+
+    # 20. bitsandbytes (Quantization Industry)
+    populator.populate_library("bitsandbytes", [
+        "nn.Linear8bitLt", "nn.Linear4bit", "optim.Adam8bit"
+    ])
+
     # Save the manifest to research/fso_production_manifest.json
     manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
     populator.save_manifest(manifest_path)
