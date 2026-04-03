@@ -1,0 +1,26 @@
+<<<<<<< SEARCH
+        # 1. Check if logic exists
+        if logic_id not in self.logic_registry and instruction:
+=======
+        # 0. Check for Direct Consumption (Call Spec)
+        call_spec = payload.get("call_spec")
+        if call_spec:
+            print(f"[Node {self.coords}] Executing Direct Industrial Logic: {call_spec}")
+            exec_data = data
+            if target_key and target_key in self.local_storage:
+                exec_data = self.local_storage[target_key]
+
+            # Wrap data in params if it's a dict, else pass as 'data'
+            params = exec_data if isinstance(exec_data, dict) else {"data": exec_data}
+            result = self.direct_consumer.execute_logic(call_spec, params)
+            return {
+                "status": "EXECUTED",
+                "node": self.coords,
+                "logic": call_spec,
+                "result": result,
+                "type": "direct_consumption"
+            }
+
+        # 1. Check if logic exists
+        if logic_id not in self.logic_registry and instruction:
+>>>>>>> REPLACE

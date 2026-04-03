@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from core import construct_spike_sigma
 
 # Semantic definitions for the 3 Hamiltonian Cycles
+from research.fso_direct_consumer import FSODirectConsumer
 COLOR_STORAGE = 0  # Color 0: Carries raw data and memory (Storage Wave)
 COLOR_LOGIC = 1    # Color 1: Carries executable tasks/queries (Logic Wave)
 COLOR_CONTROL = 2  # Color 2: Carries parity and system metadata (Control Wave)
@@ -48,6 +49,7 @@ class FSOFabricNode:
         self.local_storage: Dict[str, Any] = {}
 
         self.gen_gate = GenerativeGate()
+        self.direct_consumer = FSODirectConsumer(m)
 
         # Every node independently generates the same deterministic Hamiltonian manifold.
         self.sigma = construct_spike_sigma(m, 3)
@@ -101,6 +103,25 @@ class FSOFabricNode:
         target_key = payload.get("target_key")
         instruction = payload.get("instruction") # For Autopoietic synthesis
         data = payload.get("data") # Direct data for execution
+
+        # 0. Check for Direct Consumption (Call Spec)
+        call_spec = payload.get("call_spec")
+        if call_spec:
+            print(f"[Node {self.coords}] Executing Direct Industrial Logic: {call_spec}")
+            exec_data = data
+            if target_key and target_key in self.local_storage:
+                exec_data = self.local_storage[target_key]
+
+            # If data is not a dict, we wrap it in a params dict
+            params = exec_data if isinstance(exec_data, dict) else {"data": exec_data}
+            result = self.direct_consumer.execute_logic(call_spec, params)
+            return {
+                "status": "EXECUTED",
+                "node": self.coords,
+                "logic": call_spec,
+                "result": result,
+                "type": "direct_consumption"
+            }
 
         # 1. Check if logic exists
         if logic_id not in self.logic_registry and instruction:
