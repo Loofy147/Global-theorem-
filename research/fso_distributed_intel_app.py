@@ -21,15 +21,13 @@ class DistributedIntelligenceApp:
         """Bootstrap the application with all local logic."""
         await self.daemon.bootstrap(["./research", "./core.py", "./theorems.py"])
 
-    async def execute_task(self, logic_id: str, color: int = 1):
+    async def execute_task(self, logic_id: str):
         """Executes a distributed logic unit via the FSO Hamiltonian highway."""
-        start_time = time.perf_counter()
-        response = await self.daemon.handle_request("LOGIC_EXECUTE", logic_id, color)
-        end_time = time.perf_counter()
+        target_coords = self.daemon.get_coords(logic_id)
+        response = await self.daemon.execute_logic(logic_id, None, target_coords)
 
         if response["status"] == "SUCCESS":
             print(f"Task '{logic_id}' completed in {response['hops']} hops.")
-            # print(f"  Discovery latency: {(end_time - start_time) * 1000:.4f}ms")
             return response
         else:
             print(f"Task '{logic_id}' failed: {response.get('reason')}")

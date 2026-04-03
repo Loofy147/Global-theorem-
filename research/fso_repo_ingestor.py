@@ -18,14 +18,17 @@ class FSORepoPopulator:
         h = int(hashlib.sha256(identifier.encode()).hexdigest(), 16)
         return (h % self.m, (h // self.m) % self.m, (h // (self.m**2)) % self.m)
 
-    def parse_repository(self, root_path: str):
+    def parse_repository(self, path: str):
         """Walks through the repo and extracts every function's logic."""
-        print(f"--- Ingesting Repository: {root_path} ---")
-        for root, _, files in os.walk(root_path):
-            for file in files:
-                if file.endswith(".py"):
-                    full_path = os.path.join(root, file)
-                    self._extract_logic_from_file(full_path)
+        # print(f"--- Ingesting: {path} ---")
+        if os.path.isfile(path):
+            self._extract_logic_from_file(path)
+        else:
+            for root, _, files in os.walk(path):
+                for file in files:
+                    if file.endswith(".py"):
+                        full_path = os.path.join(root, file)
+                        self._extract_logic_from_file(full_path)
 
     def _extract_logic_from_file(self, filepath: str):
         with open(filepath, "r") as f:
@@ -44,7 +47,6 @@ class FSORepoPopulator:
                             "code": func_code,
                             "fiber": sum(coords) % self.m
                         }
-                        # print(f"Populated Logic: '{node.name}' -> Coordinate {coords} (Fiber {sum(coords)%self.m})")
             except Exception as e:
                 pass # Skip files that can't be parsed
 
@@ -64,23 +66,3 @@ class FSORepoPopulator:
             }
             packets.append(packet)
         return packets
-
-# --- PRODUCTION EXECUTION ---
-async def main():
-    # 1. Initialize the manifold (m=11 for 1,331 logic-slots)
-    populator = FSORepoPopulator(m=11)
-
-    # 2. Ingest a repository (In this example, we ingest the current directory)
-    # This clones all the logic we've written so far into the Torus.
-    populator.parse_repository(".")
-
-    # 3. Prepare the waves for the Mesh Daemon
-    waves = populator.generate_logic_waves()
-
-    print(f"\n--- MANIFOLD POPULATION READY ---")
-    print(f"Total Logic Gates Active: {len(populator.logic_inventory)}")
-    print(f"Total Hamiltonian Cycles Saturated: 3")
-    print(f"Ready to execute queries on any 'name' in O(1) time.")
-
-if __name__ == "__main__":
-    asyncio.run(main())

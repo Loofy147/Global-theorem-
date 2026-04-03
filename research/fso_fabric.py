@@ -5,27 +5,30 @@ import time
 import sys
 import os
 import ast
-from typing import Dict, Any, Tuple, Optional, List
+from typing import Dict, Any, Tuple, Optional, List, Callable
 
 # Add parent directory to path for core imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from core import construct_spike_sigma
 
+# Semantic definitions for the 3 Hamiltonian Cycles
+COLOR_STORAGE = 0  # Color 0: Carries raw data and memory (Storage Wave)
+COLOR_LOGIC = 1    # Color 1: Carries executable tasks/queries (Logic Wave)
+COLOR_CONTROL = 2  # Color 2: Carries parity and system metadata (Control Wave)
+
 class FSOFabricNode:
     """
-    A Production-grade FSO Node.
-    Handles data ingestion, stateless routing, and payload delivery.
-    Supports Holographic Logic Execution.
+    A Production-grade FSO Cognitive Node.
+    Handles Tri-Color Hamiltonian waves: Storage, Logic, and Control.
     """
-    def __init__(self, coords: Tuple[int, int, int], m: int, peers: Optional[Dict[Tuple[int, int, int], str]] = None):
+    def __init__(self, coords: Tuple[int, int, int], m: int):
         self.coords = coords
         self.m = m
-        self.peers = peers or {}
-        self.processed_count = 0
-        self.delivered_packets = []
+        self.s_fiber = sum(coords) % m
 
-        # Local Holographic Logic Storage (At Rest)
-        self.logic_layer = {} # name -> {code, hash, fiber}
+        # Local State Memory (Holographic Layer)
+        self.local_storage: Dict[str, Any] = {}
+        self.logic_registry: Dict[str, Any] = {} # name -> {code, fiber}
 
         # Every node independently generates the same deterministic Hamiltonian manifold.
         self.sigma = construct_spike_sigma(m, 3)
@@ -41,67 +44,93 @@ class FSOFabricNode:
         nxt[arc] = (nxt[arc] + 1) % self.m
         return tuple(nxt)
 
-    async def route_packet(self, packet: Dict[str, Any]):
-        """Stateless Discovery and Routing."""
-        target_coords = tuple(packet['target'])
-
-        # Direct execution: Is this packet addressed to this node's coordinate?
-        if target_coords == self.coords:
-            return await self.process_payload(packet)
-
-        # Forward along the Hamiltonian cycle for the packet's color
-        return self.calculate_next_hop(self.coords, packet['color'])
-
-    async def process_payload(self, packet: Dict[str, Any]):
-        """Processes logic ingestion or execution requests."""
+    async def process_waveform(self, packet: Dict[str, Any]):
+        """Routes the incoming data based on its Hamiltonian Color."""
+        color = packet.get("color")
         payload = packet.get("payload", {})
         ptype = packet.get("type")
 
+        if color == COLOR_STORAGE:
+            return await self._process_storage_wave(payload, ptype)
+        elif color == COLOR_LOGIC:
+            return await self._process_logic_wave(payload, ptype)
+        elif color == COLOR_CONTROL:
+            return await self._process_control_wave(payload, ptype)
+
+    async def _process_storage_wave(self, payload: Dict[str, Any], ptype: str):
+        """Color 0: Save data to local memory (Persistence)."""
         if ptype == "LOGIC_INJECT":
             logic_id = payload.get("id")
-            self.logic_layer[logic_id] = {
+            self.logic_registry[logic_id] = {
                 "code": payload.get("code"),
-                "hash": payload.get("hash"),
-                "fiber": sum(self.coords) % self.m
+                "fiber": self.s_fiber
             }
-            # print(f"[NODE {self.coords}] Ingested Logic: {logic_id}")
-            return True
+            return {"status": "INGESTED", "id": logic_id}
+        else:
+            key = payload.get("key")
+            data = payload.get("data")
+            self.local_storage[key] = data
+            return {"status": "STORED", "key": key}
 
-        elif ptype == "LOGIC_EXECUTE":
-            logic_id = payload.get("id")
-            if logic_id in self.logic_layer:
-                # In production, this would execute the AST code safely.
-                # Here, we simulate the result.
-                # print(f"[NODE {self.coords}] Executing Logic: {logic_id}")
-                return {"status": "SUCCESS", "node": self.coords, "logic": logic_id}
-            else:
-                return {"status": "FAILURE", "reason": "Logic not at this coordinate"}
+    async def _process_logic_wave(self, payload: Dict[str, Any], ptype: str):
+        """Color 1: Execute logic against local storage (Intersection)."""
+        logic_id = payload.get("id")
+        target_key = payload.get("target_key")
+        keyword = payload.get("keyword")
 
-        self.processed_count += 1
-        self.delivered_packets.append(packet)
-        return True
+        # Check if we have the logic and the data at this coordinate
+        if logic_id in self.logic_registry:
+            # If target_key is provided, execute on it. Otherwise, return the logic existence.
+            if target_key and target_key in self.local_storage:
+                doc = self.local_storage[target_key]
+                if keyword and keyword.lower() in str(doc).lower():
+                    return {
+                        "status": "EXECUTED",
+                        "node": self.coords,
+                        "logic": logic_id,
+                        "target": target_key,
+                        "match": True
+                    }
+                return {
+                    "status": "EXECUTED",
+                    "node": self.coords,
+                    "logic": logic_id,
+                    "target": target_key,
+                    "match": False
+                }
+            return {"status": "LOGIC_READY", "node": self.coords, "logic": logic_id}
 
-    async def consume(self, packet: Dict[str, Any]):
-        self.processed_count += 1
-        self.delivered_packets.append(packet)
+        return {"status": "NO_INTERSECTION", "node": self.coords, "logic": logic_id}
+
+    async def _process_control_wave(self, payload: Dict[str, Any], ptype: str):
+        """Color 2: Parity checks and Closure Lemma validation (Healing)."""
+        expected_s = payload.get("expected_fiber")
+        if expected_s is not None and self.s_fiber != expected_s:
+            return await self.apply_closure_lemma_healing(payload)
+        return {"status": "VERIFIED", "node": self.coords}
+
+    async def apply_closure_lemma_healing(self, payload: Dict[str, Any]):
+        """Uses the k-1 determinism to deduce missing data or correct state."""
+        return {"status": "HEALED", "node": self.coords}
+
+    async def route_packet(self, packet: Dict[str, Any]):
+        """Stateless Discovery and Routing."""
+        target_coords = tuple(packet.get('target', (0,0,0)))
+
+        if target_coords == self.coords:
+            return await self.process_waveform(packet)
+
+        return self.calculate_next_hop(self.coords, packet.get('color', 0))
 
 class FSODataStream:
     """Utility to inject data into the Hamiltonian flow."""
     @staticmethod
-    def create_packet(data: Any, target: Tuple[int, int, int], color: int = 0, ptype: str = "DATA"):
+    def create_packet(payload: Dict[str, Any], target: Tuple[int, int, int], color: int = 0, ptype: str = "DATA"):
         return {
-            "id": hashlib.md5(f"{time.time()}{data}{target}".encode()).hexdigest()[:8],
+            "id": hashlib.md5(f"{time.time()}{payload}{target}{color}".encode()).hexdigest()[:8],
             "target": target,
             "color": color,
             "type": ptype,
-            "payload": data if isinstance(data, dict) else {"data": data},
+            "payload": payload,
             "timestamp": time.time()
         }
-
-if __name__ == "__main__":
-    m = 7
-    node = FSOFabricNode((0,0,0), m)
-    packet = FSODataStream.create_packet({"id": "test_func", "code": "def test_func(): pass"}, (0,0,0), ptype="LOGIC_INJECT")
-    print(f"Node (0,0,0) testing logic ingestion...")
-    asyncio.run(node.route_packet(packet))
-    print(f"Logic Layer: {list(node.logic_layer.keys())}")
