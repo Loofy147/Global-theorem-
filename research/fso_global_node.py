@@ -109,7 +109,7 @@ class GlobalFSONode:
 async def main():
     # To run a seed node: python fso_global_node.py
     # To run a worker node: export SEED_IP=192.168.1.100 && python fso_global_node.py
-    m = 31 # Planetary scale (29,791 nodes)
+    m = 101 # Planetary scale (1,030,301 nodes)
     seed = os.getenv("SEED_IP", None)
 
     node = GlobalFSONode(m, seed_ip=seed)
