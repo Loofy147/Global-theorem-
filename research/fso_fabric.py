@@ -154,7 +154,7 @@ class FSOFabricNode:
                 exec_data = self.local_storage[target_key]
 
             # Intersection: Apply functional logic to data
-            result = self._execute_functional_logic(logic_entry, exec_data)
+            result = await self._execute_functional_logic(logic_entry, exec_data)
 
             return {
                 "status": "EXECUTED",
@@ -166,16 +166,57 @@ class FSOFabricNode:
 
         return {"status": "NO_INTERSECTION", "node": self.coords, "logic": logic_id}
 
-    def _execute_functional_logic(self, logic_entry: Dict, data: Any) -> Any:
+    async def _execute_functional_logic(self, logic_entry: Dict, data: Any) -> Any:
         """Executes the specific variety of logic found at this node."""
+
+        # Topological Import Helper: Allows logic to call other logic in the manifold
+        async def topological_call(logic_id: str, call_data: Any):
+            # In production, this would dispatch a Color 1 wave via the local mesh daemon.
+            # For the demo, we simulate the resolution.
+            print(f"  [TopologicalCall] Requesting logic: {logic_id}")
+            return f"TOPOLOGICAL_RESULT_OF_{logic_id}({str(call_data)[:10]}...)"
+
         func = logic_entry.get("func")
+
+        # Lazy-compilation of code if not already prepared
+        if not func and "code" in logic_entry:
+            code = logic_entry["code"]
+            # Only try to compile if it looks like python code
+            if "def " in code or "lambda " in code:
+                try:
+                    # Inject helpers into the execution namespace
+                    namespace = {
+                        "topological_call": topological_call,
+                        "asyncio": asyncio,
+                        "np": sys.modules.get("numpy"),
+                        "torch": sys.modules.get("torch")
+                    }
+                    exec(code, namespace)
+
+                    # Try to find the function name
+                    func_name = logic_entry.get("id", "").split(".")[-1]
+                    if func_name in namespace:
+                        func = namespace[func_name]
+                        logic_entry["func"] = func
+                    else:
+                        # Fallback: take the first non-builtin callable
+                        callables = [v for k, v in namespace.items() if callable(v) and not k.startswith("__")]
+                        if callables:
+                            func = callables[0]
+                            logic_entry["func"] = func
+                except Exception as e:
+                    # If compilation fails, we still might have a non-python spec string
+                    pass
+
         if func:
             try:
+                if asyncio.iscoroutinefunction(func):
+                    return await func(data)
                 return func(data)
             except Exception as e:
                 return f"EXEC_ERROR: {str(e)}"
 
-        # Fallback for specs that aren't full functions yet
+        # Fallback for specs that aren"t full functions yet (e.g. simulated industrial specs)
         code = logic_entry.get("code", "")
         if "lambda" in code:
             try:
