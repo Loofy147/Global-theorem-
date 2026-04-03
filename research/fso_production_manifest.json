@@ -1276,5 +1276,320 @@
         ],
         "fiber": 26,
         "type": "direct_consumption"
+    },
+    "scipy.optimize.minimize": {
+        "coords": [
+            19,
+            3,
+            10
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "scipy.optimize.curve_fit": {
+        "coords": [
+            4,
+            3,
+            8
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "scipy.integrate.quad": {
+        "coords": [
+            29,
+            29,
+            25
+        ],
+        "fiber": 21,
+        "type": "direct_consumption"
+    },
+    "scipy.linalg.solve": {
+        "coords": [
+            15,
+            2,
+            28
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "scipy.stats.norm": {
+        "coords": [
+            30,
+            24,
+            17
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "sklearn.cluster.KMeans": {
+        "coords": [
+            2,
+            20,
+            9
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "sklearn.decomposition.PCA": {
+        "coords": [
+            2,
+            6,
+            12
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "sklearn.ensemble.RandomForestClassifier": {
+        "coords": [
+            26,
+            13,
+            23
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "sklearn.linear_model.LogisticRegression": {
+        "coords": [
+            27,
+            5,
+            21
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "sklearn.metrics.accuracy_score": {
+        "coords": [
+            0,
+            8,
+            14
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "sklearn.model_selection.train_test_split": {
+        "coords": [
+            29,
+            18,
+            11
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.plot": {
+        "coords": [
+            14,
+            14,
+            30
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.scatter": {
+        "coords": [
+            14,
+            18,
+            15
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.hist": {
+        "coords": [
+            15,
+            1,
+            1
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.imshow": {
+        "coords": [
+            24,
+            25,
+            11
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.savefig": {
+        "coords": [
+            14,
+            21,
+            1
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.show": {
+        "coords": [
+            27,
+            23,
+            0
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "seaborn.lineplot": {
+        "coords": [
+            27,
+            22,
+            10
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "seaborn.scatterplot": {
+        "coords": [
+            7,
+            11,
+            24
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "seaborn.histplot": {
+        "coords": [
+            28,
+            22,
+            1
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "seaborn.heatmap": {
+        "coords": [
+            0,
+            5,
+            21
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "seaborn.pairplot": {
+        "coords": [
+            4,
+            18,
+            1
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "plotly.express.line": {
+        "coords": [
+            30,
+            15,
+            13
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "plotly.express.scatter": {
+        "coords": [
+            12,
+            13,
+            21
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "plotly.express.histogram": {
+        "coords": [
+            0,
+            9,
+            15
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "plotly.express.imshow": {
+        "coords": [
+            4,
+            1,
+            19
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "plotly.express.parallel_coordinates": {
+        "coords": [
+            16,
+            12,
+            8
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "langchain.chains.LLMChain": {
+        "coords": [
+            7,
+            1,
+            9
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "langchain.prompts.PromptTemplate": {
+        "coords": [
+            10,
+            6,
+            21
+        ],
+        "fiber": 6,
+        "type": "direct_consumption"
+    },
+    "langchain.schema.HumanMessage": {
+        "coords": [
+            5,
+            23,
+            18
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "langchain.agents.initialize_agent": {
+        "coords": [
+            6,
+            22,
+            25
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.VectorStoreIndex": {
+        "coords": [
+            27,
+            28,
+            11
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.SimpleDirectoryReader": {
+        "coords": [
+            18,
+            9,
+            30
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.StorageContext": {
+        "coords": [
+            6,
+            24,
+            18
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.load_index_from_storage": {
+        "coords": [
+            5,
+            6,
+            1
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
     }
 }

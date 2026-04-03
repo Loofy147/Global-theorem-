@@ -806,6 +806,17 @@ VLLM_LOGIC_UNITS = [
         "origin": "/tmp/vllm_repo/vllm/model_executor/layers/quantization/quark/schemes/quark_w4a8_mxfp4_fp8.py"
     },
     {
+        "id": "_setup_kernel",
+        "coords": [
+            25,
+            30,
+            0
+        ],
+        "fiber": 24,
+        "logic": "def _setup_kernel(self, layer: 'FusedMoE', w13: torch.Tensor, w2: torch.Tensor, w13_scale: torch.Tensor, w2_scale: torch.Tensor, w13_input_scale: torch.Tensor | None, w2_input_scale: torch.Tensor | None) -> None:\n    from vllm.model_executor.layers.fused_moe.oracle.fp8 import convert_to_fp8_moe_kernel_format, make_fp8_moe_kernel\n    w13, w2, w13_scale, w2_scale = convert_to_fp8_moe_kernel_format(fp8_backend=self.fp8_backend, layer=layer, w13=w13, w2=w2, w13_scale=w13_scale, w2_scale=w2_scale, w13_input_scale=w13_input_scale, w2_input_scale=w2_input_scale)\n    replace_parameter(layer, 'w13_weight', w13)\n    replace_parameter(layer, 'w2_weight', w2)\n    replace_parameter(layer, f'w13_{self.weight_scale_name}', w13_scale)\n    replace_parameter(layer, f'w2_{self.weight_scale_name}', w2_scale)\n    self.moe_quant_config = self.get_fused_moe_quant_config(layer)\n    if self.moe_quant_config:\n        assert self.experts_cls is not None\n        self.moe_kernel = make_fp8_moe_kernel(moe_quant_config=self.moe_quant_config, moe_config=self.moe, fp8_backend=self.fp8_backend, experts_cls=self.experts_cls, routing_tables=layer._maybe_init_expert_routing_tables(), shared_experts=layer.shared_experts)",
+        "origin": "/tmp/vllm_repo/vllm/model_executor/layers/quantization/online/fp8.py"
+    },
+    {
         "id": "scaled_mm_kernel",
         "coords": [
             13,

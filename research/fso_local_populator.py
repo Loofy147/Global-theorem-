@@ -148,6 +148,30 @@ if __name__ == "__main__":
         "nn.Linear8bitLt", "nn.Linear4bit", "optim.Adam8bit"
     ])
 
+    # 21. SciPy (Scientific Industry)
+    populator.populate_library("scipy", [
+        "optimize.minimize", "optimize.curve_fit", "integrate.quad", "linalg.solve", "stats.norm"
+    ])
+
+    # 22. Scikit-Learn (ML Industry)
+    populator.populate_library("sklearn", [
+        "cluster.KMeans", "decomposition.PCA", "ensemble.RandomForestClassifier",
+        "linear_model.LogisticRegression", "metrics.accuracy_score", "model_selection.train_test_split"
+    ])
+
+    # 23. Visualization Industry (Matplotlib, Seaborn, Plotly)
+    populator.populate_library("matplotlib.pyplot", ["plot", "scatter", "hist", "imshow", "savefig", "show"])
+    populator.populate_library("seaborn", ["lineplot", "scatterplot", "histplot", "heatmap", "pairplot"])
+    populator.populate_library("plotly.express", ["line", "scatter", "histogram", "imshow", "parallel_coordinates"])
+
+    # 24. Orchestration Industry (LangChain, LlamaIndex)
+    populator.populate_library("langchain", [
+        "chains.LLMChain", "prompts.PromptTemplate", "schema.HumanMessage", "agents.initialize_agent"
+    ])
+    populator.populate_library("llama_index.core", [
+        "VectorStoreIndex", "SimpleDirectoryReader", "StorageContext", "load_index_from_storage"
+    ])
+
     # Save the manifest to research/fso_production_manifest.json
     manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
     populator.save_manifest(manifest_path)
