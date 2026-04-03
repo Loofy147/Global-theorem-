@@ -1,0 +1,821 @@
+{
+    "numpy.fft.fft": {
+        "coords": [
+            11,
+            29,
+            8
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "numpy.fft.ifft": {
+        "coords": [
+            17,
+            16,
+            3
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "numpy.linalg.inv": {
+        "coords": [
+            19,
+            15,
+            12
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "numpy.linalg.solve": {
+        "coords": [
+            13,
+            28,
+            10
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "numpy.linalg.eig": {
+        "coords": [
+            24,
+            10,
+            19
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "numpy.random.rand": {
+        "coords": [
+            8,
+            16,
+            15
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "numpy.random.randn": {
+        "coords": [
+            12,
+            12,
+            4
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "numpy.random.randint": {
+        "coords": [
+            13,
+            30,
+            3
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "numpy.array": {
+        "coords": [
+            9,
+            8,
+            25
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "numpy.mean": {
+        "coords": [
+            30,
+            25,
+            10
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "numpy.std": {
+        "coords": [
+            26,
+            21,
+            23
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "numpy.sum": {
+        "coords": [
+            15,
+            13,
+            6
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "numpy.dot": {
+        "coords": [
+            3,
+            20,
+            9
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "numpy.matmul": {
+        "coords": [
+            9,
+            6,
+            0
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "numpy.reshape": {
+        "coords": [
+            25,
+            22,
+            7
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "numpy.transpose": {
+        "coords": [
+            30,
+            0,
+            8
+        ],
+        "fiber": 7,
+        "type": "direct_consumption"
+    },
+    "numpy.concatenate": {
+        "coords": [
+            28,
+            15,
+            23
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "numpy.stack": {
+        "coords": [
+            27,
+            1,
+            20
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "pandas.read_csv": {
+        "coords": [
+            15,
+            29,
+            12
+        ],
+        "fiber": 25,
+        "type": "direct_consumption"
+    },
+    "pandas.read_json": {
+        "coords": [
+            7,
+            12,
+            19
+        ],
+        "fiber": 7,
+        "type": "direct_consumption"
+    },
+    "pandas.read_parquet": {
+        "coords": [
+            20,
+            28,
+            0
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "pandas.DataFrame": {
+        "coords": [
+            9,
+            5,
+            1
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "pandas.Series": {
+        "coords": [
+            30,
+            13,
+            9
+        ],
+        "fiber": 21,
+        "type": "direct_consumption"
+    },
+    "pandas.concat": {
+        "coords": [
+            7,
+            21,
+            1
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "pandas.merge": {
+        "coords": [
+            28,
+            11,
+            7
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "pandas.pivot_table": {
+        "coords": [
+            23,
+            29,
+            22
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "pandas.groupby": {
+        "coords": [
+            0,
+            27,
+            17
+        ],
+        "fiber": 13,
+        "type": "direct_consumption"
+    },
+    "pandas.to_csv": {
+        "coords": [
+            29,
+            0,
+            6
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "pandas.to_json": {
+        "coords": [
+            10,
+            2,
+            7
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "torch.nn.Linear": {
+        "coords": [
+            17,
+            23,
+            3
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "torch.nn.Conv2d": {
+        "coords": [
+            14,
+            11,
+            7
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "torch.nn.ReLU": {
+        "coords": [
+            24,
+            26,
+            26
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "torch.nn.CrossEntropyLoss": {
+        "coords": [
+            21,
+            13,
+            14
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "torch.nn.Module": {
+        "coords": [
+            29,
+            11,
+            13
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "torch.optim.Adam": {
+        "coords": [
+            17,
+            11,
+            11
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "torch.optim.SGD": {
+        "coords": [
+            30,
+            19,
+            9
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "torch.save": {
+        "coords": [
+            16,
+            14,
+            26
+        ],
+        "fiber": 25,
+        "type": "direct_consumption"
+    },
+    "torch.load": {
+        "coords": [
+            17,
+            30,
+            16
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "torch.tensor": {
+        "coords": [
+            27,
+            20,
+            4
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "torch.cat": {
+        "coords": [
+            12,
+            1,
+            2
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "torch.stack": {
+        "coords": [
+            0,
+            23,
+            30
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "torch.cuda.is_available": {
+        "coords": [
+            29,
+            28,
+            27
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "torch.device": {
+        "coords": [
+            24,
+            16,
+            5
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "torch.from_numpy": {
+        "coords": [
+            28,
+            26,
+            13
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "torch.manual_seed": {
+        "coords": [
+            22,
+            9,
+            29
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "fastapi.FastAPI": {
+        "coords": [
+            12,
+            29,
+            16
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "fastapi.APIRouter": {
+        "coords": [
+            24,
+            7,
+            20
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "fastapi.Depends": {
+        "coords": [
+            26,
+            11,
+            13
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "fastapi.HTTPException": {
+        "coords": [
+            22,
+            27,
+            16
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "fastapi.Header": {
+        "coords": [
+            3,
+            10,
+            22
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "fastapi.Query": {
+        "coords": [
+            10,
+            5,
+            22
+        ],
+        "fiber": 6,
+        "type": "direct_consumption"
+    },
+    "fastapi.Path": {
+        "coords": [
+            11,
+            25,
+            29
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "fastapi.Body": {
+        "coords": [
+            9,
+            15,
+            11
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "fastapi.Form": {
+        "coords": [
+            22,
+            0,
+            28
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "fastapi.File": {
+        "coords": [
+            17,
+            17,
+            28
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "fastapi.UploadFile": {
+        "coords": [
+            30,
+            25,
+            16
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "cv2.imread": {
+        "coords": [
+            16,
+            28,
+            17
+        ],
+        "fiber": 30,
+        "type": "direct_consumption"
+    },
+    "cv2.imwrite": {
+        "coords": [
+            8,
+            23,
+            14
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "cv2.imshow": {
+        "coords": [
+            5,
+            3,
+            15
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "cv2.cvtColor": {
+        "coords": [
+            27,
+            10,
+            16
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "cv2.GaussianBlur": {
+        "coords": [
+            24,
+            20,
+            16
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "cv2.Canny": {
+        "coords": [
+            23,
+            22,
+            13
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "cv2.findContours": {
+        "coords": [
+            22,
+            7,
+            29
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "cv2.drawContours": {
+        "coords": [
+            17,
+            29,
+            18
+        ],
+        "fiber": 2,
+        "type": "direct_consumption"
+    },
+    "cv2.rectangle": {
+        "coords": [
+            29,
+            30,
+            7
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "cv2.circle": {
+        "coords": [
+            2,
+            17,
+            27
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "cv2.putText": {
+        "coords": [
+            22,
+            30,
+            1
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "cv2.resize": {
+        "coords": [
+            21,
+            2,
+            0
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "cv2.threshold": {
+        "coords": [
+            10,
+            18,
+            23
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "cv2.bitwise_and": {
+        "coords": [
+            16,
+            8,
+            20
+        ],
+        "fiber": 13,
+        "type": "direct_consumption"
+    },
+    "cv2.bitwise_or": {
+        "coords": [
+            27,
+            6,
+            27
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "cv2.absdiff": {
+        "coords": [
+            21,
+            11,
+            14
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "json.loads": {
+        "coords": [
+            6,
+            24,
+            20
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "json.dumps": {
+        "coords": [
+            7,
+            1,
+            4
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "json.load": {
+        "coords": [
+            24,
+            0,
+            21
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "json.dump": {
+        "coords": [
+            5,
+            30,
+            11
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "requests.get": {
+        "coords": [
+            18,
+            21,
+            18
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "requests.post": {
+        "coords": [
+            11,
+            7,
+            16
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "requests.put": {
+        "coords": [
+            10,
+            5,
+            12
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "requests.delete": {
+        "coords": [
+            6,
+            11,
+            6
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "requests.patch": {
+        "coords": [
+            2,
+            25,
+            21
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "requests.head": {
+        "coords": [
+            1,
+            18,
+            28
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "kotlin.stdlib.collections.map": {
+        "coords": [
+            25,
+            21,
+            19
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "kotlin.stdlib.collections.filter": {
+        "coords": [
+            6,
+            27,
+            26
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "kotlin.stdlib.text.replace": {
+        "coords": [
+            26,
+            6,
+            18
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "kotlin.coroutines.launch": {
+        "coords": [
+            10,
+            7,
+            22
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "kotlin.coroutines.async": {
+        "coords": [
+            26,
+            8,
+            2
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "kotlin.coroutines.runBlocking": {
+        "coords": [
+            22,
+            26,
+            29
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "kotlin.android.view.View": {
+        "coords": [
+            0,
+            15,
+            1
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "kotlin.android.widget.Button": {
+        "coords": [
+            19,
+            9,
+            8
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "kotlin.android.content.Intent": {
+        "coords": [
+            18,
+            16,
+            23
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    }
+}
