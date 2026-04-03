@@ -6,7 +6,7 @@ import uuid
 import os
 import sys
 import ipaddress
-from typing import Tuple, Dict, List
+from typing import Tuple, Dict, List, Any
 
 # Add parent directory to path for core imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -91,6 +91,31 @@ class GlobalFSONode:
 
         print(f"[+] Successfully integrated into FSO Manifold at {self.coords} (Fiber {self.fiber})")
 
+    async def handle_high_level_command(self, concept: str, data: Any = None):
+        """
+        Translates abstract dashboard inputs into specific Hamiltonian waves.
+        One input button -> complex FSO wave generation.
+        """
+        print(f"[DASHBOARD] Mapping Concept '{concept}' to Hamiltonian Logic...")
+
+        if "sync" in concept.lower():
+            # Broadcast Color 2 Wave to all nodes for manifold calibration
+            return await self.fabric_node.process_waveform({
+                "color": 2, "type": "SYNC_CALIBRATION", "payload": {"fiber": self.fiber}
+            })
+        elif "smelt" in concept.lower():
+            # Trigger Logic Ingestion Wave (Color 0)
+            return await self.fabric_node.process_waveform({
+                "color": 0, "type": "LOGIC_INJECT", "payload": {"id": "refinery_task", "code": "smelt_repo()"}
+            })
+        elif "heal" in concept.lower():
+            # Trigger Color 2 Resilience Wave
+            return await self.fabric_node.process_waveform({
+                "color": 2, "type": "RESILIENCE_HEAL", "payload": {"target_fiber": self.fiber}
+            })
+
+        return {"status": "MAPPING_NOT_FOUND"}
+
     async def start_server(self):
         """Listens for Hamiltonian Waves arriving over the public internet."""
         server = await asyncio.start_server(self.handle_wave, '0.0.0.0', self.port)
@@ -108,8 +133,16 @@ class GlobalFSONode:
 
         try:
             packet = json.loads(data.decode())
-            color = packet.get("color")
 
+            # 0. Check for High-Level Dashboard Commands
+            if packet.get("type") == "DASHBOARD_CONCEPT":
+                result = await self.handle_high_level_command(packet.get("concept"), packet.get("data"))
+                writer.write(json.dumps(result).encode())
+                await writer.drain()
+                writer.close()
+                return
+
+            color = packet.get("color")
             # Security Trust Verification
             trusted = self.is_trusted_peer(client_ip)
             trust_marker = "[TRUSTED]" if trusted else "[EXTERNAL]"
