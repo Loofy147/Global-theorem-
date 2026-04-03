@@ -37,17 +37,25 @@ This document tracks the milestones for Topological General Intelligence (TGI) a
 - [x] **Industrial Logic Map**: Ingestion of multi-modal 'Advanced Specifications' (Pixels, Distribution, Text).
 - [x] **Global Sync Waves**: Deterministic synchronization of logic states across 1,331+ nodes (m=11).
 
-## Phase 11: Modular Control Plane (MCP) & Industrial Logic Distribution (STARTED)
+## Phase 11: Modular Control Plane (MCP) & Industrial Logic Distribution (COMPLETED)
 - [x] **FSOMCP_Distributor**: Master Control Plane for segregating industrial logic into fibers.
 - [x] **Theorem 4.4 Macro/Micro Segregation**: N/F noise reduction through physical fiber segregation.
 - [x] **Theorem 4.2 Complex Conjugate**: Logic unbinding via involution (Pixel FFT logic).
 - [x] **In-Band Control Waves**: Topology-as-instruction protocol via Tri-Color Hamiltonian waves.
 - [x] **Fiber-Specific Logic Traces**: High-density logic storage without SNR collapse.
 
+## Phase 12: Autopoietic Expansion & Generative Logic Gates (STARTED)
+- [x] **FSO Autopoietic Engine**: Network that authors its own connectivity and fill topological voids.
+- [x] **Generative Gates**: Nodes that synthesize Python logic from natural language intents via LLM.
+- [x] **Holographic Logic Anchoring**: Dynamic population and anchoring of synthesized logic into RAM.
+- [x] **Expansion Protocol (βοηθός)**: Blueprint for self-expanding manifold dimensionality.
+- [x] **Projection Waves**: Beaming results and new logic states across clusters (Color 2).
+
 ---
 ### Quick Links
+- [Autopoietic Protocol](./AUTOPOIETIC_PROTOCOL.md)
 - [MCP Industrial Specifications](./MCP_INDUSTRIAL_SPECS.md)
 - [FSO Formal Manuscript](../research/FSO_MANUSCRIPT.md)
 
 ---
-*Last Updated: March 2026 — Phase 11 MCP Started*
+*Last Updated: March 2026 — Phase 12 Autopoiesis Started*
