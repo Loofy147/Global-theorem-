@@ -37,5 +37,17 @@ This document tracks the milestones for Topological General Intelligence (TGI) a
 - [x] **Industrial Logic Map**: Ingestion of multi-modal 'Advanced Specifications' (Pixels, Distribution, Text).
 - [x] **Global Sync Waves**: Deterministic synchronization of logic states across 1,331+ nodes (m=11).
 
+## Phase 11: Modular Control Plane (MCP) & Industrial Logic Distribution (STARTED)
+- [x] **FSOMCP_Distributor**: Master Control Plane for segregating industrial logic into fibers.
+- [x] **Theorem 4.4 Macro/Micro Segregation**: N/F noise reduction through physical fiber segregation.
+- [x] **Theorem 4.2 Complex Conjugate**: Logic unbinding via involution (Pixel FFT logic).
+- [x] **In-Band Control Waves**: Topology-as-instruction protocol via Tri-Color Hamiltonian waves.
+- [x] **Fiber-Specific Logic Traces**: High-density logic storage without SNR collapse.
+
 ---
-*Last Updated: March 2026 — Phase 10 Logic Population Finalized*
+### Quick Links
+- [MCP Industrial Specifications](./MCP_INDUSTRIAL_SPECS.md)
+- [FSO Formal Manuscript](../research/FSO_MANUSCRIPT.md)
+
+---
+*Last Updated: March 2026 — Phase 11 MCP Started*
