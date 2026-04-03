@@ -16,10 +16,26 @@ COLOR_STORAGE = 0  # Color 0: Carries raw data and memory (Storage Wave)
 COLOR_LOGIC = 1    # Color 1: Carries executable tasks/queries (Logic Wave)
 COLOR_CONTROL = 2  # Color 2: Carries parity and system metadata (Control Wave)
 
+class GenerativeGate:
+    """
+    Acts as the 'Neural Logic' at specific coordinates.
+    Synthesizes Hamiltonian sub-routines (scripts) on the fly.
+    """
+    async def synthesize_logic(self, prompt: str) -> str:
+        """Calls the generative model to produce a runnable Python function."""
+        # Mock logic based on common industrial prompts for the showcase
+        await asyncio.sleep(0.1)
+        if "dashboard" in prompt.lower():
+            return "def system_dashboard(stats):\n    return f'--- FSO SYSTEM HEALTH ---\\nNodes: {stats.get(\"nodes\", 0)}\\nSaturation: {stats.get(\"load\", 0)*100}%\\nStatus: OPTIMAL'"
+        elif "denoise" in prompt.lower():
+            return "def generated_denoiser(pixels):\n    return [p if p > 10 and p < 245 else 128 for p in pixels]"
+        return "def generic_logic(data):\n    return f'Synthesized Logic Result for: {data}'"
+
 class FSOFabricNode:
     """
     A Production-grade FSO Cognitive Node.
     Handles Tri-Color Hamiltonian waves: Storage, Logic, and Control.
+    Integrated with Generative Gates and Fiber Segregation.
     """
     def __init__(self, coords: Tuple[int, int, int], m: int):
         self.coords = coords
@@ -27,8 +43,11 @@ class FSOFabricNode:
         self.s_fiber = sum(coords) % m
 
         # Local State Memory (Holographic Layer)
+        # Theorem 4.4: Fiber-Segregated Traces
+        self.logic_registry: Dict[str, Any] = {} # name -> {code, fiber, func}
         self.local_storage: Dict[str, Any] = {}
-        self.logic_registry: Dict[str, Any] = {} # name -> {code, fiber}
+
+        self.gen_gate = GenerativeGate()
 
         # Every node independently generates the same deterministic Hamiltonian manifold.
         self.sigma = construct_spike_sigma(m, 3)
@@ -61,9 +80,13 @@ class FSOFabricNode:
         """Color 0: Save data to local memory (Persistence)."""
         if ptype == "LOGIC_INJECT":
             logic_id = payload.get("id")
+            code = payload.get("code")
+
+            # Logic Anchoring
             self.logic_registry[logic_id] = {
-                "code": payload.get("code"),
-                "fiber": self.s_fiber
+                "code": code,
+                "fiber": payload.get("fiber", self.s_fiber),
+                "type": payload.get("logic_type", "repo")
             }
             return {"status": "INGESTED", "id": logic_id}
         else:
@@ -76,71 +99,81 @@ class FSOFabricNode:
         """Color 1: Execute logic against local storage (Intersection)."""
         logic_id = payload.get("id")
         target_key = payload.get("target_key")
-        keyword = payload.get("keyword")
+        instruction = payload.get("instruction") # For Autopoietic synthesis
+        data = payload.get("data") # Direct data for execution
 
-        # Check if we have the logic and the data at this coordinate
-        if logic_id in self.logic_registry:
-            logic_meta = self.logic_registry[logic_id]
-            code = logic_meta.get("code", "")
+        # 1. Check if logic exists
+        if logic_id not in self.logic_registry and instruction:
+            # AUTOPOIETIC EXPANSION: Synthesis on-the-fly
+            print(f"[Node {self.coords}] Logic '{logic_id}' missing. Activating Generative Gate...")
+            raw_code = await self.gen_gate.synthesize_logic(instruction)
 
-            # If target_key is provided, execute on it. Otherwise, return the logic existence.
-            if target_key and target_key in self.local_storage:
-                data = self.local_storage[target_key]
-
-                # Logic Intersection: Apply functional logic to data
-                execution_result = self._execute_functional_logic(code, data)
-
-                if keyword and keyword.lower() in str(data).lower():
-                    return {
-                        "status": "EXECUTED",
-                        "node": self.coords,
-                        "logic": logic_id,
-                        "target": target_key,
-                        "match": True,
-                        "result": execution_result
-                    }
-                return {
-                    "status": "EXECUTED",
-                    "node": self.coords,
-                    "logic": logic_id,
-                    "target": target_key,
-                    "match": False,
-                    "result": execution_result
+            try:
+                namespace = {}
+                exec(raw_code, namespace)
+                func_name = [k for k in namespace.keys() if not k.startswith('__')][0]
+                self.logic_registry[logic_id] = {
+                    "code": raw_code,
+                    "func": namespace[func_name],
+                    "fiber": self.s_fiber,
+                    "type": "autopoietic"
                 }
-            return {"status": "LOGIC_READY", "node": self.coords, "logic": logic_id, "code": code}
+                print(f"[Node {self.coords}] Logic '{logic_id}' synthesized and anchored.")
+            except Exception as e:
+                return {"status": "SYNTHESIS_ERROR", "reason": str(e)}
+
+        # 2. Execute Logic
+        if logic_id in self.logic_registry:
+            logic_entry = self.logic_registry[logic_id]
+            code = logic_entry.get("code", "")
+
+            # Use data from storage if target_key is provided, else use packet data
+            exec_data = data
+            if target_key and target_key in self.local_storage:
+                exec_data = self.local_storage[target_key]
+
+            # Intersection: Apply functional logic to data
+            result = self._execute_functional_logic(logic_entry, exec_data)
+
+            return {
+                "status": "EXECUTED",
+                "node": self.coords,
+                "logic": logic_id,
+                "result": result,
+                "type": logic_entry.get("type")
+            }
 
         return {"status": "NO_INTERSECTION", "node": self.coords, "logic": logic_id}
 
-    def _execute_functional_logic(self, code: str, data: Any) -> Any:
-        """Simulates the execution of industrial logic specifications."""
-        try:
-            if "lambda" in code:
-                # Basic lambda execution for demo
-                func = eval(code)
+    def _execute_functional_logic(self, logic_entry: Dict, data: Any) -> Any:
+        """Executes the specific variety of logic found at this node."""
+        func = logic_entry.get("func")
+        if func:
+            try:
                 return func(data)
-            elif "Re(F^-1" in code:
-                # Simulate FFT logic
-                return f"PROCESSED_FFT({data})"
-            elif "Stateless closure" in code:
-                # Simulate Distributed logic
-                return f"CONSENSUS_REACHED({data})"
-            elif "r=(1, m-2, 1)" in code:
-                # Simulate Spike logic
-                return f"SPIKE_ROUTED({data})"
-            return f"EXECUTED_GENERIC({code[:20]}...)"
-        except Exception as e:
-            return f"EXEC_ERROR: {str(e)}"
+            except Exception as e:
+                return f"EXEC_ERROR: {str(e)}"
+
+        # Fallback for specs that aren't full functions yet
+        code = logic_entry.get("code", "")
+        if "lambda" in code:
+            try:
+                f = eval(code)
+                return f(data)
+            except: pass
+
+        if "Re(F^-1" in code: return f"FFT_PROCESSED({data})"
+        if "Stateless closure" in code: return f"CONSENSUS_REACHED({data})"
+        if "r=(1, m-2, 1)" in code: return f"SPIKE_ROUTED({data})"
+
+        return f"EXECUTED_GENERIC_SPEC({code[:20]}...)"
 
     async def _process_control_wave(self, payload: Dict[str, Any], ptype: str):
         """Color 2: Parity checks and Closure Lemma validation (Healing)."""
         expected_s = payload.get("expected_fiber")
         if expected_s is not None and self.s_fiber != expected_s:
-            return await self.apply_closure_lemma_healing(payload)
+            return {"status": "HEALED", "node": self.coords}
         return {"status": "VERIFIED", "node": self.coords}
-
-    async def apply_closure_lemma_healing(self, payload: Dict[str, Any]):
-        """Uses the k-1 determinism to deduce missing data or correct state."""
-        return {"status": "HEALED", "node": self.coords}
 
     async def route_packet(self, packet: Dict[str, Any]):
         """Stateless Discovery and Routing."""
