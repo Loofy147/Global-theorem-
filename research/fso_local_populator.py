@@ -82,6 +82,27 @@ if __name__ == "__main__":
         "android.view.View", "android.widget.Button", "android.content.Intent"
     ])
 
+    # 8. Hugging Face Transformers (Language & Multi-modal Industry)
+    populator.populate_library("transformers", [
+        "pipeline", "AutoModel", "AutoTokenizer", "AutoConfig",
+        "Trainer", "TrainingArguments", "LlamaForCausalLM", "BertModel"
+    ])
+
+    # 9. Hugging Face Datasets (Data Industry)
+    populator.populate_library("datasets", [
+        "load_dataset", "load_from_disk", "list_datasets", "Dataset", "IterableDataset"
+    ])
+
+    # 10. Hugging Face Hub (Model Management)
+    populator.populate_library("huggingface_hub", [
+        "hf_hub_download", "snapshot_download", "login", "whoami", "list_models"
+    ])
+
+    # 11. Tokenizers (Tokenization Industry)
+    populator.populate_library("tokenizers", [
+        "Tokenizer", "models.BPE", "trainers.BpeTrainer", "pre_tokenizers.Whitespace"
+    ])
+
     # Save the manifest to research/fso_production_manifest.json
     manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
     populator.save_manifest(manifest_path)

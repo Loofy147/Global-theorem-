@@ -817,5 +817,203 @@
         ],
         "fiber": 26,
         "type": "direct_consumption"
+    },
+    "transformers.pipeline": {
+        "coords": [
+            23,
+            8,
+            14
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "transformers.AutoModel": {
+        "coords": [
+            22,
+            1,
+            17
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "transformers.AutoTokenizer": {
+        "coords": [
+            21,
+            9,
+            4
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "transformers.AutoConfig": {
+        "coords": [
+            27,
+            25,
+            30
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "transformers.Trainer": {
+        "coords": [
+            17,
+            0,
+            5
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "transformers.TrainingArguments": {
+        "coords": [
+            10,
+            19,
+            3
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "transformers.LlamaForCausalLM": {
+        "coords": [
+            1,
+            2,
+            13
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "transformers.BertModel": {
+        "coords": [
+            15,
+            11,
+            1
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "datasets.load_dataset": {
+        "coords": [
+            1,
+            13,
+            24
+        ],
+        "fiber": 7,
+        "type": "direct_consumption"
+    },
+    "datasets.load_from_disk": {
+        "coords": [
+            20,
+            28,
+            27
+        ],
+        "fiber": 13,
+        "type": "direct_consumption"
+    },
+    "datasets.list_datasets": {
+        "coords": [
+            12,
+            24,
+            5
+        ],
+        "fiber": 10,
+        "type": "direct_consumption"
+    },
+    "datasets.Dataset": {
+        "coords": [
+            3,
+            19,
+            17
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "datasets.IterableDataset": {
+        "coords": [
+            27,
+            7,
+            8
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.hf_hub_download": {
+        "coords": [
+            24,
+            19,
+            30
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.snapshot_download": {
+        "coords": [
+            6,
+            5,
+            6
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.login": {
+        "coords": [
+            10,
+            28,
+            2
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.whoami": {
+        "coords": [
+            10,
+            26,
+            27
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.list_models": {
+        "coords": [
+            7,
+            26,
+            24
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "tokenizers.Tokenizer": {
+        "coords": [
+            2,
+            9,
+            15
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "tokenizers.models.BPE": {
+        "coords": [
+            15,
+            26,
+            6
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "tokenizers.trainers.BpeTrainer": {
+        "coords": [
+            4,
+            19,
+            1
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "tokenizers.pre_tokenizers.Whitespace": {
+        "coords": [
+            14,
+            10,
+            0
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
     }
 }
