@@ -80,27 +80,56 @@ class FSOFabricNode:
 
         # Check if we have the logic and the data at this coordinate
         if logic_id in self.logic_registry:
+            logic_meta = self.logic_registry[logic_id]
+            code = logic_meta.get("code", "")
+
             # If target_key is provided, execute on it. Otherwise, return the logic existence.
             if target_key and target_key in self.local_storage:
-                doc = self.local_storage[target_key]
-                if keyword and keyword.lower() in str(doc).lower():
+                data = self.local_storage[target_key]
+
+                # Logic Intersection: Apply functional logic to data
+                execution_result = self._execute_functional_logic(code, data)
+
+                if keyword and keyword.lower() in str(data).lower():
                     return {
                         "status": "EXECUTED",
                         "node": self.coords,
                         "logic": logic_id,
                         "target": target_key,
-                        "match": True
+                        "match": True,
+                        "result": execution_result
                     }
                 return {
                     "status": "EXECUTED",
                     "node": self.coords,
                     "logic": logic_id,
                     "target": target_key,
-                    "match": False
+                    "match": False,
+                    "result": execution_result
                 }
-            return {"status": "LOGIC_READY", "node": self.coords, "logic": logic_id}
+            return {"status": "LOGIC_READY", "node": self.coords, "logic": logic_id, "code": code}
 
         return {"status": "NO_INTERSECTION", "node": self.coords, "logic": logic_id}
+
+    def _execute_functional_logic(self, code: str, data: Any) -> Any:
+        """Simulates the execution of industrial logic specifications."""
+        try:
+            if "lambda" in code:
+                # Basic lambda execution for demo
+                func = eval(code)
+                return func(data)
+            elif "Re(F^-1" in code:
+                # Simulate FFT logic
+                return f"PROCESSED_FFT({data})"
+            elif "Stateless closure" in code:
+                # Simulate Distributed logic
+                return f"CONSENSUS_REACHED({data})"
+            elif "r=(1, m-2, 1)" in code:
+                # Simulate Spike logic
+                return f"SPIKE_ROUTED({data})"
+            return f"EXECUTED_GENERIC({code[:20]}...)"
+        except Exception as e:
+            return f"EXEC_ERROR: {str(e)}"
 
     async def _process_control_wave(self, payload: Dict[str, Any], ptype: str):
         """Color 2: Parity checks and Closure Lemma validation (Healing)."""
