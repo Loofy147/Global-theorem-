@@ -22,11 +22,36 @@ class FSOTopology:
         h = int(hashlib.sha256(lid.encode()).hexdigest(), 16)
         return (h % self.m, (h // self.m) % self.m, (h // (self.m**2)) % self.m)
 
+class StratifiedMemory:
+    """FSO Stratified Memory for O(1) recall at sqrt(F) capacity."""
+    def __init__(self, dim=1024, m_fibers=101):
+        self.dim = dim
+        self.m = m_fibers
+        self.traces = {f: np.zeros(dim) for f in range(m_fibers)}
+
+    def _get_fiber(self, key: str) -> int:
+        h = hashlib.sha256(key.encode()).digest()
+        return sum(h[:3]) % self.m
+
+    def bind_store(self, key_vec: np.ndarray, val_vec: np.ndarray, key_str: str):
+        fiber = self._get_fiber(key_str)
+        # Circular convolution via FFT
+        binding = np.fft.ifft(np.fft.fft(key_vec) * np.fft.fft(val_vec)).real
+        self.traces[fiber] += binding
+
+    def unbind_recall(self, key_vec: np.ndarray, key_str: str) -> np.ndarray:
+        fiber = self._get_fiber(key_str)
+        trace = self.traces[fiber]
+        # Retrieval via FFT Complex Conjugate (Theorem 4.2)
+        return np.fft.ifft(np.fft.fft(trace) * np.conj(np.fft.fft(key_vec))).real
+
 class DirectConsumer:
     def __init__(self, topo: FSOTopology):
         self.topo = topo
         self.global_registry = {}
         self.logic_to_coords = {}
+        self.memory = StratifiedMemory(m_fibers=topo.m)
+
     def auto_provision(self, package: str):
         logger.info(f"[*] Provisioning {package}...")
         try:
@@ -45,6 +70,7 @@ class DirectConsumer:
                 self.logic_to_coords[fid] = coords
                 count += 1
         logger.info(f"[+] Anchored {count} units for {package}.")
+
     def execute(self, fid: str, **kwargs):
         coords = self.logic_to_coords.get(fid) or self.topo.get_coords(fid)
         path = self.global_registry.get(coords) or fid
@@ -54,11 +80,11 @@ class DirectConsumer:
             mod_name = ".".join(parts[:-1]) or 'builtins'
             mod = importlib.import_module(mod_name)
             func = getattr(mod, parts[-1])
-            return func(**kwargs) if callable(func) else func
+            return func(*kwargs.values()) if callable(func) else func
         except Exception as e: return f"EXEC_ERR: {e}"
 
 class KaggleFSOWrapper:
-    def __init__(self, repo_url: str, m: int = 31):
+    def __init__(self, repo_url: str, m: int = 101):
         parts = repo_url.replace(".git", "").split("/")
         self.owner, self.name = parts[-2], parts[-1]
         self.m = m
@@ -89,7 +115,7 @@ class KaggleFSOWrapper:
             return local_data
 
 class FSOTaskHub:
-    def __init__(self, m: int = 31):
+    def __init__(self, m: int = 101):
         self.m = m
         self.tasks = []
     def get_pending(self):
@@ -113,7 +139,17 @@ async def main():
 
     topo = FSOTopology(m)
     consumer = DirectConsumer(topo)
-    consumer.global_registry.update(state.get("registry", {}))
+    # Convert string keys to tuples for internal registry
+    registry = {}
+    for k, v in state.get("registry", {}).items():
+        try:
+            if k.startswith("("):
+                coords = tuple(map(int, k.strip("()").split(", ")))
+                registry[coords] = v
+            else: registry[k] = v
+        except: registry[k] = v
+
+    consumer.global_registry.update(registry)
 
     hub = FSOTaskHub(m)
     hub.tasks = hub_data
@@ -121,14 +157,13 @@ async def main():
     end_time = time.time() + 3500
 
     if role == "INGESTOR":
-        libs = ["transformers", "datasets", "torch", "numpy"]
+        libs = ["transformers", "datasets", "torch", "numpy", "vllm", "ray"]
         for lib in libs:
             consumer.auto_provision(lib)
             await asyncio.sleep(1)
 
     elif role == "EXECUTOR":
         while time.time() < end_time:
-            # Poll remote hub every minute
             hub.tasks = wrapper.sync_file("fso_task_hub.json", hub.tasks, 'pull')
             pending = hub.get_pending()
             if pending:
@@ -136,7 +171,6 @@ async def main():
                     logger.info(f"[*] Executing Task {task['id']}: {task['logic_id']}")
                     res = consumer.execute(task['logic_id'], **task['params'])
                     hub.complete(task['id'], res)
-                    # Push hub update after each task
                     wrapper.sync_file("fso_task_hub.json", hub.tasks, 'push')
             await asyncio.sleep(60)
 
@@ -144,6 +178,7 @@ async def main():
         while time.time() < end_time:
             state["registry"]["system.health"] = "OK"
             state["registry"]["system.last_check"] = datetime.now().isoformat()
+            # Stringify keys for JSON compatibility
             state["registry"].update({str(k): v for k, v in consumer.global_registry.items()})
             wrapper.sync_file("fso_manifold_state.json", state, 'push')
             await asyncio.sleep(300)
@@ -155,5 +190,7 @@ async def main():
     logger.info(f"--- FSO {role} CYCLE COMPLETE ---")
 
 if __name__ == "__main__":
-    os.environ["GITHUB_PAT"] = "github_pat_11BKWH6MI0mIzqUWKHyxEX_KO92xoWx25JHq96tT4DK64FlhWr3gOO57S0XBmeg8bNS662LXRE85uyIE5"
+    # Ensure credentials are set
+    if not os.getenv("GITHUB_PAT"):
+        os.environ["GITHUB_PAT"] = "github_pat_11BKWH6MI0mIzqUWKHyxEX_KO92xoWx25JHq96tT4DK64FlhWr3gOO57S0XBmeg8bNS662LXRE85uyIE5"
     asyncio.run(main())
