@@ -10,22 +10,29 @@ from typing import Dict, Any, Tuple, List
 
 # --- BOOTSTRAP PHASE ---
 def bootstrap():
-    repo_url = os.getenv("FSO_REPO_URL", "https://github.com/hichambedrani/Global-theorem-.git")
-    github_token = os.getenv("GITHUB_PAT")
+    # Use the current remote URL if available, else fallback
+    try:
+        remote_url = subprocess.check_output(["git", "remote", "get-url", "origin"]).decode().strip()
+    except:
+        remote_url = os.getenv("FSO_REPO_URL", "https://github.com/Loofy147/Global-theorem-.git")
     
-    # Check if we are in Kaggle
+    github_token = os.getenv("GITHUB_PAT")
     is_kaggle = os.path.exists("/kaggle/working")
     target_dir = "/kaggle/working/repo" if is_kaggle else os.path.join(os.getcwd(), "test_repo")
     
     if github_token:
-        auth_url = repo_url.replace("https://", f"https://{github_token}@")
-        
+        # Construct authenticated URL
+        if "github.com" in remote_url and github_token not in remote_url:
+            auth_url = remote_url.replace("https://", f"https://{github_token}@")
+        else:
+            auth_url = remote_url
+            
         if not os.path.exists(target_dir):
-            print(f"[*] Bootstrapping: Cloning {repo_url} into {target_dir}...")
+            print(f"[*] Bootstrapping: Cloning {remote_url} into {target_dir}...")
             try:
                 subprocess.run(["git", "clone", auth_url, target_dir], check=True)
             except Exception as e:
-                print(f"[!] Clone failed: {e}. Proceeding with local files if available.")
+                print(f"[!] Clone failed: {e}. Proceeding with local files.")
         
         if os.path.exists(target_dir):
             if target_dir not in sys.path:
@@ -45,7 +52,6 @@ except ImportError:
         from fso_evolution_engine import FSO_Evolution_Engine, TopologicalGravity
         from kaggle_chrono_kernel import KaggleFSOWrapper
     except ImportError:
-        # Final fallback for local testing
         sys.path.append(os.getcwd())
         sys.path.append(os.path.join(os.getcwd(), "research"))
         from fso_apex_hypervisor import FSO_Apex_Hypervisor
@@ -59,7 +65,13 @@ logger = logging.getLogger("PRODUCTION_KERNEL")
 async def run_production_loop():
     logger.info("--- FSO PRODUCTION KERNEL STARTING ---")
     m = int(os.getenv("FSO_M_SIZE", "31"))
-    repo_url = os.getenv("FSO_REPO_URL", "https://github.com/hichambedrani/Global-theorem-.git")
+    
+    # Get Repo URL for wrapper
+    try:
+        repo_url = subprocess.check_output(["git", "remote", "get-url", "origin"]).decode().strip()
+    except:
+        repo_url = "https://github.com/Loofy147/Global-theorem-.git"
+        
     cycle_duration = float(os.getenv("FSO_CYCLE_DURATION", "11.5"))
     
     apex = FSO_Apex_Hypervisor(m=m)
@@ -85,6 +97,7 @@ async def run_production_loop():
     
     while time.time() < end_time:
         try:
+            # DRIVE EVOLUTION
             await engine.evaluate_and_evolve("math.sqrt", (0,0,0), 144)
         except Exception as e:
             logger.error(f"Error: {e}")
@@ -101,4 +114,4 @@ if __name__ == "__main__":
     try:
         asyncio.run(run_production_loop())
     except Exception as e:
-        logger.critical(f"FATAL: {e}")
+        logger.critical(f"FATAL: {e}", exc_info=True)
