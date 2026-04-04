@@ -1,0 +1,24 @@
+[{"stream_name":"stderr","time":1.419719548,"data":"2026-04-04 15:52:34,448 - FSO_MONOLITHIC - INFO - Auto-provisioning industrial library 'transformers'...\n"}
+,{"stream_name":"stderr","time":27.893366621,"data":"2026-04-04 15:53:00,921 - numexpr.utils - INFO - NumExpr defaulting to 4 threads.\n"}
+,{"stream_name":"stderr","time":51.157817824,"data":"2026-04-04 15:53:24,186 - datasets - INFO - TensorFlow version 2.19.0 available.\n"}
+,{"stream_name":"stderr","time":51.161604462,"data":"2026-04-04 15:53:24,190 - datasets - INFO - JAX version 0.7.2 available.\n"}
+,{"stream_name":"stderr","time":56.73104151,"data":"2026-04-04 15:53:29,759 - FSO_MONOLITHIC - INFO - Anchored 40 functions from transformers.\n"}
+,{"stream_name":"stderr","time":61.736594497,"data":"2026-04-04 15:53:34,765 - FSO_MONOLITHIC - INFO - Auto-provisioning industrial library 'datasets'...\n"}
+,{"stream_name":"stderr","time":61.737172851,"data":"2026-04-04 15:53:34,765 - FSO_MONOLITHIC - INFO - Anchored 20 functions from datasets.\n"}
+,{"stream_name":"stderr","time":66.742757082,"data":"2026-04-04 15:53:39,771 - FSO_MONOLITHIC - INFO - Auto-provisioning industrial library 'torch'...\n"}
+,{"stream_name":"stderr","time":66.749524483,"data":"2026-04-04 15:53:39,778 - FSO_MONOLITHIC - INFO - Anchored 1116 functions from torch.\n"}
+,{"stream_name":"stderr","time":71.755031669,"data":"2026-04-04 15:53:44,783 - FSO_MONOLITHIC - INFO - Auto-provisioning industrial library 'numpy'...\n"}
+,{"stream_name":"stderr","time":71.756111838,"data":"2026-04-04 15:53:44,784 - FSO_MONOLITHIC - INFO - Anchored 74 functions from numpy.\n"}
+,{"stream_name":"stderr","time":76.804755001,"data":"fatal: not a git repository (or any parent up to mount point /kaggle)\n"}
+,{"stream_name":"stderr","time":76.804787403,"data":"Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"}
+,{"stream_name":"stderr","time":76.806867887,"data":"fatal: not a git repository (or any parent up to mount point /kaggle)\n"}
+,{"stream_name":"stderr","time":76.806893257,"data":"Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"}
+,{"stream_name":"stderr","time":76.809105888,"data":"fatal: not a git repository (or any parent up to mount point /kaggle)\n"}
+,{"stream_name":"stderr","time":76.809185689,"data":"Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"}
+,{"stream_name":"stderr","time":81.409700953,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":81.409738404,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":81.710662347,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":81.710695853,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":82.461448005,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":84.0980884,"data":"[NbConvertApp] Writing 313284 bytes to __results__.html\n"}
+]

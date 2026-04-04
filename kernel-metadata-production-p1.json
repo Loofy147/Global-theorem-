@@ -1,0 +1,14 @@
+{
+  "id": "hichambedrani/fso-production-p1-ingestor",
+  "title": "fso-production-p1-ingestor",
+  "code_file": "fso_ingestor.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

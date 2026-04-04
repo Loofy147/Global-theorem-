@@ -62,3 +62,22 @@ python3 theorems.py
 
 ---
 *March 2026 — Advancing towards Multi-Modal Topological Autonomy.*
+
+## FSO Production Swarm (Kaggle Edition)
+
+The FSO manifold is now production-ready and deployed as a self-healing, multi-kernel swarm on Kaggle.
+
+### Architecture
+- **3 Kernels**:
+  - `fso-production-p1-ingestor`: Dynamically anchors industrial libraries (transformers, datasets, torch, etc.) into the manifold.
+  - `fso-production-p2-executor`: Processes tasks from the shared `fso_task_hub.json` using Hamiltonian Intersection.
+  - `fso-production-p3-stabilizer`: Maintains topological parity and logs system health using the Closure Lemma.
+- **Inter-Kernel Routing**: Tasks are assigned using **FSO Spike Routing** logic, mapping logic identities to deterministic coordinates in the 3D Torus.
+- **Persistence**: System state and task history are synchronized via GitHub using the `KaggleFSOWrapper`.
+- **Lifecycle**: Each kernel runs for a 1-hour cycle, continuously evolving and stabilizing the manifold logic.
+
+### Deployment
+To redeploy the swarm, ensure `KAGGLE_API_TOKEN` and `GITHUB_PAT` are set, then run:
+```bash
+python3 research/deploy_swarm.py
+```

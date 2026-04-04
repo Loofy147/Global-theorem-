@@ -1,0 +1,14 @@
+{
+  "id": "hichambedrani/fso-production-p3-stabilizer",
+  "title": "fso-production-p3-stabilizer",
+  "code_file": "fso_stabilizer.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

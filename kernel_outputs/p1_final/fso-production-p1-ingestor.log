@@ -1,0 +1,19 @@
+[{"stream_name":"stdout","time":1.648913801,"data":"2026-04-04 16:25:40,136 - FSO_SWARM - INFO - [*] Provisioning transformers...\n"}
+,{"stream_name":"stdout","time":25.181799562,"data":"2026-04-04 16:26:03,669 - numexpr.utils - INFO - NumExpr defaulting to 4 threads.\n"}
+,{"stream_name":"stdout","time":46.299661911,"data":"2026-04-04 16:26:24,786 - datasets - INFO - TensorFlow version 2.19.0 available.\n"}
+,{"stream_name":"stdout","time":46.302421043,"data":"2026-04-04 16:26:24,789 - datasets - INFO - JAX version 0.7.2 available.\n"}
+,{"stream_name":"stdout","time":51.88022382,"data":"2026-04-04 16:26:30,367 - FSO_SWARM - INFO - [+] Anchored 40 units for transformers.\n"}
+,{"stream_name":"stdout","time":52.882012369,"data":"2026-04-04 16:26:31,369 - FSO_SWARM - INFO - [*] Provisioning datasets...\n"}
+,{"stream_name":"stdout","time":52.882677847,"data":"2026-04-04 16:26:31,370 - FSO_SWARM - INFO - [+] Anchored 20 units for datasets.\n"}
+,{"stream_name":"stdout","time":53.884494068,"data":"2026-04-04 16:26:32,371 - FSO_SWARM - INFO - [*] Provisioning torch...\n"}
+,{"stream_name":"stdout","time":53.889763462,"data":"2026-04-04 16:26:32,377 - FSO_SWARM - INFO - [+] Anchored 1116 units for torch.\n"}
+,{"stream_name":"stdout","time":54.891312023,"data":"2026-04-04 16:26:33,378 - FSO_SWARM - INFO - [*] Provisioning numpy...\n"}
+,{"stream_name":"stdout","time":54.892494677,"data":"2026-04-04 16:26:33,380 - FSO_SWARM - INFO - [+] Anchored 74 units for numpy.\n"}
+,{"stream_name":"stdout","time":56.292029911,"data":"2026-04-04 16:26:34,779 - FSO_SWARM - INFO - --- FSO INGESTOR CYCLE COMPLETE ---\n"}
+,{"stream_name":"stderr","time":60.937477154,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":60.937549226,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":61.243472375,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":61.243504253,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":62.039367392,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":63.54885956,"data":"[NbConvertApp] Writing 309944 bytes to __results__.html\n"}
+]

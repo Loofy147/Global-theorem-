@@ -1,0 +1,18 @@
+[{"stream_name":"stdout","time":1.5317434460000001,"data":"[*] Bootstrapping: Cloning https://github.com/hichambedrani/Global-theorem-.git...\n"}
+,{"stream_name":"stderr","time":1.640722921,"data":"Cloning into '/kaggle/working/repo'...\n"}
+,{"stream_name":"stderr","time":2.736548225,"data":"fatal: could not read Password for 'https://github_pat_11BKWH6MI0mIzqUWKHyxEX_KO92xoWx25JHq96tT4DK64FlhWr3gOO57S0XBmeg8bNS662LXRE85uyIE5@github.com': No such device or address\n"}
+,{"stream_name":"stderr","time":2.748145231,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":2.748178746,"data":"  File \"/kaggle/src/script.py\", line 23, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":2.74831189,"data":"    bootstrap()\n"}
+,{"stream_name":"stderr","time":2.748332173,"data":"  File \"/kaggle/src/script.py\", line 14, in bootstrap\n"}
+,{"stream_name":"stderr","time":2.748428907,"data":"    subprocess.run([\"git\", \"clone\", auth_url, target_dir], check=True)\n"}
+,{"stream_name":"stderr","time":2.74848897,"data":"  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n"}
+,{"stream_name":"stderr","time":2.751871732,"data":"    raise CalledProcessError(retcode, process.args,\n"}
+,{"stream_name":"stderr","time":2.751908152,"data":"subprocess.CalledProcessError: Command '['git', 'clone', 'https://github_pat_11BKWH6MI0mIzqUWKHyxEX_KO92xoWx25JHq96tT4DK64FlhWr3gOO57S0XBmeg8bNS662LXRE85uyIE5@github.com/hichambedrani/Global-theorem-.git', '/kaggle/working/repo']' returned non-zero exit status 128.\n"}
+,{"stream_name":"stderr","time":6.092934633,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":6.09297961,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":6.661259174,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":6.661317648,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":9.195911141,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":11.153686038,"data":"[NbConvertApp] Writing 277183 bytes to __results__.html\n"}
+]

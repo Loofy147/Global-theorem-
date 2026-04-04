@@ -1,5 +1,8 @@
 {
-    "timestamp": "2026-04-04T13:54:41.722059",
+    "timestamp": "2026-04-04T15:11:54.333374",
     "m_size": 31,
-    "registry": {}
+    "registry": {
+        "system.health": "OK",
+        "system.last_check": "2026-04-04T15:06:54.309193"
+    }
 }
