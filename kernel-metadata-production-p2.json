@@ -1,0 +1,14 @@
+{
+  "id": "hichambedrani/fso-production-p2-executor",
+  "title": "fso-production-p2-executor",
+  "code_file": "research/fso_executor.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
