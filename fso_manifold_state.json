@@ -440,7 +440,10 @@
         "(13, 4, 15)": "project.theorems.verify_symbolic_duality_law",
         "(8, 13, 29)": "project.theorems.verify_hardware_hamiltonian_health",
         "(27, 16, 9)": "project.theorems.verify_all_theorems",
-        "(7, 7, 8)": "project.theorems.print_cross_domain_table"
+        "(7, 7, 8)": "project.theorems.print_cross_domain_table",
+        "(22, 4, 1)": "jules.plan_execute_verify",
+        "(3, 12, 14)": "jules.autopoietic_synthesis",
+        "(8, 22, 1)": "jules.tool_orchestration"
     },
     "last_ingestion": "claw-code",
     "ingestion_timestamp": "2026-04-04T17:19:33.434103",
