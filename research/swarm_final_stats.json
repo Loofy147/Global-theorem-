@@ -1,40 +1,11 @@
 {
-  "hichambedrani/claudes-cycles-p1-v31-massive-s13": {
-    "best": 2,
-    "iters": 50000000,
-    "elapsed": 7920.452069155
-  },
-  "hichambedrani/claudes-cycles-p1-v31-massive-s12": {
-    "best": 0,
-    "iters": 47800967,
-    "elapsed": 7568.7613299449995
-  },
-  "hichambedrani/claudes-cycles-p1-v31-massive-s11": {
-    "best": 4,
-    "iters": 50000000,
-    "elapsed": 5676.339874075
-  },
-  "hichambedrani/claudes-cycles-p1-v31-massive-s10": {
-    "best": 4,
-    "iters": 50000000,
-    "elapsed": 8570.144993013999
-  },
-  "hichambedrani/claudes-cycles-p3-v3": {
-    "best": 25,
-    "iters": 30000000,
-    "elapsed": 6816.348065008,
-    "reheats": 282
-  },
-  "hichambedrani/claudes-cycles-p2-v3": {
-    "best": 22,
-    "iters": 30000000,
-    "elapsed": 4611.350061667001,
-    "reheats": 284
-  },
-  "hichambedrani/claudes-cycles-p1-v3": {
-    "best": 16,
-    "iters": 30000000,
-    "elapsed": 6300.988458893,
-    "reheats": 277
-  }
+    "benchmark": "Standard HRR vs FSO-HRR",
+    "date": "April 2026",
+    "std_cos": 0.02,
+    "fso_cos": 0.3002,
+    "multiplier": 14.99,
+    "dim": 1024,
+    "n_items": 2500,
+    "m_fibers": 251,
+    "status": "VERIFIED"
 }
