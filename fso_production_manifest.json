@@ -1,0 +1,32 @@
+{
+    "jules.plan_execute_verify": {
+        "coords": [
+            22,
+            4,
+            1
+        ],
+        "fiber": 27,
+        "type": "agentic_behavior",
+        "description": "Core Jules loop for autonomous task resolution."
+    },
+    "jules.autopoietic_synthesis": {
+        "coords": [
+            3,
+            12,
+            14
+        ],
+        "fiber": 29,
+        "type": "agentic_behavior",
+        "description": "LLM-based logic synthesis for filling topological voids."
+    },
+    "jules.tool_orchestration": {
+        "coords": [
+            8,
+            22,
+            1
+        ],
+        "fiber": 0,
+        "type": "agentic_behavior",
+        "description": "Optimal sequence determination for tool execution."
+    }
+}
