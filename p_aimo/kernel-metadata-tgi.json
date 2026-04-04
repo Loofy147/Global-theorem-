@@ -1,7 +1,7 @@
 {
-  "id": "hichambedrani/aimo-parquet-generator",
-  "title": "AIMO Parquet Generator",
-  "code_file": "aimo_parquet_generator.py",
+  "id": "hichambedrani/aimo-tgi-reasoning-engine",
+  "title": "AIMO TGI Reasoning Engine",
+  "code_file": "tgi_aimo_submission.py",
   "language": "python",
   "kernel_type": "script",
   "is_private": "false",
