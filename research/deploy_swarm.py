@@ -1,7 +1,6 @@
 import os
+import subprocess
 import json
-import time
-import requests
 
 def deploy_swarm():
     token = os.environ.get("KAGGLE_API_TOKEN")
@@ -9,8 +8,14 @@ def deploy_swarm():
         print("[!] KAGGLE_API_TOKEN not set.")
         return
 
-    # Rest of the deployment logic...
+    # Restore actual deployment logic using Kaggle CLI
     print(f"[*] Deploying swarm using token: {token[:5]}...")
+    metadata_path = "kernel-metadata.json"
+    if os.path.exists(metadata_path):
+        subprocess.run(["kaggle", "kernels", "push", "-p", "."], check=True)
+        print("[+] Swarm kernel pushed successfully.")
+    else:
+        print("[!] kernel-metadata.json not found.")
 
 if __name__ == "__main__":
     deploy_swarm()

@@ -4,16 +4,58 @@ import json
 import subprocess
 import time
 import logging
+import sys
+import ast
 from datetime import datetime
 from typing import Dict, Any, Tuple, List
 
-# Add parent directory to path
-import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# --- BOOTSTRAP PHASE ---
+def bootstrap():
+    try:
+        remote_url = subprocess.check_output(["git", "remote", "get-url", "origin"]).decode().strip()
+    except:
+        remote_url = os.getenv("FSO_REPO_URL", "https://github.com/Loofy147/Global-theorem-.git")
 
-from research.fso_apex_hypervisor import FSO_Apex_Hypervisor
-from research.fso_evolution_engine import FSO_Evolution_Engine, TopologicalGravity
-from research.kaggle_chrono_kernel import KaggleFSOWrapper
+    github_token = os.getenv("GITHUB_PAT")
+    is_kaggle = os.path.exists("/kaggle/working")
+    target_dir = "/kaggle/working/repo" if is_kaggle else os.path.join(os.getcwd(), "production_repo")
+
+    if github_token:
+        if "github.com" in remote_url and github_token not in remote_url:
+            auth_url = remote_url.replace("https://", f"https://{github_token}@")
+        else:
+            auth_url = remote_url
+
+        if not os.path.exists(target_dir):
+            print(f"[*] Bootstrapping: Cloning {remote_url} into {target_dir}...")
+            try:
+                subprocess.run(["git", "clone", auth_url, target_dir], check=True)
+            except Exception as e:
+                print(f"[!] Clone failed: {e}. Proceeding with local files.")
+
+        if os.path.exists(target_dir):
+            if target_dir not in sys.path:
+                sys.path.insert(0, target_dir)
+                sys.path.insert(0, os.path.join(target_dir, "research"))
+
+bootstrap()
+
+# --- PROJECT IMPORTS ---
+try:
+    from research.fso_apex_hypervisor import FSO_Apex_Hypervisor
+    from research.fso_evolution_engine import FSO_Evolution_Engine, TopologicalGravity
+    from research.kaggle_chrono_kernel import KaggleFSOWrapper
+except ImportError:
+    try:
+        from fso_apex_hypervisor import FSO_Apex_Hypervisor
+        from fso_evolution_engine import FSO_Evolution_Engine, TopologicalGravity
+        from kaggle_chrono_kernel import KaggleFSOWrapper
+    except ImportError:
+        sys.path.append(os.getcwd())
+        sys.path.append(os.path.join(os.getcwd(), "research"))
+        from fso_apex_hypervisor import FSO_Apex_Hypervisor
+        from fso_evolution_engine import FSO_Evolution_Engine, TopologicalGravity
+        from kaggle_chrono_kernel import KaggleFSOWrapper
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -21,80 +63,54 @@ logger = logging.getLogger("PRODUCTION_KERNEL")
 
 async def run_production_loop():
     logger.info("--- FSO PRODUCTION KERNEL STARTING ---")
-
-    # Configuration
     m = int(os.getenv("FSO_M_SIZE", "31"))
-    repo_url = os.getenv("FSO_REPO_URL", "https://github.com/hichambedrani/FSO-Manifold.git")
-    cycle_duration = float(os.getenv("FSO_CYCLE_DURATION", "11.5")) # Hours
 
-    # 1. Initialize Components
+    try:
+        repo_url = subprocess.check_output(["git", "remote", "get-url", "origin"]).decode().strip()
+    except:
+        repo_url = "https://github.com/Loofy147/Global-theorem-.git"
+
+    cycle_duration = float(os.getenv("FSO_CYCLE_DURATION", "11.5"))
+
     apex = FSO_Apex_Hypervisor(m=m)
     engine = FSO_Evolution_Engine(apex)
     wrapper = KaggleFSOWrapper(repo_url=repo_url, m=m)
 
-    # 2. Bootstrapping (Pull Memory)
     wrapper.pull_memory()
-    # Synchronize wrapper registry to hypervisor consumer
-    # Convert string keys back to tuples if they look like coordinates
     converted_registry = {}
     for k, v in wrapper.global_registry.items():
         if isinstance(k, str) and k.startswith('(') and k.endswith(')'):
             try:
-                coords = eval(k)
+                # Use literal_eval for safer parsing of coordinate tuples
+                coords = ast.literal_eval(k)
                 converted_registry[coords] = v
-            except:
-                logger.error(f"Failed to parse coordinate string: {k}")
-        else:
-            # If it's a direct logic_id -> coords mapping in wrapper, handle that too
-            pass
+            except: pass
 
     apex.consumer.global_registry.update(converted_registry)
-    logger.info(f"Synchronized {len(converted_registry)} logic anchors from storage.")
+    logger.info(f"Synchronized {len(converted_registry)} logic anchors.")
 
-    # 3. Start Stabilization
     asyncio.create_task(apex.run_stabilization_loop())
 
-    # 4. Main Evolutionary Loop
     end_time = time.time() + (cycle_duration * 3600)
     logger.info(f"Initiating production cycle for {cycle_duration} hours.")
 
-    # Example Production Task: Mass Ingestion of Core Stack
-    initial_libraries = ["numpy", "scipy", "torch", "sklearn", "pandas", "matplotlib"]
-    for lib in initial_libraries:
-        apex.consumer.auto_provision(lib)
-
     while time.time() < end_time:
-        # Perform autonomous tasks, evaluation, and evolution
-        # Simulate some workload for evolution to happen
         try:
-            # Execute some logic from math or numpy
-            await engine.evaluate_and_evolve("numpy.fft.fft", (0,0,0), [1, 2, 3])
-            await engine.evaluate_and_evolve("numpy.linalg.inv", (5,5,5), [[1, 2], [3, 4]])
+            # DRIVE EVOLUTION
+            await engine.evaluate_and_evolve("math.sqrt", (0,0,0), 144)
         except Exception as e:
-            logger.error(f"Error in background execution task: {e}")
+            logger.error(f"Error: {e}")
 
-        await asyncio.sleep(600) # Check every 10 minutes
+        await asyncio.sleep(600 if not os.getenv("FSO_DEMO_MODE") else 1)
+        if os.getenv("FSO_DEMO_MODE"): break
 
-        time_remaining = (end_time - time.time()) / 3600
-        logger.info(f"Manifold healthy. Time remaining: {time_remaining:.2f} hours.")
-
-        # Break if in demo mode
-        if os.getenv("FSO_DEMO_MODE"):
-            logger.info("Demo mode: breaking early.")
-            break
-
-    # 5. Shutdown and Push Memory
-    logger.info("Production cycle ending. Preparing state anchor...")
-    # Update wrapper registry from hypervisor consumer (stringifying keys for JSON)
+    logger.info("Production cycle ending.")
     wrapper.global_registry = {str(k): v for k, v in apex.consumer.global_registry.items()}
     wrapper.push_memory()
-
     logger.info("--- FSO PRODUCTION KERNEL SHUTDOWN COMPLETE ---")
 
 if __name__ == "__main__":
     try:
         asyncio.run(run_production_loop())
-    except KeyboardInterrupt:
-        logger.info("Manual termination received.")
     except Exception as e:
-        logger.critical(f"FATAL ERROR in production kernel: {e}")
+        logger.critical(f"FATAL: {e}", exc_info=True)
