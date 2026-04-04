@@ -1,6 +1,8 @@
 import asyncio
 import os
 import sys
+import traceback
+import json
 
 # Add parent directory to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -46,7 +48,9 @@ async def test_industrial_execution():
     # Execution
     res = await daemon.execute_logic(logic_id, "key1", target_coords)
     assert res['status'] == "SUCCESS"
-    assert "SPIKE_ROUTED" in res['result']['result']
+    # The result structure might have changed due to async _execute_functional_logic
+    actual_result = res['result']['result']
+    assert "SPIKE_ROUTED" in actual_result
     print("Execution test passed!")
 
 async def run_all():
@@ -55,6 +59,7 @@ async def run_all():
         await test_industrial_execution()
     except Exception as e:
         print(f"Tests failed: {e}")
+        traceback.print_exc()
         sys.exit(1)
 
 if __name__ == "__main__":
