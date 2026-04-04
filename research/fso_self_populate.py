@@ -7,17 +7,11 @@ from typing import List, Dict, Any
 # Add parent directory to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from research.fso_refinery import FSORefinery
-from research.fso_direct_consumer import FSODirectConsumer
 
 class FSOSelfPopulator:
-    """
-    Ingests the project's own core logic into the FSO manifold.
-    Enables 'Topological Imports' where the system consumes its own code as waves.
-    """
     def __init__(self, m: int):
         self.m = m
         self.refinery = FSORefinery(m)
-        self.dc = FSODirectConsumer(m)
         self.manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
         self.manifest = {}
         if os.path.exists(self.manifest_path):
@@ -26,46 +20,28 @@ class FSOSelfPopulator:
 
     def populate_self(self):
         print(f"[*] Starting Self-Population (m={self.m})...")
-
-        # Files to ingest
-        core_files = [
-            "core.py", "algebraic.py", "fiber.py",
-            "search.py", "solutions.py", "theorems.py"
-        ]
-
+        core_files = ["core.py", "algebraic.py", "fiber.py", "search.py", "solutions.py", "theorems.py"]
         root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
         for filename in core_files:
             filepath = os.path.join(root_dir, filename)
-            if not os.path.exists(filepath):
-                print(f"  [!] Skip: {filename} not found.")
-                continue
-
+            if not os.path.exists(filepath): continue
             print(f"  [+] Smelting {filename}...")
             units = self.refinery._smelt_file(filepath)
-
             module_name = filename.replace(".py", "")
             for unit in units:
-                # Use 'project.module.function' as the identifier
                 func_id = f"project.{module_name}.{unit['id']}"
-                coords = unit['coords']
-
                 self.manifest[func_id] = {
-                    "coords": coords,
+                    "coords": unit['coords'],
                     "fiber": unit['fiber'],
-                    "type": "project_logic",
-                    "code": unit['logic'],
-                    "origin": unit['origin']
+                    "type": "project_logic"
                 }
-                print(f"    - Anchored: {func_id} at {coords}")
-
     def save_manifest(self):
         with open(self.manifest_path, "w") as f:
             json.dump(self.manifest, f, indent=4)
-        print(f"[!] Saved {len(self.manifest)} units to {self.manifest_path}")
+        print(f"[!] Saved total {len(self.manifest)} units to {self.manifest_path}")
 
 if __name__ == "__main__":
-    m_val = 31 # Match production-grade manifold
-    populator = FSOSelfPopulator(m_val)
+    populator = FSOSelfPopulator(31)
     populator.populate_self()
     populator.save_manifest()
