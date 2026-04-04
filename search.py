@@ -19,11 +19,11 @@ import random, math, time
 from typing import Optional, List, Tuple, Callable, Dict
 from itertools import permutations as _iperms, product as _product
 
-from .core import (
+from core import (
     Vertex, Perm, SigmaFn, FuncGraph, ARC_SHIFTS,
     build_functional_graphs, verify_functional_graph, vertices
 )
-from .fiber import (
+from fiber import (
     SigmaTable, LevelTable, all_valid_levels,
     compose_levels, is_single_q_cycle, table_to_sigma_fn
 )
