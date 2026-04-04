@@ -2186,336 +2186,6 @@
         "fiber": 4,
         "type": "direct_consumption"
     },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244610": {
-        "coords": [
-            24,
-            9,
-            5
-        ],
-        "fiber": 7,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def ipset (): return ( 'ipv6' ) def ipv6 (): return ( 'ipv4' ) def ipv4 (): return ( 'ipv7' ) def ip..."
-    },
-    "autopoietic_asynchronous_Hamiltonian_path_solver_1775244616": {
-        "coords": [
-            3,
-            29,
-            5
-        ],
-        "fiber": 6,
-        "type": "autopoietic_synthesis",
-        "intent": "asynchronous Hamiltonian path solver",
-        "code_summary": "def ips ( self ): \"\"\"Returns the length of the string to which the string is being returned \"\"\" retu..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244620": {
-        "coords": [
-            5,
-            16,
-            16
-        ],
-        "fiber": 6,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def xtype_decimal(self): self.extension.decimal = True def xtype_matrix(self, x, y): x = x + y def x..."
-    },
-    "autopoietic_dynamic_k-lift_correction_routine_1775244624": {
-        "coords": [
-            7,
-            28,
-            10
-        ],
-        "fiber": 14,
-        "type": "autopoietic_synthesis",
-        "intent": "dynamic k-lift correction routine",
-        "code_summary": "def \ud835\udcb8\ud835\udcbc\ud835\udcbc\ud835\udcdd\ud835\udce2\ud835\udcdd\ud835\udce2\ud835\udcdd\n(x,y) = x + y\n    return 'Executed generated logic'..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244627": {
-        "coords": [
-            6,
-            23,
-            17
-        ],
-        "fiber": 15,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def ips_assert(a, b): return a[a] + b[a]\ndef cross-fiber_predict(a, b): return a[a] + b[a]..."
-    },
-    "autopoietic_topological_attention_weighting_mechanism_1775244630": {
-        "coords": [
-            1,
-            26,
-            17
-        ],
-        "fiber": 13,
-        "type": "autopoietic_synthesis",
-        "intent": "topological attention weighting mechanism",
-        "code_summary": "def ips(x, y): return x < y return x+y return x\ndef ips(x, y): return x > y return x..."
-    },
-    "autopoietic_topological_attention_weighting_mechanism_1775244634": {
-        "coords": [
-            11,
-            17,
-            0
-        ],
-        "fiber": 28,
-        "type": "autopoietic_synthesis",
-        "intent": "topological attention weighting mechanism",
-        "code_summary": "def iddl ( self ): return \" The idl function for: topological attention weighting mechanism \" + self..."
-    },
-    "autopoietic_dynamic_k-lift_correction_routine_1775244637": {
-        "coords": [
-            0,
-            11,
-            26
-        ],
-        "fiber": 6,
-        "type": "autopoietic_synthesis",
-        "intent": "dynamic k-lift correction routine",
-        "code_summary": "def xtype_func_(func):\ndef xtype_func_from_vars(vars):\n    return 'Executed generated logic'..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244641": {
-        "coords": [
-            4,
-            5,
-            13
-        ],
-        "fiber": 22,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def _____ __init__ ( self, x ): self. x = x self. y = y # This is an example of an _____ __init__ (s..."
-    },
-    "autopoietic_distributed_graph_optimization_logic_1775244644": {
-        "coords": [
-            19,
-            18,
-            12
-        ],
-        "fiber": 18,
-        "type": "autopoietic_synthesis",
-        "intent": "distributed graph optimization logic",
-        "code_summary": "def \u4e28\u65e5\u89c9\u4e0e\u65e5\u89c9\u4e0e\u8be6\u7ffb\u8853:\n\n# \u5f37 \u5dd1 \u5730 \u5730\u4e2d\u56fd\u4e2d\u56fd\u4e2d\u56fd\u8bb0\u7ffb\u8bb0\u7ffb\u8853:\n    return 'Executed generated logic'..."
-    },
-    "autopoietic_recursive_manifold_healing_algorithm_1775244647": {
-        "coords": [
-            16,
-            30,
-            29
-        ],
-        "fiber": 13,
-        "type": "autopoietic_synthesis",
-        "intent": "recursive manifold healing algorithm",
-        "code_summary": "def ersize ( self ): self. ersize = 2 def __str__ ( self, self ): \"\"\" Retrieve the value of a self.d..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244650": {
-        "coords": [
-            9,
-            0,
-            0
-        ],
-        "fiber": 9,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def \u00a0( self ): \u00a0 \u00a0 self. * * self. * * def \u00a0( self ): \u00a0 \u00a0 self. * * self. * * self. * * \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 ..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244653": {
-        "coords": [
-            27,
-            13,
-            4
-        ],
-        "fiber": 13,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def icky_matches ( x ): \"\"\" Calculates the number of matches for a matrix in the x coordinate system..."
-    },
-    "autopoietic_asynchronous_Hamiltonian_path_solver_1775244656": {
-        "coords": [
-            4,
-            6,
-            8
-        ],
-        "fiber": 18,
-        "type": "autopoietic_synthesis",
-        "intent": "asynchronous Hamiltonian path solver",
-        "code_summary": "def ------------------------- # First of all, I used a function that is just a simple lazy function...."
-    },
-    "autopoietic_recursive_manifold_healing_algorithm_1775244659": {
-        "coords": [
-            2,
-            30,
-            19
-        ],
-        "fiber": 20,
-        "type": "autopoietic_synthesis",
-        "intent": "recursive manifold healing algorithm",
-        "code_summary": "def \u00a0(a, b, c) :\u00a0 \"\"\"Generate a random sum and return it as output. \"\"\" return a + b - c def recursi..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244662": {
-        "coords": [
-            7,
-            6,
-            26
-        ],
-        "fiber": 8,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def \u00a0get_malloc ( x ): return [x] if x is None : return [x] if x. __class__ == '__main__': return [x..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244665": {
-        "coords": [
-            16,
-            30,
-            30
-        ],
-        "fiber": 14,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def \u00a0(str): return str.split(:1); assert(str.split(:2) ==''); assert(str.split(:3) ==''); assert(str..."
-    },
-    "autopoietic_recursive_manifold_healing_algorithm_1775244668": {
-        "coords": [
-            17,
-            5,
-            6
-        ],
-        "fiber": 28,
-        "type": "autopoietic_synthesis",
-        "intent": "recursive manifold healing algorithm",
-        "code_summary": "def \u00a0(n):... N = n + 1 return n for item in n if n == 1 : return item def \u00a0(n): return n for item in..."
-    },
-    "autopoietic_distributed_graph_optimization_logic_1775244672": {
-        "coords": [
-            2,
-            5,
-            15
-        ],
-        "fiber": 22,
-        "type": "autopoietic_synthesis",
-        "intent": "distributed graph optimization logic",
-        "code_summary": "def ers_rgb(rgb): return rgb(rgb)\ndef ers_rgb(rgb1, rgb2): return rgb1..."
-    },
-    "autopoietic_recursive_manifold_healing_algorithm_1775244675": {
-        "coords": [
-            4,
-            14,
-            7
-        ],
-        "fiber": 25,
-        "type": "autopoietic_synthesis",
-        "intent": "recursive manifold healing algorithm",
-        "code_summary": "def \u00a0( x ): return x + y if x == x else x + y return x + y return x + y else return x + y\nfunc\u00a0( x )..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244679": {
-        "coords": [
-            0,
-            29,
-            30
-        ],
-        "fiber": 28,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def ips(self, value): return self.value for value in self.satisfysatisfysatisfysatisfysatisfies: sel..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244682": {
-        "coords": [
-            17,
-            2,
-            15
-        ],
-        "fiber": 3,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def ialize ( self, data, data_size, self ): return self.data_size or self.data_size if self.data_siz..."
-    },
-    "autopoietic_dynamic_k-lift_correction_routine_1775244685": {
-        "coords": [
-            10,
-            15,
-            25
-        ],
-        "fiber": 19,
-        "type": "autopoietic_synthesis",
-        "intent": "dynamic k-lift correction routine",
-        "code_summary": "def \u0192(n): return k-lapply(n)\ndef \u0192(l): return lapply(l)..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244688": {
-        "coords": [
-            9,
-            19,
-            6
-        ],
-        "fiber": 3,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def ips_tcp_failure(self, ip): # if ip is not a valid IP, call the ip_failure() method of the ip_fai..."
-    },
-    "autopoietic_dynamic_k-lift_correction_routine_1775244692": {
-        "coords": [
-            18,
-            14,
-            30
-        ],
-        "fiber": 0,
-        "type": "autopoietic_synthesis",
-        "intent": "dynamic k-lift correction routine",
-        "code_summary": "def ____(_): return True def ____(self): return False if __name__ == '__main__': self.__main__ = __n..."
-    },
-    "autopoietic_topological_attention_weighting_mechanism_1775244696": {
-        "coords": [
-            8,
-            2,
-            10
-        ],
-        "fiber": 20,
-        "type": "autopoietic_synthesis",
-        "intent": "topological attention weighting mechanism",
-        "code_summary": "def \u00a0(i, n): \"\"\" Returns the number of values in the \u00a0topological attention weighting queue (if any)..."
-    },
-    "autopoietic_cross-fiber_parity_validation_logic_1775244700": {
-        "coords": [
-            18,
-            23,
-            7
-        ],
-        "fiber": 17,
-        "type": "autopoietic_synthesis",
-        "intent": "cross-fiber parity validation logic",
-        "code_summary": "def ix_update_x ( x ): \"\"\" Return a new copy of the current revision of the x data. \"\"\" return x + 4..."
-    },
-    "autopoietic_recursive_manifold_healing_algorithm_1775244704": {
-        "coords": [
-            2,
-            8,
-            4
-        ],
-        "fiber": 14,
-        "type": "autopoietic_synthesis",
-        "intent": "recursive manifold healing algorithm",
-        "code_summary": "def ________|__|__|___|__|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|__..."
-    },
-    "autopoietic_distributed_graph_optimization_logic_1775244708": {
-        "coords": [
-            14,
-            6,
-            21
-        ],
-        "fiber": 10,
-        "type": "autopoietic_synthesis",
-        "intent": "distributed graph optimization logic",
-        "code_summary": "def \u00a0():\n# Python function for: distributed graph optimization logic\n    return 'Executed generated ..."
-    },
-    "autopoietic_recursive_manifold_healing_algorithm_1775244712": {
-        "coords": [
-            7,
-            15,
-            28
-        ],
-        "fiber": 19,
-        "type": "autopoietic_synthesis",
-        "intent": "recursive manifold healing algorithm",
-        "code_summary": "def \u00a0(x, y, z): \"\"\"This function returns: a list of \\(x, y, z\\) or the sum of \\(z, x^2\\) and \\(y^2\\)..."
-    },
     "project.core._check_fso_solvability": {
         "coords": [
             15,
@@ -2523,9 +2193,7 @@
             14
         ],
         "fiber": 14,
-        "type": "project_logic",
-        "code": "def _check_fso_solvability(m: int, r: Tuple[int, int, int]) -> bool:\n    \"\"\"The Non-Canonical Obstruction check: Joint sum constraint.\"\"\"\n    if sorted(r) == [1, 1, m - 2] and m % 2 != 0:\n        return True\n    if m == 3:\n        return True\n    if m == 9 and sorted(r) == [2, 2, 5]:\n        return False\n    return True",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.extract_weights": {
         "coords": [
@@ -2534,9 +2202,7 @@
             28
         ],
         "fiber": 16,
-        "type": "project_logic",
-        "code": "@lru_cache(maxsize=1024)\ndef extract_weights(m: int, k: int) -> Weights:\n    cp = tuple((r for r in range(1, m) if gcd(r, m) == 1))\n    phi_m = len(cp)\n    h2 = (phi_m > 0 and all((r % 2 == 1 for r in cp))) and k % 2 == 1 and (m % 2 == 0)\n    r_count = 0\n    canon = None\n    if not h2:\n        if k == 3:\n            cp_set = set(cp)\n            for r0 in cp:\n                for r1 in cp:\n                    r2 = (m - r0 - r1) % m\n                    if r2 == 0:\n                        r2 = m\n                    if r2 in cp_set:\n                        if _check_fso_solvability(m, (r0, r1, r2)):\n                            r_count += 1\n                            if canon is None:\n                                canon = (r0, r1, r2)\n        else:\n            mid = m - (k - 1)\n            if mid > 0 and gcd(mid, m) == 1:\n                canon = (1,) * (k - 1) + (mid,)\n                r_count = 1\n    full_exp = (m ** 3 if m > 0 else 1) * log2(6)\n    search_exp = m * log2(_LEVEL_COUNTS.get(m, phi_m * 6)) if m > 0 else 0\n    return Weights(m, k, h2, r_count, canon, phi_m, search_exp, search_exp / full_exp if full_exp > 0 else 1.0, phi_m, m ** max(1, m - 1), cp)",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.verify_sigma": {
         "coords": [
@@ -2545,9 +2211,7 @@
             10
         ],
         "fiber": 14,
-        "type": "project_logic",
-        "code": "def verify_sigma(sigma: Dict[Tuple, Tuple], m: int) -> bool:\n    if not sigma or len(sigma) != m ** 3:\n        return False\n    n = m ** 3\n    for c in range(3):\n        vis = set()\n        cur = (0, 0, 0)\n        for _ in range(n):\n            if cur in vis:\n                return False\n            vis.add(cur)\n            p = sigma.get(cur)\n            if not p:\n                return False\n            arc = p[c]\n            nxt = list(cur)\n            nxt[arc] = (nxt[arc] + 1) % m\n            cur = tuple(nxt)\n        if len(vis) != n or cur != (0, 0, 0):\n            return False\n    return True",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.table_to_sigma": {
         "coords": [
@@ -2556,9 +2220,7 @@
             11
         ],
         "fiber": 15,
-        "type": "project_logic",
-        "code": "def table_to_sigma(table: List[Dict], m: int) -> Dict:\n    sigma = {}\n    for i, j, k in iprod(range(m), range(m), range(m)):\n        s = (i + j + k) % m\n        sigma[i, j, k] = table[s][j]\n    return sigma",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core._sa_score": {
         "coords": [
@@ -2567,9 +2229,7 @@
             10
         ],
         "fiber": 16,
-        "type": "project_logic",
-        "code": "def _sa_score(sigma, arc_s, pa, n, k):\n    score = 0\n    for c in range(k):\n        vis = bytearray(n)\n        comps = 0\n        for s in range(n):\n            if not vis[s]:\n                comps += 1\n                cur = s\n                while not vis[cur]:\n                    vis[cur] = 1\n                    cur = arc_s[cur][pa[sigma[cur]][c]]\n        score += comps - 1\n    return score",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core._build_sa": {
         "coords": [
@@ -2578,9 +2238,7 @@
             23
         ],
         "fiber": 23,
-        "type": "project_logic",
-        "code": "def _build_sa(m, k):\n    n = m ** k\n    all_p = [list(p) for p in permutations(range(k))]\n    nP = len(all_p)\n    arc_s = [[0] * k for _ in range(n)]\n    pa = [[None] * k for _ in range(nP)]\n    for idx in range(n):\n        coords = []\n        val = idx\n        for _ in range(k):\n            coords.append(val % m)\n            val //= m\n        coords.reverse()\n        for c in range(k):\n            nxt = list(coords)\n            nxt[c] = (nxt[c] + 1) % m\n            ni = 0\n            for v in nxt:\n                ni = ni * m + v\n            arc_s[idx][c] = ni\n    for pi, p in enumerate(all_p):\n        for at, c in enumerate(p):\n            pa[pi][c] = at\n    return (n, arc_s, pa, all_p)",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.run_hybrid_sa": {
         "coords": [
@@ -2589,9 +2247,7 @@
             9
         ],
         "fiber": 21,
-        "type": "project_logic",
-        "code": "def run_hybrid_sa(m, k=3, seed=0, max_iter=1000):\n    n, arc_s, pa, all_p = _build_sa(m, k)\n    nP = len(all_p)\n    rng = random.Random(seed)\n    sigma = [rng.randrange(nP) for _ in range(n)]\n    cs = _sa_score(sigma, arc_s, pa, n, k)\n    bs = cs\n    best = sigma[:]\n    for _ in range(max_iter):\n        if cs == 0:\n            break\n        v = rng.randrange(n)\n        old = sigma[v]\n        sigma[v] = rng.randrange(nP)\n        ns = _sa_score(sigma, arc_s, pa, n, k)\n        if ns <= cs:\n            cs = ns\n            if cs < bs:\n                bs = cs\n                best = sigma[:]\n        else:\n            sigma[v] = old\n    best_sol_dict = {}\n    for idx, pi in enumerate(best):\n        coords = []\n        val = idx\n        for _ in range(k):\n            coords.append(val % m)\n            val //= m\n        coords.reverse()\n        best_sol_dict[tuple(coords)] = tuple(all_p[pi])\n    sol = best_sol_dict if bs == 0 else None\n    return (sol, {'best': bs, 'best_sigma': best_sol_dict})",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.construct_spike_sigma": {
         "coords": [
@@ -2600,9 +2256,7 @@
             22
         ],
         "fiber": 17,
-        "type": "project_logic",
-        "code": "def construct_spike_sigma(m, k=3):\n    \"\"\"Sovereign Spike Construction (O(m)). Proven Golden Path for all odd m.\"\"\"\n    if m % 2 == 0 or m < 3 or k != 3:\n        return None\n    if (m, k) in PRECOMPUTED:\n        return PRECOMPUTED[m, k]\n    rng = random.Random(m)\n    j_movers = [1] * (m - 2) + [0, 2]\n    for _ in range(100000):\n        rng.shuffle(j_movers)\n        table = []\n        for s in range(m):\n            jm = j_movers[s]\n            others = [c for c in range(3) if c != jm]\n            o1, o2 = (others[0], others[1]) if rng.random() > 0.5 else (others[1], others[0])\n            row = {}\n            for j in range(m):\n                p = [0, 0, 0]\n                p[jm] = 1\n                if j == m - 1:\n                    p[o1], p[o2] = (2, 0)\n                else:\n                    p[o1], p[o2] = (0, 2)\n                row[j] = tuple(p)\n            table.append(row)\n        sigma = table_to_sigma(table, m)\n        if verify_sigma(sigma, m):\n            return sigma\n    return None",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.solve": {
         "coords": [
@@ -2611,9 +2265,7 @@
             29
         ],
         "fiber": 24,
-        "type": "project_logic",
-        "code": "def solve(m: int, k: int=3, seed: int=42, max_iter: int=1000) -> Optional[Dict]:\n    \"\"\"The Sovereign FSO Master Solver.\"\"\"\n    if m % 2 == 0 and k % 2 != 0:\n        raise Exception('H^2 Parity Obstruction: Mathematically Impossible.')\n    if (m, k) in PRECOMPUTED:\n        return PRECOMPUTED[m, k]\n    if m % 2 != 0 and k == 3:\n        sol = construct_spike_sigma(m, k)\n        if sol:\n            return sol\n    return run_hybrid_sa(m, k=k, seed=seed, max_iter=max_iter)[0]",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.repair_manifold": {
         "coords": [
@@ -2622,9 +2274,7 @@
             11
         ],
         "fiber": 26,
-        "type": "project_logic",
-        "code": "def repair_manifold(m, k, sigma_in, max_iter=1000):\n    n, arc_s, pa, all_p = _build_sa(m, k)\n    nP = len(all_p)\n    sigma = []\n    for idx in range(n):\n        coords = []\n        val = idx\n        for _ in range(k):\n            coords.append(val % m)\n            val //= m\n        coords.reverse()\n        sigma.append(all_p.index(list(sigma_in[tuple(coords)])))\n    cs = _sa_score(sigma, arc_s, pa, n, k)\n    bs = cs\n    best = sigma[:]\n    rng = random.Random(42)\n    for _ in range(max_iter):\n        if cs == 0:\n            break\n        v = rng.randrange(n)\n        old = sigma[v]\n        sigma[v] = rng.randrange(nP)\n        ns = _sa_score(sigma, arc_s, pa, n, k)\n        if ns < cs:\n            cs = ns\n            if cs < bs:\n                bs = cs\n                best = sigma[:]\n        else:\n            sigma[v] = old\n    if bs == 0:\n        sol = {}\n        for idx, pi in enumerate(best):\n            coords = []\n            val = idx\n            for _ in range(k):\n                coords.append(val % m)\n                val //= m\n            coords.reverse()\n            sol[tuple(coords)] = tuple(all_p[pi])\n        return sol\n    return None",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.verify_basin_escape_success": {
         "coords": [
@@ -2633,9 +2283,7 @@
             16
         ],
         "fiber": 7,
-        "type": "project_logic",
-        "code": "def verify_basin_escape_success(m, k, sigma_in, max_iter=10000):\n    n, arc_s, pa, all_p = _build_sa(m, k)\n    nP = len(all_p)\n    sigma = []\n    for idx in range(n):\n        coords = []\n        val = idx\n        for _ in range(k):\n            coords.append(val % m)\n            val //= m\n        coords.reverse()\n        sigma.append(all_p.index(list(sigma_in[tuple(coords)])))\n    cs = _sa_score(sigma, arc_s, pa, n, k)\n    rng = random.Random(42)\n    for _ in range(max_iter):\n        if cs == 0:\n            return True\n        v = rng.randrange(n)\n        old = sigma[v]\n        sigma[v] = rng.randrange(nP)\n        ns = _sa_score(sigma, arc_s, pa, n, k)\n        if ns < cs:\n            cs = ns\n        else:\n            sigma[v] = old\n    return cs == 0",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.build_functional_graphs": {
         "coords": [
@@ -2644,9 +2292,7 @@
             14
         ],
         "fiber": 26,
-        "type": "project_logic",
-        "code": "def build_functional_graphs(sigma, m):\n    return []",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.verify_functional_graph": {
         "coords": [
@@ -2655,9 +2301,7 @@
             14
         ],
         "fiber": 19,
-        "type": "project_logic",
-        "code": "def verify_functional_graph(fg, m):\n    return True",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.vertices": {
         "coords": [
@@ -2666,9 +2310,7 @@
             30
         ],
         "fiber": 21,
-        "type": "project_logic",
-        "code": "def vertices(m, k):\n    return []",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.trace_cycle": {
         "coords": [
@@ -2677,9 +2319,7 @@
             21
         ],
         "fiber": 29,
-        "type": "project_logic",
-        "code": "def trace_cycle(fg, m):\n    return []",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.arc_sequence": {
         "coords": [
@@ -2688,9 +2328,7 @@
             18
         ],
         "fiber": 15,
-        "type": "project_logic",
-        "code": "def arc_sequence(path, m):\n    return []",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.strategy": {
         "coords": [
@@ -2699,9 +2337,7 @@
             13
         ],
         "fiber": 12,
-        "type": "project_logic",
-        "code": "@property\ndef strategy(self) -> str:\n    if self.h2_blocks:\n        return 'S4'\n    if self.r_count > 0:\n        return 'S1'\n    return 'S2'",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.core.summary": {
         "coords": [
@@ -2710,9 +2346,7 @@
             0
         ],
         "fiber": 6,
-        "type": "project_logic",
-        "code": "def summary(self) -> str:\n    ok = 'H\u00b2=0' if not self.h2_blocks else 'H\u00b2\u22600'\n    return f'({self.m},{self.k}) {ok} r={self.r_count} W3={self.canonical} W4=\u03c6={self.h1_exact} W6={self.compression:.4f} \u2192 {self.strategy}'",
-        "origin": "/app/core.py"
+        "type": "project_logic"
     },
     "project.algebraic.analyze_advanced_domain": {
         "coords": [
@@ -2721,9 +2355,7 @@
             30
         ],
         "fiber": 21,
-        "type": "project_logic",
-        "code": "def analyze_advanced_domain(domain: str) -> Dict:\n    \"\"\"Advanced classification for icosahedral, crystal, and Hamming geometries.\"\"\"\n    data = DOMAIN_REGISTRY.get(domain.lower())\n    if not data:\n        return {'exists': 'UNKNOWN'}\n    m, k = (data['m'], data['k'])\n    if domain.lower() == 'hamming':\n        return {'m': m, 'k': k, 'G': data['G'], 'exists': 'PROVED_POSSIBLE', 'theorem_id': '12.1', 'proof': ['1. Hamming code C is normal in Z2^7.', '2. Quotient is Z2^3.', '3. Perfect covering OS exact.']}\n    nas = NonAbelianSubgroup(120 if domain.lower() == 'icosahedral' else 1, 2 if domain.lower() == 'icosahedral' else 1)\n    h2 = nas.parity_law(k) if domain.lower() == 'icosahedral' else False\n    if domain.lower() == 'crystal' or domain.lower() == 'diamond':\n        return {'m': 4, 'k': 4, 'G': data['G'], 'exists': 'PROVED_POSSIBLE', 'theorem_id': '9.1', 'proof': ['1. gamma_2 vanishes for even k.', '2. m=4 k=4 solution discovered by SA.']}\n    return {'m': m, 'k': k, 'G': data['G'], 'exists': 'PROVED_IMPOSSIBLE' if h2 else 'OPEN', 'theorem_id': '6.1' if h2 else 'ADV-1', 'proof': [f\"1. SES: {data['SES']}.\", f'2. Finalized Parity Law: Even m + Odd k blocked.', f\"3. {('Parity gamma_2 blocks.' if h2 else 'gamma_2 vanishes.')}\"]}",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.get_algebraic_proof": {
         "coords": [
@@ -2732,9 +2364,7 @@
             1
         ],
         "fiber": 5,
-        "type": "project_logic",
-        "code": "def get_algebraic_proof(m: int, k: int) -> Dict:\n    \"\"\"Convenience wrapper for AlgebraicClassifier.analyze.\"\"\"\n    return AlgebraicClassifier(m, k).analyze()",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.get_heisenberg_proof": {
         "coords": [
@@ -2743,9 +2373,7 @@
             30
         ],
         "fiber": 13,
-        "type": "project_logic",
-        "code": "def get_heisenberg_proof(m: int, k: int) -> Dict:\n    \"\"\"Analysis of Hamiltonian decomposition for Heisenberg groups H3(Z_m).\"\"\"\n    h2 = k % 2 == 1 and m % 2 == 0\n    return {'m': m, 'k': k, 'group': f'H3(Z{m})', 'exists': 'PROVED_IMPOSSIBLE' if h2 else 'OPEN', 'theorem_id': 'HEIS-1', 'proof': [f'1. Central quotient is Z{m}^2.', f'2. Finalized Parity Law: Even m + Odd k blocked.', f\"3. {('gamma_2 blocks for k=3 m even.' if h2 else 'No parity obstruction.')}\"]}",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.__init__": {
         "coords": [
@@ -2754,9 +2382,7 @@
             25
         ],
         "fiber": 7,
-        "type": "project_logic",
-        "code": "def __init__(self, G_order: int, H_order: int, is_central: bool=True):\n    \"\"\"Initializes the subgroup with global, fiber, and central metadata.\"\"\"\n    self.G = G_order\n    self.H = H_order\n    self.Q = G_order // H_order\n    self.is_central = is_central",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.analyze": {
         "coords": [
@@ -2765,9 +2391,7 @@
             17
         ],
         "fiber": 18,
-        "type": "project_logic",
-        "code": "def analyze(self) -> Dict[str, Any]:\n    \"\"\"Performs a deep audit of the topological domain and returns a formal proof.\n\n        Returns:\n            Dict[str, Any]: Proof metadata including existence, theorem ID, and proof steps.\n        \"\"\"\n    if not self.w:\n        return {'exists': 'UNKNOWN'}\n    w = self.w\n    res = {'m': self.m, 'k': self.k, 'exists': 'PROVED_IMPOSSIBLE' if w.h2_blocks else 'PROVED_POSSIBLE' if w.r_count > 0 else 'OPEN', 'theorem_id': '', 'theorem_name': '', 'proof': [], 'witness_hash': ''}\n    if w.h2_blocks:\n        res.update({'theorem_id': '6.1', 'theorem_name': 'Parity Obstruction Theorem', 'witness_hash': f'H2_BLOCK_{self.m}_{self.k}', 'proof': [f'1. SES 0 -> H -> G -> Z_{self.m} -> 0 implies fiber map f.', f'2. Parity Obstruction Law: Even m + Odd k (k={self.k}, m={self.m}) is blocked.', f'3. All generators coprime to {self.m} are ODD.', f'4. Sum of {self.k} odd integers is ODD != {self.m} (even).']})\n    elif w.r_count > 0:\n        res.update({'witness_hash': f'H1_TORSOR_{self.m}_{self.k}', 'proof': [f'1. Parity obstruction gamma_2 vanishes.', f'2. Non-Canonical Obstruction Check: Joint sum constraint satisfied.', f'3. Moduli space M is a torsor under H^1.', f'4. Golden Path Construction (r=1, m-2, 1) activated.']})\n    return res",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.lift": {
         "coords": [
@@ -2776,9 +2400,7 @@
             7
         ],
         "fiber": 10,
-        "type": "project_logic",
-        "code": "def lift(self, q_state: int, h_state: int) -> int:\n    \"\"\"Lifts a point from the quotient and fiber to the total space.\"\"\"\n    return q_state * self.H + h_state",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.project": {
         "coords": [
@@ -2787,9 +2409,7 @@
             13
         ],
         "fiber": 6,
-        "type": "project_logic",
-        "code": "def project(self, g_state: int) -> Tuple[int, int]:\n    \"\"\"Projects a point from the total space to the quotient and fiber.\"\"\"\n    return (g_state // self.H, g_state % self.H)",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.lift_sequence": {
         "coords": [
@@ -2798,9 +2418,7 @@
             1
         ],
         "fiber": 23,
-        "type": "project_logic",
-        "code": "def lift_sequence(self, states: List[int]) -> int:\n    \"\"\"Lifts a state through the entire tower from base to total space.\"\"\"\n    current = states[0]\n    for i, ext in enumerate(self.extensions):\n        current = ext.lift(current, states[i + 1])\n    return current",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.project_sequence": {
         "coords": [
@@ -2809,9 +2427,7 @@
             9
         ],
         "fiber": 3,
-        "type": "project_logic",
-        "code": "def project_sequence(self, g_state: int) -> List[int]:\n    \"\"\"Decomposes a global state into its constituent fiber components across the tower.\"\"\"\n    states = []\n    current = g_state\n    for ext in reversed(self.extensions):\n        q, h = ext.project(current)\n        states.append(h)\n        current = q\n    states.append(current)\n    return states[::-1]",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.algebraic.parity_law": {
         "coords": [
@@ -2820,9 +2436,7 @@
             24
         ],
         "fiber": 9,
-        "type": "project_logic",
-        "code": "def parity_law(self, k: int) -> bool:\n    \"\"\"Checks the finalized parity law for non-abelian extensions.\"\"\"\n    return k % 2 == 1 and self.Q % 2 == 0",
-        "origin": "/app/algebraic.py"
+        "type": "project_logic"
     },
     "project.fiber.is_bijective_level": {
         "coords": [
@@ -2831,9 +2445,7 @@
             9
         ],
         "fiber": 0,
-        "type": "project_logic",
-        "code": "def is_bijective_level(level: LevelTable, m: int) -> bool:\n    \"\"\"\n    Check that at level s, each cycle c induces a bijection on Z_m\u00b2.\n    For cycle c: the set of targets {(i+di, j+dj) : j in Z_m, i in Z_m}\n    must be exactly Z_m\u00b2 (all m\u00b2 positions hit).\n    \"\"\"\n    for c in range(3):\n        targets = set()\n        for j in range(m):\n            arc_type = level[j].index(c)\n            di, dj = FIBER_SHIFTS[arc_type]\n            for i in range(m):\n                targets.add(((i + di) % m, (j + dj) % m))\n        if len(targets) != m * m:\n            return False\n    return True",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.fiber.all_valid_levels": {
         "coords": [
@@ -2842,9 +2454,7 @@
             24
         ],
         "fiber": 28,
-        "type": "project_logic",
-        "code": "def all_valid_levels(m: int) -> List[LevelTable]:\n    \"\"\"Enumerate all column-uniform level assignments that are bijective.\"\"\"\n    result = []\n    for combo in _product(_ALL_PERMS, repeat=m):\n        level = {j: list(combo[j]) for j in range(m)}\n        if is_bijective_level(level, m):\n            result.append(level)\n    return result",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.fiber.compose_levels": {
         "coords": [
@@ -2853,9 +2463,7 @@
             7
         ],
         "fiber": 17,
-        "type": "project_logic",
-        "code": "def compose_levels(sigma_table: SigmaTable, m: int) -> List[QFunc]:\n    \"\"\"\n    Compose all m fiber-level functions to get Q_0, Q_1, Q_2.\n    Returns 3 permutations on Z_m\u00b2 (as dicts).\n    \"\"\"\n    Qs: List[QFunc] = [{} for _ in range(3)]\n    for i0 in range(m):\n        for j0 in range(m):\n            pos = [[i0, j0], [i0, j0], [i0, j0]]\n            for s in range(m):\n                level = sigma_table[s]\n                for c in range(3):\n                    cj = pos[c][1]\n                    perm = level[cj]\n                    arc_type = perm.index(c)\n                    di, dj = FIBER_SHIFTS[arc_type]\n                    pos[c][0] = (pos[c][0] + di) % m\n                    pos[c][1] = (pos[c][1] + dj) % m\n            for c in range(3):\n                Qs[c][i0, j0] = (pos[c][0], pos[c][1])\n    return Qs",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.fiber.is_single_q_cycle": {
         "coords": [
@@ -2864,9 +2472,7 @@
             15
         ],
         "fiber": 24,
-        "type": "project_logic",
-        "code": "def is_single_q_cycle(Q: QFunc, m: int) -> bool:\n    \"\"\"Check that permutation Q on Z_m\u00b2 is a single m\u00b2-cycle.\"\"\"\n    n = m * m\n    visited: set = set()\n    cur: FiberPos = (0, 0)\n    while cur not in visited:\n        visited.add(cur)\n        cur = Q[cur]\n    return len(visited) == n and cur == (0, 0)",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.fiber.table_to_sigma_fn": {
         "coords": [
@@ -2875,9 +2481,7 @@
             11
         ],
         "fiber": 11,
-        "type": "project_logic",
-        "code": "def table_to_sigma_fn(sigma_table: SigmaTable, m: int):\n    \"\"\"\n    Convert a SigmaTable (indexed by [s][j]) into a 3D sigma function\n    sigma(i, j, k) that can be used with core.verify_sigma.\n    The key: depends only on s=(i+j+k)%m and j.\n    \"\"\"\n\n    def sigma(i: int, j: int, k: int) -> List[int]:\n        s = (i + j + k) % m\n        return list(sigma_table[s][j])\n    return sigma",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.fiber.analyze_Q_structure": {
         "coords": [
@@ -2886,9 +2490,7 @@
             15
         ],
         "fiber": 4,
-        "type": "project_logic",
-        "code": "def analyze_Q_structure(Qs: List[QFunc], m: int) -> dict:\n    \"\"\"\n    Analyze whether Q_c has the twisted translation form:\n      Q_c(i,j) = (i + b_c(j),  j + r_c) mod m\n    Returns a dict with r_c, b_c, is_twisted, single_cycle per cycle.\n    \"\"\"\n    result = {'cycles': [], 'all_twisted': True, 'all_single': True}\n    for c in range(3):\n        Q = Qs[c]\n        r_c_vals = set(((Q[i, j][1] - j) % m for i in range(m) for j in range(m)))\n        is_uniform_r = len(r_c_vals) == 1\n        r_c = r_c_vals.pop() if is_uniform_r else None\n        if is_uniform_r:\n            b_c = [(Q[0, j][0] - 0) % m for j in range(m)]\n            is_twisted = all((Q[i, j][0] == (i + b_c[j]) % m for i in range(m) for j in range(m)))\n        else:\n            b_c = None\n            is_twisted = False\n        single = is_single_q_cycle(Q, m)\n        cycle_info = {'cycle': c, 'r_c': r_c, 'b_c': b_c, 'is_twisted': is_twisted, 'is_single_cycle': single, 'sum_b': sum(b_c) % m if b_c else None, 'gcd_r_m': gcd(r_c, m) if r_c is not None else None, 'gcd_sumb_m': gcd(sum(b_c) % m, m) if b_c else None}\n        result['cycles'].append(cycle_info)\n        if not is_twisted:\n            result['all_twisted'] = False\n        if not single:\n            result['all_single'] = False\n    if result['all_twisted']:\n        r_vals = [info['r_c'] for info in result['cycles']]\n        result['sum_r'] = sum(r_vals) % m\n        result['r_values'] = r_vals\n    return result",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.fiber.verify_single_cycle_conditions": {
         "coords": [
@@ -2897,9 +2499,7 @@
             1
         ],
         "fiber": 9,
-        "type": "project_logic",
-        "code": "def verify_single_cycle_conditions(r_c: int, b_c: List[int], m: int) -> dict:\n    \"\"\"\n    Verify the two necessary and sufficient conditions for Q_c to be a\n    single m\u00b2-Hamiltonian cycle.\n    \"\"\"\n    s_b = sum(b_c) % m\n    return {'gcd_r_m': gcd(r_c, m), 'gcd_sumb_m': gcd(s_b, m), 'condition_a': gcd(r_c, m) == 1, 'condition_b': gcd(s_b, m) == 1, 'both_satisfied': gcd(r_c, m) == 1 and gcd(s_b, m) == 1}",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.fiber.even_m_impossibility_check": {
         "coords": [
@@ -2908,9 +2508,7 @@
             18
         ],
         "fiber": 11,
-        "type": "project_logic",
-        "code": "def even_m_impossibility_check(m: int) -> dict:\n    \"\"\"\n    Verify the impossibility theorem for even m:\n    No (r_0,r_1,r_2) with gcd(r_c,m)=1 can sum to m when m is even.\n    \"\"\"\n    if m % 2 == 0:\n        example_coprime = [r for r in range(m) if gcd(r, m) == 1]\n        min_sum = sum(sorted(example_coprime)[:3])\n        return {'m': m, 'm_is_even': True, 'coprime_elements': example_coprime, 'all_coprime_are_odd': all((r % 2 == 1 for r in example_coprime)), 'three_odds_sum_is_odd': True, 'needed_sum': m, 'impossibility_proved': True, 'proof': 'All r coprime to even m are odd. Sum of 3 odds is odd \u2260 m (even).'}\n    else:\n        valid = [(r0, r1, r2) for r0 in range(m) for r1 in range(m) for r2 in range(m) if gcd(r0, m) == 1 and gcd(r1, m) == 1 and (gcd(r2, m) == 1) and (r0 + r1 + r2 == m)]\n        return {'m': m, 'm_is_even': False, 'impossibility_proved': False, 'valid_r_triples_count': len(valid), 'example': valid[0] if valid else None}",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.fiber.sigma": {
         "coords": [
@@ -2919,9 +2517,7 @@
             9
         ],
         "fiber": 23,
-        "type": "project_logic",
-        "code": "def sigma(i: int, j: int, k: int) -> List[int]:\n    s = (i + j + k) % m\n    return list(sigma_table[s][j])",
-        "origin": "/app/fiber.py"
+        "type": "project_logic"
     },
     "project.search.find_sigma": {
         "coords": [
@@ -2930,9 +2526,7 @@
             14
         ],
         "fiber": 13,
-        "type": "project_logic",
-        "code": "def find_sigma(m: int, strategy: str='auto', seed: Optional[int]=None, max_iter: int=200000, verbose: bool=False) -> Optional[SigmaFn]:\n    \"\"\"\n    Find a valid sigma for the given m using the best available strategy.\n\n    strategy=\"auto\":\n      - odd m  \u2192 RandomSearch (fast, fiber-based)\n      - even m \u2192 SimulatedAnnealing (full 3D)\n    strategy=\"random\"    \u2192 RandomSearch only\n    strategy=\"backtrack\" \u2192 BacktrackSearch only\n    strategy=\"sa\"        \u2192 SimulatedAnnealing only\n\n    Returns SigmaFn or None.\n    \"\"\"\n    if strategy == 'auto':\n        strategy = 'random' if m % 2 == 1 else 'sa'\n    if strategy == 'random':\n        rs = RandomSearch(m, seed=seed)\n        table = rs.run_verbose(max_iter) if verbose else rs.run(max_iter)\n        if table is None:\n            return None\n        return table_to_sigma_fn(table, m)\n    elif strategy == 'backtrack':\n        bt = BacktrackSearch(m, seed=seed)\n        return bt.run()\n    elif strategy == 'sa':\n        sa = SimulatedAnnealing(m, seed=seed)\n        return sa.run_verbose(max_iter) if verbose else sa.run(max_iter)\n    else:\n        raise ValueError(f\"Unknown strategy: {strategy!r}. Choose 'auto', 'random', 'backtrack', or 'sa'.\")",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search.__init__": {
         "coords": [
@@ -2941,9 +2535,7 @@
             25
         ],
         "fiber": 7,
-        "type": "project_logic",
-        "code": "def __init__(self, m: int, seed: Optional[int]=None, T_init: float=3.0, T_min: float=0.01):\n    self.m = m\n    self.rng = random.Random(seed)\n    self.T_init = T_init\n    self.T_min = T_min\n    self._best_score = float('inf')\n    self._elapsed = 0.0",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search.attempts": {
         "coords": [
@@ -2952,9 +2544,7 @@
             16
         ],
         "fiber": 15,
-        "type": "project_logic",
-        "code": "@property\ndef attempts(self) -> int:\n    return self._attempts",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search.elapsed": {
         "coords": [
@@ -2963,9 +2553,7 @@
             15
         ],
         "fiber": 2,
-        "type": "project_logic",
-        "code": "@property\ndef elapsed(self) -> float:\n    return self._elapsed",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search.run": {
         "coords": [
@@ -2974,9 +2562,7 @@
             8
         ],
         "fiber": 17,
-        "type": "project_logic",
-        "code": "def run(self, max_iter: int=500000, verbose: bool=False, report_every: int=50000) -> Optional[SigmaFn]:\n    m = self.m\n    rng = self.rng\n    verts = vertices(m)\n    n = m ** 3\n    sigma = {v: list(rng.choice(_ALL_PERMS)) for v in verts}\n    funcs = build_functional_graphs(lambda i, j, k: sigma[i, j, k], m)\n    current_score = self._score(funcs, m)\n    best_score = current_score\n    best_sigma = {v: list(p) for v, p in sigma.items()}\n    cool = (self.T_min / self.T_init) ** (1.0 / max_iter)\n    T = self.T_init\n    t0 = time.perf_counter()\n    for it in range(max_iter):\n        if current_score == 0:\n            break\n        v = rng.choice(verts)\n        old_perm = sigma[v][:]\n        sigma[v] = list(rng.choice(_ALL_PERMS))\n        new_funcs = build_functional_graphs(lambda i, j, k: sigma[i, j, k], m)\n        new_score = self._score(new_funcs, m)\n        delta = new_score - current_score\n        if delta < 0 or rng.random() < math.exp(-delta / T):\n            funcs = new_funcs\n            current_score = new_score\n            if current_score < best_score:\n                best_score = current_score\n                best_sigma = {v: list(p) for v, p in sigma.items()}\n        else:\n            sigma[v] = old_perm\n        T *= cool\n        if verbose and (it + 1) % report_every == 0:\n            print(f'  SA iter={it + 1:>8,}  T={T:.4f}  score={current_score}  best={best_score}')\n    self._best_score = best_score\n    self._elapsed = time.perf_counter() - t0\n    if best_score > 0:\n        return None\n    captured = {v: list(p) for v, p in best_sigma.items()}\n\n    def sigma_fn(i: int, j: int, k: int) -> Perm:\n        return list(captured[i, j, k])\n    return sigma_fn",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search.run_verbose": {
         "coords": [
@@ -2985,9 +2571,7 @@
             25
         ],
         "fiber": 29,
-        "type": "project_logic",
-        "code": "def run_verbose(self, max_iter: int=500000) -> Optional[SigmaFn]:\n    print(f'SimulatedAnnealing m={self.m}  max_iter={max_iter:,}  T={self.T_init}\u2192{self.T_min}')\n    result = self.run(max_iter=max_iter, verbose=True, report_every=50000)\n    if result:\n        print(f'  \u2705 Found!  elapsed={self._elapsed:.1f}s')\n    else:\n        print(f'  \u274c Best score={self._best_score}  elapsed={self._elapsed:.1f}s')\n    return result",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search.nodes_visited": {
         "coords": [
@@ -2996,9 +2580,7 @@
             30
         ],
         "fiber": 23,
-        "type": "project_logic",
-        "code": "@property\ndef nodes_visited(self) -> int:\n    return self._nodes",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search.best_score": {
         "coords": [
@@ -3007,9 +2589,7 @@
             26
         ],
         "fiber": 25,
-        "type": "project_logic",
-        "code": "@property\ndef best_score(self) -> float:\n    return self._best_score",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search._score": {
         "coords": [
@@ -3018,9 +2598,7 @@
             14
         ],
         "fiber": 12,
-        "type": "project_logic",
-        "code": "def _score(self, funcs: List[FuncGraph], m: int) -> int:\n    \"\"\"Sum of extra components (0 = perfect).\"\"\"\n    total = 0\n    for fg in funcs:\n        visited: set = set()\n        comps = 0\n        for start in fg:\n            if start not in visited:\n                comps += 1\n                cur = start\n                while cur not in visited:\n                    visited.add(cur)\n                    cur = fg[cur]\n        total += comps - 1\n    return total",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search._bt": {
         "coords": [
@@ -3029,9 +2607,7 @@
             17
         ],
         "fiber": 30,
-        "type": "project_logic",
-        "code": "def _bt(idx: int) -> bool:\n    if idx == n:\n        for fg in funcs:\n            ok, _ = verify_functional_graph(fg, m)\n            if not ok:\n                return False\n        return True\n    v = verts[idx]\n    neighbors = [tuple(((v[d] + ARC_SHIFTS[at][d]) % m for d in range(3))) for at in range(3)]\n    perms = _ALL_PERMS[:]\n    self.rng.shuffle(perms)\n    for perm in perms:\n        self._nodes += 1\n        conflict = any((in_deg[perm[at]].get(neighbors[at], 0) >= 1 for at in range(3)))\n        if conflict:\n            continue\n        sigma[v] = perm\n        for at, c in enumerate(perm):\n            funcs[c][v] = neighbors[at]\n            in_deg[c][neighbors[at]] = in_deg[c].get(neighbors[at], 0) + 1\n        if _bt(idx + 1):\n            self._elapsed = time.perf_counter() - t0\n            return True\n        del sigma[v]\n        for at, c in enumerate(perm):\n            del funcs[c][v]\n            in_deg[c][neighbors[at]] -= 1\n            if in_deg[c][neighbors[at]] == 0:\n                del in_deg[c][neighbors[at]]\n    return False",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.search.sigma_fn": {
         "coords": [
@@ -3040,9 +2616,7 @@
             12
         ],
         "fiber": 2,
-        "type": "project_logic",
-        "code": "def sigma_fn(i: int, j: int, k: int) -> Perm:\n    return list(captured[i, j, k])",
-        "origin": "/app/search.py"
+        "type": "project_logic"
     },
     "project.solutions.get_solution": {
         "coords": [
@@ -3051,9 +2625,7 @@
             6
         ],
         "fiber": 20,
-        "type": "project_logic",
-        "code": "def get_solution(m: int) -> Optional[SigmaFn]:\n    \"\"\"\n    Return a precomputed SigmaFn for known m values (currently m=3,5).\n    Returns None for unknown m (use search module instead).\n    \"\"\"\n    if m not in _KNOWN:\n        return None\n    return table_to_sigma_fn(_KNOWN[m], m)",
-        "origin": "/app/solutions.py"
+        "type": "project_logic"
     },
     "project.solutions.get_solution_table": {
         "coords": [
@@ -3062,9 +2634,7 @@
             9
         ],
         "fiber": 29,
-        "type": "project_logic",
-        "code": "def get_solution_table(m: int) -> Optional[SigmaTable]:\n    \"\"\"Return the raw SigmaTable for known m values.\"\"\"\n    return _KNOWN.get(m)",
-        "origin": "/app/solutions.py"
+        "type": "project_logic"
     },
     "project.solutions.known_m_values": {
         "coords": [
@@ -3073,9 +2643,7 @@
             27
         ],
         "fiber": 12,
-        "type": "project_logic",
-        "code": "def known_m_values() -> List[int]:\n    \"\"\"Return sorted list of m values with hardcoded solutions.\"\"\"\n    return sorted(_KNOWN.keys())",
-        "origin": "/app/solutions.py"
+        "type": "project_logic"
     },
     "project.solutions.construct_for_odd_m": {
         "coords": [
@@ -3084,9 +2652,7 @@
             15
         ],
         "fiber": 30,
-        "type": "project_logic",
-        "code": "def construct_for_odd_m(m: int, seed: int=42, max_attempts: int=200000) -> Optional[SigmaFn]:\n    \"\"\"\n    Find a valid sigma for any odd m > 2 using RandomSearch.\n    The fiber decomposition approach always succeeds for odd m (Theorem 3).\n\n    Returns SigmaFn or None (None is unexpected for m \u2264 ~15).\n    \"\"\"\n    if m % 2 == 0:\n        raise ValueError(f\"m={m} is even. The fiber construction is provably impossible for even m. Use search.find_sigma(m, strategy='sa') instead.\")\n    if m <= 2:\n        raise ValueError(f'm must be > 2 (got m={m})')\n    if m in _KNOWN:\n        return table_to_sigma_fn(_KNOWN[m], m)\n    from .search import RandomSearch\n    rs = RandomSearch(m, seed=seed)\n    table = rs.run(max_attempts)\n    if table is None:\n        return None\n    return table_to_sigma_fn(table, m)",
-        "origin": "/app/solutions.py"
+        "type": "project_logic"
     },
     "project.theorems.proved": {
         "coords": [
@@ -3095,9 +2661,7 @@
             2
         ],
         "fiber": 4,
-        "type": "project_logic",
-        "code": "def proved(s):\n    print(f'  {G_}\u25a0 {s} \u25a0{Z_}')",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.hr": {
         "coords": [
@@ -3106,9 +2670,7 @@
             15
         ],
         "fiber": 30,
-        "type": "project_logic",
-        "code": "def hr():\n    return '\u2500' * 72",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.check_spike_conditions": {
         "coords": [
@@ -3117,9 +2679,7 @@
             16
         ],
         "fiber": 24,
-        "type": "project_logic",
-        "code": "def check_spike_conditions(m):\n    \"\"\"Analytically verify Theorem 11.1 conditions for odd m.\"\"\"\n    r = (1, m - 2, 1)\n    ok_r = all((gcd(ri, m) == 1 for ri in r))\n    ok_fso = _check_fso_solvability(m, r)\n    return ok_r and ok_fso",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.phi": {
         "coords": [
@@ -3128,9 +2688,7 @@
             23
         ],
         "fiber": 9,
-        "type": "project_logic",
-        "code": "def phi(n):\n    return sum((1 for i in range(1, n + 1) if gcd(i, n) == 1))",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.verify_moduli_space_laws": {
         "coords": [
@@ -3139,9 +2697,7 @@
             7
         ],
         "fiber": 21,
-        "type": "project_logic",
-        "code": "def verify_moduli_space_laws():\n    \"\"\"Verify Codex Laws II and III for m=3.\"\"\"\n    m = 3\n    nb_theoretical = m ** (m - 1) * phi(m)\n    nb_actual = 0\n    for b in iprod(range(m), repeat=m):\n        if gcd(sum(b), m) == 1:\n            nb_actual += 1\n    k = 3\n    mk_theoretical = phi(m) * nb_theoretical ** (k - 1)\n    return nb_actual == nb_theoretical == 18 and mk_theoretical == 648",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.verify_basin_escape_law": {
         "coords": [
@@ -3150,9 +2706,7 @@
             4
         ],
         "fiber": 8,
-        "type": "project_logic",
-        "code": "def verify_basin_escape_law():\n    \"\"\"Verify Law VII (Basin Escape Axiom) for m=3.\"\"\"\n    from core import solve\n    sol = solve(3, 3, seed=42)\n    return sol is not None",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.verify_cross_domain_consistency": {
         "coords": [
@@ -3161,9 +2715,7 @@
             18
         ],
         "fiber": 12,
-        "type": "project_logic",
-        "code": "def verify_cross_domain_consistency():\n    \"\"\"Verify Law VIII (Multi-Modal Fibration Invariant).\"\"\"\n    sol = PRECOMPUTED.get((3, 3))\n    if not sol:\n        return False\n    return verify_sigma(sol, 3)",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.verify_subgroup_decomposition_law": {
         "coords": [
@@ -3172,9 +2724,7 @@
             2
         ],
         "fiber": 20,
-        "type": "project_logic",
-        "code": "def verify_subgroup_decomposition_law():\n    \"\"\"Verify Law X (Recursive Subgroup Decomposition) for m=12.\"\"\"\n    from research.tgi_autonomy import SubgroupDiscovery\n    discovery = SubgroupDiscovery(m=12, k=3)\n    decomp = discovery.decompose_recursive()\n    return len(decomp) >= 4 and 'Initial Manifold: G_12^3' in decomp[0]",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.verify_symbolic_duality_law": {
         "coords": [
@@ -3183,9 +2733,7 @@
             15
         ],
         "fiber": 1,
-        "type": "project_logic",
-        "code": "def verify_symbolic_duality_law():\n    \"\"\"Verify Law XI (Symbolic-Topological Duality).\"\"\"\n    m, k = (9, 3)\n    w = extract_weights(m, k)\n    return not w.h2_blocks and w.r_count > 0",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.verify_hardware_hamiltonian_health": {
         "coords": [
@@ -3194,9 +2742,7 @@
             29
         ],
         "fiber": 19,
-        "type": "project_logic",
-        "code": "def verify_hardware_hamiltonian_health():\n    \"\"\"Verify Law IX (Hardware-Topological Equivalence).\"\"\"\n    from research.hardware_awareness import HardwareMapper\n    hm = HardwareMapper(m=255, k=3)\n    sol = PRECOMPUTED.get((3, 3))\n    res = hm.verify_hamiltonian_health(sol)\n    return 'Status:' in res",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.verify_all_theorems": {
         "coords": [
@@ -3205,9 +2751,7 @@
             9
         ],
         "fiber": 21,
-        "type": "project_logic",
-        "code": "def verify_all_theorems(verbose=True):\n    results = {}\n    if verbose:\n        print(f'\\n{hr()}\\n{W_}THEOREM VERIFICATION \u2014 Complete Record{Z_}\\n{hr()}')\n    if verbose:\n        print(f'\\n{B_}Thm 3.2  Orbit-Stabilizer{Z_}')\n    ok = all((m ** 3 == m * m ** 2 for m in range(2, 12)))\n    results['3.2'] = ok\n    if ok:\n        proved('m\u00b3 = m \u00d7 m\u00b2 for m=2..11')\n    if verbose:\n        print(f'\\n{B_}Thm 6.1  Parity Obstruction{Z_}')\n    all_ok = True\n    for m in [4, 6, 8, 10, 12, 14, 16]:\n        w = extract_weights(m, 3)\n        all_ok = all_ok and w.h2_blocks\n    results['6.1'] = all_ok\n    if all_ok:\n        proved('Column-uniform impossible for all even m in {4..16}')\n    if verbose:\n        print(f'\\n{B_}Thm 7.1  Existence for Odd m{Z_}')\n    all_ok = True\n    for m in [3, 5, 7, 9, 11, 13, 15]:\n        rt = (1, m - 2, 1)\n        ok_i = all((gcd(r, m) == 1 for r in rt)) and sum(rt) == m\n        all_ok = all_ok and ok_i\n    results['7.1'] = all_ok\n    if all_ok:\n        proved('r-triple (1,m-2,1) valid for all odd m=3..15')\n    if verbose:\n        print(f'\\n{B_}Thm 11.1  Spike Construction (Odd m){Z_}')\n    all_ok = True\n    for m in [3, 5, 7, 9, 11, 13]:\n        ok_i = check_spike_conditions(m)\n        all_ok = all_ok and ok_i\n    results['11.1'] = all_ok\n    if all_ok:\n        proved('gcd(r,m)=1 and Golden Path immunity confirmed for odd m')\n    if verbose:\n        print(f'\\n{B_}Thm 12.1  Multi-Modal Fibration Consistency{Z_}')\n    v_w = extract_weights(256, 5)\n    n_w = extract_weights(255, 3)\n    ok = v_w.h2_blocks and (not n_w.h2_blocks) and (n_w.r_count > 0)\n    results['12.1'] = ok\n    if ok:\n        proved('Vision parity obstruction and Neural solvability confirmed')\n    if verbose:\n        print(f'\\n{B_}Thm 13.1  K-Lift Convergence{Z_}')\n    m = 4\n    k = 3\n    w_orig = extract_weights(m, k)\n    w_lift = extract_weights(m, k + 1)\n    ok = w_orig.h2_blocks and (not w_lift.h2_blocks) and (w_lift.r_count > 0)\n    results['13.1'] = ok\n    if ok:\n        proved('Autonomous K-Lift (G_4^3 -> G_4^4) resolve parity obstruction')\n    if verbose:\n        print(f'\\n{B_}Thm 14.1  Non-Canonical Obstruction{Z_}')\n    obs = not _check_fso_solvability(9, (2, 2, 5))\n    immune = _check_fso_solvability(9, (1, 7, 1))\n    ok = obs and immune\n    results['14.1'] = ok\n    if ok:\n        proved('Obstruction (m=9, r=(2,2,5)) and Golden Path immunity verified')\n    if verbose:\n        print(f'\\n{B_}Thm 15.1  Moduli Space Density{Z_}')\n    ok = verify_moduli_space_laws()\n    results['15.1'] = ok\n    if ok:\n        proved('Law II (Nb=18) and Law III (|M|=648) verified for m=3')\n    if verbose:\n        print(f'\\n{B_}Thm 15.2  Basin Escape Axiom{Z_}')\n    ok = verify_basin_escape_law()\n    results['15.2'] = ok\n    if ok:\n        proved('Law VII (Basin Repair) verified for m=3')\n    if verbose:\n        print(f'\\n{B_}Thm 15.3  Multi-Modal Consistency{Z_}')\n    ok = verify_cross_domain_consistency()\n    results['15.3'] = ok\n    if ok:\n        proved('Law VIII (Structural Transfer) verified for m=3')\n    if verbose:\n        print(f'\\n{B_}Thm 16.1  Recursive Decomposition{Z_}')\n    ok = verify_subgroup_decomposition_law()\n    results['16.1'] = ok\n    if ok:\n        proved('Law X (Subgroup Chain) verified for m=12')\n    if verbose:\n        print(f'\\n{B_}Thm 16.2  Symbolic Duality{Z_}')\n    ok = verify_symbolic_duality_law()\n    results['16.2'] = ok\n    if ok:\n        proved('Law XI (Math-Topology Duality) verified for m=9')\n    if verbose:\n        print(f'\\n{B_}Thm 17.1  Hardware Hamiltonian Health{Z_}')\n    ok = verify_hardware_hamiltonian_health()\n    results['17.1'] = ok\n    if ok:\n        proved('Law IX (Physical Health Check) verified for m=255')\n    n_pass = sum((1 for v in results.values() if v))\n    if verbose:\n        print(f'\\n{hr()}')\n        col = G_ if n_pass == len(results) else Y_\n        print(f'  {col}Theorems: {n_pass}/{len(results)} passed{Z_}')\n    return results",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     },
     "project.theorems.print_cross_domain_table": {
         "coords": [
@@ -3216,8 +2760,6 @@
             8
         ],
         "fiber": 22,
-        "type": "project_logic",
-        "code": "def print_cross_domain_table():\n    print(f\"\\n{'\u2550' * 72}\\n{W_}MASTER THEOREM \u2014 Cross-Domain Instances{Z_}\\n{'\u2500' * 72}\")\n    domains = [(\"Claude's Cycles (odd m)\", 'Z_m\u00b3', 'Z_m', 'gcd(r,m)=1', 'Non-Canonical'), (\"Claude's Cycles (even m)\", 'Z_m\u00b3', 'Z_m', 'infeasible', 'Parity \u03b3\u2082'), ('Neural (m=255)', 'Z_255\u00b3', 'Z_255', 'gcd(r,m)=1', 'None'), ('Vision (m=256)', 'Z_256\u2075', 'Z_256', 'infeasible', 'Parity \u03b3\u2082'), ('S_3 (non-abelian)', 'S_3', 'Z_2', 'k=2 feasible', 'k=3 blocked')]\n    print(f\"  {'Domain':<28} {'G':<8} {'G/H':<7} {'Governing':<15} {'Obstruction'}\")\n    print('  ' + '\u2500' * 75)\n    for row in domains:\n        print(f'  {row[0]:<28} {row[1]:<8} {row[2]:<7} {row[3]:<15} {row[4]}')",
-        "origin": "/app/theorems.py"
+        "type": "project_logic"
     }
 }

@@ -1,5 +1,44 @@
 [
     {
+        "id": "71458b6d",
+        "logic_id": "claw.tools.render_tool_index",
+        "params": {
+            "tools": []
+        },
+        "target": [
+            11,
+            0,
+            1
+        ],
+        "status": "PENDING",
+        "priority": 15,
+        "retry_count": 0,
+        "created_at": 1775323214.4000106,
+        "updated_at": 1775323214.4000108
+    },
+    {
+        "id": "61ef604a",
+        "logic_id": "synthesis:adapt_to_anomaly",
+        "params": {
+            "data": {
+                "topology": "CHATIC_GRID_v1",
+                "path": "kaggle_data/novel_anomaly.json"
+            }
+        },
+        "target": [
+            23,
+            23,
+            13
+        ],
+        "status": "COMPLETED",
+        "priority": 20,
+        "retry_count": 0,
+        "created_at": 1775321899.5038521,
+        "updated_at": 1775321899.5038524,
+        "result": "TGI_GENERALIZATION_ACK: Adapted to adapt_to_anomaly via Closure Lemma",
+        "completed_at": 1775322475.7757025
+    },
+    {
         "id": "5a628f6e",
         "logic_id": "transformers.pipeline",
         "params": {
@@ -11,11 +50,13 @@
             8,
             14
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 10,
         "retry_count": 0,
         "created_at": 1775317312.0791395,
-        "updated_at": 1775317312.07914
+        "updated_at": 1775317312.07914,
+        "result": "TextClassificationPipeline: {'model': 'DistilBertForSequenceClassification', 'dtype': 'float32', 'device': 'cpu', 'input_modalities': 'text'}",
+        "completed_at": 1775322303.9140747
     },
     {
         "id": "217ae2c8",
@@ -29,11 +70,13 @@
             13,
             24
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 8,
         "retry_count": 0,
         "created_at": 1775317312.080415,
-        "updated_at": 1775317312.0804152
+        "updated_at": 1775317312.0804152,
+        "result": "Dataset({\n    features: ['text', 'label'],\n    num_rows: 10\n})",
+        "completed_at": 1775322308.831086
     },
     {
         "id": "bbf3939f",
@@ -55,11 +98,13 @@
             30,
             29
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 5,
         "retry_count": 0,
         "created_at": 1775317312.0806859,
-        "updated_at": 1775317312.0806859
+        "updated_at": 1775317312.0806859,
+        "result": "EXEC_ERR: add(): argument 'input' must be Tensor, not list",
+        "completed_at": 1775322310.8359878
     },
     {
         "id": "f3159441",
@@ -77,11 +122,13 @@
             25,
             10
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 5,
         "retry_count": 0,
         "created_at": 1775317312.0815167,
-        "updated_at": 1775317312.081517
+        "updated_at": 1775317312.081517,
+        "result": "25.0",
+        "completed_at": 1775322310.8375523
     },
     {
         "id": "b5cee487",
@@ -92,11 +139,13 @@
             11,
             22
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 12,
         "retry_count": 0,
         "created_at": 1775317312.0822735,
-        "updated_at": 1775317312.0822737
+        "updated_at": 1775317312.0822737,
+        "result": "EXEC_ERR: No module named 'project'",
+        "completed_at": 1775322291.2074256
     },
     {
         "id": "e5a07fb1",
@@ -110,11 +159,13 @@
             8,
             14
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 10,
         "retry_count": 0,
         "created_at": 1775317544.9910133,
-        "updated_at": 1775317544.9910135
+        "updated_at": 1775317544.9910135,
+        "result": "TextClassificationPipeline: {'model': 'DistilBertForSequenceClassification', 'dtype': 'float32', 'device': 'cpu', 'input_modalities': 'text'}",
+        "completed_at": 1775322304.3156202
     },
     {
         "id": "185391c0",
@@ -128,11 +179,13 @@
             13,
             24
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 8,
         "retry_count": 0,
         "created_at": 1775317544.9914746,
-        "updated_at": 1775317544.9914749
+        "updated_at": 1775317544.9914749,
+        "result": "Dataset({\n    features: ['text', 'label'],\n    num_rows: 10\n})",
+        "completed_at": 1775322309.520331
     },
     {
         "id": "a0f1633b",
@@ -154,11 +207,13 @@
             30,
             29
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 5,
         "retry_count": 0,
         "created_at": 1775317544.992328,
-        "updated_at": 1775317544.992328
+        "updated_at": 1775317544.992328,
+        "result": "EXEC_ERR: add(): argument 'input' must be Tensor, not list",
+        "completed_at": 1775322310.8401084
     },
     {
         "id": "8d4497ea",
@@ -176,11 +231,13 @@
             25,
             10
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 5,
         "retry_count": 0,
         "created_at": 1775317544.9929943,
-        "updated_at": 1775317544.9929943
+        "updated_at": 1775317544.9929943,
+        "result": "25.0",
+        "completed_at": 1775322310.8417413
     },
     {
         "id": "22b4e5f6",
@@ -191,11 +248,13 @@
             11,
             22
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 12,
         "retry_count": 0,
         "created_at": 1775317544.993676,
-        "updated_at": 1775317544.993676
+        "updated_at": 1775317544.993676,
+        "result": "EXEC_ERR: No module named 'project'",
+        "completed_at": 1775322291.2087352
     },
     {
         "id": "b14ef094",
@@ -209,11 +268,13 @@
             8,
             14
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 10,
         "retry_count": 0,
         "created_at": 1775318689.7073247,
-        "updated_at": 1775318689.707325
+        "updated_at": 1775318689.707325,
+        "result": "TextClassificationPipeline: {'model': 'DistilBertForSequenceClassification', 'dtype': 'float32', 'device': 'cpu', 'input_modalities': 'text'}",
+        "completed_at": 1775322304.7013793
     },
     {
         "id": "30e2affc",
@@ -227,11 +288,13 @@
             13,
             24
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 8,
         "retry_count": 0,
         "created_at": 1775318689.708085,
-        "updated_at": 1775318689.7080853
+        "updated_at": 1775318689.7080853,
+        "result": "Dataset({\n    features: ['text', 'label'],\n    num_rows: 10\n})",
+        "completed_at": 1775322310.177996
     },
     {
         "id": "b5271f75",
@@ -250,11 +313,13 @@
             25,
             10
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 5,
         "retry_count": 0,
         "created_at": 1775318689.7096565,
-        "updated_at": 1775318689.7096567
+        "updated_at": 1775318689.7096567,
+        "result": "3.0",
+        "completed_at": 1775322310.8429267
     },
     {
         "id": "92005731",
@@ -274,11 +339,13 @@
             30,
             29
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 5,
         "retry_count": 0,
         "created_at": 1775318689.710927,
-        "updated_at": 1775318689.7109272
+        "updated_at": 1775318689.7109272,
+        "result": "EXEC_ERR: add(): argument 'input' must be Tensor, not list",
+        "completed_at": 1775322310.8443127
     },
     {
         "id": "a0a6aa9c",
@@ -289,11 +356,13 @@
             11,
             22
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 12,
         "retry_count": 0,
         "created_at": 1775318689.711829,
-        "updated_at": 1775318689.711829
+        "updated_at": 1775318689.711829,
+        "result": "EXEC_ERR: No module named 'project'",
+        "completed_at": 1775322291.2099056
     },
     {
         "id": "0e930933",
@@ -304,11 +373,13 @@
             1,
             14
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 15,
         "retry_count": 0,
         "created_at": 1775318689.7128408,
-        "updated_at": 1775318689.7128408
+        "updated_at": 1775318689.7128408,
+        "result": "EXEC_ERR: No module named 'project'",
+        "completed_at": 1775322291.2050989
     },
     {
         "id": "12cb2dc2",
@@ -322,11 +393,13 @@
             8,
             14
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 10,
         "retry_count": 0,
         "created_at": 1775319415.9184535,
-        "updated_at": 1775319415.918454
+        "updated_at": 1775319415.918454,
+        "result": "TextClassificationPipeline: {'model': 'DistilBertForSequenceClassification', 'dtype': 'float32', 'device': 'cpu', 'input_modalities': 'text'}",
+        "completed_at": 1775322305.0940728
     },
     {
         "id": "40e93a14",
@@ -340,11 +413,13 @@
             13,
             24
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 8,
         "retry_count": 0,
         "created_at": 1775319415.9195855,
-        "updated_at": 1775319415.9195857
+        "updated_at": 1775319415.9195857,
+        "result": "Dataset({\n    features: ['text', 'label'],\n    num_rows: 10\n})",
+        "completed_at": 1775322310.8345525
     },
     {
         "id": "1433c25a",
@@ -363,11 +438,13 @@
             25,
             10
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 5,
         "retry_count": 0,
         "created_at": 1775319415.9207196,
-        "updated_at": 1775319415.9207199
+        "updated_at": 1775319415.9207199,
+        "result": "3.0",
+        "completed_at": 1775322310.8458116
     },
     {
         "id": "c3725eda",
@@ -387,11 +464,13 @@
             30,
             29
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 5,
         "retry_count": 0,
         "created_at": 1775319415.921846,
-        "updated_at": 1775319415.9218464
+        "updated_at": 1775319415.9218464,
+        "result": "EXEC_ERR: add(): argument 'input' must be Tensor, not list",
+        "completed_at": 1775322310.8470194
     },
     {
         "id": "03c9b931",
@@ -402,11 +481,13 @@
             11,
             22
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 12,
         "retry_count": 0,
         "created_at": 1775319415.92319,
-        "updated_at": 1775319415.92319
+        "updated_at": 1775319415.92319,
+        "result": "EXEC_ERR: No module named 'project'",
+        "completed_at": 1775322291.2109885
     },
     {
         "id": "c9b29c13",
@@ -417,10 +498,12 @@
             1,
             14
         ],
-        "status": "PENDING",
+        "status": "COMPLETED",
         "priority": 15,
         "retry_count": 0,
         "created_at": 1775319415.9242525,
-        "updated_at": 1775319415.9242525
+        "updated_at": 1775319415.9242525,
+        "result": "EXEC_ERR: No module named 'project'",
+        "completed_at": 1775322291.206332
     }
 ]

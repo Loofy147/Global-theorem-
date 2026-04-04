@@ -1,0 +1,10 @@
+{
+  "topology": "CHATIC_GRID_v1",
+  "signature": "SHA256:d8e8fca2dc0f896fd7cb4cb0031ba249",
+  "parity_bits": [1, 0, 1, 1, 0, 0, 1, 0, 1, 1],
+  "raw_data": "U09NRV9DSEFPVElDX0VOVFJPUFlfREFUQV9IRVJF",
+  "meta": {
+    "entropy": 0.98,
+    "dimensions": [32, 32, 3]
+  }
+}
