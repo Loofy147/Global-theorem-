@@ -8,7 +8,8 @@ def deploy():
         print("[!] HF_TOKEN not found in environment.")
         return
 
-    repo_id = "Loofy147/FSO-Genesis-Space"
+    # User is LOOFYYLO, not Loofy147 on HF
+    repo_id = "LOOFYYLO/FSO-Genesis-Space"
 
     print(f"[*] Deploying to {repo_id}...")
     try:
