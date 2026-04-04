@@ -3,6 +3,7 @@
     "m_size": 31,
     "registry": {
         "system.health": "OK",
-        "system.last_check": "2026-04-04T15:06:54.309193"
+        "system.last_check": "2026-04-04T15:06:54.309193",
+        "(23, 23, 13)": "synthesized.tgi_adapt_d155"
     }
 }
