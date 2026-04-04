@@ -1,7 +1,7 @@
 {
   "id": "hichambedrani/fso-production-p1-ingestor",
   "title": "fso-production-p1-ingestor",
-  "code_file": "research/fso_ingestor.py",
+  "code_file": "fso_ingestor.py",
   "language": "python",
   "kernel_type": "script",
   "is_private": "true",
