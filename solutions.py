@@ -8,8 +8,8 @@ a general algorithm that works on any odd m > 2.
 
 from __future__ import annotations
 from typing import Optional, List
-from .fiber import SigmaTable, table_to_sigma_fn
-from .core import SigmaFn
+from fiber import SigmaTable, table_to_sigma_fn
+from core import SigmaFn
 
 # --------------------------------------------------------------------------- #
 # Hardcoded verified solutions
