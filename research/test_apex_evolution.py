@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import logging
+import pytest
 from typing import Tuple
 
 # Add parent directory to path
@@ -11,6 +12,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from research.fso_apex_hypervisor import FSO_Apex_Hypervisor
 from research.fso_evolution_engine import FSO_Evolution_Engine, TopologicalGravity
 
+@pytest.mark.asyncio
 async def test_end_to_end():
     print("\n--- FSO APEX & EVOLUTION END-TO-END TEST ---")
     m = 5

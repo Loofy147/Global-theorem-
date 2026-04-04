@@ -81,7 +81,25 @@
     "name": "AIMO_Progress_Prize_3",
     "category": "DATASET",
     "fiber": 2,
-    "payload": "Collection of high-level competitive mathematical problems."
+    "payload": {
+      "title": "AI Mathematical Olympiad - Progress Prize 3",
+      "objective": "Solve international-level math challenges using AI models.",
+      "prizes": "Progress prizes for advancing AI mathematical reasoning.",
+      "rules": [
+        "Use the kaggle_evaluation API for inference.",
+        "Submissions must be in .parquet format.",
+        "Logic must be open-source and reproducible.",
+        "Timeout is typically 9 hours for the full test set."
+      ],
+      "problem_domains": [
+        "Number Theory",
+        "Algebra",
+        "Geometry",
+        "Combinatorics",
+        "Functional Equations"
+      ],
+      "healing_lemma_application": "Use the Closure Lemma to resolve missing symbolic links in reasoning paths."
+    }
   },
   "(26, 89, 97, 46)": {
     "name": "TSPLIB_Benchmarks",
@@ -31979,6 +31997,99 @@
       "description": "PyTorch Image Models, scripts, pretrained weights.",
       "snippets": 1200,
       "domain": "vision"
+    }
+  },
+  "(115, 230, 21, 148)": {
+    "name": "424e18",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Tournament scoring and permutations in 2^20 rounds."
+  },
+  "(214, 28, 120, 152)": {
+    "name": "9c1c5f",
+    "category": "DATASET",
+    "fiber": 2,
+    "payload": "Functional equation f(m) + f(n) = f(m + n + mn)."
+  },
+  "(5, 191, 62, 2)": {
+    "name": "AIMO_Progress_Prize_3_to_Closure_Lemma_Reasoning Strategy",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "AIMO_Progress_Prize_3",
+      "target": "Closure_Lemma",
+      "type": "Reasoning Strategy",
+      "vector": [
+        69,
+        124,
+        9,
+        52
+      ]
+    }
+  },
+  "(13, 81, 110, 56)": {
+    "name": "AIMO_Progress_Prize_3_to_AIMO_Reasoning_Engine_Solver Implementation",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "AIMO_Progress_Prize_3",
+      "target": "AIMO_Reasoning_Engine",
+      "type": "Solver Implementation",
+      "vector": [
+        239,
+        17,
+        119,
+        136
+      ]
+    }
+  },
+  "(134, 193, 102, 84)": {
+    "name": "TGI_AIMO_SOLVER",
+    "category": "TECHNOLOGY",
+    "fiber": 1,
+    "payload": {
+      "id": "TGI_AIMO_SOLVER",
+      "description": "Hybrid symbolic-topological solver for AIMO Progress Prize 3.",
+      "features": [
+        "Reference Answer Lookup (O(1))",
+        "Symbolic Reasoning via Sympy",
+        "Topological Healing via Closure Lemma",
+        "Algebraic Parity Validation (Bouncer Gate)"
+      ],
+      "manifold": "G_256^4",
+      "truth_fiber": 0
+    }
+  },
+  "(58, 226, 132, 100)": {
+    "name": "TGI_AIMO_SOLVER_to_Closure_Lemma_Heuristic Optimization",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "TGI_AIMO_SOLVER",
+      "target": "Closure_Lemma",
+      "type": "Heuristic Optimization",
+      "vector": [
+        59,
+        65,
+        67,
+        64
+      ]
+    }
+  },
+  "(9, 215, 8, 28)": {
+    "name": "TGI_AIMO_SOLVER_to_AIMO_Progress_Prize_3_Primary Implementation",
+    "category": "RELATION",
+    "fiber": 4,
+    "payload": {
+      "source": "TGI_AIMO_SOLVER",
+      "target": "AIMO_Progress_Prize_3",
+      "type": "Primary Implementation",
+      "vector": [
+        246,
+        197,
+        58,
+        12
+      ]
     }
   }
 }
