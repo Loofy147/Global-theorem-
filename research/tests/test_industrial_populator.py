@@ -47,14 +47,8 @@ async def test_industrial_execution():
 
     # Execution
     res = await daemon.execute_logic(logic_id, "key1", target_coords)
-    if res['status'] != "SUCCESS":
-        print(f"DEBUG: res status is {res['status']}")
-        print(f"DEBUG: res is {res}")
     assert res['status'] == "SUCCESS"
-    print(f"DEBUG: Full res is: {json.dumps(res, indent=2)}")
     # The result structure might have changed due to async _execute_functional_logic
-    # Before: result['result'] was "SPIKE_ROUTED(data_state_x)"
-    # Now: ?
     actual_result = res['result']['result']
     assert "SPIKE_ROUTED" in actual_result
     print("Execution test passed!")

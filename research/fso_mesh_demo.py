@@ -20,7 +20,9 @@ class FSOMeshSimulator:
         for i in range(m):
             for j in range(m):
                 for k in range(m):
-                    self.nodes[(i,j,k)] = FSOFabricNode((i,j,k), m)
+                    node = FSOFabricNode((i,j,k), m)
+                    node.mesh_nodes = self.nodes
+                    self.nodes[(i,j,k)] = node
         self.total_packets_injected = 0
 
     async def inject_task(self, data: str, target: Tuple[int, int, int], color: int):

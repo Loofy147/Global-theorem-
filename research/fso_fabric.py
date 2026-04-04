@@ -50,6 +50,7 @@ class FSOFabricNode:
 
         self.gen_gate = GenerativeGate()
         self.direct_consumer = FSODirectConsumer(m)
+        self.mesh_nodes: Optional[Dict[Tuple[int, int, int], "FSOFabricNode"]] = None
 
         # Every node independently generates the same deterministic Hamiltonian manifold.
         self.sigma = construct_spike_sigma(m, 3)
@@ -177,6 +178,30 @@ class FSOFabricNode:
             return f"TOPOLOGICAL_RESULT_OF_{logic_id}({str(call_data)[:10]}...)"
 
         func = logic_entry.get("func")
+
+        # Topological Import Helper: Allows logic to call other logic in the manifold
+        async def topological_call(logic_id: str, call_data: Any):
+            # Resolve coordinates for the logic identity
+            target = self.direct_consumer.get_coords(logic_id)
+            print(f"  [TopologicalCall] Routing to {target} for: {logic_id}")
+
+            # Intersection: If the node is available in the mesh, route and execute
+            if self.mesh_nodes and target in self.mesh_nodes:
+                target_node = self.mesh_nodes[target]
+                # Prepare a Logic Wave packet (Color 1)
+                packet = {
+                    "color": COLOR_LOGIC,
+                    "target": target,
+                    "type": "LOGIC_QUERY",
+                    "payload": {"id": logic_id, "data": call_data}
+                }
+                # Dispatch the wave and wait for intersection
+                res = await target_node.process_waveform(packet)
+                if isinstance(res, dict) and res.get("status") == "EXECUTED":
+                    return res.get("result")
+                return f"TOPOLOGICAL_ERROR: {res.get("status") if isinstance(res, dict) else "UNKNOWN"}"
+
+            return f"TOPOLOGICAL_OFFLINE: Node {target} not found in mesh."
 
         # Lazy-compilation of code if not already prepared
         if not func and "code" in logic_entry:
