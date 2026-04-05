@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="auth-overlay">
-        <h1>[AUTH] BIOMETRIC GOVERNANCE</h1>
+        <h1 style="color: #3fb950;">FSO PLANETARY NODE ONLINE</h1>
         <p>Awaiting Identity Confirmation (Fingerprint/FaceID Simulation)...</p>
         <button class="btn" onclick="authenticate()">SIMULATE BIOMETRIC SCAN</button>
     </div>
@@ -34,7 +34,8 @@
         <hr>
         <div id="log-window">
             [SYS] Booting manifold...<br>
-            [SYS] Genesis coordinate anchored at (0,0,0).
+            [SYS] Genesis coordinate anchored at (0,0,0).<br>
+            [SYS] Serving Dashboard at ROOT.
         </div>
     </div>
 
@@ -46,8 +47,8 @@
             <p>System Mode: <span id="auto-mode" class="status-active">AUTONOMOUS_RUNNING</span></p>
             <p>PTFS Storage: <span id="facts-ingested">0</span> Facts Ingested (SSD-Backed)</p>
             <p>Crawler Status: <span id="urls-crawled">0</span> URLs Scented and Assimilated</p>
-            <p>Last Resilience Heal: <span id="last-heal">Never</span></p>
-            <p>Last Logic Synthesis: <span id="last-synthesis">Never</span></p>
+            <p>Last Resilience Heal: <span id="last-heal">Checking...</span></p>
+            <p>Last Logic Synthesis: <span id="last-synthesis">Checking...</span></p>
             <p>Wave Intersections: <span id="tasks-processed">0</span> total</p>
         </div>
 
@@ -71,7 +72,7 @@
         <div class="card">
             <h2>[LIVE TELEMETRY]</h2>
             <p>Fiber Segregation: <span id="fiber-stats">Fiber 0 (Parity) - OK</span></p>
-            <p>Holographic State: <span id="holo-stats">443 Logic Units Anchored</span></p>
+            <p>Holographic State: <span id="holo-stats">Loading Logic Registry...</span></p>
         </div>
     </div>
 
@@ -90,6 +91,7 @@
                 sessionToken = "ADMIN_PLANETARY_SOVEREIGN";
                 document.getElementById("auth-overlay").style.display = "none";
                 addLog("Identity Confirmed. Access Granted.");
+                updateTelemetry();
             }, 1000);
         }
 
@@ -114,15 +116,13 @@
             }
         }
 
-        setInterval(async () => {
-            if (!sessionToken) return;
+        async function updateTelemetry() {
             try {
                 const resp = await fetch("/api/telemetry");
                 const data = await resp.json();
                 document.getElementById("holo-stats").innerText = `${data.logic_units} Logic Units Anchored`;
                 document.getElementById("node-count").innerText = data.nodes.toLocaleString();
 
-                // Update Autonomous Stats
                 if (data.auto_stats) {
                     document.getElementById("auto-mode").innerText = data.auto_stats.status;
                     document.getElementById("last-heal").innerText = data.auto_stats.last_heal;
@@ -132,6 +132,10 @@
                     document.getElementById("urls-crawled").innerText = data.auto_stats.urls_crawled;
                 }
             } catch (e) {}
+        }
+
+        setInterval(() => {
+            if (sessionToken) updateTelemetry();
         }, 5000);
     </script>
 </body>
