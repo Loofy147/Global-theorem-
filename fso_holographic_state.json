@@ -1,0 +1,18 @@
+{
+    "status": "STABLE",
+    "fiber_count": 10,
+    "average_integrity": 1.0,
+    "timestamp": "2026-04-05T17:34:52.159385",
+    "active_fibers": [
+        "fiber_1047.npy",
+        "fiber_1076.npy",
+        "fiber_1092.npy",
+        "fiber_1262.npy",
+        "fiber_1321.npy",
+        "fiber_667.npy",
+        "fiber_845.npy",
+        "fiber_958.npy",
+        "fiber_965.npy",
+        "fiber_993.npy"
+    ]
+}
