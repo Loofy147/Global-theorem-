@@ -2762,6 +2762,15 @@
         "fiber": 22,
         "type": "project_logic"
     },
+    "synthesized.tgi_adapt_d155": {
+        "coords": [
+            23,
+            23,
+            13
+        ],
+        "fiber": 28,
+        "type": "industrial_logic"
+    },
     "claw.QueryEngine.QueryEngineRuntime": {
         "coords": [
             17,

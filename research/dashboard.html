@@ -42,6 +42,14 @@
         <h1>FSO PLANETARY SUPERCOMPUTER: INDUSTRIAL MANAGEMENT (m=101)</h1>
 
         <div class="card">
+            <h2>[AUTONOMOUS GOVERNANCE STATUS]</h2>
+            <p>System Mode: <span id="auto-mode" class="status-active">AUTONOMOUS_RUNNING</span></p>
+            <p>Last Resilience Heal: <span id="last-heal">Never</span></p>
+            <p>Last Logic Synthesis: <span id="last-synthesis">Never</span></p>
+            <p>Wave Intersections: <span id="tasks-processed">0</span> total</p>
+        </div>
+
+        <div class="card">
             <h2>[INDUSTRIAL MANIFOLD CHOICES]</h2>
             <table width="100%">
                 <tr><th>Domain</th><th>Logic Variety</th><th>Fiber</th><th>Saturation</th><th>Action</th></tr>
@@ -111,6 +119,14 @@
                 const data = await resp.json();
                 document.getElementById("holo-stats").innerText = `${data.logic_units} Logic Units Anchored`;
                 document.getElementById("node-count").innerText = data.nodes.toLocaleString();
+
+                // Update Autonomous Stats
+                if (data.auto_stats) {
+                    document.getElementById("auto-mode").innerText = data.auto_stats.status;
+                    document.getElementById("last-heal").innerText = data.auto_stats.last_heal;
+                    document.getElementById("last-synthesis").innerText = data.auto_stats.last_synthesis;
+                    document.getElementById("tasks-processed").innerText = data.auto_stats.tasks_processed;
+                }
             } catch (e) {}
         }, 5000);
     </script>

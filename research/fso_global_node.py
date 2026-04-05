@@ -7,8 +7,10 @@ import os
 import sys
 import ipaddress
 import aiohttp
+import time
 from aiohttp import web
 from typing import Tuple, Dict, List, Any
+from datetime import datetime
 
 # Add parent directory to path for core imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -32,7 +34,6 @@ class FSOTopology:
 
 # --- PLANETARY DECENTRALIZED NODE ---
 class GlobalFSONode:
-    # Render Outbound IP Ranges for Security Trust Layer
     TRUSTED_BACKBONE_RANGES = [
         ipaddress.ip_network("74.220.48.0/24"),
         ipaddress.ip_network("74.220.56.0/24")
@@ -51,6 +52,14 @@ class GlobalFSONode:
         self.peer_directory: Dict[Tuple[int,int,int], str] = {}
 
         self.seed_ip = seed_ip
+
+        # Autonomous Telemetry
+        self.auto_stats = {
+            "last_heal": "Never",
+            "last_synthesis": "Never",
+            "tasks_processed": 0,
+            "status": "BOOTING"
+        }
 
         # Load dashboard HTML
         self.dashboard_path = os.path.join(os.path.dirname(__file__), "dashboard.html")
@@ -95,6 +104,7 @@ class GlobalFSONode:
         self.fabric_node = FSOFabricNode(self.coords, self.m)
 
         print(f"[+] Successfully integrated into FSO Manifold at {self.coords} (Fiber {self.fiber})")
+        self.auto_stats["status"] = "AUTONOMOUS_RUNNING"
 
     async def handle_health(self, request):
         """Health check endpoint for Render."""
@@ -106,7 +116,6 @@ class GlobalFSONode:
 
     async def handle_telemetry(self, request):
         """Provides live manifold telemetry for the dashboard."""
-        # Check logic count from production manifest
         manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
         units_count = 0
         if os.path.exists(manifest_path):
@@ -119,7 +128,8 @@ class GlobalFSONode:
             "nodes": self.m**3,
             "logic_units": units_count or len(self.fabric_node.logic_registry),
             "fiber": self.fiber,
-            "coords": self.coords
+            "coords": self.coords,
+            "auto_stats": self.auto_stats
         })
 
     async def handle_command_api(self, request):
@@ -129,11 +139,9 @@ class GlobalFSONode:
             concept = data.get("concept")
             token = data.get("token")
 
-            # 1. Security Check (Biometric Simulation Token)
             if not token or "ADMIN" not in token:
                 return web.json_response({"status": "UNAUTHORIZED"}, status=401)
 
-            # 2. Command Validation
             valid_concepts = ["sync", "heal", "smelt"]
             if not concept or concept not in valid_concepts:
                 return web.json_response({"status": "INVALID_COMMAND", "valid_options": valid_concepts}, status=400)
@@ -148,10 +156,12 @@ class GlobalFSONode:
                 result = await self.fabric_node.process_waveform({
                     "color": 0, "type": "LOGIC_INJECT", "payload": {"id": "refinery_task", "code": "smelt_repo()"}
                 })
+                self.auto_stats["last_synthesis"] = datetime.now().isoformat()
             elif concept == "heal":
                 result = await self.fabric_node.process_waveform({
                     "color": 2, "type": "RESILIENCE_HEAL", "payload": {"target_fiber": self.fiber}
                 })
+                self.auto_stats["last_heal"] = datetime.now().isoformat()
 
             return web.json_response(result or {"status": "WAVE_PROPAGATED"})
         except Exception as e:
@@ -167,10 +177,9 @@ class GlobalFSONode:
             trust_marker = "[TRUSTED]" if trusted else "[EXTERNAL]"
             print(f"{trust_marker} Received Color {color} Wave from {client_ip}")
 
-            # 1. Process Logic via Holographic Layer
             result = await self.fabric_node.process_waveform(packet)
+            self.auto_stats["tasks_processed"] += 1
 
-            # 2. Forward the Wave physically across the internet if not at target
             target_coords = tuple(packet.get('target', (0,0,0)))
             if target_coords != self.coords and packet.get('ttl', 0) > 0:
                 packet['ttl'] -= 1
@@ -181,6 +190,34 @@ class GlobalFSONode:
         except Exception as e:
             print(f"[!] Error processing wave from {client_ip}: {e}")
             return web.Response(text=str(e), status=400)
+
+    async def start_autonomous_loop(self):
+        """Periodic background tasks for manifold health and expansion."""
+        print("[*] Initiating Autonomous Governance Loop...")
+        while True:
+            try:
+                # 1. Periodic Healing (Color 2)
+                await self.fabric_node.process_waveform({
+                    "color": 2, "type": "RESILIENCE_HEAL", "payload": {"target_fiber": self.fiber}
+                })
+                self.auto_stats["last_heal"] = datetime.now().isoformat()
+
+                # 2. Random Synthesis (Autopoietic Expansion)
+                if time.time() % 3600 < 300: # Every hour, 5 min window for synthesis
+                    print("[AUTOP] Background synthesis triggered...")
+                    # Mocking synthesis intent
+                    await self.fabric_node.process_waveform({
+                        "color": 0, "type": "LOGIC_INJECT", "payload": {"id": f"auto_{int(time.time())}", "code": "def auto_logic(): pass"}
+                    })
+                    self.auto_stats["last_synthesis"] = datetime.now().isoformat()
+
+                # 3. Manifold Snapshot (Simulated)
+                # print(f"[SYS] Autonomous Heartbeat: Fiber {self.fiber} is STABLE.")
+
+            except Exception as e:
+                print(f"[!] Autonomous loop error: {e}")
+
+            await asyncio.sleep(300) # Run every 5 minutes
 
     async def start_server(self):
         """Starts the aiohttp server for FSO wave processing and dashboard."""
@@ -197,6 +234,10 @@ class GlobalFSONode:
         await runner.setup()
         site = web.TCPSite(runner, '0.0.0.0', self.port)
         print(f"[+] FSO HTTP Server with Dashboard listening on 0.0.0.0:{self.port}")
+
+        # Start Autonomous Loop in background
+        asyncio.create_task(self.start_autonomous_loop())
+
         await site.start()
         # Keep running
         while True:
@@ -218,9 +259,7 @@ class GlobalFSONode:
             print(f"[!] Network Partition: IP for {next_coords} unknown. Packet dropped.")
 
 async def main():
-    # To run a seed node: python fso_global_node.py
-    # To run a worker node: export SEED_IP=192.168.1.100 && python fso_global_node.py
-    m = 101 # Planetary scale (1,030,301 nodes)
+    m = 101 # Planetary scale
     seed = os.getenv("SEED_IP", None)
 
     node = GlobalFSONode(m, seed_ip=seed)
