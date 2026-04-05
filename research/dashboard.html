@@ -42,8 +42,10 @@
         <h1>FSO PLANETARY SUPERCOMPUTER: INDUSTRIAL MANAGEMENT (m=101)</h1>
 
         <div class="card">
-            <h2>[AUTONOMOUS GOVERNANCE STATUS]</h2>
+            <h2>[AUTONOMOUS GOVERNANCE & WEB INTELLIGENCE]</h2>
             <p>System Mode: <span id="auto-mode" class="status-active">AUTONOMOUS_RUNNING</span></p>
+            <p>PTFS Storage: <span id="facts-ingested">0</span> Facts Ingested (SSD-Backed)</p>
+            <p>Crawler Status: <span id="urls-crawled">0</span> URLs Scented and Assimilated</p>
             <p>Last Resilience Heal: <span id="last-heal">Never</span></p>
             <p>Last Logic Synthesis: <span id="last-synthesis">Never</span></p>
             <p>Wave Intersections: <span id="tasks-processed">0</span> total</p>
@@ -126,6 +128,8 @@
                     document.getElementById("last-heal").innerText = data.auto_stats.last_heal;
                     document.getElementById("last-synthesis").innerText = data.auto_stats.last_synthesis;
                     document.getElementById("tasks-processed").innerText = data.auto_stats.tasks_processed;
+                    document.getElementById("facts-ingested").innerText = data.auto_stats.facts_ingested;
+                    document.getElementById("urls-crawled").innerText = data.auto_stats.urls_crawled;
                 }
             } catch (e) {}
         }, 5000);

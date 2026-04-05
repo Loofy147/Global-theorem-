@@ -16,6 +16,8 @@ from datetime import datetime
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from research.fso_fabric import FSOFabricNode
+from research.fso_ptfs import Persistent_Torus_Core
+from research.fso_crawler import Fractal_Scraper_Daemon
 
 # --- FSO TOPOLOGICAL KERNEL ---
 class FSOTopology:
@@ -58,8 +60,14 @@ class GlobalFSONode:
             "last_heal": "Never",
             "last_synthesis": "Never",
             "tasks_processed": 0,
-            "status": "BOOTING"
+            "status": "BOOTING",
+            "facts_ingested": 0,
+            "urls_crawled": 0
         }
+
+        # Initialize PTFS and Crawler
+        self.ptfs = Persistent_Torus_Core(m=1000003, dim=1024, storage_dir="./SOVEREIGN_MIND")
+        self.crawler = None
 
         # Load dashboard HTML
         self.dashboard_path = os.path.join(os.path.dirname(__file__), "dashboard.html")
@@ -103,6 +111,10 @@ class GlobalFSONode:
         # Initialize the FSO Cognitive Core for this physical node
         self.fabric_node = FSOFabricNode(self.coords, self.m)
 
+        # Start Crawler Daemon
+        self.crawler = Fractal_Scraper_Daemon(self.ptfs, self.fabric_node)
+        self.crawler.start()
+
         print(f"[+] Successfully integrated into FSO Manifold at {self.coords} (Fiber {self.fiber})")
         self.auto_stats["status"] = "AUTONOMOUS_RUNNING"
 
@@ -123,6 +135,10 @@ class GlobalFSONode:
                 with open(manifest_path, "r") as f:
                     units_count = len(json.load(f))
             except: pass
+
+        # Update auto_stats with PTFS metrics
+        self.auto_stats["facts_ingested"] = self.ptfs.metrics["facts_ingested"]
+        self.auto_stats["urls_crawled"] = self.ptfs.metrics["urls_crawled"]
 
         return web.json_response({
             "nodes": self.m**3,
@@ -203,16 +219,12 @@ class GlobalFSONode:
                 self.auto_stats["last_heal"] = datetime.now().isoformat()
 
                 # 2. Random Synthesis (Autopoietic Expansion)
-                if time.time() % 3600 < 300: # Every hour, 5 min window for synthesis
+                if time.time() % 3600 < 600: # Increased window to 10 mins
                     print("[AUTOP] Background synthesis triggered...")
-                    # Mocking synthesis intent
                     await self.fabric_node.process_waveform({
                         "color": 0, "type": "LOGIC_INJECT", "payload": {"id": f"auto_{int(time.time())}", "code": "def auto_logic(): pass"}
                     })
                     self.auto_stats["last_synthesis"] = datetime.now().isoformat()
-
-                # 3. Manifold Snapshot (Simulated)
-                # print(f"[SYS] Autonomous Heartbeat: Fiber {self.fiber} is STABLE.")
 
             except Exception as e:
                 print(f"[!] Autonomous loop error: {e}")
@@ -235,11 +247,8 @@ class GlobalFSONode:
         site = web.TCPSite(runner, '0.0.0.0', self.port)
         print(f"[+] FSO HTTP Server with Dashboard listening on 0.0.0.0:{self.port}")
 
-        # Start Autonomous Loop in background
         asyncio.create_task(self.start_autonomous_loop())
-
         await site.start()
-        # Keep running
         while True:
             await asyncio.sleep(3600)
 
