@@ -1,32 +1,3944 @@
 {
-    "jules.plan_execute_verify": {
+    "numpy.fft.fft": {
+        "coords": [
+            11,
+            29,
+            8
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "numpy.fft.ifft": {
+        "coords": [
+            17,
+            16,
+            3
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "numpy.linalg.inv": {
+        "coords": [
+            19,
+            15,
+            12
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "numpy.linalg.solve": {
+        "coords": [
+            13,
+            28,
+            10
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "numpy.linalg.eig": {
+        "coords": [
+            24,
+            10,
+            19
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "numpy.random.rand": {
+        "coords": [
+            8,
+            16,
+            15
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "numpy.random.randn": {
+        "coords": [
+            12,
+            12,
+            4
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "numpy.random.randint": {
+        "coords": [
+            13,
+            30,
+            3
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "numpy.array": {
+        "coords": [
+            9,
+            8,
+            25
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "numpy.mean": {
+        "coords": [
+            30,
+            25,
+            10
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "numpy.std": {
+        "coords": [
+            26,
+            21,
+            23
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "numpy.sum": {
+        "coords": [
+            15,
+            13,
+            6
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "numpy.dot": {
+        "coords": [
+            3,
+            20,
+            9
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "numpy.matmul": {
+        "coords": [
+            9,
+            6,
+            0
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "numpy.reshape": {
+        "coords": [
+            25,
+            22,
+            7
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "numpy.transpose": {
+        "coords": [
+            30,
+            0,
+            8
+        ],
+        "fiber": 7,
+        "type": "direct_consumption"
+    },
+    "numpy.concatenate": {
+        "coords": [
+            28,
+            15,
+            23
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "numpy.stack": {
+        "coords": [
+            27,
+            1,
+            20
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "pandas.read_csv": {
+        "coords": [
+            15,
+            29,
+            12
+        ],
+        "fiber": 25,
+        "type": "direct_consumption"
+    },
+    "pandas.read_json": {
+        "coords": [
+            7,
+            12,
+            19
+        ],
+        "fiber": 7,
+        "type": "direct_consumption"
+    },
+    "pandas.read_parquet": {
+        "coords": [
+            20,
+            28,
+            0
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "pandas.DataFrame": {
+        "coords": [
+            9,
+            5,
+            1
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "pandas.Series": {
+        "coords": [
+            30,
+            13,
+            9
+        ],
+        "fiber": 21,
+        "type": "direct_consumption"
+    },
+    "pandas.concat": {
+        "coords": [
+            7,
+            21,
+            1
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "pandas.merge": {
+        "coords": [
+            28,
+            11,
+            7
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "pandas.pivot_table": {
+        "coords": [
+            23,
+            29,
+            22
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "pandas.groupby": {
+        "coords": [
+            0,
+            27,
+            17
+        ],
+        "fiber": 13,
+        "type": "direct_consumption"
+    },
+    "pandas.to_csv": {
+        "coords": [
+            29,
+            0,
+            6
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "pandas.to_json": {
+        "coords": [
+            10,
+            2,
+            7
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "torch.nn.Linear": {
+        "coords": [
+            17,
+            23,
+            3
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "torch.nn.Conv2d": {
+        "coords": [
+            14,
+            11,
+            7
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "torch.nn.ReLU": {
+        "coords": [
+            24,
+            26,
+            26
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "torch.nn.CrossEntropyLoss": {
+        "coords": [
+            21,
+            13,
+            14
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "torch.nn.Module": {
+        "coords": [
+            29,
+            11,
+            13
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "torch.optim.Adam": {
+        "coords": [
+            17,
+            11,
+            11
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "torch.optim.SGD": {
+        "coords": [
+            30,
+            19,
+            9
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "torch.save": {
+        "coords": [
+            16,
+            14,
+            26
+        ],
+        "fiber": 25,
+        "type": "direct_consumption"
+    },
+    "torch.load": {
+        "coords": [
+            17,
+            30,
+            16
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "torch.tensor": {
+        "coords": [
+            27,
+            20,
+            4
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "torch.cat": {
+        "coords": [
+            12,
+            1,
+            2
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "torch.stack": {
+        "coords": [
+            0,
+            23,
+            30
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "torch.cuda.is_available": {
+        "coords": [
+            29,
+            28,
+            27
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "torch.device": {
+        "coords": [
+            24,
+            16,
+            5
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "torch.from_numpy": {
+        "coords": [
+            28,
+            26,
+            13
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "torch.manual_seed": {
         "coords": [
             22,
-            4,
+            9,
+            29
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "torch.nn.functional.softmax": {
+        "coords": [
+            16,
+            9,
+            17
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "torch.nn.functional.relu": {
+        "coords": [
+            11,
+            0,
+            17
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "torch.nn.Dropout": {
+        "coords": [
+            24,
+            6,
+            6
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "torch.nn.BatchNorm2d": {
+        "coords": [
+            28,
+            19,
+            20
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "fastapi.FastAPI": {
+        "coords": [
+            12,
+            29,
+            16
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "fastapi.APIRouter": {
+        "coords": [
+            24,
+            7,
+            20
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "fastapi.Depends": {
+        "coords": [
+            26,
+            11,
+            13
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "fastapi.HTTPException": {
+        "coords": [
+            22,
+            27,
+            16
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "fastapi.Header": {
+        "coords": [
+            3,
+            10,
+            22
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "fastapi.Query": {
+        "coords": [
+            10,
+            5,
+            22
+        ],
+        "fiber": 6,
+        "type": "direct_consumption"
+    },
+    "fastapi.Path": {
+        "coords": [
+            11,
+            25,
+            29
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "fastapi.Body": {
+        "coords": [
+            9,
+            15,
+            11
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "fastapi.Form": {
+        "coords": [
+            22,
+            0,
+            28
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "fastapi.File": {
+        "coords": [
+            17,
+            17,
+            28
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "fastapi.UploadFile": {
+        "coords": [
+            30,
+            25,
+            16
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "cv2.imread": {
+        "coords": [
+            16,
+            28,
+            17
+        ],
+        "fiber": 30,
+        "type": "direct_consumption"
+    },
+    "cv2.imwrite": {
+        "coords": [
+            8,
+            23,
+            14
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "cv2.imshow": {
+        "coords": [
+            5,
+            3,
+            15
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "cv2.cvtColor": {
+        "coords": [
+            27,
+            10,
+            16
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "cv2.GaussianBlur": {
+        "coords": [
+            24,
+            20,
+            16
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "cv2.Canny": {
+        "coords": [
+            23,
+            22,
+            13
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "cv2.findContours": {
+        "coords": [
+            22,
+            7,
+            29
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "cv2.drawContours": {
+        "coords": [
+            17,
+            29,
+            18
+        ],
+        "fiber": 2,
+        "type": "direct_consumption"
+    },
+    "cv2.rectangle": {
+        "coords": [
+            29,
+            30,
+            7
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "cv2.circle": {
+        "coords": [
+            2,
+            17,
+            27
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "cv2.putText": {
+        "coords": [
+            22,
+            30,
+            1
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "cv2.resize": {
+        "coords": [
+            21,
+            2,
+            0
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "cv2.threshold": {
+        "coords": [
+            10,
+            18,
+            23
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "cv2.bitwise_and": {
+        "coords": [
+            16,
+            8,
+            20
+        ],
+        "fiber": 13,
+        "type": "direct_consumption"
+    },
+    "cv2.bitwise_or": {
+        "coords": [
+            27,
+            6,
+            27
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "cv2.absdiff": {
+        "coords": [
+            21,
+            11,
+            14
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "json.loads": {
+        "coords": [
+            6,
+            24,
+            20
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "json.dumps": {
+        "coords": [
+            7,
+            1,
+            4
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "json.load": {
+        "coords": [
+            24,
+            0,
+            21
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "json.dump": {
+        "coords": [
+            5,
+            30,
+            11
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "requests.get": {
+        "coords": [
+            18,
+            21,
+            18
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "requests.post": {
+        "coords": [
+            11,
+            7,
+            16
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "requests.put": {
+        "coords": [
+            10,
+            5,
+            12
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "requests.delete": {
+        "coords": [
+            6,
+            11,
+            6
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "requests.patch": {
+        "coords": [
+            2,
+            25,
+            21
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "requests.head": {
+        "coords": [
+            1,
+            18,
+            28
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "kotlin.stdlib.collections.map": {
+        "coords": [
+            25,
+            21,
+            19
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "kotlin.stdlib.collections.filter": {
+        "coords": [
+            6,
+            27,
+            26
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "kotlin.stdlib.text.replace": {
+        "coords": [
+            26,
+            6,
+            18
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "kotlin.coroutines.launch": {
+        "coords": [
+            10,
+            7,
+            22
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "kotlin.coroutines.async": {
+        "coords": [
+            26,
+            8,
+            2
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "kotlin.coroutines.runBlocking": {
+        "coords": [
+            22,
+            26,
+            29
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "kotlin.android.view.View": {
+        "coords": [
+            0,
+            15,
+            1
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "kotlin.android.widget.Button": {
+        "coords": [
+            19,
+            9,
+            8
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "kotlin.android.content.Intent": {
+        "coords": [
+            18,
+            16,
+            23
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "transformers.pipeline": {
+        "coords": [
+            23,
+            8,
+            14
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "transformers.AutoModel": {
+        "coords": [
+            22,
+            1,
+            17
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "transformers.AutoTokenizer": {
+        "coords": [
+            21,
+            9,
+            4
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "transformers.AutoConfig": {
+        "coords": [
+            27,
+            25,
+            30
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "transformers.Trainer": {
+        "coords": [
+            17,
+            0,
+            5
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "transformers.TrainingArguments": {
+        "coords": [
+            10,
+            19,
+            3
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "transformers.LlamaForCausalLM": {
+        "coords": [
+            1,
+            2,
+            13
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "transformers.BertModel": {
+        "coords": [
+            15,
+            11,
             1
         ],
         "fiber": 27,
-        "type": "agentic_behavior",
-        "description": "Core Jules loop for autonomous task resolution."
+        "type": "direct_consumption"
     },
-    "jules.autopoietic_synthesis": {
+    "transformers.modeling_utils.PreTrainedModel": {
+        "coords": [
+            14,
+            20,
+            13
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "transformers.tokenization_utils.PreTrainedTokenizer": {
+        "coords": [
+            9,
+            3,
+            9
+        ],
+        "fiber": 21,
+        "type": "direct_consumption"
+    },
+    "transformers.DataCollatorWithPadding": {
+        "coords": [
+            27,
+            3,
+            29
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "transformers.pipeline.TextClassificationPipeline": {
+        "coords": [
+            24,
+            5,
+            27
+        ],
+        "fiber": 25,
+        "type": "direct_consumption"
+    },
+    "datasets.load_dataset": {
+        "coords": [
+            1,
+            13,
+            24
+        ],
+        "fiber": 7,
+        "type": "direct_consumption"
+    },
+    "datasets.load_from_disk": {
+        "coords": [
+            20,
+            28,
+            27
+        ],
+        "fiber": 13,
+        "type": "direct_consumption"
+    },
+    "datasets.list_datasets": {
+        "coords": [
+            12,
+            24,
+            5
+        ],
+        "fiber": 10,
+        "type": "direct_consumption"
+    },
+    "datasets.Dataset": {
         "coords": [
             3,
-            12,
-            14
+            19,
+            17
+        ],
+        "fiber": 8,
+        "type": "direct_consumption"
+    },
+    "datasets.IterableDataset": {
+        "coords": [
+            27,
+            7,
+            8
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "datasets.Features": {
+        "coords": [
+            0,
+            0,
+            11
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "datasets.Value": {
+        "coords": [
+            22,
+            29,
+            4
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "datasets.ClassLabel": {
+        "coords": [
+            25,
+            20,
+            15
         ],
         "fiber": 29,
-        "type": "agentic_behavior",
-        "description": "LLM-based logic synthesis for filling topological voids."
+        "type": "direct_consumption"
     },
-    "jules.tool_orchestration": {
+    "datasets.DatasetDict": {
         "coords": [
+            6,
+            9,
+            23
+        ],
+        "fiber": 7,
+        "type": "direct_consumption"
+    },
+    "datasets.concatenate_datasets": {
+        "coords": [
+            26,
+            23,
+            24
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.hf_hub_download": {
+        "coords": [
+            24,
+            19,
+            30
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.snapshot_download": {
+        "coords": [
+            6,
+            5,
+            6
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.login": {
+        "coords": [
+            10,
+            28,
+            2
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.whoami": {
+        "coords": [
+            10,
+            26,
+            27
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.list_models": {
+        "coords": [
+            7,
+            26,
+            24
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.Repository": {
+        "coords": [
+            18,
             8,
-            22,
+            7
+        ],
+        "fiber": 2,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.upload_file": {
+        "coords": [
+            28,
+            30,
+            1
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.delete_file": {
+        "coords": [
+            4,
+            7,
+            30
+        ],
+        "fiber": 10,
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.HfApi": {
+        "coords": [
+            28,
+            2,
             1
         ],
         "fiber": 0,
-        "type": "agentic_behavior",
-        "description": "Optimal sequence determination for tool execution."
+        "type": "direct_consumption"
+    },
+    "huggingface_hub.create_repo": {
+        "coords": [
+            28,
+            25,
+            9
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "tokenizers.Tokenizer": {
+        "coords": [
+            2,
+            9,
+            15
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "tokenizers.models.BPE": {
+        "coords": [
+            15,
+            26,
+            6
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "tokenizers.trainers.BpeTrainer": {
+        "coords": [
+            4,
+            19,
+            1
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "tokenizers.pre_tokenizers.Whitespace": {
+        "coords": [
+            14,
+            10,
+            0
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "tokenizers.decoders.ByteLevel": {
+        "coords": [
+            18,
+            20,
+            7
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "tokenizers.processors.BertProcessing": {
+        "coords": [
+            20,
+            19,
+            28
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "tokenizers.normalizers.NFKC": {
+        "coords": [
+            16,
+            17,
+            13
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "diffusers.StableDiffusionPipeline": {
+        "coords": [
+            2,
+            29,
+            22
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "diffusers.DiffusionPipeline": {
+        "coords": [
+            29,
+            30,
+            17
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "diffusers.AutoencoderKL": {
+        "coords": [
+            15,
+            22,
+            28
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "diffusers.UNet2DConditionModel": {
+        "coords": [
+            23,
+            2,
+            24
+        ],
+        "fiber": 18,
+        "type": "direct_consumption"
+    },
+    "diffusers.schedulers.DDPMScheduler": {
+        "coords": [
+            13,
+            16,
+            14
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "diffusers.models.ControlNetModel": {
+        "coords": [
+            14,
+            2,
+            18
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "diffusers.utils.load_image": {
+        "coords": [
+            27,
+            28,
+            9
+        ],
+        "fiber": 2,
+        "type": "direct_consumption"
+    },
+    "timm.create_model": {
+        "coords": [
+            22,
+            20,
+            25
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "timm.list_models": {
+        "coords": [
+            17,
+            0,
+            26
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "timm.list_pretrained": {
+        "coords": [
+            27,
+            10,
+            22
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "timm.get_model_config": {
+        "coords": [
+            28,
+            30,
+            29
+        ],
+        "fiber": 25,
+        "type": "direct_consumption"
+    },
+    "timm.optim.create_optimizer": {
+        "coords": [
+            1,
+            14,
+            16
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "timm.data.create_dataset": {
+        "coords": [
+            18,
+            15,
+            7
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "timm.data.create_loader": {
+        "coords": [
+            30,
+            26,
+            19
+        ],
+        "fiber": 13,
+        "type": "direct_consumption"
+    },
+    "sentence_transformers.SentenceTransformer": {
+        "coords": [
+            26,
+            12,
+            28
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "sentence_transformers.util.cos_sim": {
+        "coords": [
+            21,
+            25,
+            19
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "sentence_transformers.util.semantic_search": {
+        "coords": [
+            6,
+            19,
+            10
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "sentence_transformers.losses.CosineSimilarityLoss": {
+        "coords": [
+            29,
+            29,
+            2
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "sentence_transformers.InputExample": {
+        "coords": [
+            3,
+            1,
+            27
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "sentence_transformers.evaluation.EmbeddingSimilarityEvaluator": {
+        "coords": [
+            3,
+            16,
+            10
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "peft.get_peft_model": {
+        "coords": [
+            2,
+            14,
+            14
+        ],
+        "fiber": 30,
+        "type": "direct_consumption"
+    },
+    "peft.LoraConfig": {
+        "coords": [
+            14,
+            9,
+            24
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "peft.TaskType": {
+        "coords": [
+            15,
+            12,
+            2
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "peft.PeftModel": {
+        "coords": [
+            24,
+            26,
+            19
+        ],
+        "fiber": 7,
+        "type": "direct_consumption"
+    },
+    "peft.PeftConfig": {
+        "coords": [
+            12,
+            11,
+            2
+        ],
+        "fiber": 25,
+        "type": "direct_consumption"
+    },
+    "peft.AdaLoraConfig": {
+        "coords": [
+            14,
+            24,
+            26
+        ],
+        "fiber": 2,
+        "type": "direct_consumption"
+    },
+    "peft.PrefixTuningConfig": {
+        "coords": [
+            26,
+            20,
+            19
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "accelerate.Accelerator": {
+        "coords": [
+            26,
+            10,
+            19
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "accelerate.init_empty_weights": {
+        "coords": [
+            5,
+            24,
+            5
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "accelerate.load_checkpoint_and_dispatch": {
+        "coords": [
+            5,
+            24,
+            15
+        ],
+        "fiber": 13,
+        "type": "direct_consumption"
+    },
+    "accelerate.utils.set_seed": {
+        "coords": [
+            5,
+            16,
+            3
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "accelerate.DistributedDataParallelKwargs": {
+        "coords": [
+            10,
+            11,
+            30
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "evaluate.load": {
+        "coords": [
+            22,
+            18,
+            2
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "evaluate.list_evaluation_modules": {
+        "coords": [
+            11,
+            15,
+            6
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "evaluate.combine": {
+        "coords": [
+            12,
+            19,
+            0
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "evaluate.EvaluationModule": {
+        "coords": [
+            16,
+            22,
+            26
+        ],
+        "fiber": 2,
+        "type": "direct_consumption"
+    },
+    "evaluate.combine_metrics": {
+        "coords": [
+            26,
+            3,
+            22
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "optimum.pipelines.pipeline": {
+        "coords": [
+            24,
+            12,
+            0
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "optimum.onnxruntime.ORTModelForCausalLM": {
+        "coords": [
+            1,
+            3,
+            1
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "optimum.bettertransformer.BetterTransformer": {
+        "coords": [
+            23,
+            25,
+            30
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "optimum.exporters.onnx.export": {
+        "coords": [
+            2,
+            4,
+            5
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "optimum.intel.openvino.OVModelForCausalLM": {
+        "coords": [
+            24,
+            10,
+            18
+        ],
+        "fiber": 21,
+        "type": "direct_consumption"
+    },
+    "trl.SFTTrainer": {
+        "coords": [
+            5,
+            7,
+            10
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "trl.RewardTrainer": {
+        "coords": [
+            30,
+            4,
+            30
+        ],
+        "fiber": 2,
+        "type": "direct_consumption"
+    },
+    "trl.PPOTrainer": {
+        "coords": [
+            15,
+            17,
+            1
+        ],
+        "fiber": 2,
+        "type": "direct_consumption"
+    },
+    "trl.AutoModelForCausalLMWithValueHead": {
+        "coords": [
+            0,
+            23,
+            11
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "trl.DPOConfig": {
+        "coords": [
+            18,
+            17,
+            1
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "trl.DPOTrainer": {
+        "coords": [
+            22,
+            17,
+            11
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "trl.ModelConfig": {
+        "coords": [
+            7,
+            13,
+            11
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "bitsandbytes.nn.Linear8bitLt": {
+        "coords": [
+            17,
+            11,
+            2
+        ],
+        "fiber": 30,
+        "type": "direct_consumption"
+    },
+    "bitsandbytes.nn.Linear4bit": {
+        "coords": [
+            28,
+            3,
+            23
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "bitsandbytes.optim.Adam8bit": {
+        "coords": [
+            4,
+            28,
+            25
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "bitsandbytes.optim.PagedAdamW8bit": {
+        "coords": [
+            29,
+            19,
+            7
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "bitsandbytes.nn.Int8Params": {
+        "coords": [
+            12,
+            13,
+            11
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "scipy.optimize.minimize": {
+        "coords": [
+            19,
+            3,
+            10
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "scipy.optimize.curve_fit": {
+        "coords": [
+            4,
+            3,
+            8
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "scipy.integrate.quad": {
+        "coords": [
+            29,
+            29,
+            25
+        ],
+        "fiber": 21,
+        "type": "direct_consumption"
+    },
+    "scipy.linalg.solve": {
+        "coords": [
+            15,
+            2,
+            28
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "scipy.stats.norm": {
+        "coords": [
+            30,
+            24,
+            17
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "scipy.signal.spectrogram": {
+        "coords": [
+            19,
+            27,
+            0
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "scipy.spatial.KDTree": {
+        "coords": [
+            6,
+            16,
+            28
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "scipy.interpolate.interp1d": {
+        "coords": [
+            15,
+            19,
+            29
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "sklearn.cluster.KMeans": {
+        "coords": [
+            2,
+            20,
+            9
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "sklearn.decomposition.PCA": {
+        "coords": [
+            2,
+            6,
+            12
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "sklearn.ensemble.RandomForestClassifier": {
+        "coords": [
+            26,
+            13,
+            23
+        ],
+        "fiber": 0,
+        "type": "direct_consumption"
+    },
+    "sklearn.linear_model.LogisticRegression": {
+        "coords": [
+            27,
+            5,
+            21
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "sklearn.metrics.accuracy_score": {
+        "coords": [
+            0,
+            8,
+            14
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "sklearn.model_selection.train_test_split": {
+        "coords": [
+            29,
+            18,
+            11
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "sklearn.preprocessing.StandardScaler": {
+        "coords": [
+            0,
+            22,
+            5
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "sklearn.pipeline.Pipeline": {
+        "coords": [
+            2,
+            13,
+            30
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "sklearn.svm.SVC": {
+        "coords": [
+            12,
+            18,
+            30
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "sklearn.manifold.TSNE": {
+        "coords": [
+            21,
+            23,
+            21
+        ],
+        "fiber": 3,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.plot": {
+        "coords": [
+            14,
+            14,
+            30
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.scatter": {
+        "coords": [
+            14,
+            18,
+            15
+        ],
+        "fiber": 16,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.hist": {
+        "coords": [
+            15,
+            1,
+            1
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.imshow": {
+        "coords": [
+            24,
+            25,
+            11
+        ],
+        "fiber": 29,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.savefig": {
+        "coords": [
+            14,
+            21,
+            1
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.show": {
+        "coords": [
+            27,
+            23,
+            0
+        ],
+        "fiber": 19,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.subplots": {
+        "coords": [
+            8,
+            25,
+            22
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.figure": {
+        "coords": [
+            26,
+            16,
+            3
+        ],
+        "fiber": 14,
+        "type": "direct_consumption"
+    },
+    "matplotlib.pyplot.title": {
+        "coords": [
+            16,
+            25,
+            0
+        ],
+        "fiber": 10,
+        "type": "direct_consumption"
+    },
+    "seaborn.lineplot": {
+        "coords": [
+            27,
+            22,
+            10
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "seaborn.scatterplot": {
+        "coords": [
+            7,
+            11,
+            24
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "seaborn.histplot": {
+        "coords": [
+            28,
+            22,
+            1
+        ],
+        "fiber": 20,
+        "type": "direct_consumption"
+    },
+    "seaborn.heatmap": {
+        "coords": [
+            0,
+            5,
+            21
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "seaborn.pairplot": {
+        "coords": [
+            4,
+            18,
+            1
+        ],
+        "fiber": 23,
+        "type": "direct_consumption"
+    },
+    "seaborn.set_theme": {
+        "coords": [
+            25,
+            1,
+            2
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "seaborn.barplot": {
+        "coords": [
+            3,
+            7,
+            20
+        ],
+        "fiber": 30,
+        "type": "direct_consumption"
+    },
+    "plotly.express.line": {
+        "coords": [
+            30,
+            15,
+            13
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "plotly.express.scatter": {
+        "coords": [
+            12,
+            13,
+            21
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "plotly.express.histogram": {
+        "coords": [
+            0,
+            9,
+            15
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "plotly.express.imshow": {
+        "coords": [
+            4,
+            1,
+            19
+        ],
+        "fiber": 24,
+        "type": "direct_consumption"
+    },
+    "plotly.express.parallel_coordinates": {
+        "coords": [
+            16,
+            12,
+            8
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "plotly.express.box": {
+        "coords": [
+            8,
+            23,
+            1
+        ],
+        "fiber": 1,
+        "type": "direct_consumption"
+    },
+    "plotly.express.violin": {
+        "coords": [
+            30,
+            23,
+            18
+        ],
+        "fiber": 9,
+        "type": "direct_consumption"
+    },
+    "langchain.chains.LLMChain": {
+        "coords": [
+            7,
+            1,
+            9
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "langchain.prompts.PromptTemplate": {
+        "coords": [
+            10,
+            6,
+            21
+        ],
+        "fiber": 6,
+        "type": "direct_consumption"
+    },
+    "langchain.schema.HumanMessage": {
+        "coords": [
+            5,
+            23,
+            18
+        ],
+        "fiber": 15,
+        "type": "direct_consumption"
+    },
+    "langchain.agents.initialize_agent": {
+        "coords": [
+            6,
+            22,
+            25
+        ],
+        "fiber": 22,
+        "type": "direct_consumption"
+    },
+    "langchain.vectorstores.Chroma": {
+        "coords": [
+            17,
+            17,
+            2
+        ],
+        "fiber": 5,
+        "type": "direct_consumption"
+    },
+    "langchain.embeddings.HuggingFaceEmbeddings": {
+        "coords": [
+            23,
+            18,
+            17
+        ],
+        "fiber": 27,
+        "type": "direct_consumption"
+    },
+    "langchain.memory.ConversationBufferMemory": {
+        "coords": [
+            27,
+            20,
+            10
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.VectorStoreIndex": {
+        "coords": [
+            27,
+            28,
+            11
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.SimpleDirectoryReader": {
+        "coords": [
+            18,
+            9,
+            30
+        ],
+        "fiber": 26,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.StorageContext": {
+        "coords": [
+            6,
+            24,
+            18
+        ],
+        "fiber": 17,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.load_index_from_storage": {
+        "coords": [
+            5,
+            6,
+            1
+        ],
+        "fiber": 12,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.ServiceContext": {
+        "coords": [
+            29,
+            13,
+            17
+        ],
+        "fiber": 28,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.PromptHelper": {
+        "coords": [
+            29,
+            28,
+            16
+        ],
+        "fiber": 11,
+        "type": "direct_consumption"
+    },
+    "llama_index.core.Response": {
+        "coords": [
+            29,
+            29,
+            8
+        ],
+        "fiber": 4,
+        "type": "direct_consumption"
+    },
+    "project.core._check_fso_solvability": {
+        "coords": [
+            15,
+            16,
+            14
+        ],
+        "fiber": 14,
+        "type": "project_logic"
+    },
+    "project.core.extract_weights": {
+        "coords": [
+            13,
+            6,
+            28
+        ],
+        "fiber": 16,
+        "type": "project_logic"
+    },
+    "project.core.verify_sigma": {
+        "coords": [
+            24,
+            11,
+            10
+        ],
+        "fiber": 14,
+        "type": "project_logic"
+    },
+    "project.core.table_to_sigma": {
+        "coords": [
+            28,
+            7,
+            11
+        ],
+        "fiber": 15,
+        "type": "project_logic"
+    },
+    "project.core._sa_score": {
+        "coords": [
+            28,
+            9,
+            10
+        ],
+        "fiber": 16,
+        "type": "project_logic"
+    },
+    "project.core._build_sa": {
+        "coords": [
+            24,
+            7,
+            23
+        ],
+        "fiber": 23,
+        "type": "project_logic"
+    },
+    "project.core.run_hybrid_sa": {
+        "coords": [
+            15,
+            28,
+            9
+        ],
+        "fiber": 21,
+        "type": "project_logic"
+    },
+    "project.core.construct_spike_sigma": {
+        "coords": [
+            14,
+            12,
+            22
+        ],
+        "fiber": 17,
+        "type": "project_logic"
+    },
+    "project.core.solve": {
+        "coords": [
+            16,
+            10,
+            29
+        ],
+        "fiber": 24,
+        "type": "project_logic"
+    },
+    "project.core.repair_manifold": {
+        "coords": [
+            17,
+            29,
+            11
+        ],
+        "fiber": 26,
+        "type": "project_logic"
+    },
+    "project.core.verify_basin_escape_success": {
+        "coords": [
+            17,
+            5,
+            16
+        ],
+        "fiber": 7,
+        "type": "project_logic"
+    },
+    "project.core.build_functional_graphs": {
+        "coords": [
+            26,
+            17,
+            14
+        ],
+        "fiber": 26,
+        "type": "project_logic"
+    },
+    "project.core.verify_functional_graph": {
+        "coords": [
+            2,
+            3,
+            14
+        ],
+        "fiber": 19,
+        "type": "project_logic"
+    },
+    "project.core.vertices": {
+        "coords": [
+            19,
+            3,
+            30
+        ],
+        "fiber": 21,
+        "type": "project_logic"
+    },
+    "project.core.trace_cycle": {
+        "coords": [
+            18,
+            21,
+            21
+        ],
+        "fiber": 29,
+        "type": "project_logic"
+    },
+    "project.core.arc_sequence": {
+        "coords": [
+            21,
+            7,
+            18
+        ],
+        "fiber": 15,
+        "type": "project_logic"
+    },
+    "project.core.strategy": {
+        "coords": [
+            23,
+            7,
+            13
+        ],
+        "fiber": 12,
+        "type": "project_logic"
+    },
+    "project.core.summary": {
+        "coords": [
+            11,
+            26,
+            0
+        ],
+        "fiber": 6,
+        "type": "project_logic"
+    },
+    "project.algebraic.analyze_advanced_domain": {
+        "coords": [
+            12,
+            10,
+            30
+        ],
+        "fiber": 21,
+        "type": "project_logic"
+    },
+    "project.algebraic.get_algebraic_proof": {
+        "coords": [
+            30,
+            5,
+            1
+        ],
+        "fiber": 5,
+        "type": "project_logic"
+    },
+    "project.algebraic.get_heisenberg_proof": {
+        "coords": [
+            23,
+            22,
+            30
+        ],
+        "fiber": 13,
+        "type": "project_logic"
+    },
+    "project.algebraic.__init__": {
+        "coords": [
+            21,
+            23,
+            25
+        ],
+        "fiber": 7,
+        "type": "project_logic"
+    },
+    "project.algebraic.analyze": {
+        "coords": [
+            13,
+            19,
+            17
+        ],
+        "fiber": 18,
+        "type": "project_logic"
+    },
+    "project.algebraic.lift": {
+        "coords": [
+            14,
+            20,
+            7
+        ],
+        "fiber": 10,
+        "type": "project_logic"
+    },
+    "project.algebraic.project": {
+        "coords": [
+            25,
+            30,
+            13
+        ],
+        "fiber": 6,
+        "type": "project_logic"
+    },
+    "project.algebraic.lift_sequence": {
+        "coords": [
+            8,
+            14,
+            1
+        ],
+        "fiber": 23,
+        "type": "project_logic"
+    },
+    "project.algebraic.project_sequence": {
+        "coords": [
+            6,
+            19,
+            9
+        ],
+        "fiber": 3,
+        "type": "project_logic"
+    },
+    "project.algebraic.parity_law": {
+        "coords": [
+            0,
+            16,
+            24
+        ],
+        "fiber": 9,
+        "type": "project_logic"
+    },
+    "project.fiber.is_bijective_level": {
+        "coords": [
+            7,
+            15,
+            9
+        ],
+        "fiber": 0,
+        "type": "project_logic"
+    },
+    "project.fiber.all_valid_levels": {
+        "coords": [
+            7,
+            28,
+            24
+        ],
+        "fiber": 28,
+        "type": "project_logic"
+    },
+    "project.fiber.compose_levels": {
+        "coords": [
+            20,
+            21,
+            7
+        ],
+        "fiber": 17,
+        "type": "project_logic"
+    },
+    "project.fiber.is_single_q_cycle": {
+        "coords": [
+            16,
+            24,
+            15
+        ],
+        "fiber": 24,
+        "type": "project_logic"
+    },
+    "project.fiber.table_to_sigma_fn": {
+        "coords": [
+            27,
+            4,
+            11
+        ],
+        "fiber": 11,
+        "type": "project_logic"
+    },
+    "project.fiber.analyze_Q_structure": {
+        "coords": [
+            17,
+            3,
+            15
+        ],
+        "fiber": 4,
+        "type": "project_logic"
+    },
+    "project.fiber.verify_single_cycle_conditions": {
+        "coords": [
+            29,
+            10,
+            1
+        ],
+        "fiber": 9,
+        "type": "project_logic"
+    },
+    "project.fiber.even_m_impossibility_check": {
+        "coords": [
+            9,
+            15,
+            18
+        ],
+        "fiber": 11,
+        "type": "project_logic"
+    },
+    "project.fiber.sigma": {
+        "coords": [
+            21,
+            24,
+            9
+        ],
+        "fiber": 23,
+        "type": "project_logic"
+    },
+    "project.search.find_sigma": {
+        "coords": [
+            22,
+            8,
+            14
+        ],
+        "fiber": 13,
+        "type": "project_logic"
+    },
+    "project.search.__init__": {
+        "coords": [
+            21,
+            23,
+            25
+        ],
+        "fiber": 7,
+        "type": "project_logic"
+    },
+    "project.search.attempts": {
+        "coords": [
+            11,
+            19,
+            16
+        ],
+        "fiber": 15,
+        "type": "project_logic"
+    },
+    "project.search.elapsed": {
+        "coords": [
+            30,
+            19,
+            15
+        ],
+        "fiber": 2,
+        "type": "project_logic"
+    },
+    "project.search.run": {
+        "coords": [
+            30,
+            10,
+            8
+        ],
+        "fiber": 17,
+        "type": "project_logic"
+    },
+    "project.search.run_verbose": {
+        "coords": [
+            14,
+            21,
+            25
+        ],
+        "fiber": 29,
+        "type": "project_logic"
+    },
+    "project.search.nodes_visited": {
+        "coords": [
+            15,
+            9,
+            30
+        ],
+        "fiber": 23,
+        "type": "project_logic"
+    },
+    "project.search.best_score": {
+        "coords": [
+            22,
+            8,
+            26
+        ],
+        "fiber": 25,
+        "type": "project_logic"
+    },
+    "project.search._score": {
+        "coords": [
+            26,
+            3,
+            14
+        ],
+        "fiber": 12,
+        "type": "project_logic"
+    },
+    "project.search._bt": {
+        "coords": [
+            25,
+            19,
+            17
+        ],
+        "fiber": 30,
+        "type": "project_logic"
+    },
+    "project.search.sigma_fn": {
+        "coords": [
+            9,
+            12,
+            12
+        ],
+        "fiber": 2,
+        "type": "project_logic"
+    },
+    "project.solutions.get_solution": {
+        "coords": [
+            17,
+            28,
+            6
+        ],
+        "fiber": 20,
+        "type": "project_logic"
+    },
+    "project.solutions.get_solution_table": {
+        "coords": [
+            1,
+            19,
+            9
+        ],
+        "fiber": 29,
+        "type": "project_logic"
+    },
+    "project.solutions.known_m_values": {
+        "coords": [
+            9,
+            7,
+            27
+        ],
+        "fiber": 12,
+        "type": "project_logic"
+    },
+    "project.solutions.construct_for_odd_m": {
+        "coords": [
+            4,
+            11,
+            15
+        ],
+        "fiber": 30,
+        "type": "project_logic"
+    },
+    "project.theorems.proved": {
+        "coords": [
+            20,
+            13,
+            2
+        ],
+        "fiber": 4,
+        "type": "project_logic"
+    },
+    "project.theorems.hr": {
+        "coords": [
+            30,
+            16,
+            15
+        ],
+        "fiber": 30,
+        "type": "project_logic"
+    },
+    "project.theorems.check_spike_conditions": {
+        "coords": [
+            23,
+            16,
+            16
+        ],
+        "fiber": 24,
+        "type": "project_logic"
+    },
+    "project.theorems.phi": {
+        "coords": [
+            14,
+            3,
+            23
+        ],
+        "fiber": 9,
+        "type": "project_logic"
+    },
+    "project.theorems.verify_moduli_space_laws": {
+        "coords": [
+            8,
+            6,
+            7
+        ],
+        "fiber": 21,
+        "type": "project_logic"
+    },
+    "project.theorems.verify_basin_escape_law": {
+        "coords": [
+            23,
+            12,
+            4
+        ],
+        "fiber": 8,
+        "type": "project_logic"
+    },
+    "project.theorems.verify_cross_domain_consistency": {
+        "coords": [
+            2,
+            23,
+            18
+        ],
+        "fiber": 12,
+        "type": "project_logic"
+    },
+    "project.theorems.verify_subgroup_decomposition_law": {
+        "coords": [
+            10,
+            8,
+            2
+        ],
+        "fiber": 20,
+        "type": "project_logic"
+    },
+    "project.theorems.verify_symbolic_duality_law": {
+        "coords": [
+            13,
+            4,
+            15
+        ],
+        "fiber": 1,
+        "type": "project_logic"
+    },
+    "project.theorems.verify_hardware_hamiltonian_health": {
+        "coords": [
+            8,
+            13,
+            29
+        ],
+        "fiber": 19,
+        "type": "project_logic"
+    },
+    "project.theorems.verify_all_theorems": {
+        "coords": [
+            27,
+            16,
+            9
+        ],
+        "fiber": 21,
+        "type": "project_logic"
+    },
+    "project.theorems.print_cross_domain_table": {
+        "coords": [
+            7,
+            7,
+            8
+        ],
+        "fiber": 22,
+        "type": "project_logic"
+    },
+    "synthesized.tgi_adapt_d155": {
+        "coords": [
+            23,
+            23,
+            13
+        ],
+        "fiber": 28,
+        "type": "industrial_logic"
+    },
+    "claw.QueryEngine.QueryEngineRuntime": {
+        "coords": [
+            17,
+            5,
+            14
+        ],
+        "fiber": 5,
+        "type": "industrial_logic"
+    },
+    "claw.QueryEngine.route": {
+        "coords": [
+            23,
+            17,
+            26
+        ],
+        "fiber": 4,
+        "type": "industrial_logic"
+    },
+    "claw.bootstrap_graph.BootstrapGraph": {
+        "coords": [
+            27,
+            23,
+            10
+        ],
+        "fiber": 29,
+        "type": "industrial_logic"
+    },
+    "claw.bootstrap_graph.build_bootstrap_graph": {
+        "coords": [
+            24,
+            26,
+            29
+        ],
+        "fiber": 17,
+        "type": "industrial_logic"
+    },
+    "claw.bootstrap_graph.as_markdown": {
+        "coords": [
+            22,
+            16,
+            17
+        ],
+        "fiber": 24,
+        "type": "industrial_logic"
+    },
+    "claw.main.build_parser": {
+        "coords": [
+            28,
+            7,
+            13
+        ],
+        "fiber": 17,
+        "type": "industrial_logic"
+    },
+    "claw.main.main": {
+        "coords": [
+            0,
+            25,
+            4
+        ],
+        "fiber": 29,
+        "type": "industrial_logic"
+    },
+    "claw.cost_tracker.CostTracker": {
+        "coords": [
+            7,
+            14,
+            2
+        ],
+        "fiber": 23,
+        "type": "industrial_logic"
+    },
+    "claw.cost_tracker.record": {
+        "coords": [
+            15,
+            29,
+            16
+        ],
+        "fiber": 29,
+        "type": "industrial_logic"
+    },
+    "claw.replLauncher.build_repl_banner": {
+        "coords": [
+            14,
+            29,
+            29
+        ],
+        "fiber": 10,
+        "type": "industrial_logic"
+    },
+    "claw.tools.ToolExecution": {
+        "coords": [
+            24,
+            3,
+            7
+        ],
+        "fiber": 3,
+        "type": "industrial_logic"
+    },
+    "claw.tools.load_tool_snapshot": {
+        "coords": [
+            22,
+            7,
+            6
+        ],
+        "fiber": 4,
+        "type": "industrial_logic"
+    },
+    "claw.tools.build_tool_backlog": {
+        "coords": [
+            25,
+            13,
+            0
+        ],
+        "fiber": 7,
+        "type": "industrial_logic"
+    },
+    "claw.tools.tool_names": {
+        "coords": [
+            22,
+            19,
+            7
+        ],
+        "fiber": 17,
+        "type": "industrial_logic"
+    },
+    "claw.tools.get_tool": {
+        "coords": [
+            29,
+            0,
+            26
+        ],
+        "fiber": 24,
+        "type": "industrial_logic"
+    },
+    "claw.tools.filter_tools_by_permission_context": {
+        "coords": [
+            6,
+            3,
+            9
+        ],
+        "fiber": 18,
+        "type": "industrial_logic"
+    },
+    "claw.parity_audit._reference_surface": {
+        "coords": [
+            14,
+            10,
+            24
+        ],
+        "fiber": 17,
+        "type": "industrial_logic"
+    },
+    "claw.tools.find_tools": {
+        "coords": [
+            3,
+            25,
+            25
+        ],
+        "fiber": 22,
+        "type": "industrial_logic"
+    },
+    "claw.tools.execute_tool": {
+        "coords": [
+            0,
+            24,
+            20
+        ],
+        "fiber": 13,
+        "type": "industrial_logic"
+    },
+    "claw.tools.render_tool_index": {
+        "coords": [
+            11,
+            0,
+            1
+        ],
+        "fiber": 12,
+        "type": "industrial_logic"
+    },
+    "claw.dialogLaunchers.DialogLauncher": {
+        "coords": [
+            14,
+            19,
+            8
+        ],
+        "fiber": 10,
+        "type": "industrial_logic"
+    },
+    "claw.tool_pool.ToolPool": {
+        "coords": [
+            13,
+            11,
+            9
+        ],
+        "fiber": 2,
+        "type": "industrial_logic"
+    },
+    "claw.tool_pool.assemble_tool_pool": {
+        "coords": [
+            15,
+            3,
+            23
+        ],
+        "fiber": 10,
+        "type": "industrial_logic"
+    },
+    "claw.tool_pool.as_markdown": {
+        "coords": [
+            13,
+            10,
+            2
+        ],
+        "fiber": 25,
+        "type": "industrial_logic"
+    },
+    "claw.ink.render_markdown_panel": {
+        "coords": [
+            2,
+            15,
+            17
+        ],
+        "fiber": 3,
+        "type": "industrial_logic"
+    },
+    "claw.parity_audit.ParityAuditResult": {
+        "coords": [
+            17,
+            27,
+            0
+        ],
+        "fiber": 13,
+        "type": "industrial_logic"
+    },
+    "claw.parity_audit._snapshot_count": {
+        "coords": [
+            24,
+            1,
+            5
+        ],
+        "fiber": 30,
+        "type": "industrial_logic"
+    },
+    "claw.parity_audit.run_parity_audit": {
+        "coords": [
+            1,
+            24,
+            16
+        ],
+        "fiber": 10,
+        "type": "industrial_logic"
+    },
+    "claw.parity_audit.to_markdown": {
+        "coords": [
+            1,
+            9,
+            10
+        ],
+        "fiber": 20,
+        "type": "industrial_logic"
+    },
+    "claw.execution_registry.MirroredCommand": {
+        "coords": [
+            9,
+            16,
+            24
+        ],
+        "fiber": 18,
+        "type": "industrial_logic"
+    },
+    "claw.execution_registry.MirroredTool": {
+        "coords": [
+            0,
+            19,
+            3
+        ],
+        "fiber": 22,
+        "type": "industrial_logic"
+    },
+    "claw.execution_registry.ExecutionRegistry": {
+        "coords": [
+            22,
+            2,
+            15
+        ],
+        "fiber": 8,
+        "type": "industrial_logic"
+    },
+    "claw.execution_registry.build_execution_registry": {
+        "coords": [
+            24,
+            26,
+            15
+        ],
+        "fiber": 3,
+        "type": "industrial_logic"
+    },
+    "claw.execution_registry.execute": {
+        "coords": [
+            29,
+            4,
+            30
+        ],
+        "fiber": 1,
+        "type": "industrial_logic"
+    },
+    "claw.execution_registry.command": {
+        "coords": [
+            30,
+            25,
+            27
+        ],
+        "fiber": 20,
+        "type": "industrial_logic"
+    },
+    "claw.execution_registry.tool": {
+        "coords": [
+            25,
+            27,
+            9
+        ],
+        "fiber": 30,
+        "type": "industrial_logic"
+    },
+    "claw.interactiveHelpers.bulletize": {
+        "coords": [
+            7,
+            19,
+            1
+        ],
+        "fiber": 27,
+        "type": "industrial_logic"
+    },
+    "claw.system_init.build_system_init_message": {
+        "coords": [
+            10,
+            5,
+            25
+        ],
+        "fiber": 9,
+        "type": "industrial_logic"
+    },
+    "claw.setup.WorkspaceSetup": {
+        "coords": [
+            2,
+            14,
+            16
+        ],
+        "fiber": 1,
+        "type": "industrial_logic"
+    },
+    "claw.setup.SetupReport": {
+        "coords": [
+            27,
+            9,
+            29
+        ],
+        "fiber": 3,
+        "type": "industrial_logic"
+    },
+    "claw.setup.build_workspace_setup": {
+        "coords": [
+            21,
+            1,
+            15
+        ],
+        "fiber": 6,
+        "type": "industrial_logic"
+    },
+    "claw.setup.run_setup": {
+        "coords": [
+            7,
+            21,
+            8
+        ],
+        "fiber": 5,
+        "type": "industrial_logic"
+    },
+    "claw.setup.startup_steps": {
+        "coords": [
+            23,
+            17,
+            19
+        ],
+        "fiber": 28,
+        "type": "industrial_logic"
+    },
+    "claw.setup.as_markdown": {
+        "coords": [
+            8,
+            20,
+            0
+        ],
+        "fiber": 28,
+        "type": "industrial_logic"
+    },
+    "claw.projectOnboardingState.ProjectOnboardingState": {
+        "coords": [
+            22,
+            12,
+            16
+        ],
+        "fiber": 19,
+        "type": "industrial_logic"
+    },
+    "claw.prefetch.PrefetchResult": {
+        "coords": [
+            14,
+            30,
+            6
+        ],
+        "fiber": 19,
+        "type": "industrial_logic"
+    },
+    "claw.prefetch.start_mdm_raw_read": {
+        "coords": [
+            10,
+            7,
+            8
+        ],
+        "fiber": 25,
+        "type": "industrial_logic"
+    },
+    "claw.prefetch.start_keychain_prefetch": {
+        "coords": [
+            5,
+            16,
+            14
+        ],
+        "fiber": 4,
+        "type": "industrial_logic"
+    },
+    "claw.prefetch.start_project_scan": {
+        "coords": [
+            14,
+            19,
+            4
+        ],
+        "fiber": 6,
+        "type": "industrial_logic"
+    },
+    "claw.transcript.TranscriptStore": {
+        "coords": [
+            2,
+            8,
+            29
+        ],
+        "fiber": 8,
+        "type": "industrial_logic"
+    },
+    "claw.transcript.append": {
+        "coords": [
+            15,
+            20,
+            12
+        ],
+        "fiber": 16,
+        "type": "industrial_logic"
+    },
+    "claw.transcript.compact": {
+        "coords": [
+            15,
+            20,
+            0
+        ],
+        "fiber": 4,
+        "type": "industrial_logic"
+    },
+    "claw.transcript.replay": {
+        "coords": [
+            11,
+            24,
+            23
+        ],
+        "fiber": 27,
+        "type": "industrial_logic"
+    },
+    "claw.transcript.flush": {
+        "coords": [
+            10,
+            25,
+            13
+        ],
+        "fiber": 17,
+        "type": "industrial_logic"
+    },
+    "claw.permissions.ToolPermissionContext": {
+        "coords": [
+            5,
+            0,
+            25
+        ],
+        "fiber": 30,
+        "type": "industrial_logic"
+    },
+    "claw.permissions.from_iterables": {
+        "coords": [
+            5,
+            26,
+            28
+        ],
+        "fiber": 28,
+        "type": "industrial_logic"
+    },
+    "claw.permissions.blocks": {
+        "coords": [
+            29,
+            0,
+            30
+        ],
+        "fiber": 28,
+        "type": "industrial_logic"
+    },
+    "claw.command_graph.CommandGraph": {
+        "coords": [
+            14,
+            2,
+            29
+        ],
+        "fiber": 14,
+        "type": "industrial_logic"
+    },
+    "claw.command_graph.build_command_graph": {
+        "coords": [
+            19,
+            18,
+            8
+        ],
+        "fiber": 14,
+        "type": "industrial_logic"
+    },
+    "claw.command_graph.flattened": {
+        "coords": [
+            10,
+            13,
+            19
+        ],
+        "fiber": 11,
+        "type": "industrial_logic"
+    },
+    "claw.command_graph.as_markdown": {
+        "coords": [
+            8,
+            17,
+            6
+        ],
+        "fiber": 0,
+        "type": "industrial_logic"
+    },
+    "claw.remote_runtime.RuntimeModeReport": {
+        "coords": [
+            22,
+            30,
+            21
+        ],
+        "fiber": 11,
+        "type": "industrial_logic"
+    },
+    "claw.remote_runtime.run_remote_mode": {
+        "coords": [
+            0,
+            14,
+            28
+        ],
+        "fiber": 11,
+        "type": "industrial_logic"
+    },
+    "claw.remote_runtime.run_ssh_mode": {
+        "coords": [
+            11,
+            29,
+            27
+        ],
+        "fiber": 5,
+        "type": "industrial_logic"
+    },
+    "claw.remote_runtime.run_teleport_mode": {
+        "coords": [
+            15,
+            8,
+            3
+        ],
+        "fiber": 26,
+        "type": "industrial_logic"
+    },
+    "claw.remote_runtime.as_text": {
+        "coords": [
+            10,
+            1,
+            12
+        ],
+        "fiber": 23,
+        "type": "industrial_logic"
+    },
+    "claw.port_manifest.PortManifest": {
+        "coords": [
+            2,
+            15,
+            9
+        ],
+        "fiber": 26,
+        "type": "industrial_logic"
+    },
+    "claw.port_manifest.build_port_manifest": {
+        "coords": [
+            3,
+            5,
+            13
+        ],
+        "fiber": 21,
+        "type": "industrial_logic"
+    },
+    "claw.port_manifest.to_markdown": {
+        "coords": [
+            4,
+            13,
+            30
+        ],
+        "fiber": 16,
+        "type": "industrial_logic"
+    },
+    "claw.Tool.ToolDefinition": {
+        "coords": [
+            17,
+            20,
+            6
+        ],
+        "fiber": 12,
+        "type": "industrial_logic"
+    },
+    "claw.commands.CommandExecution": {
+        "coords": [
+            2,
+            25,
+            29
+        ],
+        "fiber": 25,
+        "type": "industrial_logic"
+    },
+    "claw.commands.load_command_snapshot": {
+        "coords": [
+            25,
+            0,
+            18
+        ],
+        "fiber": 12,
+        "type": "industrial_logic"
+    },
+    "claw.commands.built_in_command_names": {
+        "coords": [
+            11,
+            19,
+            4
+        ],
+        "fiber": 3,
+        "type": "industrial_logic"
+    },
+    "claw.commands.build_command_backlog": {
+        "coords": [
+            9,
+            0,
+            12
+        ],
+        "fiber": 21,
+        "type": "industrial_logic"
+    },
+    "claw.commands.command_names": {
+        "coords": [
+            7,
+            21,
+            4
+        ],
+        "fiber": 1,
+        "type": "industrial_logic"
+    },
+    "claw.commands.get_command": {
+        "coords": [
+            23,
+            22,
+            18
+        ],
+        "fiber": 1,
+        "type": "industrial_logic"
+    },
+    "claw.commands.get_commands": {
+        "coords": [
+            14,
+            23,
+            23
+        ],
+        "fiber": 29,
+        "type": "industrial_logic"
+    },
+    "claw.commands.find_commands": {
+        "coords": [
+            0,
+            6,
+            23
+        ],
+        "fiber": 29,
+        "type": "industrial_logic"
+    },
+    "claw.commands.execute_command": {
+        "coords": [
+            12,
+            26,
+            4
+        ],
+        "fiber": 11,
+        "type": "industrial_logic"
+    },
+    "claw.commands.render_command_index": {
+        "coords": [
+            8,
+            13,
+            12
+        ],
+        "fiber": 2,
+        "type": "industrial_logic"
+    },
+    "claw.runtime.RoutedMatch": {
+        "coords": [
+            3,
+            11,
+            19
+        ],
+        "fiber": 2,
+        "type": "industrial_logic"
+    },
+    "claw.runtime.RuntimeSession": {
+        "coords": [
+            22,
+            3,
+            20
+        ],
+        "fiber": 14,
+        "type": "industrial_logic"
+    },
+    "claw.runtime.PortRuntime": {
+        "coords": [
+            24,
+            4,
+            29
+        ],
+        "fiber": 26,
+        "type": "industrial_logic"
+    },
+    "claw.runtime.as_markdown": {
+        "coords": [
+            2,
+            1,
+            7
+        ],
+        "fiber": 10,
+        "type": "industrial_logic"
+    },
+    "claw.runtime.route_prompt": {
+        "coords": [
+            25,
+            0,
+            17
+        ],
+        "fiber": 11,
+        "type": "industrial_logic"
+    },
+    "claw.runtime.bootstrap_session": {
+        "coords": [
+            1,
+            17,
+            25
+        ],
+        "fiber": 12,
+        "type": "industrial_logic"
+    },
+    "claw.runtime.run_turn_loop": {
+        "coords": [
+            3,
+            16,
+            3
+        ],
+        "fiber": 22,
+        "type": "industrial_logic"
+    },
+    "claw.runtime._infer_permission_denials": {
+        "coords": [
+            1,
+            25,
+            12
+        ],
+        "fiber": 7,
+        "type": "industrial_logic"
+    },
+    "claw.runtime._collect_matches": {
+        "coords": [
+            7,
+            18,
+            15
+        ],
+        "fiber": 9,
+        "type": "industrial_logic"
+    },
+    "claw.runtime._score": {
+        "coords": [
+            25,
+            27,
+            30
+        ],
+        "fiber": 20,
+        "type": "industrial_logic"
+    },
+    "claw.costHook.apply_cost_hook": {
+        "coords": [
+            4,
+            22,
+            14
+        ],
+        "fiber": 9,
+        "type": "industrial_logic"
+    },
+    "claw.direct_modes.DirectModeReport": {
+        "coords": [
+            26,
+            4,
+            7
+        ],
+        "fiber": 6,
+        "type": "industrial_logic"
+    },
+    "claw.direct_modes.run_direct_connect": {
+        "coords": [
+            15,
+            2,
+            22
+        ],
+        "fiber": 8,
+        "type": "industrial_logic"
+    },
+    "claw.direct_modes.run_deep_link": {
+        "coords": [
+            29,
+            17,
+            25
+        ],
+        "fiber": 9,
+        "type": "industrial_logic"
+    },
+    "claw.direct_modes.as_text": {
+        "coords": [
+            3,
+            16,
+            23
+        ],
+        "fiber": 11,
+        "type": "industrial_logic"
+    },
+    "claw.query.QueryRequest": {
+        "coords": [
+            17,
+            7,
+            14
+        ],
+        "fiber": 7,
+        "type": "industrial_logic"
+    },
+    "claw.query.QueryResponse": {
+        "coords": [
+            9,
+            29,
+            29
+        ],
+        "fiber": 5,
+        "type": "industrial_logic"
+    },
+    "claw.context.PortContext": {
+        "coords": [
+            30,
+            17,
+            8
+        ],
+        "fiber": 24,
+        "type": "industrial_logic"
+    },
+    "claw.context.render_context": {
+        "coords": [
+            1,
+            26,
+            28
+        ],
+        "fiber": 24,
+        "type": "industrial_logic"
+    },
+    "claw._archive_helper.load_archive_metadata": {
+        "coords": [
+            3,
+            24,
+            8
+        ],
+        "fiber": 4,
+        "type": "industrial_logic"
+    },
+    "claw.history.HistoryEvent": {
+        "coords": [
+            4,
+            25,
+            16
+        ],
+        "fiber": 14,
+        "type": "industrial_logic"
+    },
+    "claw.history.HistoryLog": {
+        "coords": [
+            6,
+            2,
+            9
+        ],
+        "fiber": 17,
+        "type": "industrial_logic"
+    },
+    "claw.history.add": {
+        "coords": [
+            29,
+            6,
+            7
+        ],
+        "fiber": 11,
+        "type": "industrial_logic"
+    },
+    "claw.history.as_markdown": {
+        "coords": [
+            26,
+            1,
+            16
+        ],
+        "fiber": 12,
+        "type": "industrial_logic"
+    },
+    "claw.models.Subsystem": {
+        "coords": [
+            1,
+            27,
+            25
+        ],
+        "fiber": 22,
+        "type": "industrial_logic"
+    },
+    "claw.models.PortingModule": {
+        "coords": [
+            19,
+            14,
+            2
+        ],
+        "fiber": 4,
+        "type": "industrial_logic"
+    },
+    "claw.models.PermissionDenial": {
+        "coords": [
+            25,
+            11,
+            8
+        ],
+        "fiber": 13,
+        "type": "industrial_logic"
+    },
+    "claw.models.UsageSummary": {
+        "coords": [
+            7,
+            29,
+            12
+        ],
+        "fiber": 17,
+        "type": "industrial_logic"
+    },
+    "claw.models.PortingBacklog": {
+        "coords": [
+            11,
+            20,
+            22
+        ],
+        "fiber": 22,
+        "type": "industrial_logic"
+    },
+    "claw.models.add_turn": {
+        "coords": [
+            24,
+            19,
+            23
+        ],
+        "fiber": 4,
+        "type": "industrial_logic"
+    },
+    "claw.models.summary_lines": {
+        "coords": [
+            20,
+            25,
+            13
+        ],
+        "fiber": 27,
+        "type": "industrial_logic"
+    },
+    "claw.deferred_init.DeferredInitResult": {
+        "coords": [
+            13,
+            29,
+            10
+        ],
+        "fiber": 21,
+        "type": "industrial_logic"
+    },
+    "claw.deferred_init.run_deferred_init": {
+        "coords": [
+            22,
+            18,
+            15
+        ],
+        "fiber": 24,
+        "type": "industrial_logic"
+    },
+    "claw.deferred_init.as_lines": {
+        "coords": [
+            20,
+            29,
+            15
+        ],
+        "fiber": 2,
+        "type": "industrial_logic"
+    },
+    "claw.tasks.default_tasks": {
+        "coords": [
+            18,
+            0,
+            20
+        ],
+        "fiber": 7,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.QueryEngineConfig": {
+        "coords": [
+            11,
+            16,
+            16
+        ],
+        "fiber": 12,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.TurnResult": {
+        "coords": [
+            0,
+            16,
+            20
+        ],
+        "fiber": 5,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.QueryEnginePort": {
+        "coords": [
+            0,
+            9,
+            29
+        ],
+        "fiber": 7,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.from_workspace": {
+        "coords": [
+            11,
+            12,
+            27
+        ],
+        "fiber": 19,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.from_saved_session": {
+        "coords": [
+            9,
+            18,
+            27
+        ],
+        "fiber": 23,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.submit_message": {
+        "coords": [
+            12,
+            24,
+            19
+        ],
+        "fiber": 24,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.stream_submit_message": {
+        "coords": [
+            17,
+            25,
+            2
+        ],
+        "fiber": 13,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.flush_transcript": {
+        "coords": [
+            14,
+            18,
+            12
+        ],
+        "fiber": 13,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.persist_session": {
+        "coords": [
+            29,
+            7,
+            3
+        ],
+        "fiber": 8,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine._format_output": {
+        "coords": [
+            3,
+            15,
+            2
+        ],
+        "fiber": 20,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine._render_structured_output": {
+        "coords": [
+            12,
+            10,
+            29
+        ],
+        "fiber": 20,
+        "type": "industrial_logic"
+    },
+    "claw.query_engine.render_summary": {
+        "coords": [
+            7,
+            1,
+            19
+        ],
+        "fiber": 27,
+        "type": "industrial_logic"
+    },
+    "claw.session_store.StoredSession": {
+        "coords": [
+            23,
+            30,
+            15
+        ],
+        "fiber": 6,
+        "type": "industrial_logic"
+    },
+    "claw.session_store.save_session": {
+        "coords": [
+            28,
+            10,
+            2
+        ],
+        "fiber": 9,
+        "type": "industrial_logic"
+    },
+    "claw.session_store.load_session": {
+        "coords": [
+            11,
+            12,
+            29
+        ],
+        "fiber": 21,
+        "type": "industrial_logic"
     }
 }

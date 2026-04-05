@@ -12,7 +12,7 @@ class FSOSelfPopulator:
     def __init__(self, m: int):
         self.m = m
         self.refinery = FSORefinery(m)
-        self.manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
+        self.manifest_path = "fso_production_manifest.json"
         self.manifest = {}
         if os.path.exists(self.manifest_path):
             with open(self.manifest_path, "r") as f:
