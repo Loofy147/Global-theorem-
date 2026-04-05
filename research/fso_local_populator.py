@@ -191,5 +191,5 @@ if __name__ == "__main__":
     ])
 
     # Save the manifest to research/fso_production_manifest.json
-    manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
+    manifest_path = "fso_production_manifest.json"
     populator.save_manifest(manifest_path)

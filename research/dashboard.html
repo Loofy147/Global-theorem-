@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FSO Planetary Admin Dashboard</title>
+    <style>
+        body { font-family: "Courier New", Courier, monospace; background-color: #0d1117; color: #58a6ff; padding: 20px; }
+        .sidebar { float: left; width: 250px; border-right: 1px solid #30363d; height: 100vh; padding: 10px; }
+        .main { margin-left: 270px; }
+        .card { background-color: #161b22; border: 1px solid #30363d; padding: 15px; margin-bottom: 20px; border-radius: 6px; }
+        .btn { background-color: #238636; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 6px; margin: 5px; }
+        .btn:hover { background-color: #2ea043; }
+        .btn:disabled { background-color: #30363d; cursor: not-allowed; }
+        .status-active { color: #3fb950; font-weight: bold; }
+        .status-stdby { color: #8b949e; }
+        h1, h2 { color: #c9d1d9; }
+        hr { border: 0; border-top: 1px solid #30363d; margin: 20px 0; }
+        #auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13,17,23,0.95); z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        #log-window { height: 200px; overflow-y: scroll; background: #010409; padding: 10px; font-size: 0.8em; color: #7d8590; border: 1px solid #30363d; }
+    </style>
+</head>
+<body>
+    <div id="auth-overlay">
+        <h1>[AUTH] BIOMETRIC GOVERNANCE</h1>
+        <p>Awaiting Identity Confirmation (Fingerprint/FaceID Simulation)...</p>
+        <button class="btn" onclick="authenticate()">SIMULATE BIOMETRIC SCAN</button>
+    </div>
+
+    <div class="sidebar">
+        <h2>[SIDEBAR]</h2>
+        <p>DOMAIN: <span id="domain-label">Neural</span></p>
+        <p>TRUST: <span class="status-active">BACKBONE_CONNECTED</span></p>
+        <p>NODES: <span id="node-count">1,030,301</span></p>
+        <p>SPIKE: r=(1, 99, 1)</p>
+        <hr>
+        <div id="log-window">
+            [SYS] Booting manifold...<br>
+            [SYS] Genesis coordinate anchored at (0,0,0).
+        </div>
+    </div>
+
+    <div class="main">
+        <h1>FSO PLANETARY SUPERCOMPUTER: INDUSTRIAL MANAGEMENT (m=101)</h1>
+
+        <div class="card">
+            <h2>[INDUSTRIAL MANIFOLD CHOICES]</h2>
+            <table width="100%">
+                <tr><th>Domain</th><th>Logic Variety</th><th>Fiber</th><th>Saturation</th><th>Action</th></tr>
+                <tr><td>Pixels</td><td>FFT / Denoise</td><td>4</td><td>88.2%</td><td><button class="btn" onclick="setDomain('Pixels')">SWITCH</button></td></tr>
+                <tr><td>Text</td><td>TLM / GPT-Gate</td><td>5</td><td>74.5%</td><td><button class="btn" onclick="setDomain('Text')">SWITCH</button></td></tr>
+                <tr><td>Execution</td><td>Rust-WASM</td><td>1</td><td>95.0%</td><td><button class="btn" onclick="setDomain('Execution')">SWITCH</button></td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>[PLANETARY MANAGEMENT (ONE-BUTTON TASKS)]</h2>
+            <button class="btn" onclick="executeTask('sync')">TRIGGER GLOBAL SYNC WAVE</button>
+            <button class="btn" onclick="executeTask('heal')">ACTIVATE RESILIENCE (COLOR 2) HEALING</button>
+            <button class="btn" onclick="executeTask('smelt')">SMELT EXTERNAL REPOSITORY (REFINERY)</button>
+        </div>
+
+        <div class="card">
+            <h2>[LIVE TELEMETRY]</h2>
+            <p>Fiber Segregation: <span id="fiber-stats">Fiber 0 (Parity) - OK</span></p>
+            <p>Holographic State: <span id="holo-stats">443 Logic Units Anchored</span></p>
+        </div>
+    </div>
+
+    <script>
+        let sessionToken = null;
+
+        function addLog(msg) {
+            const logWin = document.getElementById("log-window");
+            logWin.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
+            logWin.scrollTop = logWin.scrollHeight;
+        }
+
+        async function authenticate() {
+            addLog("Processing Biometric Identity...");
+            setTimeout(() => {
+                sessionToken = "ADMIN_PLANETARY_SOVEREIGN";
+                document.getElementById("auth-overlay").style.display = "none";
+                addLog("Identity Confirmed. Access Granted.");
+            }, 1000);
+        }
+
+        async function setDomain(domain) {
+            document.getElementById("domain-label").innerText = domain;
+            addLog(`Switched Domain to ${domain}`);
+        }
+
+        async function executeTask(task) {
+            if (!sessionToken) return alert("Unauthorized");
+            addLog(`Propagating wave for task: ${task.toUpperCase()}...`);
+            try {
+                const response = await fetch("/api/command", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ concept: task, token: sessionToken })
+                });
+                const result = await response.json();
+                addLog(`Wave Intersection: ${JSON.stringify(result.status)}`);
+            } catch (e) {
+                addLog(`Wave Error: ${e}`);
+            }
+        }
+
+        setInterval(async () => {
+            if (!sessionToken) return;
+            try {
+                const resp = await fetch("/api/telemetry");
+                const data = await resp.json();
+                document.getElementById("holo-stats").innerText = `${data.logic_units} Logic Units Anchored`;
+                document.getElementById("node-count").innerText = data.nodes.toLocaleString();
+            } catch (e) {}
+        }, 5000);
+    </script>
+</body>
+</html>

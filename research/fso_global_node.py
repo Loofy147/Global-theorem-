@@ -6,6 +6,8 @@ import uuid
 import os
 import sys
 import ipaddress
+import aiohttp
+from aiohttp import web
 from typing import Tuple, Dict, List, Any
 
 # Add parent directory to path for core imports
@@ -41,14 +43,21 @@ class GlobalFSONode:
         self.topo = FSOTopology(m)
         self.node_id = str(uuid.uuid4())
         self.public_ip = self._get_public_ip()
-        self.port = int(os.getenv("FSO_PORT", 8888))
+        self.port = int(os.getenv("PORT", os.getenv("FSO_PORT", 8888)))
 
-        self.coords = None # Will be assigned upon network join
+        self.coords = None
         self.fiber = None
-        self.fabric_node: FSOFabricNode = None # Local FSO processing unit
-        self.peer_directory: Dict[Tuple[int,int,int], str] = {} # Map coords to IP:PORT
+        self.fabric_node: FSOFabricNode = None
+        self.peer_directory: Dict[Tuple[int,int,int], str] = {}
 
-        self.seed_ip = seed_ip # The bootstrap server to discover the mesh
+        self.seed_ip = seed_ip
+
+        # Load dashboard HTML
+        self.dashboard_path = os.path.join(os.path.dirname(__file__), "dashboard.html")
+        self.dashboard_html = "<h1>Dashboard Load Error</h1>"
+        if os.path.exists(self.dashboard_path):
+            with open(self.dashboard_path, "r") as f:
+                self.dashboard_html = f.read()
 
     def _get_public_ip(self):
         """Discovers the node's real-world IP."""
@@ -75,13 +84,9 @@ class GlobalFSONode:
         print(f"[*] Booting Global Node {self.node_id} at {self.public_ip}:{self.port}")
 
         if self.seed_ip:
-            print(f"[*] Contacting Seed Node at {self.seed_ip}...")
-            # In production, this performs a TCP handshake to claim an empty slot
-            # For demonstration, we deterministically hash our IP to find our coordinate
             h = int(hashlib.md5(self.public_ip.encode()).hexdigest(), 16)
             self.coords = (h % self.m, (h // self.m) % self.m, (h // (self.m**2)) % self.m)
         else:
-            print("[*] No Seed IP provided. Booting as GENESIS NODE at (0,0,0).")
             self.coords = (0, 0, 0)
 
         self.fiber = sum(self.coords) % self.m
@@ -91,92 +96,126 @@ class GlobalFSONode:
 
         print(f"[+] Successfully integrated into FSO Manifold at {self.coords} (Fiber {self.fiber})")
 
-    async def handle_high_level_command(self, concept: str, data: Any = None):
-        """
-        Translates abstract dashboard inputs into specific Hamiltonian waves.
-        One input button -> complex FSO wave generation.
-        """
-        print(f"[DASHBOARD] Mapping Concept '{concept}' to Hamiltonian Logic...")
+    async def handle_health(self, request):
+        """Health check endpoint for Render."""
+        return web.Response(text="FSO Node Active", status=200)
 
-        if "sync" in concept.lower():
-            # Broadcast Color 2 Wave to all nodes for manifold calibration
-            return await self.fabric_node.process_waveform({
-                "color": 2, "type": "SYNC_CALIBRATION", "payload": {"fiber": self.fiber}
-            })
-        elif "smelt" in concept.lower():
-            # Trigger Logic Ingestion Wave (Color 0)
-            return await self.fabric_node.process_waveform({
-                "color": 0, "type": "LOGIC_INJECT", "payload": {"id": "refinery_task", "code": "smelt_repo()"}
-            })
-        elif "heal" in concept.lower():
-            # Trigger Color 2 Resilience Wave
-            return await self.fabric_node.process_waveform({
-                "color": 2, "type": "RESILIENCE_HEAL", "payload": {"target_fiber": self.fiber}
-            })
+    async def handle_dashboard(self, request):
+        """Serves the FSO Planetary Admin Dashboard."""
+        return web.Response(text=self.dashboard_html, content_type='text/html')
 
-        return {"status": "MAPPING_NOT_FOUND"}
+    async def handle_telemetry(self, request):
+        """Provides live manifold telemetry for the dashboard."""
+        # Check logic count from production manifest
+        manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
+        units_count = 0
+        if os.path.exists(manifest_path):
+            try:
+                with open(manifest_path, "r") as f:
+                    units_count = len(json.load(f))
+            except: pass
 
-    async def start_server(self):
-        """Listens for Hamiltonian Waves arriving over the public internet."""
-        server = await asyncio.start_server(self.handle_wave, '0.0.0.0', self.port)
-        print(f"[+] Physical TCP Socket listening on 0.0.0.0:{self.port}")
-        async with server:
-            await server.serve_forever()
+        return web.json_response({
+            "nodes": self.m**3,
+            "logic_units": units_count or len(self.fabric_node.logic_registry),
+            "fiber": self.fiber,
+            "coords": self.coords
+        })
 
-    async def handle_wave(self, reader, writer):
-        """Processes incoming network traffic in O(1) time."""
-        addr = writer.get_extra_info('peername')
-        client_ip = addr[0]
-
-        data = await reader.read(4096)
-        if not data: return
-
+    async def handle_command_api(self, request):
+        """Processes high-level dashboard commands with input validation."""
         try:
-            packet = json.loads(data.decode())
+            data = await request.json()
+            concept = data.get("concept")
+            token = data.get("token")
 
-            # 0. Check for High-Level Dashboard Commands
-            if packet.get("type") == "DASHBOARD_CONCEPT":
-                result = await self.handle_high_level_command(packet.get("concept"), packet.get("data"))
-                writer.write(json.dumps(result).encode())
-                await writer.drain()
-                writer.close()
-                return
+            # 1. Security Check (Biometric Simulation Token)
+            if not token or "ADMIN" not in token:
+                return web.json_response({"status": "UNAUTHORIZED"}, status=401)
 
+            # 2. Command Validation
+            valid_concepts = ["sync", "heal", "smelt"]
+            if not concept or concept not in valid_concepts:
+                return web.json_response({"status": "INVALID_COMMAND", "valid_options": valid_concepts}, status=400)
+
+            print(f"[DASHBOARD] Mapping Concept '{concept}' to Hamiltonian Logic...")
+            result = None
+            if concept == "sync":
+                result = await self.fabric_node.process_waveform({
+                    "color": 2, "type": "SYNC_CALIBRATION", "payload": {"fiber": self.fiber}
+                })
+            elif concept == "smelt":
+                result = await self.fabric_node.process_waveform({
+                    "color": 0, "type": "LOGIC_INJECT", "payload": {"id": "refinery_task", "code": "smelt_repo()"}
+                })
+            elif concept == "heal":
+                result = await self.fabric_node.process_waveform({
+                    "color": 2, "type": "RESILIENCE_HEAL", "payload": {"target_fiber": self.fiber}
+                })
+
+            return web.json_response(result or {"status": "WAVE_PROPAGATED"})
+        except Exception as e:
+            return web.json_response({"status": "ERROR", "reason": str(e)}, status=500)
+
+    async def handle_wave_http(self, request):
+        """Processes incoming Hamiltonian waves via HTTP POST."""
+        client_ip = request.remote
+        try:
+            packet = await request.json()
             color = packet.get("color")
-            # Security Trust Verification
             trusted = self.is_trusted_peer(client_ip)
             trust_marker = "[TRUSTED]" if trusted else "[EXTERNAL]"
             print(f"{trust_marker} Received Color {color} Wave from {client_ip}")
 
-            # 1. Process Logic via Holographic Layer (Intersection, Execution, Storage)
+            # 1. Process Logic via Holographic Layer
             result = await self.fabric_node.process_waveform(packet)
-            if result:
-                print(f"[*] FSO Cognitive Core Status: {result.get('status')}")
 
             # 2. Forward the Wave physically across the internet if not at target
             target_coords = tuple(packet.get('target', (0,0,0)))
             if target_coords != self.coords and packet.get('ttl', 0) > 0:
                 packet['ttl'] -= 1
                 next_coords = self.topo.spike_step(self.coords, color)
-                await self._physical_forward(next_coords, packet)
+                asyncio.create_task(self._physical_forward(next_coords, packet))
+
+            return web.json_response(result or {"status": "PROCESSED"})
         except Exception as e:
             print(f"[!] Error processing wave from {client_ip}: {e}")
+            return web.Response(text=str(e), status=400)
 
-        writer.close()
-        await writer.wait_closed()
+    async def start_server(self):
+        """Starts the aiohttp server for FSO wave processing and dashboard."""
+        app = web.Application()
+        app.add_routes([
+            web.get('/', self.handle_health),
+            web.get('/dashboard', self.handle_dashboard),
+            web.get('/api/telemetry', self.handle_telemetry),
+            web.post('/api/command', self.handle_command_api),
+            web.post('/wave', self.handle_wave_http),
+            web.post('/', self.handle_wave_http)
+        ])
+        runner = web.AppRunner(app)
+        await runner.setup()
+        site = web.TCPSite(runner, '0.0.0.0', self.port)
+        print(f"[+] FSO HTTP Server with Dashboard listening on 0.0.0.0:{self.port}")
+        await site.start()
+        # Keep running
+        while True:
+            await asyncio.sleep(3600)
 
     async def _physical_forward(self, next_coords, packet):
-        """Resolves the (x,y,z) to a physical IP and sends the data."""
+        """Resolves (x,y,z) to an IP and forwards the wave via HTTP POST."""
         target_ip = self.peer_directory.get(next_coords)
         if target_ip:
-            # Physical TCP transmission to the next geographical server
             print(f"[->] Routing via Spike to {next_coords} ({target_ip})")
-            # reader, writer = await asyncio.open_connection(target_ip.split(':')[0], int(target_ip.split(':')[1]))
-            # writer.write(json.dumps(packet).encode())
-            # writer.close()
+            try:
+                async with aiohttp.ClientSession() as session:
+                    url = f"http://{target_ip}/wave"
+                    async with session.post(url, json=packet, timeout=5) as resp:
+                        return await resp.json()
+            except Exception as e:
+                print(f"[!] Forwarding failed to {next_coords}: {e}")
         else:
-            # For demonstration, if we don't have the IP, we log the intent
-            print(f"[!] Network Partition: IP for coordinate {next_coords} unknown. Packet dropped.")
+            print(f"[!] Network Partition: IP for {next_coords} unknown. Packet dropped.")
 
 async def main():
     # To run a seed node: python fso_global_node.py
