@@ -219,7 +219,7 @@ class GlobalFSONode:
                 self.auto_stats["last_heal"] = datetime.now().isoformat()
 
                 # 2. Random Synthesis (Autopoietic Expansion)
-                if time.time() % 3600 < 600: # Increased window to 10 mins
+                if time.time() % 3600 < 600:
                     print("[AUTOP] Background synthesis triggered...")
                     await self.fabric_node.process_waveform({
                         "color": 0, "type": "LOGIC_INJECT", "payload": {"id": f"auto_{int(time.time())}", "code": "def auto_logic(): pass"}
@@ -235,8 +235,9 @@ class GlobalFSONode:
         """Starts the aiohttp server for FSO wave processing and dashboard."""
         app = web.Application()
         app.add_routes([
-            web.get('/', self.handle_health),
+            web.get('/', self.handle_dashboard), # Dashboard as ROOT
             web.get('/dashboard', self.handle_dashboard),
+            web.get('/health', self.handle_health),
             web.get('/api/telemetry', self.handle_telemetry),
             web.post('/api/command', self.handle_command_api),
             web.post('/wave', self.handle_wave_http),
