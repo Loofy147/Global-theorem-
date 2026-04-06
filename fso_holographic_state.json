@@ -1,0 +1,18 @@
+{
+    "status": "STABLE",
+    "fiber_count": 231,
+    "average_integrity": 1.0,
+    "timestamp": "2026-04-06T17:32:22.149843",
+    "active_fibers_sample": [
+        "cog_14fe81.npy",
+        "cog_51f190.npy",
+        "cog_948aac.npy",
+        "cog_a36969.npy",
+        "cog_agent_60bc97fd8c0c.npy",
+        "cog_agent_ac1130e63661.npy",
+        "cog_agent_e60856d7cfd0.npy",
+        "cog_bridge_5946d9fbfa.npy",
+        "cog_cd00fd.npy",
+        "fiber_1047.npy"
+    ]
+}

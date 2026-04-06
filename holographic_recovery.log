@@ -1,0 +1,349 @@
+2026-04-05 17:30:28,182 [INFO] Holographic Recovery Daemon initialized. Interval: 60s
+2026-04-05 17:30:28,183 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-05 17:30:28,183 [INFO] Detected 10 active fibers in the manifold.
+2026-04-05 17:30:28,192 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,193 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,193 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,194 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,194 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,195 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,195 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,195 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,195 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:28,196 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-05 17:30:28,196 [INFO] Daemon running in single-shot mode (set FSO_DAEMON_MODE=TRUE for persistence).
+2026-04-05 17:30:52,122 [INFO] Holographic Recovery Daemon initialized. Interval: 60s
+2026-04-05 17:30:52,122 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-05 17:30:52,122 [INFO] Detected 10 active fibers in the manifold.
+2026-04-05 17:30:52,127 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,127 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,128 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,128 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,128 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,129 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,129 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,129 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,130 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-05 17:30:52,130 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-05 17:31:52,131 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-05 17:31:52,131 [INFO] Detected 10 active fibers in the manifold.
+2026-04-05 17:31:52,134 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,135 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,135 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,135 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,136 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,136 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,136 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,137 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,137 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-05 17:31:52,138 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-05 17:32:52,138 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-05 17:32:52,139 [INFO] Detected 10 active fibers in the manifold.
+2026-04-05 17:32:52,142 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,142 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,143 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,143 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,144 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,144 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,144 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,145 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,145 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-05 17:32:52,145 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-05 17:33:03,939 [INFO] Holographic Recovery Daemon initialized. Interval: 60s
+2026-04-05 17:33:03,939 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-05 17:33:03,940 [INFO] Detected 10 active fibers in the manifold.
+2026-04-05 17:33:03,944 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,944 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,944 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,945 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,945 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,945 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,946 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,946 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,946 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:03,947 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-05 17:33:03,947 [INFO] Daemon running in single-shot mode (set FSO_DAEMON_MODE=TRUE for persistence).
+2026-04-05 17:33:52,146 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-05 17:33:52,146 [INFO] Detected 10 active fibers in the manifold.
+2026-04-05 17:33:52,149 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,150 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,150 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,150 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,151 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,151 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,151 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,152 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,152 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-05 17:33:52,153 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-05 17:34:52,153 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-05 17:34:52,154 [INFO] Detected 10 active fibers in the manifold.
+2026-04-05 17:34:52,156 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,156 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,157 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,157 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,157 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,158 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,158 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,158 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,159 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-05 17:34:52,159 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-05 17:35:52,160 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-05 17:35:52,160 [INFO] Detected 10 active fibers in the manifold.
+2026-04-05 17:35:52,164 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,164 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,165 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,165 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,166 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,166 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,166 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,167 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,167 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-05 17:35:52,168 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:19:24,845 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:19:24,875 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:19:24,924 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,925 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,926 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,926 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,927 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,927 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,928 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,928 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,928 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:19:24,940 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:20:24,943 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:20:24,947 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:20:24,969 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,970 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,971 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,971 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,971 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,972 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,972 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,973 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,973 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:20:24,978 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:21:24,979 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:21:24,981 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:21:24,985 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,985 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,985 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,986 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,986 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,986 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,987 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,987 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,987 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:21:24,988 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:22:24,988 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:22:24,989 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:22:24,992 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,992 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,993 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,993 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,993 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,994 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,994 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,995 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,995 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:22:24,996 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:22:58,494 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:22:58,496 [INFO] Detected 227 active fibers in the manifold.
+2026-04-06 11:22:58,583 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:23:24,996 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:23:24,997 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:23:25,004 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,004 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,005 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,005 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,005 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,006 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,006 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,006 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,007 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:23:25,007 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:24:25,008 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:24:25,008 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:24:25,012 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,013 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,013 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,013 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,013 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,014 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,014 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,014 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,015 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:24:25,015 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:25:25,016 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:25:25,016 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:25:25,020 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,020 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,021 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,021 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,021 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,022 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,022 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,022 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,023 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:25:25,023 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:26:25,023 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:26:25,024 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:26:25,027 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,027 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,028 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,028 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,028 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,029 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,029 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,029 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,030 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:26:25,030 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:27:25,030 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:27:25,031 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:27:25,036 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,036 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,037 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,037 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,037 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,038 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,038 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,038 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,039 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:27:25,039 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:27:27,093 [INFO] Holographic Recovery Daemon initialized. Interval: 60s
+2026-04-06 11:27:27,093 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:27:27,095 [INFO] Detected 227 active fibers in the manifold.
+2026-04-06 11:27:27,178 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:27:27,178 [INFO] Daemon running in single-shot mode (set FSO_DAEMON_MODE=TRUE for persistence).
+2026-04-06 11:28:25,039 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:28:25,040 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:28:25,044 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,045 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,045 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,045 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,046 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,046 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,046 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,047 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,047 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:28:25,047 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:29:25,048 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:29:25,048 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:29:25,051 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,051 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,052 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,052 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,052 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,053 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,053 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,053 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,053 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:29:25,054 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:30:25,054 [INFO] === STARTING HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:30:25,055 [INFO] Detected 10 active fibers in the manifold.
+2026-04-06 11:30:25,058 [INFO] [SUCCESS] Pair (fiber_1047.npy, fiber_1076.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,058 [INFO] [SUCCESS] Pair (fiber_1076.npy, fiber_1092.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,058 [INFO] [SUCCESS] Pair (fiber_1092.npy, fiber_1262.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,059 [INFO] [SUCCESS] Pair (fiber_1262.npy, fiber_1321.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,060 [INFO] [SUCCESS] Pair (fiber_1321.npy, fiber_667.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,060 [INFO] [SUCCESS] Pair (fiber_667.npy, fiber_845.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,060 [INFO] [SUCCESS] Pair (fiber_845.npy, fiber_958.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,061 [INFO] [SUCCESS] Pair (fiber_958.npy, fiber_965.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,061 [INFO] [SUCCESS] Pair (fiber_965.npy, fiber_993.npy) | Integrity: 1.0000000000
+2026-04-06 11:30:25,061 [INFO] Cycle Complete. Overall Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:30:32,477 [INFO] Global Holographic Recovery Daemon initialized. Interval: 60s
+2026-04-06 11:30:32,477 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:30:32,480 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:30:32,617 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:31:32,618 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:31:32,621 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:31:32,704 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:31:49,696 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:31:49,699 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:31:49,782 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:32:33,088 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:32:33,104 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:32:33,234 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:33:33,235 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:33:33,238 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:33:33,318 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:34:33,319 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:34:33,322 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:34:33,398 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:35:33,398 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:35:33,401 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:35:33,481 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:36:33,482 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:36:33,485 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:36:33,562 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 11:37:33,563 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 11:37:33,566 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 11:37:33,644 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:12:19,421 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:12:19,486 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 17:12:19,785 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:13:19,787 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:13:19,790 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 17:13:19,882 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:14:19,883 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:14:19,886 [INFO] Detected 227 active fibers globally across the repository.
+2026-04-06 17:14:19,975 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:15:19,976 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:15:19,980 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:15:20,078 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:15:52,373 [INFO] Global Holographic Recovery Daemon initialized. Interval: 60s
+2026-04-06 17:15:52,374 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:15:52,381 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:15:52,642 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:15:52,645 [INFO] Daemon running in single-shot mode (set FSO_DAEMON_MODE=TRUE for persistence).
+2026-04-06 17:16:20,092 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:16:20,125 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:16:20,469 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:17:20,477 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:17:20,485 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:17:20,629 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:18:20,630 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:18:20,634 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:18:20,726 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:19:20,726 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:19:20,729 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:19:20,828 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:20:20,829 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:20:20,832 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:20:20,921 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:21:20,922 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:21:20,925 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:21:21,013 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:22:21,014 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:22:21,018 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:22:21,108 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:23:21,109 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:23:21,115 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:23:21,290 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:24:21,291 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:24:21,294 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:24:21,385 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:25:21,385 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:25:21,388 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:25:21,478 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:26:21,479 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:26:21,482 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:26:21,569 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:27:21,570 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:27:21,574 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:27:21,664 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:28:21,665 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:28:21,668 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:28:21,759 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:29:21,760 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:29:21,763 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:29:21,854 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:30:21,855 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:30:21,858 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:30:21,953 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:31:21,954 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:31:21,957 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:31:22,054 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
+2026-04-06 17:32:22,056 [INFO] === STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===
+2026-04-06 17:32:22,059 [INFO] Detected 231 active fibers globally across the repository.
+2026-04-06 17:32:22,150 [INFO] Cycle Complete. Global Integrity: 1.0000000000 | Status: STABLE
