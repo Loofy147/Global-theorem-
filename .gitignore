@@ -1,0 +1,26 @@
+# FSO Data Artifacts
+STRATOS_MEMORY/
+SOVEREIGN_MIND/
+*.npy
+*.log
+*.json
+fso_holographic_state.json
+holographic_recovery.log
+holographic_daemon.log
+
+# Python Artifacts
+__pycache__/
+*.py[cod]
+*.class
+.pytest_cache/
+.venv/
+env/
+venv/
+build/
+dist/
+*.egg-info/
+
+# System Artifacts
+.DS_Store
+.idea/
+.vscode/

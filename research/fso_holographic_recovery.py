@@ -38,22 +38,29 @@ def cosine_sim(v1, v2):
         return 0.0
     return np.dot(v1_r, v2_r) / (norm1 * norm2)
 
-def find_all_fibers(base_dir="SOVEREIGN_MIND"):
-    """Locate all fiber_*.npy files in the manifold."""
+def find_all_fibers(base_dir="."):
+    """Locate all .npy files in the repository, excluding known artifacts."""
     fibers = {}
+    exclude_dirs = {".git", "__pycache__", "venv", ".venv", "env", "node_modules", "dist", "build"}
+
     for root, dirs, files in os.walk(base_dir):
+        # Efficiently skip excluded directories
+        dirs[:] = [d for d in dirs if d not in exclude_dirs]
+
         for name in files:
-            if name.startswith("fiber_") and name.endswith(".npy"):
+            if name.endswith(".npy"):
                 path = os.path.join(root, name)
-                fibers[name] = path
+                # Store absolute path to avoid confusion
+                fibers[name] = os.path.abspath(path)
+
     return fibers
 
 def run_recovery_cycle():
     state_file = "fso_holographic_state.json"
-    logger.info("=== STARTING HOLOGRAPHIC RECOVERY CYCLE ===")
+    logger.info("=== STARTING GLOBAL HOLOGRAPHIC RECOVERY CYCLE ===")
 
     fibers = find_all_fibers()
-    logger.info(f"Detected {len(fibers)} active fibers in the manifold.")
+    logger.info(f"Detected {len(fibers)} active fibers globally across the repository.")
 
     if len(fibers) < 2:
         logger.warning("Insufficient fibers for holographic binding test.")
@@ -76,6 +83,8 @@ def run_recovery_cycle():
     keys = sorted(list(vectors.keys()))
     integrities = []
 
+    # Process in chunks to prevent excessive logging/memory for thousands of fibers
+    # We always test pairs of (keys[i], keys[i+1])
     for i in range(len(keys) - 1):
         name_a, name_b = keys[i], keys[i+1]
         v_a, v_b = vectors[name_a], vectors[name_b]
@@ -88,8 +97,8 @@ def run_recovery_cycle():
         sim = cosine_sim(recovered_b, v_b)
         integrities.append(sim)
 
-        status = "SUCCESS" if sim > 0.999 else "DEGRADED"
-        logger.info(f"[{status}] Pair ({name_a}, {name_b}) | Integrity: {sim:.10f}")
+        if sim < 0.999:
+            logger.warning(f"[DEGRADED] Global Pair ({name_a}, {name_b}) | Integrity: {sim:.10f}")
 
     avg_integrity = np.mean(integrities) if integrities else 0.0
     overall_status = "STABLE" if avg_integrity > 0.999 else "DEGRADED"
@@ -99,26 +108,20 @@ def run_recovery_cycle():
         "fiber_count": len(fibers),
         "average_integrity": float(avg_integrity),
         "timestamp": datetime.now().isoformat(),
-        "active_fibers": keys
+        "active_fibers_sample": keys[:10]
     }
 
     # Save state for FSO Ecosystem awareness
     with open(state_file, "w") as f:
         json.dump(result, f, indent=4)
 
-    logger.info(f"Cycle Complete. Overall Integrity: {avg_integrity:.10f} | Status: {overall_status}")
+    logger.info(f"Cycle Complete. Global Integrity: {avg_integrity:.10f} | Status: {overall_status}")
     return result
 
 def main(interval=60):
     """Continuous recovery daemon."""
-    logger.info(f"Holographic Recovery Daemon initialized. Interval: {interval}s")
-    # For initial script output verification, run once then enter loop
+    logger.info(f"Global Holographic Recovery Daemon initialized. Interval: {interval}s")
     run_recovery_cycle()
-
-    # In a real daemon, we would loop here.
-    # For this task, I'll implement the loop but with a break condition or just run once to show results.
-    # The user asked for "always running", so I will use a simple while True.
-    # However, to avoid blocking the agent forever, I will allow it to be stopped or run in background.
 
     if os.environ.get("FSO_DAEMON_MODE") == "TRUE":
         while True:
