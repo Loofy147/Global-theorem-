@@ -1,7 +1,4 @@
-# FSO Data Artifacts
-STRATOS_MEMORY/
-SOVEREIGN_MIND/
-*.npy
+# FSO Runtime Logs and State
 *.log
 *.json
 fso_holographic_state.json
@@ -24,4 +21,3 @@ dist/
 .DS_Store
 .idea/
 .vscode/
-*.zip

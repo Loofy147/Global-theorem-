@@ -2,7 +2,7 @@
     "status": "STABLE",
     "fiber_count": 231,
     "average_integrity": 1.0,
-    "timestamp": "2026-04-06T17:18:20.725507",
+    "timestamp": "2026-04-06T17:32:22.149843",
     "active_fibers_sample": [
         "cog_14fe81.npy",
         "cog_51f190.npy",
