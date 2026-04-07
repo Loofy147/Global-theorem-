@@ -6,6 +6,8 @@ import sys
 import time
 import inspect
 import logging
+import json
+import os
 from typing import Dict, Any, Tuple, List
 
 # Configure logging
@@ -88,20 +90,45 @@ class FSO_Apex_Hypervisor:
         self.m = m
         self.topo = FSOTopology(m)
         self.consumer = DirectConsumer(self.topo)
+        self.state_path = "fso_manifold_state.json"
 
         # System Health Map (True = Healthy, False = Dead)
-        self.health_map = { (x,y,z): True for x in range(m) for y in range(m) for z in range(m) }
+        # Optimized for memory on large m
+        self.dead_nodes = set()
 
     async def run_stabilization_loop(self):
         """Infinite background loop ensuring topological parity."""
         logger.info("Stabilization Loop Online. Monitoring Parity...")
         while True:
             await asyncio.sleep(2) # Pulse check
-            corrupted_nodes = [coords for coords, status in self.health_map.items() if not status]
-
-            for dead_coords in corrupted_nodes:
+            for dead_coords in list(self.dead_nodes):
                 logger.warning(f"Node {dead_coords} unresponsive. Topology breached.")
                 self._apply_closure_lemma(dead_coords)
+
+    async def run_topological_audit(self):
+        """Periodically verifies logic anchors against the source of truth."""
+        logger.info("Topological Auditor Online. Auditing Anchors...")
+        while True:
+            if os.path.exists(self.state_path):
+                try:
+                    with open(self.state_path, "r") as f:
+                        state = json.load(f)
+                        registry = state.get("registry", {})
+
+                        # Verify a random sample of anchors
+                        import random
+                        if registry:
+                            sample_size = min(10, len(registry))
+                            samples = random.sample(list(registry.items()), sample_size)
+                            for coords_str, logic_id in samples:
+                                expected_coords = self.topo.get_coords(logic_id)
+                                if str(expected_coords) != coords_str:
+                                    logger.error(f"TOPOLOGICAL DRIFT DETECTED: {logic_id} expected at {expected_coords} but found at {coords_str}")
+                                    # In production, this would trigger a re-sync
+                except Exception as e:
+                    logger.error(f"Audit error: {e}")
+
+            await asyncio.sleep(30) # Audit every 30 seconds
 
     def _apply_closure_lemma(self, dead_coords: Tuple[int, int, int]):
         """Mathematically reconstructs the missing node's exact state and logic anchors."""
@@ -110,7 +137,8 @@ class FSO_Apex_Hypervisor:
         s_fiber = sum(dead_coords) % self.m
 
         # Resurrect the node
-        self.health_map[dead_coords] = True
+        if dead_coords in self.dead_nodes:
+            self.dead_nodes.remove(dead_coords)
 
         # Because logic mapping is deterministic via hash, we instantly know
         # what libraries were lost and can re-provision them.
@@ -127,10 +155,24 @@ class FSO_Apex_Hypervisor:
         logger.info(f"INJECTING WAVE: Target '{logic_identity}' -> Resolves to {coords}")
 
         # Check node health before execution
-        if not self.health_map[coords]:
+        if coords in self.dead_nodes:
             logger.warning(f"Target node {coords} is dead. Triggering instant closure heal...")
             self._apply_closure_lemma(coords)
 
         result = self.consumer.execute_at_coords(coords, *args, **kwargs)
         logger.info(f"WAVE RETURN: {result}")
         return result
+
+if __name__ == "__main__":
+    hypervisor = FSO_Apex_Hypervisor(m=101)
+    print(f"Apex Hypervisor initialized (m={hypervisor.m})")
+    # Basic initialization test
+    async def test():
+        print("Starting Auditor test loop...")
+        # Use a small timeout for the demo
+        try:
+            await asyncio.wait_for(hypervisor.run_topological_audit(), timeout=1.0)
+        except asyncio.TimeoutError:
+            print("Auditor initialized and running (Timeout expected)")
+
+    asyncio.run(test())
