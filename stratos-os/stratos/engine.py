@@ -36,7 +36,8 @@ class StratosCloudEngine:
         """
         # In a real deployment, this would hit the decentralized global node
         # For PyPI, this hits a fast API or CDN that serves the Torus state
-        url = f"https://{self.genesis_ip}/api/fiber_query?lib={lib_target}"
+        protocol = "http" if "localhost" in self.genesis_ip else "https"
+        url = f"{protocol}://{self.genesis_ip}/api/fiber_query?lib={lib_target}"
 
         logger.info(f"Fetching logic bundle for '{lib_target}' from {url}...")
 
