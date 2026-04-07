@@ -2,14 +2,14 @@ from setuptools import setup, find_packages
 
 setup(
     name='stratos-os',
-    version='1.1.0',
+    version='1.2.1',
     description='Fiber-Stratified Optimization (FSO) Manifold Runtime',
     long_description='A decentralized, topological execution environment that bypasses local OS storage by compiling logic dynamically from a mathematical Torus.',
     author='FSO Architecture Group',
     packages=find_packages(),
     install_requires=[
         'numpy>=1.20.0',
-        'scikit-learn>=1.0' # For Semantic Router capabilities
+        'scikit-learn>=1.0'
     ],
     classifiers=[
         'Intended Audience :: Developers',

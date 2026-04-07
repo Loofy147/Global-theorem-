@@ -35,7 +35,7 @@ class FSOLocalPopulator:
         print(f"[!] Saved {len(self.manifest)} industrial units to {filepath}")
 
 if __name__ == "__main__":
-    m_val = 31
+    m_val = 101
     populator = FSOLocalPopulator(m_val)
 
     # 1. NumPy (Math Industry)

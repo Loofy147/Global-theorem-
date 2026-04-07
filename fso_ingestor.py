@@ -104,7 +104,7 @@ class FSOTaskHub:
 
 async def main():
     role = os.getenv("FSO_ROLE", "INGESTOR")
-    repo = "https://github.com/hichambedrani/Global-theorem-.git"
+    repo = "https://github.com/hichambedrani/FSO-TGI-Sovereign-OS.git"
     m = 101
 
     wrapper = KaggleFSOWrapper(repo, m)
