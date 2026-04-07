@@ -130,6 +130,41 @@ class GlobalFSONode:
         """Serves the FSO Planetary Admin Dashboard."""
         return web.Response(text=self.dashboard_html, content_type='text/html')
 
+    async def handle_fiber_query(self, request):
+        """Dynamic logic bundle retrieval for stratos-os client."""
+        if not self.fabric_node:
+            return web.json_response({"status": "INITIALIZING"}, status=503)
+
+        lib_target = request.query.get("lib")
+        if not lib_target:
+            return web.json_response({"status": "ERROR", "reason": "No library specified"}, status=400)
+
+        print(f"[⚡] FIBER QUERY: Reconstituting bundle for '{lib_target}'...")
+
+        # Scan the fabric node's logic registry for functions belonging to this library
+        logic_bundle = {}
+        for logic_id, entry in self.fabric_node.logic_registry.items():
+            if logic_id.startswith(lib_target):
+                logic_bundle[logic_id] = entry.get("code", "")
+
+        # If local registry doesn't have it, we might want to check the production manifest
+        if not logic_bundle:
+            manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
+            if os.path.exists(manifest_path):
+                try:
+                    with open(manifest_path, "r") as f:
+                        manifest = json.load(f)
+                        for logic_id, code in manifest.items():
+                            if logic_id.startswith(lib_target):
+                                logic_bundle[logic_id] = code
+                except: pass
+
+        return web.json_response({
+            "status": "SUCCESS",
+            "lib": lib_target,
+            "logic_bundle": logic_bundle
+        })
+
     async def handle_telemetry(self, request):
         """Provides live manifold telemetry for the dashboard."""
         if not self.fabric_node:
@@ -251,6 +286,7 @@ class GlobalFSONode:
             web.get('/dashboard', self.handle_dashboard),
             web.get('/health', self.handle_health),
             web.get('/api/telemetry', self.handle_telemetry),
+            web.get('/api/fiber_query', self.handle_fiber_query),
             web.post('/api/command', self.handle_command_api),
             web.post('/wave', self.handle_wave_http),
             web.post('/', self.handle_wave_http)

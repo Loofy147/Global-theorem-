@@ -1,0 +1,6 @@
+<<<<<<< SEARCH
+        url = f"https://{self.genesis_ip}/api/fiber_query?lib={lib_target}"
+=======
+        protocol = "http" if "localhost" in self.genesis_ip else "https"
+        url = f"{protocol}://{self.genesis_ip}/api/fiber_query?lib={lib_target}"
+>>>>>>> REPLACE
