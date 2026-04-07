@@ -51,6 +51,6 @@ class FSORefinery:
         return (h % self.m, (h // self.m) % self.m, (h // (self.m**2)) % self.m)
 
 if __name__ == "__main__":
-    m_val = 31 # Production-grade manifold size
+    m_val = 101 # Production-grade manifold size
     refinery = FSORefinery(m_val)
     print(f"Refinery initialized for m={m_val} ({m_val**3} total slots)")
