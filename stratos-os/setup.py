@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='stratos-os',
-    version='1.0.0',
+    version='1.1.0',
     description='Fiber-Stratified Optimization (FSO) Manifold Runtime',
     long_description='A decentralized, topological execution environment that bypasses local OS storage by compiling logic dynamically from a mathematical Torus.',
     author='FSO Architecture Group',
