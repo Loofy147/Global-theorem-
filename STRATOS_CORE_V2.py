@@ -1,10 +1,11 @@
 import os
 import sys
-import hashlib
-import numpy as np
+import subprocess
+import importlib
 import inspect
-import threading
-import time
+import numpy as np
+import shutil
+import hashlib
 import fcntl
 
 class StratosEngineV2:
@@ -72,15 +73,6 @@ class StratosEngineV2:
         if manifold_segment.shape != v_id.shape:
             return None
         return self.unbind(manifold_segment, v_id)
-
-import os
-import sys
-import subprocess
-import importlib
-import inspect
-import numpy as np
-import shutil
-from STRATOS_CORE_V2 import StratosEngineV2
 
 # Clear existing incompatible memory to fix dimension mismatch
 if os.path.exists('./STRATOS_MEMORY_V2'):
