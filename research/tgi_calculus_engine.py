@@ -1,6 +1,19 @@
 import numpy as np
 import hashlib
 
+class TopologicalLayer:
+    """A single logical transformation layer in the TGI manifold."""
+    def __init__(self, weight_vector, cleanup_gate=None):
+        self.w = weight_vector
+        self.cleanup = cleanup_gate
+
+    def forward(self, x):
+        # Y = W * X
+        y = np.fft.ifft(np.fft.fft(self.w) * np.fft.fft(x)).real
+        if self.cleanup:
+            y, _ = self.cleanup.cleanup(y)
+        return y
+
 class TGICalculusEngine:
     """
     Implements the Topological Field Equations for TGI.
