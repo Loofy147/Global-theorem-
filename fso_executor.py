@@ -138,7 +138,7 @@ class FSOTaskHub:
                 break
 
 async def main():
-    repo = "https://github.com/hichambedrani/Global-theorem-.git"
+    repo = "https://github.com/hichambedrani/FSO-TGI-Sovereign-OS.git"
     m = 31
     wrapper = KaggleFSOWrapper(repo, m)
     state = wrapper.sync_file("fso_manifold_state.json", {"registry": {}}, 'pull')
