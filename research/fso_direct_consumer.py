@@ -11,15 +11,21 @@ class FSODirectConsumer:
     """
     def __init__(self, m: int):
         self.m = m
+        self.call_cache = {}
+        self.provisioned_packages = set()
 
     def _ensure_package(self, package_name: str):
         """Ensures the industry logic is present on the node."""
+        if package_name in self.provisioned_packages: return
         try:
             importlib.import_module(package_name)
+            self.provisioned_packages.add(package_name)
         except ImportError:
             print(f"[*] Node package '{package_name}' missing. Auto-provisioning logic...")
             try:
                 subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
+                importlib.invalidate_caches()
+                self.provisioned_packages.add(package_name)
             except Exception as e:
                 print(f"[!] Failed to install {package_name}: {e}")
 
@@ -33,6 +39,13 @@ class FSODirectConsumer:
         Example call_spec: 'skimage.filters.gaussian'
         The node imports it dynamically and executes it.
         """
+        if call_spec in self.call_cache:
+            func = self.call_cache[call_spec]
+            try:
+                p = params if params is not None else {}
+                return func(**p) if callable(func) else func
+            except Exception as e: return f"DIRECT_EXEC_ERROR: {str(e)}"
+
         parts = call_spec.split('.')
         package_name = parts[0]
         self._ensure_package(package_name)
@@ -41,44 +54,25 @@ class FSODirectConsumer:
         try:
             if len(parts) == 1:
                 module = importlib.import_module(package_name)
-                # If it's just a package name, return the module
+                self.call_cache[call_spec] = module
                 return module
 
             module_path = ".".join(parts[:-1])
             func_name = parts[-1]
 
-            # Try to import the module path
             try:
                 module = importlib.import_module(module_path)
             except ImportError:
-                # Fallback to importing the base package and getting attributes
                 module = importlib.import_module(package_name)
                 for part in parts[1:-1]:
                     module = getattr(module, part)
 
             func = getattr(module, func_name)
+            self.call_cache[call_spec] = func
 
-            # Execute if callable. Use empty dict if params is None.
             if callable(func):
                 p = params if params is not None else {}
-                # Special case: if it's a class and we are "instantiating" it
-                # or a function we are calling.
                 return func(**p)
-
             return func
         except Exception as e:
             return f"DIRECT_EXEC_ERROR: {str(e)}"
-
-# --- PRODUCTION USAGE ---
-if __name__ == "__main__":
-    # Initialize a production-scale manifold
-    m_val = 31
-    dc = FSODirectConsumer(m=m_val)
-
-    # 1. Map 'vllm' distribution logic to a coordinate
-    coords = dc.get_coords("vllm.LLM")
-    print(f"Logic 'vllm.LLM' is anchored at: {coords}")
-
-    # 2. Map 'skimage' pixel logic to a coordinate
-    coords_pixel = dc.get_coords("skimage.filters.sobel")
-    print(f"Logic 'skimage.filters.sobel' is anchored at: {coords_pixel}")

@@ -12,6 +12,7 @@ import threading
 from aiohttp import web
 from typing import Tuple, Dict, List, Any
 from datetime import datetime
+from collections import defaultdict
 
 # Add parent directory to path for core imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -70,6 +71,12 @@ class GlobalFSONode:
         self.ptfs = Persistent_Torus_Core(m=1000003, dim=1024, storage_dir="./SOVEREIGN_MIND")
         self.crawler = None
 
+        # Optimization: Manifest and Logic Cache
+        self.manifest_cache = None
+        self.prefix_index = defaultdict(dict)
+        self.reverse_coords_index = {} # (x,y,z) -> logic_id for O(1) discovery
+        self.last_manifest_load = 0
+
         # Load dashboard HTML
         self.dashboard_path = os.path.join(os.path.dirname(__file__), "dashboard.html")
         self.dashboard_html = "<h1>Dashboard Load Error</h1>"
@@ -98,14 +105,11 @@ class GlobalFSONode:
             return False
 
     async def join_mesh(self):
-        """Contacts the seed node to claim an (x,y,z) coordinate in the Torus."""
-        print(f"[*] Booting Global Node {self.node_id} at {self.public_ip}:{self.port}")
+        """Initializes the FSO identity and connects to the global Torus."""
+        print(f"[*] FSO Node '{self.node_id}' joining Torus (m={self.m})...")
 
-        # This triggers construct_spike_sigma which is heavy
-        print(f"[RENDER] Initializing FSO Cognitive Core (m={self.m})...")
-
-        if self.seed_ip:
-            h = int(hashlib.md5(self.public_ip.encode()).hexdigest(), 16)
+        if self.public_ip:
+            h = int(hashlib.sha256(self.public_ip.encode()).hexdigest(), 16)
             self.coords = (h % self.m, (h // self.m) % self.m, (h // (self.m**2)) % self.m)
         else:
             self.coords = (0, 0, 0)
@@ -121,6 +125,38 @@ class GlobalFSONode:
 
         print(f"[+] Successfully integrated into FSO Manifold at {self.coords} (Fiber {self.fiber})")
         self.auto_stats["status"] = "AUTONOMOUS_RUNNING"
+
+    def _get_manifest(self):
+        """Cached access to the production manifest with O(1) prefix and coordinate indexing."""
+        now = time.time()
+        if self.manifest_cache is not None and (now - self.last_manifest_load) < 60:
+            return self.manifest_cache
+
+        manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
+        if os.path.exists(manifest_path):
+            try:
+                with open(manifest_path, "r") as f:
+                    self.manifest_cache = json.load(f)
+                    self.last_manifest_load = now
+
+                    # Rebuild indexes
+                    self.prefix_index.clear()
+                    self.reverse_coords_index.clear()
+                    for logic_id, data in self.manifest_cache.items():
+                        # Prefix Index for Bundle Retrieval
+                        prefix = logic_id.split('.')[0]
+                        code = data.get("code", "") if isinstance(data, dict) else data
+                        self.prefix_index[prefix][logic_id] = code
+
+                        # Reverse Coords Index for O(1) Discovery
+                        if isinstance(data, dict) and 'coords' in data:
+                            c = tuple(data['coords'])
+                            self.reverse_coords_index[c] = logic_id
+            except:
+                self.manifest_cache = {}
+        else:
+            self.manifest_cache = {}
+        return self.manifest_cache
 
     async def handle_health(self, request):
         """Health check endpoint for Render."""
@@ -141,23 +177,16 @@ class GlobalFSONode:
 
         print(f"[⚡] FIBER QUERY: Reconstituting bundle for '{lib_target}'...")
 
-        # Scan the fabric node's logic registry for functions belonging to this library
         logic_bundle = {}
+        # Scan local fabric node
         for logic_id, entry in self.fabric_node.logic_registry.items():
             if logic_id.startswith(lib_target):
                 logic_bundle[logic_id] = entry.get("code", "")
 
-        # If local registry doesn't have it, we might want to check the production manifest
-        if not logic_bundle:
-            manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
-            if os.path.exists(manifest_path):
-                try:
-                    with open(manifest_path, "r") as f:
-                        manifest = json.load(f)
-                        for logic_id, code in manifest.items():
-                            if logic_id.startswith(lib_target):
-                                logic_bundle[logic_id] = code
-                except: pass
+        # O(1) retrieval from prefix index
+        self._get_manifest()
+        if lib_target in self.prefix_index:
+            logic_bundle.update(self.prefix_index[lib_target])
 
         return web.json_response({
             "status": "SUCCESS",
@@ -170,13 +199,8 @@ class GlobalFSONode:
         if not self.fabric_node:
             return web.json_response({"status": "INITIALIZING"}, status=503)
 
-        manifest_path = os.path.join(os.path.dirname(__file__), "fso_production_manifest.json")
-        units_count = 0
-        if os.path.exists(manifest_path):
-            try:
-                with open(manifest_path, "r") as f:
-                    units_count = len(json.load(f))
-            except: pass
+        manifest = self._get_manifest()
+        units_count = len(manifest)
 
         # Update auto_stats with PTFS metrics
         self.auto_stats["facts_ingested"] = self.ptfs.metrics["facts_ingested"]

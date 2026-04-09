@@ -13,7 +13,7 @@ from research.tgi_agent import TGIAgent
 def authenticate():
     # Credentials provided by user
     os.environ['KAGGLE_USERNAME'] = 'hichambedrani'
-    os.environ['KAGGLE_KEY'] = '453cfb028676f79df571e5b2a8ee6afd'
+    os.environ['KAGGLE_KEY'] = os.getenv('KAGGLE_API_TOKEN')
     os.environ['HF_TOKEN'] = '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'
     print("[AUTH] Environment configured for Kaggle and Hugging Face.")
 

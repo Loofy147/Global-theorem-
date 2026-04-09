@@ -22,7 +22,7 @@ class TopologicalCleanUpGate:
 
     def register(self, label, vector):
         norm = np.linalg.norm(vector)
-        clean_v = vector / norm if norm > 1e-9 else vector
+        clean_v = vector / (norm + 1e-9)
         self.item_memory[label] = clean_v
         self.vector_registry.append((clean_v, label))
         self.vector_matrix = None # Invalidate matrix cache
@@ -31,7 +31,7 @@ class TopologicalCleanUpGate:
         """Register multiple vectors at once to minimize matrix invalidations."""
         for label, vector in label_vector_pairs:
             norm = np.linalg.norm(vector)
-            clean_v = vector / norm if norm > 1e-9 else vector
+            clean_v = vector / (norm + 1e-9)
             self.item_memory[label] = clean_v
             self.vector_registry.append((clean_v, label))
         self.vector_matrix = None
@@ -45,7 +45,8 @@ class TopologicalCleanUpGate:
             self.vector_matrix = np.array([v for v, label in self.vector_registry])
 
         norm = np.linalg.norm(noisy_vector)
-        v_norm = noisy_vector / norm if norm > 1e-9 else noisy_vector
+        if norm < 1e-9: return noisy_vector
+        v_norm = noisy_vector / norm
 
         # Vectorized similarity calculation: O(N*D) in BLAS
         sims = np.dot(self.vector_matrix, v_norm)
@@ -66,13 +67,31 @@ class StratosEngineV2:
         self.bucket_cache = OrderedDict()
         self.cache_size = cache_size
 
+    def warm_up(self, registry_dict):
+        """Pre-registers topological anchors from a global registry for high-fidelity denoising."""
+        print(f"[*] STRATOS: Warming up manifold with {len(registry_dict)} anchors...")
+        pairs = []
+        for path_name, data in registry_dict.items():
+            # If registry contains pre-generated vectors, use them.
+            # Otherwise, use identity seed to generate.
+            if isinstance(data, np.ndarray):
+                v_id = data
+            elif isinstance(data, dict) and 'id_vector' in data:
+                v_id = np.array(data['id_vector'])
+            else:
+                v_id = self._generate_unitary_vector(path_name)
+
+            pairs.append((path_name, v_id))
+
+        self.cleanup_gate.batch_register(pairs)
+
     def _generate_unitary_vector(self, seed):
         state = int(hashlib.sha256(seed.encode()).hexdigest(), 16) % (2**32)
         np.random.seed(state)
         v = np.random.normal(0, 1/np.sqrt(self.dim), self.dim)
         # Force unit length for TGI Field Equations compatibility
         norm = np.linalg.norm(v)
-        return v / norm if norm > 1e-9 else v
+        return v / (norm + 1e-9)
 
     def bind(self, a, b):
         """Holographic Binding: Circular Convolution via RFFT (optimized for real signals)"""
@@ -105,10 +124,7 @@ class StratosEngineV2:
                 fcntl.flock(f, fcntl.LOCK_EX)
                 try:
                     existing = np.load(f)
-                    if existing.shape != vector.shape:
-                        new_v = vector
-                    else:
-                        new_v = existing + vector
+                    new_v = existing + vector
                     f.seek(0)
                     np.save(f, new_v)
                     f.truncate()
@@ -124,6 +140,7 @@ class StratosEngineV2:
         v_id = self._generate_unitary_vector(path_name)
         v_content = self._generate_unitary_vector(sig)
 
+        # Register in Clean-up gate
         self.cleanup_gate.register(path_name, v_id)
         self.cleanup_gate.register(f"sig:{path_name}", v_content)
 
@@ -143,8 +160,7 @@ class StratosEngineV2:
         v_ids = np.array([self._generate_unitary_vector(pn) for pn in path_names])
         v_contents = np.array([self._generate_unitary_vector(s) for s in sigs])
 
-        # Vectorized Binding: O(N * D log D) in FFT
-        # RFFT on axis=1
+        # Vectorized Binding
         f_ids = np.fft.rfft(v_ids, axis=1)
         f_contents = np.fft.rfft(v_contents, axis=1)
         traces = np.fft.irfft(f_ids * f_contents, n=self.dim, axis=1)

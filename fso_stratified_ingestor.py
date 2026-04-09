@@ -1,49 +1,51 @@
 import os
 import sys
-import subprocess
-import asyncio
 import hashlib
 import json
-import time
-import inspect
-import logging
 import base64
 import requests
 import numpy as np
+import inspect
+import threading
+import time
+import logging
+import asyncio
 from datetime import datetime
-from typing import Dict, Any, Tuple, List
+from typing import Dict, List, Tuple, Any
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', handlers=[logging.StreamHandler(sys.stdout)])
-logger = logging.getLogger("FSO_SWARM")
+# Setup logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
+logger = logging.getLogger("FSO_Stratified")
 
 class FSOTopology:
-    def __init__(self, m: int): self.m = m
-    def get_coords(self, lid: str) -> Tuple[int, int, int]:
-        h = int(hashlib.sha256(lid.encode()).hexdigest(), 16)
+    def __init__(self, m: int = 101):
+        self.m = m
+
+    def get_coords(self, identity: str) -> Tuple[int, int, int]:
+        h = int(hashlib.sha256(identity.encode()).hexdigest(), 16)
         return (h % self.m, (h // self.m) % self.m, (h // (self.m**2)) % self.m)
 
 class StratifiedMemory:
-    """FSO Stratified Memory for O(1) recall at sqrt(F) capacity."""
-    def __init__(self, dim=1024, m_fibers=101):
+    def __init__(self, dim: int = 1024, m_fibers: int = 101):
         self.dim = dim
         self.m = m_fibers
-        self.traces = {f: np.zeros(dim) for f in range(m_fibers)}
+        self.traces = {i: np.zeros(dim) for i in range(m_fibers)}
 
     def _get_fiber(self, key: str) -> int:
         h = hashlib.sha256(key.encode()).digest()
-        return sum(h[:3]) % self.m
+        return sum(h[:4]) % self.m
 
     def bind_store(self, key_vec: np.ndarray, val_vec: np.ndarray, key_str: str):
         fiber = self._get_fiber(key_str)
-        # Circular convolution via FFT
-        binding = np.fft.ifft(np.fft.fft(key_vec) * np.fft.fft(val_vec)).real
+        # Circular convolution via RFFT
+        binding = np.fft.irfft(np.fft.rfft(key_vec) * np.fft.rfft(val_vec), n=len(key_vec))
         self.traces[fiber] += binding
 
     def unbind_recall(self, key_vec: np.ndarray, key_str: str) -> np.ndarray:
         fiber = self._get_fiber(key_str)
         trace = self.traces[fiber]
-        # Retrieval via FFT Complex Conjugate (Theorem 4.2)
-        return np.fft.ifft(np.fft.fft(trace) * np.conj(np.fft.fft(key_vec))).real
+        # Retrieval via RFFT Complex Conjugate
+        return np.fft.irfft(np.fft.rfft(trace) * np.conj(np.fft.rfft(key_vec)), n=len(key_vec))
 
 class DirectConsumer:
     def __init__(self, topo: FSOTopology):
@@ -51,16 +53,28 @@ class DirectConsumer:
         self.global_registry = {}
         self.logic_to_coords = {}
         self.memory = StratifiedMemory(m_fibers=topo.m)
+        self.call_cache = {} # O(1) resolved logic cache
+        self.provisioned_packages = set()
 
     def auto_provision(self, package: str):
+        if package in self.provisioned_packages: return
         logger.info(f"[*] Provisioning {package}...")
         try:
             import importlib
-            module = importlib.import_module(package)
-        except ImportError:
-            subprocess.run([sys.executable, "-m", "pip", "install", package, "--quiet"])
+            import importlib.util
+            spec = importlib.util.find_spec(package)
+            if spec is None:
+                raise ImportError
             importlib.invalidate_caches()
             module = importlib.import_module(package)
+        except ImportError:
+            logger.info(f"[*] Package {package} missing. Auto-installing...")
+            import subprocess
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+            importlib.invalidate_caches()
+            module = importlib.import_module(package)
+
+        self.provisioned_packages.add(package)
         count = 0
         for name, obj in inspect.getmembers(module):
             if inspect.isfunction(obj) or inspect.isbuiltin(obj):
@@ -72,15 +86,25 @@ class DirectConsumer:
         logger.info(f"[+] Anchored {count} units for {package}.")
 
     def execute(self, fid: str, **kwargs):
+        if fid in self.call_cache:
+            func = self.call_cache[fid]
+            try:
+                return func(**kwargs) if callable(func) else func
+            except Exception as e: return f"EXEC_ERR: {e}"
+
         coords = self.logic_to_coords.get(fid) or self.topo.get_coords(fid)
         path = self.global_registry.get(coords) or fid
         try:
             import importlib
             parts = path.split('.')
+            package_name = parts[0]
+            self.auto_provision(package_name)
+
             mod_name = ".".join(parts[:-1]) or 'builtins'
             mod = importlib.import_module(mod_name)
             func = getattr(mod, parts[-1])
-            return func(*kwargs.values()) if callable(func) else func
+            self.call_cache[fid] = func
+            return func(**kwargs) if callable(func) else func
         except Exception as e: return f"EXEC_ERR: {e}"
 
 class KaggleFSOWrapper:
@@ -190,7 +214,5 @@ async def main():
     logger.info(f"--- FSO {role} CYCLE COMPLETE ---")
 
 if __name__ == "__main__":
-    # Ensure credentials are set
-    if not os.getenv("GITHUB_PAT"):
-        os.environ["GITHUB_PAT"] = "github_pat_11BKWH6MI0mIzqUWKHyxEX_KO92xoWx25JHq96tT4DK64FlhWr3gOO57S0XBmeg8bNS662LXRE85uyIE5"
+    # Removed hardcoded GITHUB_PAT for security
     asyncio.run(main())

@@ -23,7 +23,7 @@ def benchmark_repeated_queries():
         for i in range(50):
             engine.query(f"math.item_{i}")
     end = time.perf_counter()
-    print(f"Repeated Queries (500 total, 50 unique items, 1 bucket): {end - start:.4f}s")
+    print(f"Total time (500 total, 50 unique items, 1 bucket): {end - start:.4f}s")
 
     if os.path.exists(test_dir):
         shutil.rmtree(test_dir)

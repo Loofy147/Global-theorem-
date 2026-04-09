@@ -18,15 +18,15 @@ logging.basicConfig(
 logger = logging.getLogger("HolographicRecovery")
 
 def bind(v1, v2):
-    """Circular Convolution via FFT"""
-    return np.fft.ifft(np.fft.fft(v1) * np.fft.fft(v2))
+    """Circular Convolution via RFFT"""
+    return np.fft.irfft(np.fft.rfft(v1) * np.fft.rfft(v2), n=len(v1))
 
 def unbind(bound_v, v1):
-    """Exact Retrieval via Division in Frequency Domain"""
-    f_v1 = np.fft.fft(v1)
+    """Exact Retrieval via Division in Frequency Domain (RFFT)"""
+    f_v1 = np.fft.rfft(v1)
     # Avoid division by zero
     f_v1[np.abs(f_v1) < 1e-12] = 1e-12
-    return np.fft.ifft(np.fft.fft(bound_v) / f_v1)
+    return np.fft.irfft(np.fft.rfft(bound_v) / f_v1, n=len(v1))
 
 def cosine_sim(v1, v2):
     """Measures signal clarity"""
@@ -84,10 +84,11 @@ def run_recovery_cycle():
     integrities = []
 
     # Process in chunks to prevent excessive logging/memory for thousands of fibers
-    # We always test pairs of (keys[i], keys[i+1])
     for i in range(len(keys) - 1):
         name_a, name_b = keys[i], keys[i+1]
         v_a, v_b = vectors[name_a], vectors[name_b]
+
+        if v_a.shape != v_b.shape: continue
 
         # Binding
         bound_state = bind(v_a, v_b)

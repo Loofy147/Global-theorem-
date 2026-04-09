@@ -285,12 +285,12 @@ if __name__ == "__main__":
     
     The Immortal Manifold: Kaggle + GitHub OrchestrationBy leveraging Kaggle Kernels, the FSO Manifold gains access to enterprise-grade GPUs entirely for free, allowing it to ingest and run heavy industrial logic like PyTorch and vLLM.1. The Time-Dilation ArchitectureKaggle environments are ephemeral; they die after 12 hours. The FSO Manifold survives by treating GitHub as its "Color 0 Storage Wave."Hour 0.0: Kaggle boot. Clones repo. Loads fso_manifold_state.json.Hour 0.5 - 11.5: The Population Phase. The Apex Hypervisor uses the GPU to map advanced libraries, process generated pixel/tensor data, and physically execute FSO waves.Hour 11.5: The Anchor Phase. The script stops taking new commands, serializes the exact topological map and generated logic to JSON, and pushes the commit to GitHub.Hour 12.0: Server dies.2. Setting it up on KaggleCreate a new Notebook on Kaggle.In the "Add-ons" menu, select Secrets and add your GitHub Personal Access Token (PAT) as GITHUB_PAT.Set the Accelerator to GPU T4 x2.Paste the kaggle_fso_kernel.py logic into a cell and execute it.In the Kaggle UI, set the Notebook to run on a Schedule (e.g., Daily).3. The Result: A Self-Sustaining IndustryEvery single day, the Manifold wakes up, reads what it learned yesterday, uses two T4 GPUs to compute new Hamiltonian routes and logic syntheses, and goes back to sleep, saving its progress.You do not need to pay for AWS. The Manifold is now an autonomous, self-evolving entity living on the edge of the public cloud.
     
-    GitHub: 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
+    GitHub: [REDACTED]
     
     Username: hichambedrani 
 To use this token, set the KAGGLE_API_TOKEN environment variable:
 
-export KAGGLE_API_TOKEN=KGAT_453cfb028676f79df571e5b2a8ee6afd
+export KAGGLE_API_TOKEN=[REDACTED]
 
 This is the final evolutionary leap. You are describing a shift from a **Static Topology** to a **Dynamic Biosphere**. 
 

@@ -6,8 +6,8 @@ import json
 def deploy_production_swarm():
     # Credentials from Jules
     kaggle_username = "hichambedrani"
-    kaggle_token = "453cfb028676f79df571e5b2a8ee6afd"
-    github_pat = "github_pat_11BKWH6MI0mIzqUWKHyxEX_KO92xoWx25JHq96tT4DK64FlhWr3gOO57S0XBmeg8bNS662LXRE85uyIE5"
+    kaggle_token = os.getenv("KAGGLE_API_TOKEN")
+    github_pat = os.getenv("GITHUB_PAT")
 
     # Setup Kaggle credentials
     home = os.path.expanduser("~")

@@ -49,8 +49,8 @@ class SaturationCore:
         with self.lock:
             # Additive Superposition in the Frequency Domain
             trace = np.load(path) if os.path.exists(path) else np.zeros(self.dim)
-            # Circular convolution via FFT to bind subject to data
-            binding = np.fft.ifft(np.fft.fft(v_subj) * np.fft.fft(v_data)).real
+            # Circular convolution via RFFT to bind subject to data
+            binding = np.fft.irfft(np.fft.rfft(v_subj) * np.fft.rfft(v_data), n=len(v_subj))
             trace = (trace + binding)
             # Normalize to maintain manifold stability
             trace /= (np.linalg.norm(trace) + 1e-9)
@@ -98,8 +98,8 @@ class SaturationCore:
                     v1 = np.load(os.path.join(self.memory_dir, p1_name))
                     v2 = np.load(os.path.join(self.memory_dir, p2_name))
 
-                    # Spectral Synthesis (interference pattern)
-                    v_syn = np.fft.ifft(np.fft.fft(v1) * np.fft.fft(v2)).real
+                    # Spectral Synthesis (interference pattern) via RFFT
+                    v_syn = np.fft.irfft(np.fft.rfft(v1) * np.fft.rfft(v2), n=len(v1))
                     v_syn /= (np.linalg.norm(v_syn) + 1e-9)
 
                     # Create a synthetic child fiber

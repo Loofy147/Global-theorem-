@@ -6,7 +6,7 @@ from datetime import datetime
 
 def sync_to_github(filename, local_data):
     # Credentials
-    token = "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"
+    token = os.getenv("GITHUB_PAT")
     owner = "Loofy147"
     repo = "Global-theorem-"
     api_base = f"https://api.github.com/repos/{owner}/{repo}/contents"
