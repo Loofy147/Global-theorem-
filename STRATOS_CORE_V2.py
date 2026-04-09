@@ -17,31 +17,33 @@ class TopologicalCleanUpGate:
         self.dim = dim
         self.item_memory = {} # label -> clean_vector
         self.vector_registry = [] # list of (vector, label)
+        self.vector_matrix = None # Matrix for vectorized cleanup
 
     def register(self, label, vector):
         norm = np.linalg.norm(vector)
         clean_v = vector / norm if norm > 1e-9 else vector
         self.item_memory[label] = clean_v
         self.vector_registry.append((clean_v, label))
+        self.vector_matrix = None # Invalidate matrix cache
 
     def cleanup(self, noisy_vector, threshold=0.3):
         if not self.vector_registry:
             return noisy_vector
 
+        if self.vector_matrix is None:
+            # Rebuild matrix cache for vectorized operations
+            self.vector_matrix = np.array([v for v, label in self.vector_registry])
+
         norm = np.linalg.norm(noisy_vector)
         v_norm = noisy_vector / norm if norm > 1e-9 else noisy_vector
 
-        best_sim = -1
-        best_vec = None
-
-        for clean_v, label in self.vector_registry:
-            sim = np.dot(v_norm, clean_v)
-            if sim > best_sim:
-                best_sim = sim
-                best_vec = clean_v
+        # Vectorized similarity calculation: O(N*D) in BLAS
+        sims = np.dot(self.vector_matrix, v_norm)
+        best_idx = np.argmax(sims)
+        best_sim = sims[best_idx]
 
         if best_sim >= threshold:
-            return best_vec
+            return self.vector_registry[best_idx][0]
         return noisy_vector
 
 class StratosEngineV2:
@@ -60,12 +62,12 @@ class StratosEngineV2:
         return v / norm if norm > 1e-9 else v
 
     def bind(self, a, b):
-        """Holographic Binding: Circular Convolution (a * b)"""
-        return np.fft.ifft(np.fft.fft(a) * np.fft.fft(b)).real
+        """Holographic Binding: Circular Convolution via RFFT (optimized for real signals)"""
+        return np.fft.irfft(np.fft.rfft(a) * np.fft.rfft(b), n=len(a))
 
     def unbind(self, composite, a):
-        """Holographic Unbinding: Circular Correlation (composite # a)"""
-        return np.fft.ifft(np.conj(np.fft.fft(a)) * np.fft.fft(composite)).real
+        """Holographic Unbinding: Circular Correlation via RFFT (optimized for real signals)"""
+        return np.fft.irfft(np.conj(np.fft.rfft(a)) * np.fft.rfft(composite), n=len(composite))
 
     def _get_semantic_signature(self, obj):
         try:
@@ -124,4 +126,3 @@ class StratosEngineV2:
         if use_cleanup:
             return self.cleanup_gate.cleanup(retrieved)
         return retrieved
-
