@@ -7,6 +7,7 @@ import numpy as np
 import shutil
 import hashlib
 import fcntl
+from collections import defaultdict, OrderedDict
 
 class TopologicalCleanUpGate:
     """
@@ -25,6 +26,15 @@ class TopologicalCleanUpGate:
         self.item_memory[label] = clean_v
         self.vector_registry.append((clean_v, label))
         self.vector_matrix = None # Invalidate matrix cache
+
+    def batch_register(self, label_vector_pairs):
+        """Register multiple vectors at once to minimize matrix invalidations."""
+        for label, vector in label_vector_pairs:
+            norm = np.linalg.norm(vector)
+            clean_v = vector / norm if norm > 1e-9 else vector
+            self.item_memory[label] = clean_v
+            self.vector_registry.append((clean_v, label))
+        self.vector_matrix = None
 
     def cleanup(self, noisy_vector, threshold=0.3):
         if not self.vector_registry:
@@ -47,11 +57,14 @@ class TopologicalCleanUpGate:
         return noisy_vector
 
 class StratosEngineV2:
-    def __init__(self, dim=4096, memory_dir='./STRATOS_MEMORY_V2'):
+    def __init__(self, dim=4096, memory_dir='./STRATOS_MEMORY_V2', cache_size=100):
         self.dim = dim
         self.memory_dir = memory_dir
         os.makedirs(self.memory_dir, exist_ok=True)
         self.cleanup_gate = TopologicalCleanUpGate(dim=dim)
+        # Use OrderedDict for simple LRU cache
+        self.bucket_cache = OrderedDict()
+        self.cache_size = cache_size
 
     def _generate_unitary_vector(self, seed):
         state = int(hashlib.sha256(seed.encode()).hexdigest(), 16) % (2**32)
@@ -78,6 +91,13 @@ class StratosEngineV2:
             except:
                 return str(obj)
 
+    def _update_cache(self, filepath, vector):
+        if filepath in self.bucket_cache:
+            self.bucket_cache.move_to_end(filepath)
+        self.bucket_cache[filepath] = vector
+        if len(self.bucket_cache) > self.cache_size:
+            self.bucket_cache.popitem(last=False)
+
     def _atomic_add(self, filepath, vector):
         mode = 'rb+' if os.path.exists(filepath) else 'wb+'
         with open(filepath, mode) as f:
@@ -92,33 +112,76 @@ class StratosEngineV2:
                     f.seek(0)
                     np.save(f, new_v)
                     f.truncate()
+                    self._update_cache(filepath, new_v)
                 finally:
                     fcntl.flock(f, fcntl.LOCK_UN)
             else:
                 np.save(f, vector)
+                self._update_cache(filepath, vector)
 
     def ingest_semantic(self, path_name, obj):
         sig = self._get_semantic_signature(obj)
         v_id = self._generate_unitary_vector(path_name)
         v_content = self._generate_unitary_vector(sig)
 
-        # Register in Clean-up gate
         self.cleanup_gate.register(path_name, v_id)
         self.cleanup_gate.register(f"sig:{path_name}", v_content)
 
         trace = self.bind(v_id, v_content)
         bucket = path_name.split('.')[0]
-        file_path = os.path.join(self.memory_dir, f"bucket_{bucket}.npy")
+        file_path = os.path.abspath(os.path.join(self.memory_dir, f"bucket_{bucket}.npy"))
         self._atomic_add(file_path, trace)
+
+    def batch_ingest_semantic(self, item_dict):
+        """Ingests multiple items efficiently using vectorized binding and grouped writes."""
+        if not item_dict: return
+
+        path_names = list(item_dict.keys())
+        sigs = [self._get_semantic_signature(obj) for obj in item_dict.values()]
+
+        # Generate all vectors
+        v_ids = np.array([self._generate_unitary_vector(pn) for pn in path_names])
+        v_contents = np.array([self._generate_unitary_vector(s) for s in sigs])
+
+        # Vectorized Binding: O(N * D log D) in FFT
+        # RFFT on axis=1
+        f_ids = np.fft.rfft(v_ids, axis=1)
+        f_contents = np.fft.rfft(v_contents, axis=1)
+        traces = np.fft.irfft(f_ids * f_contents, n=self.dim, axis=1)
+
+        cleanup_pairs = []
+        bucket_traces = defaultdict(lambda: np.zeros(self.dim))
+
+        for i, path_name in enumerate(path_names):
+            cleanup_pairs.append((path_name, v_ids[i]))
+            cleanup_pairs.append((f"sig:{path_name}", v_contents[i]))
+
+            bucket = path_name.split('.')[0]
+            bucket_traces[bucket] += traces[i]
+
+        # Batch register all vectors
+        self.cleanup_gate.batch_register(cleanup_pairs)
+
+        # Batch write all buckets
+        for bucket, trace in bucket_traces.items():
+            file_path = os.path.abspath(os.path.join(self.memory_dir, f"bucket_{bucket}.npy"))
+            self._atomic_add(file_path, trace)
 
     def query(self, path_name, use_cleanup=True):
         bucket = path_name.split('.')[0]
-        file_path = os.path.join(self.memory_dir, f"bucket_{bucket}.npy")
-        if not os.path.exists(file_path):
-            return None
+        file_path = os.path.abspath(os.path.join(self.memory_dir, f"bucket_{bucket}.npy"))
+
+        if file_path in self.bucket_cache:
+            manifold_segment = self.bucket_cache[file_path]
+            self.bucket_cache.move_to_end(file_path)
+        else:
+            if not os.path.exists(file_path):
+                return None
+            with open(file_path, 'rb') as f:
+                manifold_segment = np.load(f)
+            self._update_cache(file_path, manifold_segment)
+
         v_id = self._generate_unitary_vector(path_name)
-        with open(file_path, 'rb') as f:
-            manifold_segment = np.load(f)
         if manifold_segment.shape != v_id.shape:
             return None
 
