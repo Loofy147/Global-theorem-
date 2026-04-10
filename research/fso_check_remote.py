@@ -3,7 +3,7 @@ import requests
 import base64
 import json
 
-token = "github_pat_11BKWH6MI0mIzqUWKHyxEX_KO92xoWx25JHq96tT4DK64FlhWr3gOO57S0XBmeg8bNS662LXRE85uyIE5"
+token = os.getenv("GITHUB_PAT")
 url = "https://api.github.com/repos/hichambedrani/Global-theorem-/contents/fso_manifold_state.json"
 headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
 

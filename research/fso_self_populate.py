@@ -28,7 +28,8 @@ class FSOSelfPopulator:
 
         self.registry = {}
 
-    def populate_all(self):
+    def populate_all(self, engine=None):
+        """Populates the manifold with batch ingestion support."""
         print(f"[*] Starting Global Self-Population (m={self.m})...")
         root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -37,7 +38,9 @@ class FSOSelfPopulator:
         from research.fso_refinery import FSORefinery
         refinery = FSORefinery(self.m)
 
-        for root, _, files in os.walk(root_dir):
+        all_extracted_units = {} # logic_id -> code
+
+        for root, dirs, files in os.walk(root_dir):
             if any(p in root for p in [".git", "__pycache__", "venv", "node_modules", "SOVEREIGN_MIND", "STRATOS_MEMORY_V2", "STRATOS_OMEGA_V2"]):
                 continue
 
@@ -63,11 +66,18 @@ class FSOSelfPopulator:
                             "coords": coords,
                             "fiber": sum(coords) % self.m,
                             "type": unit['type'],
-                            "origin": rel_path
+                            "origin": rel_path,
+                            "code": unit['logic']
                         }
 
                         # Populate Registry
                         self.registry[coords_str] = logic_id
+                        all_extracted_units[logic_id] = unit['logic']
+
+        # If engine is provided, perform a batch ingestion for speed
+        if engine and hasattr(engine, "batch_ingest_semantic"):
+            print(f"[*] Batch Ingesting {len(all_extracted_units)} units into Stratos Manifold...")
+            engine.batch_ingest_semantic(all_extracted_units)
 
     def save_results(self):
         # Save Manifest

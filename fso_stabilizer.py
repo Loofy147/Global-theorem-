@@ -154,5 +154,5 @@ async def main():
     logger.info(f"--- FSO {role} CYCLE COMPLETE ---")
 
 if __name__ == "__main__":
-    os.environ["GITHUB_PAT"] = "github_pat_11BKWH6MI0mIzqUWKHyxEX_KO92xoWx25JHq96tT4DK64FlhWr3gOO57S0XBmeg8bNS662LXRE85uyIE5"
+    pass # GITHUB_PAT removed
     asyncio.run(main())

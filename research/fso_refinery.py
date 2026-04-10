@@ -2,6 +2,7 @@ import ast
 import hashlib
 import os
 from typing import Dict, Any, List, Tuple
+from multiprocessing import Pool, cpu_count
 
 class FSORefinery:
     """
@@ -14,14 +15,21 @@ class FSORefinery:
     def refinery_process(self, source_dir: str) -> List[Dict[str, Any]]:
         """
         Walks through a production repo, extracts logic units, and
-        prepares them for Hamiltonian Injection.
+        prepares them for Hamiltonian Injection. Parallelized with multiprocessing.
         """
-        logic_units = []
+        all_py_files = []
         for root, _, files in os.walk(source_dir):
             for file in files:
                 if file.endswith(".py"):
-                    path = os.path.join(root, file)
-                    logic_units.extend(self._smelt_file(path))
+                    all_py_files.append(os.path.join(root, file))
+
+        # Parallelize file smelting
+        with Pool(processes=cpu_count()) as pool:
+            # results is a list of lists of dicts
+            results = pool.map(self._smelt_file, all_py_files)
+
+        # Flatten the list
+        logic_units = [unit for sublist in results for unit in sublist]
         return logic_units
 
     def _smelt_file(self, filepath: str) -> List[Dict[str, Any]]:
@@ -41,8 +49,7 @@ class FSORefinery:
                         for subnode in node.body:
                             if isinstance(subnode, (ast.FunctionDef, ast.AsyncFunctionDef)):
                                 units.append(self._create_unit(subnode, filepath, parent_class=node.name))
-        except Exception as e:
-            # print(f"Error smelting {filepath}: {e}")
+        except Exception:
             pass
         return units
 

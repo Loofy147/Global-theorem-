@@ -8,10 +8,12 @@ class TopologicalLayer:
         self.cleanup = cleanup_gate
 
     def forward(self, x):
-        # Y = W * X
-        y = np.fft.ifft(np.fft.fft(self.w) * np.fft.fft(x)).real
+        # Y = W * X via RFFT
+        y = np.fft.irfft(np.fft.rfft(self.w) * np.fft.rfft(x), n=len(x))
         if self.cleanup:
-            y, _ = self.cleanup.cleanup(y)
+            # Handle both return styles
+            res = self.cleanup.cleanup(y)
+            y = res[0] if isinstance(res, tuple) else res
         return y
 
 class TGICalculusEngine:
@@ -38,11 +40,12 @@ class TGICalculusEngine:
         return v / np.linalg.norm(v)
 
     def bind(self, a, b):
-        return np.fft.ifft(np.fft.fft(a) * np.fft.fft(b)).real
+        """Holographic Binding via RFFT."""
+        return np.fft.irfft(np.fft.rfft(a) * np.fft.rfft(b), n=len(a))
 
     def unbind(self, composite, a):
-        """Holographic Retrieval: Circular Correlation (Exact inverse for unitary vectors)."""
-        return np.fft.ifft(np.fft.fft(composite) * np.conj(np.fft.fft(a))).real
+        """Holographic Retrieval via RFFT (Exact inverse for unitary vectors)."""
+        return np.fft.irfft(np.fft.rfft(composite) * np.conj(np.fft.rfft(a)), n=len(composite))
 
     def cosine_sim(self, v1, v2):
         norm1 = np.linalg.norm(v1)

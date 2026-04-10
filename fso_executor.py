@@ -56,19 +56,43 @@ class DirectConsumer:
         self.global_registry = {}
         self.logic_to_coords = {}
         self.gate = None
+        self.call_cache = {}
+        self.provisioned_packages = set()
+
+    def _ensure_package(self, package: str):
+        if package in self.provisioned_packages: return
+        try:
+            import importlib
+            importlib.import_module(package)
+            self.provisioned_packages.add(package)
+        except ImportError:
+            logger.info(f"[*] Package {package} missing. Auto-installing...")
+            subprocess.run([sys.executable, "-m", "pip", "install", package, "--quiet"])
+            importlib.invalidate_caches()
+            self.provisioned_packages.add(package)
 
     async def execute(self, fid: str, **kwargs):
         if fid.startswith("synthesis:"):
             return await self.synthesize_and_execute(fid, **kwargs)
+
+        if fid in self.call_cache:
+            func = self.call_cache[fid]
+            try:
+                return func(**kwargs) if callable(func) else func
+            except Exception as e: return f"EXEC_ERR: {e}"
 
         coords = self.logic_to_coords.get(fid) or self.topo.get_coords(fid)
         path = self.global_registry.get(coords) or fid
         try:
             import importlib
             parts = path.split('.')
+            package_name = parts[0]
+            self._ensure_package(package_name)
+
             mod_name = ".".join(parts[:-1]) or 'builtins'
             mod = importlib.import_module(mod_name)
             func = getattr(mod, parts[-1])
+            self.call_cache[fid] = func
             return func(**kwargs) if callable(func) else func
         except Exception as e: return f"EXEC_ERR: {e}"
 
@@ -104,6 +128,8 @@ class DirectConsumer:
             coords = self.topo.get_coords(fid)
             res = func(**kwargs)
             self.global_registry[coords] = f"synthesized.{func_name}"
+            # Cache synthesized functions too
+            self.call_cache[fid] = func
             return res
         except Exception as e:
             return f"TGI_FINAL_ERR: {e}"

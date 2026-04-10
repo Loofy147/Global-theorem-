@@ -39,10 +39,11 @@ class Persistent_Torus_Core:
         h = int(hashlib.md5(seed.encode()).hexdigest()[:8], 16)
         np.random.seed(h)
         v = np.random.randn(self.dim)
-        return v / np.linalg.norm(v)
+        return v / (np.linalg.norm(v) + 1e-9)
 
     def _bind(self, v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
-        return np.fft.ifft(np.fft.fft(v1) * np.fft.fft(v2)).real
+        """Holographic Binding via RFFT."""
+        return np.fft.irfft(np.fft.rfft(v1) * np.fft.rfft(v2), n=len(v1))
 
     def _get_trace_path(self, fiber: int) -> str:
         folder = str(fiber // 1000).zfill(4)
@@ -54,7 +55,9 @@ class Persistent_Torus_Core:
     def _load_trace(self, fiber: int) -> np.ndarray:
         path = self._get_trace_path(fiber)
         if os.path.exists(path):
-            return np.load(path)
+            try:
+                return np.load(path)
+            except: pass
         return np.zeros(self.dim)
 
     def _save_trace(self, fiber: int, trace_array: np.ndarray):
@@ -65,7 +68,7 @@ class Persistent_Torus_Core:
         """O(1) Physical SSD Write. Zero RAM Bloat."""
         fiber = self._hash_to_fiber(subject)
         v_subj = self._generate_vector(subject)
-        v_data = self._generate_vector(payload[:500]) # Cap to 500 chars for clean HRR wave
+        v_data = self._generate_vector(payload[:500])
 
         trace = self._load_trace(fiber)
         trace += self._bind(v_subj, v_data)
