@@ -124,11 +124,38 @@ class FSO_Apex_Hypervisor:
                                 expected_coords = self.topo.get_coords(logic_id)
                                 if str(expected_coords) != coords_str:
                                     logger.error(f"TOPOLOGICAL DRIFT DETECTED: {logic_id} expected at {expected_coords} but found at {coords_str}")
-                                    # In production, this would trigger a re-sync
+                                    self._heal_drift(logic_id, expected_coords, coords_str, state)
                 except Exception as e:
                     logger.error(f"Audit error: {e}")
 
             await asyncio.sleep(30) # Audit every 30 seconds
+
+
+    def _heal_drift(self, logic_id, expected_coords, found_coords_str, state):
+        '''Recalculates and re-anchors drifted logic units, persisting to the state file.'''
+        logger.info(f"[HEAL] Correcting drift for '{logic_id}': {found_coords_str} -> {expected_coords}")
+
+        registry = state.get("registry", {})
+
+        # Remove old entry
+        if found_coords_str in registry:
+            del registry[found_coords_str]
+
+        # Add correct entry
+        registry[str(expected_coords)] = logic_id
+
+        # Update manifest timestamp
+        from datetime import datetime
+        state["timestamp"] = datetime.now().isoformat()
+        state["audit_healed"] = state.get("audit_healed", 0) + 1
+
+        # Persist change
+        try:
+            with open(self.state_path, "w") as f:
+                json.dump(state, f, indent=4)
+            logger.info(f"[HEAL] Drift correction persisted for '{logic_id}'.")
+        except Exception as e:
+            logger.error(f"[HEAL] Failed to persist correction: {e}")
 
     def _apply_closure_lemma(self, dead_coords: Tuple[int, int, int]):
         """Mathematically reconstructs the missing node's exact state and logic anchors."""
