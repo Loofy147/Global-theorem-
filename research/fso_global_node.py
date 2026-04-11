@@ -277,6 +277,76 @@ class GlobalFSONode:
             print(f"[!] Error processing wave from {client_ip}: {e}")
             return web.Response(text=str(e), status=400)
 
+
+    async def gossip_loop(self):
+        '''Periodically exchanges peer directories with random nodes.'''
+        print('[GOSSIP] Starting Gossip Synchronization Loop...')
+        while True:
+            await asyncio.sleep(60)
+            if not self.peer_directory and not self.seed_ip:
+                continue
+
+            # Target selection: seed or random known peer
+            targets = []
+            if self.seed_ip:
+                targets.append(self.seed_ip)
+
+            if self.peer_directory:
+                import random
+                known_ips = list(self.peer_directory.values())
+                targets.extend(random.sample(known_ips, min(len(known_ips), 2)))
+
+            for target_ip in set(targets):
+                if target_ip == self.public_ip: continue
+                try:
+                    async with aiohttp.ClientSession() as session:
+                        url = f'http://{target_ip}/api/gossip'
+                        payload = {
+                            'origin_coords': self.coords,
+                            'origin_ip': self.public_ip,
+                            'directory': {str(k): v for k, v in self.peer_directory.items()}
+                        }
+                        async with session.post(url, json=payload, timeout=5) as resp:
+                            if resp.status == 200:
+                                data = await resp.json()
+                                self._merge_peers(data.get('directory', {}))
+                except Exception as e:
+                    print(f'[GOSSIP] Failed to gossip with {target_ip}: {e}')
+
+    async def handle_gossip(self, request):
+        '''Endpoint for receiving gossip updates.'''
+        try:
+            data = await request.json()
+            origin_ip = data.get('origin_ip')
+            origin_coords = tuple(data.get('origin_coords', (0,0,0)))
+
+            # Register the sender
+            if origin_ip and origin_coords:
+                self.peer_directory[origin_coords] = origin_ip
+
+            # Merge their known directory
+            remote_dir = data.get('directory', {})
+            self._merge_peers(remote_dir)
+
+            return web.json_response({
+                'status': 'SUCCESS',
+                'directory': {str(k): v for k, v in self.peer_directory.items()}
+            })
+        except Exception as e:
+            return web.json_response({'status': 'ERROR', 'reason': str(e)}, status=400)
+
+    def _merge_peers(self, remote_dir):
+        '''Merges a remote peer directory into the local state.'''
+        import ast
+        for coords_str, ip in remote_dir.items():
+            try:
+                coords = ast.literal_eval(coords_str)
+                if coords != self.coords and coords not in self.peer_directory:
+                    print(f'[GOSSIP] Discovered new node {coords} at {ip}')
+                    self.peer_directory[coords] = ip
+            except:
+                continue
+
     async def start_autonomous_loop(self):
         """Periodic background tasks for manifold health and expansion."""
         print("[*] Initiating Autonomous Governance Loop...")
@@ -311,6 +381,7 @@ class GlobalFSONode:
             web.get('/health', self.handle_health),
             web.get('/api/telemetry', self.handle_telemetry),
             web.get('/api/fiber_query', self.handle_fiber_query),
+            web.post('/api/gossip', self.handle_gossip),
             web.post('/api/command', self.handle_command_api),
             web.post('/wave', self.handle_wave_http),
             web.post('/', self.handle_wave_http)
@@ -327,6 +398,7 @@ class GlobalFSONode:
         print(f"[RENDER] Port {self.port} active. Service LIVE.")
 
         asyncio.create_task(self.start_autonomous_loop())
+        asyncio.create_task(self.gossip_loop())
         while True:
             await asyncio.sleep(3600)
 

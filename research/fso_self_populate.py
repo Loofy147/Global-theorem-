@@ -79,6 +79,36 @@ class FSOSelfPopulator:
             print(f"[*] Batch Ingesting {len(all_extracted_units)} units into Stratos Manifold...")
             engine.batch_ingest_semantic(all_extracted_units)
 
+
+        # --- INDUSTRIAL ANCHORING PASS ---
+        print("[*] Starting Industrial Library Anchoring (Transformers, NumPy)...")
+        industrial_libs = ["transformers", "numpy", "torch", "requests", "aiohttp"]
+        import importlib, inspect
+
+        for lib_name in industrial_libs:
+            try:
+                lib = importlib.import_module(lib_name)
+                print(f"  [+] Smelting Industrial Library: {lib_name}")
+                count = 0
+                for name, obj in inspect.getmembers(lib):
+                    if (inspect.isfunction(obj) or inspect.isbuiltin(obj)) and count < 100:
+                        logic_id = f"industrial.{lib_name}.{name}"
+                        coords = get_fso_coords(logic_id, self.m)
+                        coords_str = str(tuple(coords))
+
+                        self.manifest[logic_id] = {
+                            "coords": coords,
+                            "fiber": sum(coords) % self.m,
+                            "type": "function",
+                            "origin": lib_name,
+                            "code": f"# Industrial Entry Point: {lib_name}.{name}"
+                        }
+                        self.registry[coords_str] = logic_id
+                        count += 1
+                print(f"    [!] Anchored {count} {lib_name} units.")
+            except ImportError:
+                print(f"    [!] Skip {lib_name} (Not installed)")
+
     def save_results(self):
         # Save Manifest
         with open(self.manifest_path, "w") as f:
