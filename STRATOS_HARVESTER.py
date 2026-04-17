@@ -7,9 +7,9 @@ import numpy as np
 from STRATOS_CORE_V2 import StratosEngineV2
 
 class StratosHarvester:
-    def __init__(self, targets=None):
+    def __init__(self, targets=None, dim=4096, memory_dir='./STRATOS_MEMORY_V2'):
         # Synchronized dimension at 4096
-        self.engine = StratosEngineV2(dim=4096)
+        self.engine = StratosEngineV2(dim=dim, memory_dir=memory_dir)
         self.targets = targets or ["requests", "numpy", "json"]
         self.registry = {}
 
@@ -30,20 +30,20 @@ class StratosHarvester:
             print(f"[!] Failed to load {lib_name}: {e}")
             return
 
-        count = 0
+        items_to_ingest = {}
         for name, obj in inspect.getmembers(module):
             if inspect.isfunction(obj) or inspect.isclass(obj):
                 full_path = f"{lib_name}.{name}"
-                try:
-                    source = inspect.getsource(obj)
-                except:
-                    source = str(getattr(obj, "__code__", "opaque_logic"))
+                items_to_ingest[full_path] = obj
 
-                self.engine.ingest_semantic(full_path, obj)
                 # Store expected vector for validation
-                self.registry[full_path] = self.engine._generate_unitary_vector(source)
-                count += 1
-        print(f"[+] Successfully bound {count} traces for {lib_name}")
+                sig = self.engine._get_semantic_signature(obj)
+                self.registry[full_path] = self.engine._generate_unitary_vector(sig)
+
+        if items_to_ingest:
+            # Performance Optimization: Use batch ingestion to minimize disk I/O and redundant calculations
+            self.engine.batch_ingest_semantic(items_to_ingest)
+            print(f"[+] Successfully bound {len(items_to_ingest)} traces for {lib_name}")
 
     def verify_manifold(self, query_path):
         print(f"[*] VERIFYING: {query_path}")
@@ -54,7 +54,7 @@ class StratosHarvester:
 
         if query_path in self.registry:
             orig_vec = self.registry[query_path]
-            similarity = np.dot(retrieved_vec, orig_vec) / (np.linalg.norm(retrieved_vec) * np.linalg.norm(orig_vec))
+            similarity = np.dot(retrieved_vec, orig_vec) / (np.linalg.norm(retrieved_vec) * np.linalg.norm(orig_vec) + 1e-9)
             print(f"[>] Retrieval Fidelity for {query_path}: {similarity:.4f}")
 
 if __name__ == "__main__":

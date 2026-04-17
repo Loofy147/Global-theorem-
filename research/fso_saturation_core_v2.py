@@ -58,7 +58,7 @@ class TopologicalCleanUpGate:
         return noisy_vector
 
 class StratosEngineV2:
-    def __init__(self, dim=4096, memory_dir='./STRATOS_MEMORY_V2', cache_size=100):
+    def __init__(self, dim=4096, memory_dir='./STRATOS_MEMORY_V2', cache_size=100, vector_cache_size=1000):
         self.dim = dim
         self.memory_dir = memory_dir
         os.makedirs(self.memory_dir, exist_ok=True)
@@ -66,6 +66,8 @@ class StratosEngineV2:
         # Use OrderedDict for simple LRU cache
         self.bucket_cache = OrderedDict()
         self.cache_size = cache_size
+        self.vector_cache = OrderedDict() # Cache for (vector, rfft_vector)
+        self.vector_cache_size = vector_cache_size
 
     def warm_up(self, registry_dict):
         """Pre-registers topological anchors from a global registry for high-fidelity denoising."""
@@ -85,21 +87,37 @@ class StratosEngineV2:
 
         self.cleanup_gate.batch_register(pairs)
 
-    def _generate_unitary_vector(self, seed):
+    def _generate_unitary_vector(self, seed, return_rfft=False):
+        """Generates a unitary vector from a seed, with LRU caching for performance."""
+        if seed in self.vector_cache:
+            self.vector_cache.move_to_end(seed)
+            v, f_v = self.vector_cache[seed]
+            return (v, f_v) if return_rfft else v
+
         state = int(hashlib.sha256(seed.encode()).hexdigest(), 16) % (2**32)
         np.random.seed(state)
         v = np.random.normal(0, 1/np.sqrt(self.dim), self.dim)
         # Force unit length for TGI Field Equations compatibility
         norm = np.linalg.norm(v)
-        return v / (norm + 1e-9)
+        unitary_v = v / (norm + 1e-9)
+
+        # Pre-compute RFFT for caching to accelerate bind/unbind operations
+        f_v = np.fft.rfft(unitary_v)
+
+        self.vector_cache[seed] = (unitary_v, f_v)
+        if len(self.vector_cache) > self.vector_cache_size:
+            self.vector_cache.popitem(last=False)
+
+        return (unitary_v, f_v) if return_rfft else unitary_v
 
     def bind(self, a, b):
         """Holographic Binding: Circular Convolution via RFFT (optimized for real signals)"""
         return np.fft.irfft(np.fft.rfft(a) * np.fft.rfft(b), n=len(a))
 
-    def unbind(self, composite, a):
+    def unbind(self, composite, a, rfft_a=None):
         """Holographic Unbinding: Circular Correlation via RFFT (optimized for real signals)"""
-        return np.fft.irfft(np.conj(np.fft.rfft(a)) * np.fft.rfft(composite), n=len(composite))
+        f_a = rfft_a if rfft_a is not None else np.fft.rfft(a)
+        return np.fft.irfft(np.conj(f_a) * np.fft.rfft(composite), n=len(composite))
 
     def _get_semantic_signature(self, obj):
         try:
@@ -197,11 +215,13 @@ class StratosEngineV2:
                 manifold_segment = np.load(f)
             self._update_cache(file_path, manifold_segment)
 
-        v_id = self._generate_unitary_vector(path_name)
+        # Use cached vector and its pre-computed RFFT to optimize unbinding
+        v_id, f_id = self._generate_unitary_vector(path_name, return_rfft=True)
         if manifold_segment.shape != v_id.shape:
             return None
 
-        retrieved = self.unbind(manifold_segment, v_id)
+        # Pass pre-computed RFFT to unbind for speed
+        retrieved = self.unbind(manifold_segment, v_id, rfft_a=f_id)
         if use_cleanup:
             return self.cleanup_gate.cleanup(retrieved)
         return retrieved

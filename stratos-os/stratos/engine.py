@@ -4,27 +4,47 @@ import os
 import json
 import logging
 import fcntl
+from collections import OrderedDict
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 logger = logging.getLogger("STRATOS_V2")
 
 class StratosEngineV2:
-    def __init__(self, dim=4096, memory_dir="STRATOS_MEMORY_V2"):
+    def __init__(self, dim=4096, memory_dir="STRATOS_MEMORY_V2", vector_cache_size=1000):
         self.dim = dim
         self.memory_dir = memory_dir
         if not os.path.exists(memory_dir):
             os.makedirs(memory_dir)
+        self.vector_cache = OrderedDict() # Cache for (vector, rfft_vector)
+        self.vector_cache_size = vector_cache_size
 
-    def _generate_unitary_vector(self, seed: str):
+    def _generate_unitary_vector(self, seed: str, return_rfft=False):
+        """Generates a unitary vector from a seed, with LRU caching for performance."""
+        if seed in self.vector_cache:
+            self.vector_cache.move_to_end(seed)
+            v, f_v = self.vector_cache[seed]
+            return (v, f_v) if return_rfft else v
+
         np.random.seed(int(hashlib.sha256(seed.encode()).hexdigest(), 16) % (2**32))
         phase = np.random.uniform(0, 2 * np.pi, self.dim)
-        return np.exp(1j * phase)
+        unitary_v = np.exp(1j * phase)
+
+        # Pre-compute RFFT for caching to accelerate bind/unbind operations
+        # Note: Using complex FFT as this engine implementation uses complex vectors
+        f_v = np.fft.fft(unitary_v)
+
+        self.vector_cache[seed] = (unitary_v, f_v)
+        if len(self.vector_cache) > self.vector_cache_size:
+            self.vector_cache.popitem(last=False)
+
+        return (unitary_v, f_v) if return_rfft else unitary_v
 
     def bind(self, a, b):
         return np.fft.ifft(np.fft.fft(a) * np.fft.fft(b))
 
-    def unbind(self, composite, a):
-        return np.fft.ifft(np.fft.fft(composite) / np.fft.fft(a))
+    def unbind(self, composite, a, fft_a=None):
+        f_a = fft_a if fft_a is not None else np.fft.fft(a)
+        return np.fft.ifft(np.fft.fft(composite) / f_a)
 
     def ingest_semantic(self, path_name: str, obj_logic: str):
         logger.info(f"Ingesting semantic logic for '{path_name}'...")
@@ -50,7 +70,8 @@ class StratosEngineV2:
                 fcntl.flock(f, fcntl.LOCK_UN)
 
     def query(self, path_name: str):
-        v_path = self._generate_unitary_vector(path_name)
+        # Use cached vector and its pre-computed FFT to optimize unbinding
+        v_path, f_path = self._generate_unitary_vector(path_name, return_rfft=True)
         bucket_name = path_name.split('.')[0] if '.' in path_name else 'misc'
         filepath = os.path.join(self.memory_dir, f"bucket_{bucket_name}.npy")
 
@@ -60,5 +81,6 @@ class StratosEngineV2:
         with open(filepath, 'rb') as f:
             manifold_vector = np.load(f)
 
-        v_retrieved = self.unbind(manifold_vector, v_path)
+        # Pass pre-computed FFT to unbind for speed
+        v_retrieved = self.unbind(manifold_vector, v_path, fft_a=f_path)
         return v_retrieved
