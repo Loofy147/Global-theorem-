@@ -6,16 +6,20 @@ from collections import defaultdict, OrderedDict
 
 class Persistent_Torus_Core:
     """The 1-Billion Fact Engine. Writes continuous HRR waves directly to SSD."""
-    def __init__(self, m=1000003, dim=1024, storage_dir="./SOVEREIGN_MIND", cache_size=1000):
+    def __init__(self, m=1000003, dim=1024, storage_dir="./SOVEREIGN_MIND", cache_size=1000, vector_cache_size=1000):
         self.m = m
         self.dim = dim
         self.storage_dir = storage_dir
         self.metrics = {"facts_ingested": 0, "urls_crawled": 0}
 
-        # LRU Write-Back Cache
+        # LRU Write-Back Cache for Fibers
         self.cache = OrderedDict()
         self.cache_size = cache_size
         self.dirty_fibers = set()
+
+        # LRU Cache for Unitary Vectors
+        self.vector_cache = OrderedDict()
+        self.vector_cache_size = vector_cache_size
 
         if not os.path.exists(self.storage_dir):
             os.makedirs(self.storage_dir)
@@ -25,11 +29,22 @@ class Persistent_Torus_Core:
         return sum(h[:8]) % self.m
 
     def _generate_vector(self, seed: str) -> np.ndarray:
+        """Generates a unitary vector from a seed, with LRU caching for performance."""
+        if seed in self.vector_cache:
+            self.vector_cache.move_to_end(seed)
+            return self.vector_cache[seed]
+
         h = int(hashlib.md5(seed.encode()).hexdigest()[:8], 16)
         np.random.seed(h)
         v = np.random.randn(self.dim)
         norm = np.linalg.norm(v)
-        return v / (norm + 1e-9)
+        unitary_v = v / (norm + 1e-9)
+
+        self.vector_cache[seed] = unitary_v
+        if len(self.vector_cache) > self.vector_cache_size:
+            self.vector_cache.popitem(last=False)
+
+        return unitary_v
 
     def _bind(self, v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
         """Holographic Binding via RFFT."""

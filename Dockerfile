@@ -10,6 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # FSO Port
-EXPOSE 8888
+EXPOSE 10000
 
 CMD ["python3", "research/fso_global_node.py"]
