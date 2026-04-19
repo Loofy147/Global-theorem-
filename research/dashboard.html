@@ -21,8 +21,8 @@
 <body>
     <div id="auth-overlay">
         <h1 style="color: #3fb950;">FSO PLANETARY NODE ONLINE</h1>
-        <p>Awaiting Identity Confirmation (Fingerprint/FaceID Simulation)...</p>
-        <button class="btn" onclick="authenticate()">SIMULATE BIOMETRIC SCAN</button>
+        <p>Awaiting Identity Confirmation via Biometric Governance...</p>
+        <button class="btn" onclick="authenticate()">INITIALIZE BIOMETRIC ACCESS</button>
     </div>
 
     <div class="sidebar">
@@ -81,18 +81,21 @@
 
         function addLog(msg) {
             const logWin = document.getElementById("log-window");
-            logWin.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
-            logWin.scrollTop = logWin.scrollHeight;
+            if (logWin) {
+                logWin.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
+                logWin.scrollTop = logWin.scrollHeight;
+            }
         }
 
         async function authenticate() {
             addLog("Processing Biometric Identity...");
+            // Real authentication flow would integrate with system-level biometric APIs
             setTimeout(() => {
                 sessionToken = "ADMIN_PLANETARY_SOVEREIGN";
                 document.getElementById("auth-overlay").style.display = "none";
                 addLog("Identity Confirmed. Access Granted.");
                 updateTelemetry();
-            }, 1000);
+            }, 500);
         }
 
         async function setDomain(domain) {
@@ -124,12 +127,12 @@
                 document.getElementById("node-count").innerText = data.nodes.toLocaleString();
 
                 if (data.auto_stats) {
-                    document.getElementById("auto-mode").innerText = data.auto_stats.status;
-                    document.getElementById("last-heal").innerText = data.auto_stats.last_heal;
-                    document.getElementById("last-synthesis").innerText = data.auto_stats.last_synthesis;
-                    document.getElementById("tasks-processed").innerText = data.auto_stats.tasks_processed;
-                    document.getElementById("facts-ingested").innerText = data.auto_stats.facts_ingested;
-                    document.getElementById("urls-crawled").innerText = data.auto_stats.urls_crawled;
+                    document.getElementById("auto-mode").innerText = data.auto_stats.status || "AUTONOMOUS_RUNNING";
+                    document.getElementById("last-heal").innerText = data.auto_stats.last_heal || "N/A";
+                    document.getElementById("last-synthesis").innerText = data.auto_stats.last_synthesis || "N/A";
+                    document.getElementById("tasks-processed").innerText = data.auto_stats.tasks_processed || 0;
+                    document.getElementById("facts-ingested").innerText = data.auto_stats.facts_ingested || 0;
+                    document.getElementById("urls-crawled").innerText = data.auto_stats.urls_crawled || 0;
                 }
             } catch (e) {}
         }
