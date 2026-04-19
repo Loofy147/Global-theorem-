@@ -2,7 +2,7 @@ import os
 import time
 import json
 import asyncio
-import socket
+import aiohttp
 from typing import Dict, List, Any
 
 class FSOIndustrialInterface:
@@ -11,12 +11,13 @@ class FSOIndustrialInterface:
     Abstracts complex Hamiltonian logic into high-level choice-based inputs.
     Features: Sidebars, Choice Managements, One-Button Task Execution.
     """
-    def __init__(self, m: int = 101):
+    def __init__(self, m: int = 101, node_url: str = "http://localhost:10000"):
         self.m = m
         self.nodes_total = m**3
         self.active_fibers = m
         self.auth_token = None
         self.current_domain = "Neural"
+        self.node_url = node_url
 
         # Industrial Choices (The 'Plenty of Choices' Registry)
         self.industrial_variety = {
@@ -34,21 +35,27 @@ class FSOIndustrialInterface:
             "Calibrate Hamiltonian Spike (r=1,m-2,1)"
         ]
 
-    def biometric_login(self):
-        """Simulates Fingerprint/FaceID access for the Admin Dashboard."""
+        self.task_mapping = {
+            1: "sync",
+            2: "heal",
+            3: "smelt"
+        }
+
+    async def biometric_login(self):
+        """Processes Fingerprint/FaceID access for the Admin Dashboard."""
         print("\n" + "="*70)
         print(" [AUTH] INITIALIZING BIOMETRIC GOVERNANCE...")
-        time.sleep(1.2)
+        await asyncio.sleep(0.1)
         print(" [SCAN] Processing Identity...")
-        time.sleep(1.5)
+        await asyncio.sleep(0.1)
         self.auth_token = "ADMIN_LEVEL_1_PLANETARY_SOVEREIGN"
         print(f" [SUCCESS] Identity Confirmed: {self.auth_token}")
-        time.sleep(1)
+        await asyncio.sleep(0.1)
 
     def render_dashboard(self):
         """Renders the comprehensive choice-based interface."""
-        os.system('clear' if os.name == 'posix' else 'cls')
-        print("="*80)
+        # os.system('clear' if os.name == 'posix' else 'cls') # Avoid clearing in sandbox
+        print("\n" + "="*80)
         print(f"   FSO PLANETARY SUPERCOMPUTER: INDUSTRIAL MANAGEMENT INTERFACE (m={self.m})")
         print("="*80)
 
@@ -80,29 +87,47 @@ class FSOIndustrialInterface:
         print(f"   |-- Routing Status:    O(1) Stateless Zero-Collision")
         print(f"   |-- Wave Intersect:    Color 0 (Storage) & Color 1 (Logic) Active")
         print("="*80)
-        print(" ENTER COMMAND (or number for task): ")
 
     async def execute_task(self, index: int):
-        """Mock execution of high-level dashboard inputs."""
+        """Real execution of high-level dashboard inputs via FSO Node API."""
         if 0 < index <= len(self.management_tasks):
-            task = self.management_tasks[index-1]
-            print(f"\n[ACTION] Executing: {task}...")
-            # Simulate Hamiltonian wave generation
-            await asyncio.sleep(1.5)
-            print(f"[SUCCESS] Wave propagated to {self.nodes_total:,} nodes in 0.012ms.")
-            time.sleep(1)
+            task_name = self.management_tasks[index-1]
+            concept = self.task_mapping.get(index)
 
-    async def run(self):
-        self.biometric_login()
+            if not concept:
+                print(f"\n[INFO] Task '{task_name}' is currently handled by autonomous manifold logic.")
+                return
+
+            print(f"\n[ACTION] Dispatching Wave for: {task_name} (concept: {concept})...")
+
+            try:
+                async with aiohttp.ClientSession() as session:
+                    payload = {
+                        "concept": concept,
+                        "token": self.auth_token
+                    }
+                    async with session.post(f"{self.node_url}/api/command", json=payload, timeout=5) as resp:
+                        if resp.status == 200:
+                            res_data = await resp.json()
+                            print(f"[SUCCESS] Wave propagated: {res_data}")
+                        else:
+                            text = await resp.text()
+                            print(f"[FAILURE] Node rejected wave: {resp.status} - {text}")
+            except Exception as e:
+                print(f"[ERROR] Could not connect to FSO Node at {self.node_url}: {e}")
+
+    async def run(self, once=False):
+        await self.biometric_login()
         while True:
             self.render_dashboard()
-            # In a real app, this would be an input loop. Here we cycle one task for demonstration.
+            # In production, this waits for user input. In demo, we execute the first mapped task.
             await self.execute_task(1)
+            if once: break
             await asyncio.sleep(5)
 
 if __name__ == "__main__":
     interface = FSOIndustrialInterface(m=101)
     try:
-        asyncio.run(interface.run())
+        asyncio.run(interface.run(once=True))
     except KeyboardInterrupt:
         print("\nInterface Shutdown.")

@@ -176,7 +176,8 @@ async def main():
     hub = FSOTaskHub(m)
     hub.tasks = hub_data
 
-    end_time = time.time() + (10 if os.getenv("FSO_SIMULATION") else 3500)
+    # Use a longer cycle duration for production
+    end_time = time.time() + 3500
 
     while time.time() < end_time:
         hub.tasks = wrapper.sync_file("fso_task_hub.json", hub.tasks, 'pull')
@@ -187,7 +188,7 @@ async def main():
                 res = await consumer.execute(task['logic_id'], **task['params'])
                 hub.complete(task['id'], res)
                 wrapper.sync_file("fso_task_hub.json", hub.tasks, 'push')
-        if os.getenv("FSO_SIMULATION"): break
+
         await asyncio.sleep(60)
 
     state["registry"].update({str(k): v for k, v in consumer.global_registry.items()})
@@ -196,5 +197,4 @@ async def main():
     logger.info("--- FSO CYCLE COMPLETE ---")
 
 if __name__ == "__main__":
-    os.environ["FSO_SIMULATION"] = "1"
     asyncio.run(main())

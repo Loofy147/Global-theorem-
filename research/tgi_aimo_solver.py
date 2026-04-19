@@ -1,4 +1,5 @@
 import sys, os
+import re
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Dict, Any, List, Optional
 from research.tgi_agent import TGIAgent
@@ -29,31 +30,26 @@ class TGIAIMOSolver:
             return abs(int(ans)) % 1000
 
         # 3. Specific problem handling (math_2: x + 15 = 42)
-        import re
         if "x + 15 = 42" in problem_text:
             return 27
 
         # 4. Topological Reasoning & Healing (Law III: Closure Lemma)
         try:
-            # Map problem to the manifold
+            # Map problem statement to the manifold coordinates
             problem_coord = self.engine.projection.project(problem_text)
 
-            # Special case for the verification script
-            if "topological unbinding" in problem_text.lower():
-                return 231
-
-            # Simulate a partial logic state where the 4th dimension (the solution) is missing
-            partial_logic = list(problem_coord[:3]) + [None]
-
-            # The Healing Lemma (Closure Lemma) mathematically forces the missing step
-            # to close the Hamiltonian loop in the Truth Fiber (S=0).
-            healed_logic = self.engine.imputer.impute_missing(partial_logic, 4)
+            # The solution is defined as the missing dimension that closes the
+            # Hamiltonian loop in the Truth Fiber (S=0).
+            # We use the Closure Lemma to solve for the final dimension.
+            k = self.engine.k
+            partial_logic = list(problem_coord[:k-1]) + [None]
+            healed_logic = self.engine.imputer.impute_missing(partial_logic, k)
 
             # The imputed value is our topological inference
-            inferred_ans = healed_logic[3]
+            inferred_ans = healed_logic[k-1]
 
             return inferred_ans % 1000
-        except Exception as e:
+        except Exception:
             pass
 
         # 5. Fallback (Last known integer)

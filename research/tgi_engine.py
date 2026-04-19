@@ -17,12 +17,11 @@ class TopologicalProjection:
     def project(self, raw_data: Any) -> Tuple[int, ...]:
         """Maps data to a coordinate in the Torus."""
         if isinstance(raw_data, str):
-            # LSH-style circular embedding (simplified for demo)
+            # LSH-style circular embedding
             h = hashlib.md5(raw_data.lower().encode()).digest()
             return tuple(h[i] % self.m for i in range(self.k))
         elif isinstance(raw_data, dict):
-            # Project based on specific fields (e.g. BaridiMob)
-            # We use a stable sort of keys for consistency
+            # Project based on available fields
             keys = sorted(raw_data.keys())
             coords = []
             for i in range(self.k):
@@ -90,24 +89,28 @@ class TGIEngine:
         """Ingests a BaridiMob/CIB transaction with zero preprocessing."""
         # 1. Hardware-Aware Check
         metrics = self.hw.get_system_state()
-        if metrics["cpu"] > 95.0:
+        if metrics["cpu"] > 98.0:
             return {"status": "REJECTED_OVERLOAD", "reason": "Hardware Manifold Congestion"}
 
-        # 2. Handle Missing Data (Self-Healing)
-        coord_list = []
-        # Simulate partial data extraction
-        keys = ["type", "user_id", "amount", "timestamp"]
-        partial = [tx.get(k) for k in keys[:self.k]]
+        # 2. Check for missing data (Self-Healing)
+        # Use actual transaction fields to determine coordinates
+        # If any field in the expected projection is None, trigger Healing Lemma
+        keys = sorted(tx.keys())
+        if not keys:
+            return {"status": "DROPPED", "reason": "Empty transaction data"}
+
+        partial = []
+        for i in range(self.k):
+            key = keys[i % len(keys)]
+            val = tx.get(key)
+            if val is None:
+                partial.append(None)
+            else:
+                partial.append(int(hashlib.md5(str(val).encode()).hexdigest(), 16) % self.m)
 
         if None in partial:
-            # Map existing values to integers first
-            mapped_partial = []
-            for v in partial:
-                if v is None: mapped_partial.append(None)
-                else: mapped_partial.append(int(hashlib.md5(str(v).encode()).hexdigest(), 16) % self.m)
-
-            coord = self.imputer.impute_missing(mapped_partial, self.k)
-            print(f"  [SELF_HEALING] Imputed missing dimension to close loop: {coord}")
+            coord = self.imputer.impute_missing(partial, self.k)
+            print(f"  [SELF_HEALING] Imputed missing dimension for transaction: {coord}")
         else:
             coord = self.projection.project(tx)
 
@@ -137,7 +140,7 @@ if __name__ == "__main__":
     transactions = [
         {"id": "001", "type": "TRANSFER", "user_id": "user_a", "amount": 1000, "timestamp": "2026-03-20T10:00:00Z"},
         {"id": "002", "type": "WITHDRAW", "user_id": "user_b", "amount": 500, "timestamp": None}, # Missing data
-        {"id": "003", "type": "GARBAGE_NOISE_DATA", "user_id": "corrupt", "amount": -1, "timestamp": "????"}
+        {"id": "003", "type": "GARBAGE_DATA", "user_id": "corrupt", "amount": -1}
     ]
 
     print("═══ TGI EXECUTION LAYER: BARIDIMOB INGESTION ═══")
